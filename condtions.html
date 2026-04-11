@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="styleCond.css">
+  </head>
+    <body>
+        <!-- Terms Modal -->
+<div id="termsModal" class="modal">
+
+  <div class="modal-content">
+    <h3>TERMS & CONDITIONS</h3>
+
+    <ul>
+<li id="premiereRule" style="display: none; color: #ff0000; font-weight: bold;">
+      Children under the age of 12 are not permitted to attend Premiere Experience shows.
+    </li>
+
+      <li>Children under 3 years of age are not permitted at any screenings.</li>
+      <li>Please note that tickets, once purchased, cannot be refunded or exchanged.</li>
+      <li>Outside food and drinks are not allowed in the cinema premises.</li>
+    </ul>
+    <button class="agree" onclick="agree()">I AGREE</button>
+    <button class="disagree" onclick="closeTerms()">I DON'T AGREE</button>
+
+  </div>
+</div>
+<script>
+let currentType = "";
+window.onload = function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    currentType = urlParams.get('type'); // "premiere" or "standard"
+
+    if (currentType === 'premiere') {
+        document.getElementById("premiereRule").style.display = "block";
+    }
+};
+
+function agree() {
+    if (currentType === "premiere") {
+        window.location.href = "vip.html";   // Go to VIP seats
+    } else {
+        window.location.href = "seats.html"; // Go to Standard seats
+    }
+}
+
+function closeTerms() {
+    window.history.back();
+}
+
+</script>
+    </body>
+
+</html>
