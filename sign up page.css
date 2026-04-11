@@ -1,0 +1,92 @@
+
+body{
+    background-color:black;
+    font-family: Arial, sans-serif;
+    color:white;
+}
+
+.container{
+    width:400px;
+    margin:50px auto;
+}
+
+h3{
+    margin-bottom:15px;
+}
+
+.buttons{
+    display:flex;
+    gap:20px;
+}
+
+.btn{
+    flex:1;
+    padding:12px;
+    border:1px solid white;
+    border-radius:10px;
+    background-color:transparent;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+}
+
+.btn img{
+    width:24px;
+    height:24px;
+}
+
+.btn:hover{
+    background-color:white;
+}
+  body { background-color: black; color: white; font-family: sans-serif; padding: 20px; }
+  .form-container { max-width: 400px; display: flex; flex-direction: column; gap: 15px; }
+
+
+  input, select { 
+    width: 100%; padding: 15px; background: transparent; 
+    border: 1px solid #444; border-radius: 8px; color: white; 
+  }
+
+  .row { display: flex; gap: 10px; }
+  .rewards-box { border: 1px solid palevioletred; padding: 15px; border-radius: 8px; display: flex; align-items: center; gap: 10px; }
+
+
+
+  body {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+    url('https://i.pinimg.com/1200x/22/15/e8/2215e8c36de685a882988cae8745ee40.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    font-family: sans-serif;
+  }
+
+  .form-container {
+    width: 100%;
+    max-width: 450px;
+    background: rgba(11, 13, 14, 0.95);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid black;
+    color: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  }
+
+  input {
+    width: 100%; padding: 15px; margin-bottom: 15px;
+    background: #000; border: 1px solid #444; 
+    border-radius: 8px; color: white; box-sizing: border-box;
+  }
+
+  .btn {
+    background-color: #d63384; color: white; border: none;
+    padding: 16px; border-radius: 8px; font-weight: bold; 
+    cursor: pointer; width: 100%;
+  }
+
