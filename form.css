@@ -1,16 +1,11 @@
 body {
   background: black;
-  font-family: Arial;
+  font-family:'Segoe UI', Arial, sans-serif; ;
 }
 
-/*.box {
-  background: #eee;
-  width: 300px;
-  margin: 100px auto;
-  padding: 20px;
-}*/
+
 .box {
-  background: #eee;
+  background:rgba(240, 240, 240, 0.95);  /* This makes it white and 90% transparent */
   width: 650px;   
   margin: 100px auto;
   padding: 20px;
