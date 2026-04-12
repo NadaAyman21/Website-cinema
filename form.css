@@ -55,3 +55,21 @@ button {
   font-size: 16px;
   pointer-events: none;
 }
+
+/* Specific styling for the Grey Pay Button */
+.pay-button {
+    width: 100%;
+    margin-top: 25px; 
+    padding: 15px;
+    background-color: #e0e0e0; /* The light grey from your screenshot */
+    color: #757575;           /* Dark grey text color */
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+   
+}
+
+/* Adds a small space for the lock icon if you use one inside the button */
+.pay-button span {
+    margin-right: 10px;
+}
