@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premiere Cinema</title>
+    <link rel="stylesheet" href="premier.css">
+</head>
+
+<body>
+
+<section class="premiere">
+
+    <h1>PREMIERE</h1>
+
+    <!-- Image Gallery -->
+    <div class="gallery">
+        <img src="image 1.jpeg" alt="Cinema 1">
+        <img src="image 2.jpeg" alt="Cinema 2">
+        <img src="image 3.jpeg" alt="Cinema 3">
+    </div>
+
+    <!-- Description -->
+    <p class="description">
+        Our Premiere halls are designed to create an unforgettable experience, where every detail is tailored to your comfort and enjoyment.
+        Indulge in the ultimate cinematic luxury with our Premiere cinema halls. Our exclusive seating features chaise lounge chairs that recline,
+        offering unmatched relaxation and sophistication. Sink into plush cushioning and enjoy the show in a way that elevates traditional movie-watching.
+    </p>
+
+    <!-- شروط -->
+    <div class="conditions">
+        <h2>Conditions of Entry</h2>
+        <ul>
+            <li>Please note that children under the age of 12 are not permitted to attend Premiere Experience shows.</li>
+            <li>Please note that children under 3 years of age are not permitted at any screenings.</li>
+            <li>Outside food and beverages are not permitted inside cinema halls.</li>
+            <li>Valid ID showing proof of age is required for admission for certain movie classifications.</li>
+        </ul>
+    </div>
+
+</section>
+<div id="navbar"></div>  <!-- 🔥 Navbar will load here -->
+<footer class="footer">
+
+    <div class="footer-col">
+        <h3>GET IN TOUCH</h3>
+        <ul>
+            <li>Locations</li>
+            <li>Contact Us</li>
+        </ul>
+    </div>
+
+    <div class="footer-col">
+        <h3>ABOUT SCENE CINEMAS</h3>
+        <ul>
+            <li>About Us</li>
+            <li>Standard & Deluxe</li>
+            <li>Premiere</li>
+            <li>IMAX With Laser</li>
+        </ul>
+    </div>
+
+    <div class="footer-col">
+        <h3>LEGAL</h3>
+        <ul>
+            <li>FAQs</li>
+            <li>Terms & Conditions</li>
+            <li>Privacy Policy</li>
+            <li>Support</li>
+        </ul>
+    </div>
+
+    <div class="footer-col">
+        <h3>FOLLOW US</h3>
+        <ul>
+            <li>Facebook</li>
+            <li>Instagram</li>
+            <li>TikTok</li>
+            <li>YouTube</li>
+            <li>LinkedIn</li>
+        </ul>
+    </div>
+
+</footer>
+<script>
+fetch("nav.html")
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById("navbar").innerHTML = data;
+  });
+</script>
+</body>
+</html>
