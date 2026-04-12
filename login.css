@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+
+    /* 🎬 Background Image */
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Login Box */
+.login-box {
+    width: 350px;
+    padding: 25px;
+    background: rgba(0, 0, 0, 0.75);
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 5px;
+}
+
+/* Password container */
+.password-box {
+    display: flex;
+    align-items: center;
+}
+
+.password-box input {
+    flex: 1;
+}
+
+.password-box span {
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+/* Error message */
+.error {
+    color: red;
+    font-size: 14px;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 10px;
+    background: #aa2424;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #ff1a1a;
+}
+
+/* Options */
+.options {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.options a,
+.signup a {
+    color: #ff4d4d;   
+    text-decoration:underline; 
+}
+
+
+.options a:hover,
+.signup a:hover {
+    color: #ffffff;
+}
