@@ -27,21 +27,3 @@
         priceBoxElem.innerText = `${finalPrice} EGP`;
     }
 });
-
-// This handles the button click to move to the next page
-const payBtn = document.querySelector('.pay-btn');
-
-if (payBtn) {
-    payBtn.addEventListener('click', () => {
-        // You can check if inputs are filled here if you want
-        window.location.href = 'form.html';
-    });
-}
-
-// Handling the Close button to go back
-const closeBtn = document.querySelector('.close-btn');
-if (closeBtn) {
-    closeBtn.addEventListener('click', () => {
-        window.history.back(); // Goes back to the previous movie page
-    });
-}
