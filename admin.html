@@ -7,102 +7,8 @@
 
 <!-- ICONS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="admin.css">
 
-<style>
-
-/* GENERAL */
-body{
-margin:0;
-font-family:Arial;
-background:#0b0b0b;
-color:white;
-}
-
-/* NAVBAR */
-.navbar{
-display:flex;
-justify-content:space-between;
-padding:20px 40px;
-background:black;
-}
-
-.logout{
-background:red;
-padding: 1px px;
-border:none;
-color:white;
-cursor:pointer;
-border-radius:5px;
-}
-
-/* CONTAINER */
-.container{
-padding:40px;
-}
-
-/* FORM */
-form{
-background:#111;
-padding:20px;
-border-radius:10px;
-margin-bottom:30px;
-}
-
-input{
-display:block;
-width:100%;
-margin:10px 0;
-padding:10px;
-border:none;
-border-radius:5px;
-}
-
-button{
-padding:10px 20px;
-border:none;
-background:#00d1ff;
-color:black;
-cursor:pointer;
-border-radius:5px;
-}
-
-i{
-margin-right:6px;
-color:#00d1ff;
-}
-
-/* MOVIES */
-.movies{
-display:flex;
-gap:20px;
-flex-wrap:wrap;
-}
-
-.movie{
-background:#111;
-padding:15px;
-border-radius:10px;
-width:220px;
-}
-
-.movie img{
-width:100%;
-border-radius:8px;
-}
-
-.delete{
-background:red;
-margin-top:10px;
-width:100%;
-}
-
-.edit{
-background:orange;
-margin-top:5px;
-width:100%;
-}
-
-</style>
 </head>
 
 <body>
@@ -126,7 +32,7 @@ width:100%;
 
 <input type="text" id="time" placeholder="Run Time (e.g. 2h 30m)" required>
 
-<input type="url" id="image" placeholder="Image URL" required>
+<input type="text" id="image" placeholder="Image URL" required>
 
 <button type="submit">Save Movie</button>
 
@@ -138,113 +44,6 @@ width:100%;
 
 </div>
 
-
-<script>
-
-let movies = JSON.parse(localStorage.getItem("movies")) || [];
-let editIndex = -1;
-
-const form = document.getElementById("movieForm");
-const moviesList = document.getElementById("moviesList");
-
-
-/* DISPLAY MOVIES */
-function displayMovies(){
-moviesList.innerHTML = "";
-
-movies.forEach((movie, index) => {
-
-const movieDiv = document.createElement("div");
-movieDiv.classList.add("movie");
-
-movieDiv.innerHTML = `
-<img src="${movie.image}">
-<h4>${movie.title}</h4>
-<p><i class="fa-solid fa-film"></i> ${movie.genre}</p>
-<p><i class="fa-solid fa-clock"></i> ${movie.time}</p>
-
-<button class="edit" onclick="editMovie(${index})">Edit</button>
-<button class="delete" onclick="deleteMovie(${index})">Delete</button>
-`;
-
-moviesList.appendChild(movieDiv);
-
-});
-
-}
-
-
-/* ADD OR UPDATE */
-form.addEventListener("submit", function(e){
-e.preventDefault();
-
-const title = document.getElementById("title").value.trim();
-const genre = document.getElementById("genre").value.trim();
-const time = document.getElementById("time").value.trim();
-const image = document.getElementById("image").value.trim();
-
-/* VALIDATION */
-if(!title || !genre || !time || !image){
-alert("Please fill all fields!");
-return;
-}
-
-/* runtime format */
-const timePattern = /^[0-9]+h\s?[0-9]*m?$/;
-
-if(!timePattern.test(time)){
-alert("Runtime must be like: 2h 30m");
-return;
-}
-
-/* image check */
-if(!image.startsWith("http")){
-alert("Enter a valid image URL!");
-return;
-}
-
-const movie = {title, genre, time, image};
-
-if(editIndex === -1){
-movies.push(movie);
-} else {
-movies[editIndex] = movie;
-editIndex = -1;
-}
-
-localStorage.setItem("movies", JSON.stringify(movies));
-
-form.reset();
-displayMovies();
-
-});
-
-
-/* DELETE */
-function deleteMovie(index){
-movies.splice(index,1);
-localStorage.setItem("movies", JSON.stringify(movies));
-displayMovies();
-}
-
-
-/* EDIT */
-function editMovie(index){
-const movie = movies[index];
-
-document.getElementById("title").value = movie.title;
-document.getElementById("genre").value = movie.genre;
-document.getElementById("time").value = movie.time;
-document.getElementById("image").value = movie.image;
-
-editIndex = index;
-}
-
-
-/* LOAD */
-displayMovies();
-
-</script>
-
+<script src="admin.js"> </script>
 </body>
 </html>

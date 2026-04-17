@@ -1,0 +1,90 @@
+body{
+margin:0;
+font-family:Arial;
+background:#0b0b0b;
+color:white;
+}
+
+/* NAVBAR */
+.navbar{
+display:flex;
+justify-content:space-between;
+padding:20px 40px;
+background:black;
+}
+
+.logout{
+background:red;
+padding: 1px px;
+border:none;
+color:white;
+cursor:pointer;
+border-radius:5px;
+}
+
+/* CONTAINER */
+.container{
+padding:40px;
+}
+
+/* FORM */
+form{
+background:#111;
+padding:20px;
+border-radius:10px;
+margin-bottom:30px;
+}
+
+input{
+display:block;
+width:100%;
+margin:10px 0;
+padding:10px;
+border:none;
+border-radius:5px;
+}
+
+button{
+padding:10px 20px;
+border:none;
+background:#00d1ff;
+color:black;
+cursor:pointer;
+border-radius:5px;
+}
+
+i{
+margin-right:6px;
+color:#00d1ff;
+}
+
+/* MOVIES */
+.movies{
+display:flex;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.movie{
+background:#111;
+padding:15px;
+border-radius:10px;
+width:220px;
+}
+
+.movie img{
+width:100%;
+border-radius:8px;
+}
+
+.delete{
+background:red;
+margin-top:10px;
+width:100%;
+}
+
+.edit{
+background:orange;
+margin-top:5px;
+width:100%;
+}

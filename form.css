@@ -1,75 +1,90 @@
 body {
-  background: black;
-  font-family:'Segoe UI', Arial, sans-serif; ;
+    background: black;
+    font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-
+/* Container */
 .box {
-  background:rgba(240, 240, 240, 0.95);  /* This makes it white and 90% transparent */
-  width: 650px;   
-  margin: 100px auto;
-  padding: 20px;
+    background: rgba(240, 240, 240, 0.95);
+    width: 100%;
+    max-width: 650px;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 8px;
 }
 
+/* Headings */
 h3 {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
+/* Labels */
 label {
-  display: block;
-  margin-top: 10px;
+    display: block;
+    margin-top: 10px;
 }
 
+/* Inputs */
 input {
-  width: 100%;
-  padding: 8px;
-  margin-top: 5px;
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-
-button {
-  width: 100%;
-  margin-top: 15px;
-  padding: 10px;
-  background: red;
-  color: white;
-  border: none;
-}
+/* Input with icon */
 .input-box {
-  position: relative;
-  width: 100%;
+    position: relative;
+    width: 100%;
 }
 
 .input-box input {
-  width: 100%;
-  padding: 10px;
-  padding-right: 40px; 
-  box-sizing: border-box;
+    padding-right: 40px;
 }
 
 .input-box .icon {
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 16px;
-  pointer-events: none;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
 }
 
-/* Specific styling for the Grey Pay Button */
+/* Normal button */
+button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Pay button (grey style) */
 .pay-button {
     width: 100%;
-    margin-top: 25px; 
+    margin-top: 25px;
     padding: 15px;
-    background-color: #e0e0e0; /* The light grey from your screenshot */
-    color: #757575;           /* Dark grey text color */
+
+    background-color: #e0e0e0;
+    color: #757575;
+
+    border: none;
     border-radius: 4px;
+
+    display: flex;
     justify-content: center;
     align-items: center;
-   
+
+    cursor: pointer;
 }
 
-/* Adds a small space for the lock icon if you use one inside the button */
+/* Icon spacing inside pay button */
 .pay-button span {
     margin-right: 10px;
 }
