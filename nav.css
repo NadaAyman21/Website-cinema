@@ -34,7 +34,27 @@ body {
     width: auto;
     object-fit: contain;
 }
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-weight: bold;
+}
 
+/* Icon (3 curved bars like Scene) */
+.logo-icon {
+    display: flex;
+    gap: 5px;
+}
+
+.logo-icon span {
+    width: 8px;
+    height: 25px;
+    background: white;
+    border-radius: 10px;
+    transform: skewX(-15deg);
+}
 /* ===== CENTER LINKS ===== */
 .nav-links {
     list-style: none;
@@ -174,4 +194,5 @@ body {
 
     .menu-icon {
         display: flex;
+        visibility: hidden;
     }

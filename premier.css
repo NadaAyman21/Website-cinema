@@ -15,7 +15,7 @@ body {
     font-size: 32px;
     font-weight: bold;
     margin-bottom: 20px;
-    font:3em times new roman;
+    font:3em arial;
 }
 
 /* Image Gallery */
@@ -45,7 +45,7 @@ body {
 .conditions h2 {
     font-size: 20px;
     margin-bottom: 15px;
-    font: 1.5em times new roman;
+    font: 1.5em arial;
 }
 
 .conditions ul {
