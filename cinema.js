@@ -31,3 +31,8 @@ function toggleMenu() {
     let nav = document.getElementById("navLinks");
     nav.classList.toggle("active");
 }
+
+
+function goToPage(element) {
+    window.location.href = element.dataset.page;
+}
