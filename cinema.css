@@ -47,6 +47,28 @@ align-items:center;
     width: auto;
     object-fit: contain;
 }
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+/* Icon (3 curved bars like Scene) */
+.logo-icon {
+    display: flex;
+    gap: 5px;
+}
+
+.logo-icon span {
+    width: 8px;
+    height: 25px;
+    background: white;
+    border-radius: 10px;
+    transform: skewX(-15deg);
+}
+
 
 /* ===== CENTER LINKS ===== */
 .nav-links {
@@ -374,6 +396,87 @@ font-size:28px;
 
 .movie-container .movie-card:hover .poster::after {
     background: rgba(0,0,0,0.1);
+}
+
+.experiences {
+    background: black;
+    color: white;
+    padding: 40px 60px;
+}
+
+.experiences h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.experiences p {
+    font-size: 14px;
+    margin-bottom: 25px;
+    color: #ccc;
+}
+
+/* Cards container */
+.cards {
+    display: flex;
+    gap: 15px;
+}
+
+/* Each card */
+.card {
+    flex: 1;
+    height: 200px;
+    border-radius: 12px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+     display: block; /* مهم جدا */
+    text-decoration: none;
+    color: white;
+}
+
+/* Dark overlay */
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
+
+/* Text */
+.overlay h3 {
+    font-size: 26px;
+    letter-spacing: 2px;
+}
+
+.overlay span {
+    font-size: 12px;
+    margin-top: 5px;
+    color: #ddd;
+}
+
+/* Hover effect */
+.card:hover .overlay {
+    background: rgba(0,0,0,0.3);
+}
+
+/* Background images */
+
+.card.premiere {
+    background-image: url('image 1.jpeg');
+}
+
+.card.deluxe {
+    background-image: url('deluxe.jpg');
+}
+
+.card.standard {
+    background-image: url('standard.jpg');
 }
 
 
