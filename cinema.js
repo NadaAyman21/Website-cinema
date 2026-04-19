@@ -36,3 +36,26 @@ function toggleMenu() {
 function goToPage(element) {
     window.location.href = element.dataset.page;
 }
+
+let movies = JSON.parse(localStorage.getItem("movies")) || [];
+
+const container = document.getElementById("moviesList");
+
+function displayMovies() {
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    movies.forEach(movie => {
+        container.innerHTML += `
+            <a href="movie.html?id=${movie.id}" class="movie-card">
+                <div class="poster">
+                    <img src="${movie.image}">
+                </div>
+                <h3>${movie.title}</h3>
+            </a>
+        `;
+    });
+}
+
+displayMovies();
