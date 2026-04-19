@@ -1,0 +1,287 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #000;
+    color: #fff;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: #000;
+}
+
+.navbar ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.navbar a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.logo {
+    font-weight: bold;
+}
+
+.location {
+    background: #111;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+/* HERO */
+.hero {
+    padding: 60px 40px;
+    background-size: cover;
+    background-position: center;
+}
+
+.movie-container {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+
+
+/* POSTER */
+.poster img {
+    width: 200px;
+    border-radius: 10px;
+}
+
+/* DETAILS */
+.details {
+    max-width: 600px;
+}
+
+#age {
+    display: inline-block;
+    background: #111;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.details h1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.genre {
+    color: #aaa;
+    margin-bottom: 10px;
+}
+
+.info {
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+.story {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+
+/* BOOKING SECTION */
+.booking {
+    padding: 40px;
+}
+
+/* DATE CARDS */
+.dates {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.date-card {
+    background: #111;
+    padding: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    width: 90px;
+}
+
+.date-card.active {
+    border: 2px solid #00c3ff;
+}
+
+/* CINEMA CARD */
+.cinema-card {
+    background: #111;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.cinema-card h2 {
+    margin-bottom: 20px;
+}
+
+/* EXPERIENCE TABS */
+.experience-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    padding: 8px 15px;
+    border-radius: 20px;
+    border: 1px solid #444;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+}
+
+.tab.active {
+    background: #fff;
+    color: #000;
+}
+
+/* TIMES */
+.times {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.time {
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 1px solid #444;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* OTHER MOVIES */
+#otherMovies {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    padding: 40px;
+}
+
+#otherMovies:hover .movie-card {
+    filter: blur(3px);
+    opacity: 0.5;
+    transform: scale(0.95);
+}
+
+#otherMovies .movie-card:hover {
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+
+.movie-card {
+    position: relative;
+    width: 180px;
+    height: 260px;
+    overflow: hidden;
+    border-radius: 10px;
+
+    transition: all 0.4s ease;
+    filter: blur(0);   /* no blur by default */
+    opacity: 1;
+    transform: scale(1);
+}
+
+.movie-card.active {
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.movie-card:hover {
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.movie-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* fills the card nicely */
+}
+
+.movie-card .age {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0,0,0,0.85);
+    padding: 4px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    border: 1px solid #fff;
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+
+.trailer-btn {
+    margin-top: 20px;
+    padding: 10px 30px; /* More width for that professional look */
+    background: transparent;
+    color: white;
+    border: 2px solid white; /* Thicker border like your image */
+    border-radius: 8px;      /* Slightly rounded corners */
+    font-weight: bold;       /* Bold text */
+    text-transform: uppercase; /* FORCES ALL CAPS */
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s ease;   /* Smooth hover effect */
+}
+
+.trailer-btn:hover {
+   background: transparent; /* Keeps the inside black/transparent */
+    border-color: white;     /* Keeps the border white */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8); /* This creates the white glow */
+    transform: scale(1.02);
+}
+/* This makes it look like it's being pressed when you click */
+.trailer-btn:active {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    transform: scale(0.98);
+}
