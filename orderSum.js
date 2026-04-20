@@ -89,6 +89,12 @@ if (payBtn) {
            showAlert("Please enter a valid email address.");
             return;
         }
+
+        const priceDisplay = document.querySelector('.price-box').innerText; 
+
+// 2. Save it to the browser's memory
+localStorage.setItem('finalAmount', priceDisplay);
+
             window.location.href = "form.html";
        
     });
