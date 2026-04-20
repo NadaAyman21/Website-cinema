@@ -169,6 +169,18 @@ body {
     cursor: pointer;
 }
 
+.time.active {
+    background: #00c3ff;
+    color: #000;
+    border: 1px solid #00c3ff;
+    box-shadow: 0 0 10px rgba(0,195,255,0.8);
+}
+
+.time:hover {
+    border-color: #00c3ff;
+    color: #00c3ff;
+}
+
 /* OTHER MOVIES */
 #otherMovies {
     display: flex;
