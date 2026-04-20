@@ -47,14 +47,15 @@ function displayMovies() {
     container.innerHTML = "";
 
     movies.forEach(movie => {
-        container.innerHTML += `
-            <a href="movie.html?id=${movie.id}" class="movie-card">
-                <div class="poster">
-                    <img src="${movie.image}">
-                </div>
-                <h3>${movie.title}</h3>
-            </a>
-        `;
+       container.innerHTML += `
+    <a href="movie.html?id=${movie.id}" class="movie-card">
+        <div class="poster">
+            <img src="${movie.image}">
+            <span class="age">${movie.age || "+0"}</span>
+        </div>
+        <h3>${movie.title}</h3>
+    </a>
+`;
     });
 }
 
