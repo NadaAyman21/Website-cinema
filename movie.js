@@ -117,15 +117,67 @@ for (let i = 0; i < 4; i++) {
     dateContainer.appendChild(card);
 }
 
+let selectedExperience = "STANDARD&DELUXE";
 function selectExp(btn){
     document.querySelectorAll(".exp-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
+    // Store the choice
+     selectedExperience = btn.innerText.trim();
 }
 
 function selectTime(btn){
     document.querySelectorAll(".time").forEach(t => t.classList.remove("active"));
     btn.classList.add("active");
+ const movieTitle = document.getElementById("title").innerText;
+    const selectedTime = btn.innerText;
+    
+    // Get date parts from the active date card
+    const activeDateCard = document.querySelector(".date-card.active");
+    const dayName = activeDateCard.querySelector("strong").innerText; // e.g., "Today" or "SUN"
+    const fullDate = activeDateCard.innerText.split('\n')[1] || activeDateCard.innerText; // e.g., "20 Apr"
+
+    // SAVE using the keys orderSum.js expects
+    localStorage.setItem('selectedMovie', movieTitle);
+    localStorage.setItem('selectedTime', selectedTime);
+    localStorage.setItem('selectedDay', dayName);
+    localStorage.setItem('selectedDateText', `${fullDate}, 2026`);
+
+    // Determine the type to send to conditions.html
+    let typeParam = "standard";
+    if (selectedExperience === "PREMIERE") {
+        typeParam = "premiere";
+    }
+
+    // Redirect to conditions.html with the type in the URL
+    window.location.href = `condtions.html?type=${typeParam}`;
+
 }
+
+/*function selectTime(btn) {
+   
+    const movieTitle = document.getElementById("title").innerText;
+    const selectedTime = btn.innerText;
+    
+    // Get date parts from the active date card
+    const activeDateCard = document.querySelector(".date-card.active");
+    const dayName = activeDateCard.querySelector("strong").innerText; // e.g., "Today" or "SUN"
+    const fullDate = activeDateCard.innerText.split('\n')[1] || activeDateCard.innerText; // e.g., "20 Apr"
+
+    // SAVE using the keys orderSum.js expects
+    localStorage.setItem('selectedMovie', movieTitle);
+    localStorage.setItem('selectedTime', selectedTime);
+    localStorage.setItem('selectedDay', dayName);
+    localStorage.setItem('selectedDateText', `${fullDate}, 2026`);
+
+    // Determine the type to send to conditions.html
+    let typeParam = "standard";
+    if (selectedExperience === "PREMIERE") {
+        typeParam = "premiere";
+    }
+
+    // Redirect to conditions.html with the type in the URL
+    window.location.href = `condtions.html?type=${typeParam}`;
+}*/
 
 
 fetch("nav.html")
