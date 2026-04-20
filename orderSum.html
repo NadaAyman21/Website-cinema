@@ -13,14 +13,9 @@
     </div>
 
     <div class="movie-box">
-        <h2>Interstellar</h2>
-
-        <p>Saturday, 11:00AM</p>
-        <p>07, March 2026</p>
-        <p>cinebook</p>
-
-        <div class="price-box">0.00 EGP</div>
-    </div>
+    <h2></h2> <p></p>  <p></p>  <p>CineX - DISTRICT 5</p>
+    <div class="price-box">-- EGP</div>
+</div>
     <div class="customer-info">
 
         <h3>CUSTOMER INFORMATION</h3>
@@ -28,18 +23,18 @@
         <div class="input-row">
             <div class="input-group">
                 <label>YOUR NAME</label>
-                <input type="text" required>
+                <input type="text" id="custName" required>
             </div>
 
             <div class="input-group">
                 <label>PHONE</label>
-                <input type="tel" required>
+                <input type="tel" id="custPhone" required>
             </div>
         </div>
 
         <div class="input-group full">
             <label>EMAIL</label>
-            <input type="email" readonly>
+            <input type="email" id="custEmail" required>
         </div>
 
         <p class="note">
@@ -52,6 +47,14 @@
     </div>
 
 </div>
+  <!--custom alret-->
+<div id="customAlert" class="custom-modal">
+        <div class="modal-content black-theme">
+            <h3 id="alertTitle">CineX.com says</h3>
+            <p id="alertMessage"></p>
+            <button onclick="closeAlert()">OK</button>
+        </div>
+    </div>
 <script src="orderSum.js"></script>
 </body>
 </html>
