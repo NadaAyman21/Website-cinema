@@ -27,3 +27,70 @@
         priceBoxElem.innerText = `${finalPrice} EGP`;
     }
 });
+
+function showAlert(message) {
+    const modal = document.getElementById("customAlert");
+    if (modal) {
+        document.getElementById("alertMessage").innerText = message;
+        modal.style.display = "flex";
+    }
+}
+
+// 2. Function to close it
+function closeAlert() {
+    const modal = document.getElementById("customAlert");
+    if (modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+const closeBtn = document.querySelector('.close-btn');
+if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+        window.location.href = "cinemaM.html"; // Or wherever your home page is
+    });
+}
+
+
+document.getElementById('custName').addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+});
+
+// Phone: Only allow numbers
+document.getElementById('custPhone').addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+
+const payBtn = document.querySelector('.pay-btn');
+if (payBtn) {
+   payBtn.addEventListener('click', (e) => {
+        // 1. Get the input elements (make sure these IDs match your HTML)
+        const nameInput = document.getElementById('custName').value.trim();
+        const phoneInput = document.getElementById('custPhone').value.trim();
+        const emailInput = document.getElementById('custEmail').value.trim();
+        
+
+        // Name Check
+        if (nameInput.length < 3) {
+            showAlert("Please enter your full name.");
+            return;
+        }
+
+        // Phone Check (Egypt 11-digit format)
+        const phoneRegex = /^01[0125][0-9]{8}$/;
+        if (!phoneRegex.test(phoneInput)) {
+            showAlert("Please enter a valid 11-digit phone number.");
+            return;
+        }
+
+        // Email Check
+        if (!emailInput.includes('@') || !emailInput.includes('.')) {
+           showAlert("Please enter a valid email address.");
+            return;
+        }
+            window.location.href = "form.html";
+       
+    });
+}
+
