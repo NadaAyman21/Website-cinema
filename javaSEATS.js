@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 // Check limit for this type
                 if (selectedCount >= seatLimit) {
-                    alert('you have reached the maximam seats to reserve in one booking');
+                   showAlert("you have reached the maximam seats to reserve in one booking");
                     return;
                 }
 
@@ -85,6 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
         // Clean it so it's just the number "300.00"
         const finalPrice = priceText.replace(' EGP', '').trim();
         
+        if (parseFloat(finalPrice) === 0) {
+            showAlert("Please select your seats first!");
+            return;
+        }
+
         // SAVE IT
         localStorage.setItem('savedTotal', finalPrice);
         
@@ -94,3 +99,13 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 
 });
+function showAlert(message) {
+    const modal = document.getElementById("customAlert");
+    document.getElementById("alertMessage").innerText = message;
+    modal.style.display = "flex";
+}
+
+// Function to close the custom alert
+function closeAlert() {
+    document.getElementById("customAlert").style.display = "none";
+}
