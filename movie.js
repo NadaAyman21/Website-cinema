@@ -26,11 +26,35 @@ if (movie) {
         `linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('${movie.image}')`;
 
     // TRAILER BUTTON
-    document.getElementById("trailerBtn").onclick = function () {
-        const iframe = document.getElementById("videoPlayer");
-        iframe.src = `https://www.youtube.com/embed/${movie.trailer}?autoplay=1`;
-        document.getElementById("videoModal").style.display = "block";
-    };
+  document.getElementById("trailerBtn").onclick = function () {
+    const iframe = document.getElementById("videoPlayer");
+
+    let link = movie.trailer;
+
+    // CASE 1: already embed link
+    if (link.includes("embed")) {
+        iframe.src = link + "?autoplay=1";
+    }
+
+    // CASE 2: normal youtube link
+    else if (link.includes("watch?v=")) {
+        let id = link.split("v=")[1].split("&")[0];
+        iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+    }
+
+    // CASE 3: short youtu.be link
+    else if (link.includes("youtu.be")) {
+        let id = link.split("youtu.be/")[1];
+        iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+    }
+
+    // CASE 4: just ID
+    else {
+        iframe.src = `https://www.youtube.com/embed/${link}?autoplay=1`;
+    }
+
+    document.getElementById("videoModal").style.display = "block";
+};
 }
 
 // CLOSE MODAL
@@ -66,7 +90,6 @@ movies.forEach(m => {
         </a>
     `;
 });
-
 // CREATE DATES (Today + 3 days)
 const dateContainer = document.getElementById("date-container");
 
@@ -110,4 +133,3 @@ fetch("nav.html")
   .then(data => {
     document.getElementById("navbar").innerHTML = data;
   });
-
