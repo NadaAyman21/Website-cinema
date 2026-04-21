@@ -5,10 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CineBook.com</title>
   <link rel="stylesheet" href="styleSeats.css">
+    <link rel="stylesheet" href="nav.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body class="vip-body">
+ <nav class="navbar">
+    <!-- LEFT (Logo) -->
+   <div class="logo">
+    <div class="logo-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <h1>CineX</h1>
+</div>
+
+    <!-- CENTER (Links) -->
+    <ul class="nav-links" id="navLinks">
+
+        <li><a href="#">HOME</a></li>
+
+        <li class="dropdown">
+            <a href="#">MOVIES <i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Now Showing</a></li>
+                <li><a href="#">Coming Soon</a></li>
+            </ul>
+        </li>
+
+        <li class="dropdown">
+            <a href="#">EXPERIENCES <i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">premiere</a></li>
+                <li><a href="#">standard/deluxe</a></li>
+            </ul>
+        </li>
+
+        <li><a href="#">FOOD & DRINKS</a></li>
+
+        <li class="dropdown">
+            <a href="#">LOCATIONS <i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-menu">
+                <li><a href="#">Cairo</a></li>
+               <!-- <li><a href="#">Alexandria</a></li>-->
+            </ul>
+        </li>
+
+    </ul>
+
+    <!-- RIGHT -->
+    <div class="right-section">
+
+        <div class="location">
+            <i class="fa fa-location-dot"></i>
+            Cairo Festival City
+            <i class="fa fa-caret-down"></i>
+        </div>
+
+        <i class="fa fa-user user-icon"></i>
+
+        <!-- Mobile menu -->
+     <div class="menu-icon" onclick="toggleMenu()">
+            <i class="fa fa-bars"></i>
+        </div> 
+
+    </div>
+
+</nav>
 
   <div class="cinema-wrapper">
+    <br>
     <h2 class="main-title">VIP EXPERIENCE</h2>
 
     <!-- Legend -->
