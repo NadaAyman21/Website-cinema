@@ -335,6 +335,13 @@ font-size:28px;
     width: 180px;
     text-align: center;
     transition: 0.4s;
+    text-decoration: none;
+    color: white;
+    display: block;
+}
+.movie-card h3 {
+    text-decoration: none;
+    color: white;
 }
 
 /* POSTER */

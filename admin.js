@@ -5,6 +5,21 @@ let editIndex = -1;
 const form = document.getElementById("movieForm");
 const moviesList = document.getElementById("moviesList");
 
+// 2. ALERT SYSTEM
+function showAlert(message) {
+    const modal = document.getElementById("customAlert");
+    if (modal) {
+        document.getElementById("alertMessage").innerText = message;
+        modal.style.display = "flex";
+    }
+}
+
+function closeAlert() {
+    const modal = document.getElementById("customAlert");
+    if (modal) {
+        modal.style.display = "none";
+    }
+}
 
 /* DISPLAY MOVIES */
 function displayMovies(){
@@ -49,17 +64,71 @@ form.addEventListener("submit", function(e){
     const age = document.getElementById("age").value.trim();
 
     /* VALIDATION */
-    if(!title || !genre || !time || !image || !age){
-        alert("Please fill all required fields!");
-        return;
-    }
+    if(!validateTitle(title)){
+    showAlert("Title must be at least 2 characters!");
+    return;
+}
 
-    /* runtime format */
-    const timePattern = /^[0-9]+h\s?[0-9]*m?$/;
-    if(!timePattern.test(time)){
-        alert("Runtime must be like: 2h 30m");
-        return;
-    }
+
+
+/* VALIDATION FUNCTIONS */
+
+// Title: at least 2 characters
+function validateTitle(title){
+    return title.length >= 2;
+}
+
+// Genre: letters only
+function validateGenre(genre){
+    // letters + spaces + "/" only, must contain at least one letter
+    return /^[A-Za-z\s\/]+$/.test(genre) && /[A-Za-z]/.test(genre);
+}
+// Time: format مثل 2h أو 2h 30m
+function validateTime(time){
+    return /^[0-9]+h\s?[0-9]*m?$/.test(time);
+}
+
+// Image: must be a valid URL
+function validateImage(path){
+    return /^(https?:\/\/.*\.(jpg|jpeg|png|gif|webp)|\.?\/?images\/.+\.(jpg|jpeg|png|gif|webp))$/i.test(path);
+}
+
+// Age: only numbers between 1 and 21 (cinema ratings)
+function validateAge(age){
+    // "+" before number (like +13, +16, +18)
+    return /^\+(?:[1-9]|1[0-9]|2[01])$/.test(age);
+}
+
+// Trailer: optional but must be YouTube link if موجود
+function validateTrailer(trailer){
+    if(trailer === "") return true;
+    return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/.test(trailer);
+}
+
+if(!validateGenre(genre)){
+    showAlert("Genre must contain letters only!");
+    return;
+}
+
+if(!validateTime(time)){
+    showAlert("Time must be like: 2h or 2h 30m");
+    return;
+}
+
+if(!validateImage(image)){
+    showAlert("Image must be a valid image URL!");
+    return;
+}
+
+if(!validateAge(age)){
+    showAlert("Age must be a number between 1 and 21!");
+    return;
+}
+
+if(!validateTrailer(trailer)){
+    showAlert("Trailer must be a valid YouTube link!");
+    return;
+}
 
     /* CREATE MOVIE OBJECT */
     const movie = {
