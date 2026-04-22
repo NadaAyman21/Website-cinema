@@ -5,19 +5,27 @@
 }
 
 body {
-    background-color: #e5e5e5;
+
     font-family: Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.75); /* Dark transparency over the whole screen */
+    backdrop-filter: blur(15px);    /* The frosted glass blur */
+    -webkit-backdrop-filter: blur(15px);
 }
 
 .container {
     width: 100%;
     max-width: 400px;
     margin: 50px auto;
-    background-color: #3f3f3f;
+    background-color: #ffffff;
     padding: 25px;
     border-radius: 12px;
-    color: white;
+    color: #333;
     text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3)
 }
 
 h2 {
@@ -34,12 +42,14 @@ h2 {
     width: 100%;
     padding: 10px 40px;
     border-radius: 6px;
-    border: none;
-    background-color: #dcdcdc;
+    border:1px solid #ddd;
+    background-color: #f9f9f9;
     outline: none;
     font-size: 14px;
 }
-
+.gender p, .gender label, .checkbox, .footer {
+    color: #444; /* Dark gray text */
+}
 
 .input-box i {
     position: absolute;
@@ -93,7 +103,7 @@ h2 {
 .btn {
     width: 100%;
     padding: 12px;
-    background-color: #b22222;
+    background-color: #000000;
     border: none;
     border-radius: 6px;
     color: white;
