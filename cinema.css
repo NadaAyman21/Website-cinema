@@ -367,3 +367,10 @@ nav a i:hover {
     background: #09c4e5;
     transform: translateY(-50%) scale(1.2);
 }
+html {
+  scroll-behavior: smooth;
+}
+
+#now-showing {
+    scroll-margin-top: 100px; /* This keeps the title visible below your header */
+}
