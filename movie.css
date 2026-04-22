@@ -10,36 +10,6 @@ body {
     color: #fff;
 }
 
-/* NAVBAR */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background: #000;
-}
-
-.navbar ul {
-    display: flex;
-    list-style: none;
-    gap: 25px;
-}
-
-.navbar a {
-    color: #ccc;
-    text-decoration: none;
-}
-
-.logo {
-    font-weight: bold;
-}
-
-.location {
-    background: #111;
-    padding: 6px 12px;
-    border-radius: 20px;
-}
-
 /* HERO */
 .hero {
     padding: 60px 40px;
@@ -52,8 +22,6 @@ body {
     gap: 40px;
     align-items: center;
 }
-
-
 
 /* POSTER */
 .poster img {
@@ -282,11 +250,7 @@ body {
     transform: scale(1.2);
 }
 
-/*.video-container iframe {
-    width: 800px;
-    height: 450px;
-    z-index: 1;
-}*/
+
 #videoPlayer {
     width: 80%;
     height: 80%;
