@@ -6,6 +6,9 @@ function showSlide(i) {
     slides[i].classList.add("active");
 }
 
+function goToLogin(){
+    window.location.href = "login.html";
+}
 // NEXT
 document.querySelector(".next").onclick = () => {
     index++;
