@@ -14,12 +14,20 @@ background:black;
 }
 
 .logout{
-background:red;
-padding: 1px px;
-border:none;
-color:white;
-cursor:pointer;
-border-radius:5px;
+    background: red;
+    padding: 6px 15px;   /* smaller */
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 3px;
+
+    font-size: 13px;
+    height: 35px;        /* 👈 controls height */
+    line-height: 1;      /* prevents extra vertical space */
+}
+
+.logout:hover{
+    background: darkred;
 }
 
 /* CONTAINER */
