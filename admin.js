@@ -156,6 +156,10 @@ if(!validateTrailer(trailer)){
     displayMovies();
 });
 
+function logout(){
+    localStorage.removeItem("loggedInUser");
+    window.location.href = "cinemaM.html"; // or home.html
+}
 
 /* DELETE */
 function deleteMovie(index){
