@@ -153,35 +153,3 @@ function selectTime(btn){
 
 }
 
-/*function selectTime(btn) {
-   
-    const movieTitle = document.getElementById("title").innerText;
-    const selectedTime = btn.innerText;
-    
-    // Get date parts from the active date card
-    const activeDateCard = document.querySelector(".date-card.active");
-    const dayName = activeDateCard.querySelector("strong").innerText; // e.g., "Today" or "SUN"
-    const fullDate = activeDateCard.innerText.split('\n')[1] || activeDateCard.innerText; // e.g., "20 Apr"
-
-    // SAVE using the keys orderSum.js expects
-    localStorage.setItem('selectedMovie', movieTitle);
-    localStorage.setItem('selectedTime', selectedTime);
-    localStorage.setItem('selectedDay', dayName);
-    localStorage.setItem('selectedDateText', `${fullDate}, 2026`);
-
-    // Determine the type to send to conditions.html
-    let typeParam = "standard";
-    if (selectedExperience === "PREMIERE") {
-        typeParam = "premiere";
-    }
-
-    // Redirect to conditions.html with the type in the URL
-    window.location.href = `condtions.html?type=${typeParam}`;
-}*/
-
-
-fetch("nav.html")
-  .then(response => response.text())
-  .then(data => {
-    document.getElementById("navbar").innerHTML = data;
-  });

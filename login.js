@@ -9,38 +9,63 @@ function togglePassword() {
     }
 }
 
-// Form validation
-let form = document.getElementById("loginForm");
+function validateEmail(){
+    let email = document.getElementById("email").value.trim();
+    let emailError = document.getElementById("emailError");
 
-form.addEventListener("submit", function(e) {
+    emailError.innerText = "";
+
+    let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+    if(email === "" || !email.match(pattern)){
+        emailError.innerText = "Enter a valid email";
+        return false;
+    }
+
+    return true;
+}
+
+function validatePassword(){
+    let password = document.getElementById("password").value.trim();
+    let passwordError = document.getElementById("passwordError");
+
+    passwordError.innerText = "";
+
+    let passwordPattern = /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
+
+    if(!password.match(passwordPattern)){
+        passwordError.innerText =
+            "Password must contain 1 uppercase, 1 number, min 6 chars";
+        return false;
+    }
+
+    return true;
+}
+
+  
+const form = document.getElementById("loginForm");
+
+form.addEventListener("submit", function(e){
     e.preventDefault();
 
-    let email = document.getElementById("email").value.trim();
-    let password = document.getElementById("password").value.trim();
-    let error = document.getElementById("error");
+    let valid = true;
 
-    error.textContent = "";
+    if(!validateEmail()) valid = false;
+    if(!validatePassword()) valid = false;
 
-    // Empty fields check
-    if (email === "" || password === "") {
-        error.textContent = "Please fill in all fields!";
-        return;
+    if(!valid) return;
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    // Users
+    if(email === "admin@gmail.com" && password === "Admin123"){
+        window.location.href = "admin.html";
     }
-
-    // Email format check
-    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-
-    if (!email.match(emailPattern)) {
-        error.textContent = "Invalid email format!";
-        return;
+    else if(email === "user@gmail.com" && password === "User123"){
+        window.location.href = "cinemaM.html";
     }
-
-    // Password check
-    if (password.length < 6) {
-        error.textContent = "Password must be at least 6 characters!";
-        return;
+    else{
+        document.getElementById("error").innerText = "Invalid email or password!";
     }
-
-    // Success message
-    alert("Login successful 🎉");
 });
