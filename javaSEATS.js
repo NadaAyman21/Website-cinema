@@ -109,3 +109,6 @@ function showAlert(message) {
 function closeAlert() {
     document.getElementById("customAlert").style.display = "none";
 }
+function goToLogin(){
+    window.location.href = "login.html";
+}
