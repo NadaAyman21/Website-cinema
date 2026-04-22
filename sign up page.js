@@ -20,6 +20,21 @@ function toggleConfirmPassword() {
         pass.type = "password";
     }
 }
+function showAlert(message) {
+    const modal = document.getElementById("customAlert");
+    if (modal) {
+        document.getElementById("alertMessage").innerText = message;
+        modal.style.display = "flex";
+    }
+}
+
+// 2. Function to close it
+function closeAlert() {
+    const modal = document.getElementById("customAlert");
+    if (modal) {
+        modal.style.display = "none";
+    }
+}
 
   document.getElementById("signupForm").addEventListener("submit", function(e) {
     e.preventDefault();
@@ -115,6 +130,6 @@ if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
 
     // Success
     if (valid) {
-        alert("Signup successful 🎉");
+        showAlert("Signup successful 🎉");
     }
 });
