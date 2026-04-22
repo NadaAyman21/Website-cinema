@@ -9,38 +9,37 @@ function togglePassword() {
     }
 }
 
-// Form validation
-let form = document.getElementById("loginForm");
+  
+const form = document.getElementById("loginForm");
 
-form.addEventListener("submit", function(e) {
+form.addEventListener("submit", function(e){
     e.preventDefault();
 
-    let email = document.getElementById("email").value.trim();
-    let password = document.getElementById("password").value.trim();
-    let error = document.getElementById("error");
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const error = document.getElementById("error");
 
-    error.textContent = "";
+    // 👇 Your 2 users
+    const admin = {
+        email: "admin@gmail.com",
+        password: "123456"
+    };
 
-    // Empty fields check
-    if (email === "" || password === "") {
-        error.textContent = "Please fill in all fields!";
-        return;
+    const customer = {
+        email: "user@gmail.com",
+        password: "123456"
+    };
+
+    // ✅ Check Admin
+    if(email === admin.email && password === admin.password){
+        window.location.href = "admin.html";
     }
-
-    // Email format check
-    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-
-    if (!email.match(emailPattern)) {
-        error.textContent = "Invalid email format!";
-        return;
+    // ✅ Check Customer
+    else if(email === customer.email && password === customer.password){
+        window.location.href = "cinemaM.html";
     }
-
-    // Password check
-    if (password.length < 6) {
-        error.textContent = "Password must be at least 6 characters!";
-        return;
+    // ❌ Wrong login
+    else{
+        error.textContent = "Invalid email or password!";
     }
-
-    // Success message
-    alert("Login successful 🎉");
 });
