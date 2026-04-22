@@ -14,48 +14,58 @@
 
 <div class="container">
     <h2><i class="fa-solid fa-clapperboard"></i> Create your account</h2>
-
+<form id="signupForm">
     <div class="row">
         <div class="input-box">
             <i class="fa fa-user"></i>
-            <input type="text" placeholder="First Name">
+            <input type="text" id="firstName" placeholder="First Name">
         </div>
+        <small class="error" id="firstNameError"></small>
 
         <div class="input-box">
             <i class="fa fa-user"></i>
-            <input type="text" placeholder="Last Name">
+            <input type="text" id="lastName" placeholder="Last Name">
         </div>
+        <small class="error" id="lastNameError"></small>
     </div>
 
     <div class="input-box">
         <i class="fa fa-envelope"></i>
-        <input type="email" placeholder="Enter your email">
+        <input type="email" id="email" placeholder="Enter your email">
     </div>
+    <small class="error" id="emailError"></small>
 
-    <div class="input-box password-box">
-        <i class="fa fa-lock"></i>
-        <input type="password" id="password" placeholder="Enter your password">
-        <i class="fa fa-eye toggle" onclick="togglePassword()"></i>
-    </div>
-    <div class="input-box password-box">
-           <input type="confirm password" placeholder="Confirm your password"> 
-    </div>
+   <div class="input-box password-box">
+    <i class="fa fa-lock"></i>
+    <input type="password" id="password" placeholder="Enter your password">
+    <i class="fa fa-eye toggle" onclick="togglePassword('password', this)"></i>
+</div>
+<small class="error" id="passwordError"></small>
+
+<div class="input-box password-box">
+    <input type="password" id="confirmPassword" placeholder="Confirm your password"> 
+    <i class="fa fa-eye toggle" onclick="togglePassword('confirmPassword', this)"></i>
+</div>
+<small class="error" id="confirmPasswordError"></small>
 
     <div class="gender">
         <p>Gender:</p>
         <label><input type="radio" name="gender"> Male</label>
         <label><input type="radio" name="gender"> Female</label>
     </div>
+    <small class="error" id="genderError"></small>
 
     <div class="input-box">
         <i class="fa fa-phone"></i>
-        <input type="tel" placeholder="Phone Number">
+        <input type="tel" id="tel" placeholder="Phone Number">
     </div>
+    <small class="error" id="phoneError"></small>
 
     <div class="input-box">
         <i class="fa fa-calendar"></i>
-        <input type="date">
+        <input type="date" id="dob">
     </div>
+    <small class="error" id="dobError"></small>
 <a href="https://accounts.google.com">
     <i class="fa-brands fa-google"></i>
 </a>
@@ -66,13 +76,14 @@
 
     <div class="checkbox">
         <label>
-            <input type="checkbox"> I accept the terms and conditions
+            <input type="checkbox" id="terms"> I accept the terms and conditions
         </label>
     </div>
+    <small class="error" id="termsError"></small>
 
 
     <button class="btn">Sign Up</button>
-
+</form>
     <div class="footer">
         <p class="footer" style="color: white;">
     Already have an account? <a href="login.html"><u>Login</u></a>
@@ -80,26 +91,7 @@
     </div>
 </div>
 
-<script>
-function togglePassword() {
-    let pass = document.getElementById("password");
-    if (pass.type === "password") {
-        pass.type = "text";
-    } else {
-        pass.type = "password";
-    }
-    
-}
-function confirmpassword(){
-
- let pass = document.getElementById("confirm password");
-    if (pass.type === "confrim password") {
-        pass.type = "text";
-    } else {
-        pass.type = "confirm password";
-    }
-  }
-</script>
+<script src="sign up page.js"></script>
 
 </body>
 </html>
