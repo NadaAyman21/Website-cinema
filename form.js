@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const cancelBtn = document.getElementById('cancelBtn');
     if (cancelBtn) {
         cancelBtn.addEventListener('click', () => {
-            // Replace 'cinemaM.html' with your actual home page file name
+
             window.location.href = "cinemaM.html"; 
         });
     }
