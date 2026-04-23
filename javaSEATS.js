@@ -61,20 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ===== SCROLL REVEAL =====
-    const bottomSection = document.getElementById('bottomSection');
-
-    if (bottomSection) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal-active');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        observer.observe(bottomSection);
-    }
 
     // ===== SAVE PRICE ON CHECKOUT =====
     const checkoutBtn = document.querySelector('.checkout-btn');
