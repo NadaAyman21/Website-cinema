@@ -48,7 +48,7 @@ function closeAlert() {
 const closeBtn = document.querySelector('.close-btn');
 if (closeBtn) {
     closeBtn.addEventListener('click', () => {
-        window.location.href = "cinemaM.html"; // Or wherever your home page is
+        window.location.href = "cinemaM.html"; 
     });
 }
 
