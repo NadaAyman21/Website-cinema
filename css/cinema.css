@@ -251,15 +251,15 @@ font-size:28px;
 /* Background images */
 
 .card.premiere {
-    background-image: url('image 1.jpeg');
+    background-image: url('../images/image 1.jpeg');
 }
 
 .card.deluxe {
-    background-image: url('deluxe.jpg');
+    background-image: url('../images/deluxe.jpg');
 }
 
 .card.standard {
-    background-image: url('standard.jpg');
+    background-image: url('../images/standard.jpg');
 }
 
 
