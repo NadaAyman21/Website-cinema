@@ -1,0 +1,240 @@
+/* ===== ROOT VARIABLES ===== */
+:root {
+    --bg: #000;            /* black */
+    --text: #fff;          /* white */
+
+    --seat-size: 26px;
+    --seat-border: 1.5px;
+
+    /* Seat Colors */
+    --standard-color: #fff;      /* white */
+    --deluxe-color: #c9a34a;     /* gold */
+    --vip-color: #3498db;        /* blue */
+
+    /* States */
+    --occupied: #555;      /* dark gray */
+    --selected: #ff4500;   /* orange red */
+    --hold: #008080;       /* teal */
+}
+
+/* ===== BODY ===== */
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+/* ===== WRAPPER ===== */
+.cinema-wrapper {
+    width: 850px;
+    text-align: center;
+}
+
+.main-title {
+    font-size: 22px;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+
+/* ===== LEGEND ===== */
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.legend-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 11px;
+    color: #666; /* gray */
+}
+
+.circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-bottom: 6px;
+    border: var(--seat-border) solid var(--standard-color);
+}
+
+/* ===== STATES ===== */
+.occupied { 
+    background: var(--occupied); 
+    border-color: var(--occupied); 
+}
+
+.selected { 
+    background: var(--selected); 
+    border-color: var(--selected); 
+}
+
+.hold { 
+    background: var(--hold); 
+    border-color: var(--hold); 
+}
+
+/* ===== SCREEN ===== */
+.screen-container { margin-bottom: 80px; }
+
+.screen-curve {
+    width: 480px;
+    height: 12px;
+    margin: 0 auto;
+    border-top: 10px solid white; /* white */
+    border-radius: 50% / 100% 100% 0 0;
+    box-shadow: 0 20px 35px rgba(255,255,255,0.4); /* white glow */
+}
+
+.screen-label {
+    margin-top: 25px;
+    letter-spacing: 15px;
+    font-size: 15px;
+    color: #444; /* dark gray */
+    font-weight: bold;
+}
+
+/* ===== ROWS ===== */
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.row-id {
+    width: 25px;
+    font-size: 11px;
+    color: #333; /* very dark gray */
+    font-weight: bold;
+}
+
+/* ===== SEATS ===== */
+.seat-block {
+    display: flex;
+    gap: 8px;
+    margin: 0 12px;
+}
+
+.seat {
+    width: var(--seat-size);
+    height: var(--seat-size);
+    border-radius: 50%;
+    border: var(--seat-border) solid var(--standard-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+/* Hide numbers for unavailable seats */
+.seat.occupied,
+.seat.hold {
+    color: transparent;
+}
+
+/* ===== TYPES ===== */
+.seat.deluxe {
+    border-color: var(--deluxe-color); /* gold */
+}
+
+.seat.vip {
+    border-color: var(--vip-color); /* blue */
+    width: 32px;
+    height: 32px;
+}
+
+/* Selected per type */
+.seat.deluxe.selected {
+    background: var(--deluxe-color); /* gold */
+    color: black;
+}
+
+.seat.vip.selected {
+    background: var(--selected); /* orange-red*/
+     border-color: var(--selected); /* match border */
+    color: white;
+}
+
+/* ===== LEGEND TYPES ===== */
+.circle.deluxe { border-color: var(--deluxe-color); /* gold */ }
+.circle.vip { border-color: var(--vip-color); /* blue */ }
+
+/* ===== SPACING ===== */
+.spacer-left-long { width: 380px; }
+.aisle-gap { width: 60px; }
+.section-divider { height: 50px; }
+
+/* ===== CHECKOUT ===== */
+.checkout-box {
+    position: fixed;
+    bottom: 30px;
+    right: 40px;
+    text-align: right;
+}
+
+.checkout-btn {
+    background: #444; /* dark gray */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.price {
+    margin-top: 8px;
+    font-size: 18px;
+}
+
+/* Modal Background (Overlay) */
+.custom-modal {
+    display: none; 
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+     top: 0;
+    width: 100%; 
+    height: 100%;
+    padding: 3px;
+    background-color: rgba(0, 0, 0, 0.8); /* Darken screen */
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Modal Box */
+.black-theme {
+    background-color: #1a1a1a; /* Dark Grey/Black */
+    color: white;
+    padding: 15px 40px;
+    border-radius: 0 0 15px 15px; /* Rounded bottom corners */
+    border: 1px solid #444;
+    text-align: left;
+    width: auto;
+    box-shadow: 0 5 15px rgba(0, 0, 0, 0.5);
+}
+
+.black-theme h3 {
+    color: #00d4ff; /* A nice highlight color */
+    font-weight: bold;
+}
+
+.black-theme button {
+    margin-top: 8px;
+    padding: 10px 40px;
+    background-color: #00d4ff;
+    border-radius: 2px;
+    color: black;
+    font-weight: bold;
+}
+
+.black-theme button:hover {
+    background-color: #008cb3;
+}
