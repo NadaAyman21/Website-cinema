@@ -3,58 +3,117 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Dashboard</title>
+<title>Admin Dashboard — CineX</title>
 
-<!-- ICONS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="css/admin.css">
 <link rel="stylesheet" href="css/responsive.css">
-
 </head>
 
 <body>
 
 <!-- NAVBAR -->
 <div class="navbar">
-<h2>🎬 Admin Dashboard</h2>
-<button class="logout" onclick="logout()">Logout</button>
+  <h2>🎬 CineX Admin</h2>
+  <button class="logout" onclick="logout()">
+    <i class="fa-solid fa-arrow-right-from-bracket" style="margin-right:6px; color:inherit;"></i>Logout
+  </button>
 </div>
-
 
 <div class="container">
 
-<!-- FORM -->
-<form id="movieForm">
-<h3><i class="fa-solid fa-film"></i> Add / Edit Movie</h3>
+  <!-- FORM -->
+  <form id="movieForm">
+    <h3><i class="fa-solid fa-film"></i> Add / Edit Movie</h3>
 
-<input type="text" id="title" placeholder="Movie Title" required>
-<input type="text" id="genre" placeholder="Genre" required>
-<input type="text" id="time" placeholder="Run Time (2h 30m)" required>
-<input type="text" id="image" placeholder="Image URL" required>
-<input type="text" id="trailer" placeholder="YouTube Embed Link" required>
-<textarea id="story" placeholder="Story"></textarea>
-<input type="text" id="cast" placeholder="Cast">
-<input type="text" id="age" placeholder="Age Rating (e.g. +12)" required>
+    <div class="form-grid">
+      <input type="text" id="title"   placeholder="Movie Title"              required>
+      <input type="text" id="genre"   placeholder="Genre"                    required>
+      <input type="text" id="time"    placeholder="Run Time (e.g. 2h 30m)"   required>
+      <input type="text" id="age"     placeholder="Age Rating (e.g. +12)"    required>
+      <input type="text" id="image"   placeholder="Image URL"                required class="full">
+      <input type="text" id="trailer" placeholder="YouTube Embed Link"       required class="full">
+      <input type="text" id="cast"    placeholder="Cast (comma-separated)"          class="full">
+      <textarea          id="story"   placeholder="Story / Synopsis"                class="full"></textarea>
+    </div>
 
-<button type="submit">Save Movie</button>
+    <div class="form-footer">
+      <button type="submit">
+        <i class="fa-solid fa-floppy-disk" style="color:white;"></i> Save Movie
+      </button>
+    </div>
+  </form>
 
-</form>
-
-
-<!-- MOVIES -->
-<div class="movies" id="moviesList"></div>
+  <!-- MOVIES -->
+  <p class="section-heading"><i class="fa-solid fa-layer-group" style="font-size:10px;"></i> All Movies</p>
+  <div class="movies" id="moviesList"></div>
 
 </div>
 
+<!-- ALERT MODAL -->
 <div id="customAlert" class="custom-modal">
-        <div class="modal-content black-theme">
-            <h3 id="alertTitle">CineX.com says</h3>
-            <p id="alertMessage"></p>
-            <button onclick="closeAlert()">OK</button>
-        </div>
-    </div>
-    
+  <div class="modal-content black-theme">
+    <h3 id="alertTitle">CineX.com says</h3>
+    <p id="alertMessage"></p>
+    <button onclick="closeAlert()">OK</button>
+  </div>
+</div>
 
-<script src="java/admin.js"> </script>
+<script src="java/admin.js"></script>
+
+<!-- ═══════════ RESERVATIONS ═══════════ -->
+<section id="reservations-section" style="margin-top:2.5rem;">
+
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+    <h2><i class="fa-solid fa-ticket" style="font-size:0.9rem; margin-right:8px;"></i>Reservations</h2>
+    <button onclick="clearAllReservations()" id="clearAllBtn">
+      <i class="fa-solid fa-trash-can" style="color:inherit; margin-right:5px;"></i>Clear All
+    </button>
+  </div>
+
+  <!-- Stats -->
+  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:1.5rem;">
+    <div class="admin-stat-card">
+      <div class="stat-label">Total Bookings</div>
+      <div class="stat-value" id="statTotal">0</div>
+    </div>
+    <div class="admin-stat-card">
+      <div class="stat-label">Seats Booked</div>
+      <div class="stat-value" id="statSeats">0</div>
+    </div>
+    <div class="admin-stat-card">
+      <div class="stat-label">Revenue (EGP)</div>
+      <div class="stat-value" id="statRevenue">0</div>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <input type="text" id="reservationSearch"
+    placeholder="Search by movie or customer…"
+    oninput="renderReservations()">
+
+  <!-- Table -->
+  <div style="overflow-x:auto; border-radius:14px;">
+    <table id="reservationsTable" style="width:100%; border-collapse:collapse; min-width:600px;">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>MOVIE</th>
+          <th>CUSTOMER</th>
+          <th>DATE / TIME</th>
+          <th>SEATS</th>
+          <th>TOTAL</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="reservationsBody"></tbody>
+    </table>
+    <div id="reservationsEmpty" style="display:none; text-align:center; padding:2.5rem; color:#6b6b80; font-size:13.5px;">
+      No reservations yet.
+    </div>
+  </div>
+
+</section>
+
 </body>
 </html>
