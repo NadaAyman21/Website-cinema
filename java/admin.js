@@ -190,61 +190,24 @@ function editMovie(index){
 /* LOAD */
 displayMovies();
 
-function renderReservations() {
-  const all = JSON.parse(localStorage.getItem('cinema_reservations') || '[]');
-  const q = (document.getElementById('reservationSearch').value || '').toLowerCase();
-  const filtered = q
-    ? all.filter(r => r.movieTitle.toLowerCase().includes(q) || r.customerName.toLowerCase().includes(q))
-    : all;
-
-  // Update stats (always from full list)
-  document.getElementById('statTotal').textContent = all.length;
-  document.getElementById('statSeats').textContent = all.reduce((s, r) => s + r.seats.length, 0);
-  document.getElementById('statRevenue').textContent = all.reduce((s, r) => s + r.totalPrice, 0).toLocaleString();
-
-  const body = document.getElementById('reservationsBody');
-  const empty = document.getElementById('reservationsEmpty');
-
-  if (filtered.length === 0) {
-    body.innerHTML = '';
-    empty.style.display = 'block';
-    return;
-  }
-
-  empty.style.display = 'none';
-  body.innerHTML = filtered.map((r, i) => `
-    <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
-      <td style="padding:10px; color:#8a8a9a;">${i + 1}</td>
-      <td style="padding:10px; font-weight:500;">${r.movieTitle}</td>
-      <td style="padding:10px;">${r.customerName}</td>
-      <td style="padding:10px; color:#8a8a9a; font-size:12px;">${r.date || '—'}<br>${r.time || ''}</td>
-      <td style="padding:10px;">${r.seats.map(s =>
-        `<span style="display:inline-block;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);
-          border-radius:4px;padding:1px 6px;font-size:11px;margin:2px;">${s}</span>`
-      ).join('')}</td>
-      <td style="padding:10px; font-weight:500;">EGP ${r.totalPrice.toLocaleString()}</td>
-      <td style="padding:10px;">
-        <button onclick="deleteReservation(${r.id})"
-          style="background:rgba(232,74,74,0.12); border:none; border-radius:6px;
-                 color:#e84a4a; padding:4px 12px; font-size:12px; cursor:pointer;">
-          Delete
-        </button>
-      </td>
-    </tr>
-  `).join('');
-}
-
-function deleteReservation(id) {
-  const all = JSON.parse(localStorage.getItem('cinema_reservations') || '[]');
-  localStorage.setItem('cinema_reservations', JSON.stringify(all.filter(r => r.id !== id)));
-  renderReservations();
-}
-
-function clearAllReservations() {
-  if (!confirm('Delete ALL reservations? This cannot be undone.')) return;
-  localStorage.removeItem('cinema_reservations');
-  renderReservations();
-}
-
-// Call on page load
-renderReservations();
+body.innerHTML = filtered.map((r, i) => `
+  <tr class="reservation-row">
+    <td class="col-index">${i + 1}</td>
+    <td class="col-movie">${r.movieTitle}</td>
+    <td class="col-name">${r.customerName}</td>
+    <td class="col-datetime">
+      ${r.date || '—'}<br>${r.time || ''}
+    </td>
+    <td class="col-seats">
+      ${(r.seats || []).map(s =>
+        `<span class="seat-badge">${s}</span>`
+      ).join('')}
+    </td>
+    <td class="col-price">EGP ${r.totalPrice.toLocaleString()}</td>
+    <td class="col-actions">
+      <button class="delete-btn" onclick="deleteReservation(${r.id})">
+        Delete
+      </button>
+    </td>
+  </tr>
+`).join('');
