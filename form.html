@@ -13,25 +13,31 @@
 
     <h3>Credit or Debit card</h3>
 
-    <form>
-      <label>Cardholder name (exactly as shown on card) *</label>
-      <input type="text" placeholder="">
+    <form id="paymentForm">
 
-      <label>Card number *</label>
-      <div class="input-box">
-        <input type="text" placeholder="">
-        <span class="icon">🔒</span>
-      </div>
+  <label>Cardholder name (exactly as shown on card) *</label>
+  <input type="text" id="cardName">
+  <small class="error" id="cardNameError"></small>
 
-      <label>Expiry date *</label>
-      <input type="date" placeholder="MM / YY">
+  <label>Card number *</label>
+  <div class="input-box">
+    <input type="text" id="cardNumber">
+    <span class="icon">🔒</span>
+  </div>
+  <small class="error" id="cardNumberError"></small>
 
-      <label>Security code *</label>
-      <div class="input-box">
-        <input type="text" placeholder="">
-        <span class="icon">💳</span>
-      </div>
-    </form>
+  <label>Expiry date *</label>
+  <input type="text" id="expiry" placeholder="MM/YY">
+  <small class="error" id="expiryError"></small>
+
+  <label>Security code *</label>
+  <div class="input-box">
+    <input type="text" id="cvv">
+    <span class="icon">💳</span>
+  </div>
+  <small class="error" id="cvvError"></small>
+
+</form>
 
     <button class="pay-button" id="dynamicPayBtn">
             <span class="lock"></span> </button>
