@@ -148,3 +148,14 @@ input{
 .black-theme button:hover {
     background-color: #008cb3;
 }
+
+.error {
+  color: #e84a4a;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+.input-error {
+  border: 1px solid #e84a4a !important;
+}
