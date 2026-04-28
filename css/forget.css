@@ -1,28 +1,35 @@
 /* General Reset */
 * {
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    
     margin: 0;
     padding: 0;
 }
 
 body {
-    background: #121212; /* Dark background similar to the image */
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: rgba(0, 0, 0, 0.8);
+
+    backdrop-filter: blur(15px);
+
+    -webkit-backdrop-filter: blur(15px);
 }
 
 /* Modal Card */
 .forgot-password-card {
     background-color: #ffffff;
-    width: 100%;
-    max-width: 500px;
-    padding: 40px;
-    border-radius: 8px;
+    width: 450px;
+
+    padding: 40px 50px;
+    border-radius: 4px;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    position: relative;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+    z-index: 10;
 }
 
 /* Header */
@@ -31,9 +38,12 @@ body {
 }
 
 .header-section h2 {
-    font-size: 22px;
+    font-size: 24px;
     letter-spacing: 1px;
     font-weight: 800;
+    text-transform: uppercase;
+    color: #000;
+   letter-spacing: 1px;
 }
 
 
@@ -42,18 +52,23 @@ label {
     display: block;
     text-align: left;
     font-size: 14px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #444;
+    text-transform: uppercase;
+    
 }
 
 input[type="email"] {
     width: 100%;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px;
+    border: 1px solid #c0c0c0;
+    border-radius: 3px;
     font-size: 16px;
-    margin-bottom: 25px;
+    background-color: transparent;
+    outline: none;
+    color: #000;
+    margin-bottom: 20px;
 }
 
 /* Action Buttons */
@@ -61,22 +76,28 @@ input[type="email"] {
     width: 100%;
     background-color: #000;
     color: #fff;
-    padding: 15px;
-    border: none;
+    padding: 14px;
+    border: 1px solid #000;
     border-radius: 5px;
-    font-weight: bold;
-    font-size: 16px;
+    font-weight: 700;
+    font-size: 14px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    margin-top: 0;
+
 }
 
 .reset-btn:hover {
-    background-color: #333;
+    background-color:#1a1a1a ;
+    
 }
 
 /* Footer Link */
 .footer-links {
-    margin-top: 20px;
+    margin-top: 35px;
+    border-top: 1px solid #eeeeee; /* Divider line */
+    padding-top: 25px;
 }
 
 .back-link {
@@ -84,6 +105,8 @@ input[type="email"] {
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
+    text-transform: uppercase;
+    transition: color 0.1s;
 }
 
 .back-link:hover {
