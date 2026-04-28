@@ -436,3 +436,69 @@ i { margin-right: 6px; color: var(--accent); }
   color: var(--muted) !important;
   font-size: 13.5px !important;
 }
+
+/* ROW */
+.reservation-row {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* COLUMNS */
+.col-index {
+  padding: 10px;
+  color: #8a8a9a;
+}
+
+.col-movie {
+  padding: 10px;
+  font-weight: 500;
+}
+
+.col-name {
+  padding: 10px;
+}
+
+.col-datetime {
+  padding: 10px;
+  color: #8a8a9a;
+  font-size: 12px;
+}
+
+.col-seats {
+  padding: 10px;
+}
+
+.col-price {
+  padding: 10px;
+  font-weight: 500;
+}
+
+.col-actions {
+  padding: 10px;
+}
+
+/* SEAT BADGE */
+.seat-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 11px;
+  margin: 2px;
+}
+
+/* DELETE BUTTON */
+.delete-btn {
+  background: rgba(232,74,74,0.12);
+  border: none;
+  border-radius: 6px;
+  color: #e84a4a;
+  padding: 4px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.delete-btn:hover {
+  background: rgba(232,74,74,0.25);
+}
