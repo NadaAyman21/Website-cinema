@@ -63,40 +63,62 @@ document.getElementById('custPhone').addEventListener('input', function(e) {
 });
 
 const payBtn = document.querySelector('.pay-btn');
+
 if (payBtn) {
-   payBtn.addEventListener('click', (e) => {
-        // 1. Get the input elements (make sure these IDs match your HTML)
-        const nameInput = document.getElementById('custName').value.trim();
-        const phoneInput = document.getElementById('custPhone').value.trim();
-        const emailInput = document.getElementById('custEmail').value.trim();
-        
+    payBtn.addEventListener('click', (e) => {
+        e.preventDefault();
 
-        // Name Check
-        if (nameInput.length < 3) {
-            showAlert("Please enter your full name.");
-            return;
+        let isValid = true;
+
+        const nameInput = document.getElementById('custName');
+        const phoneInput = document.getElementById('custPhone');
+        const emailInput = document.getElementById('custEmail');
+
+        const nameError = document.getElementById('custNameError');
+        const phoneError = document.getElementById('custPhoneError');
+        const emailError = document.getElementById('custEmailError');
+
+        // Reset
+        [nameInput, phoneInput, emailInput].forEach(input => {
+            input.classList.remove('input-error');
+        });
+
+        [nameError, phoneError, emailError].forEach(e => e.textContent = '');
+
+        // ===== VALIDATION =====
+
+        // Name
+        if (nameInput.value.trim().length < 3) {
+            nameError.textContent = "Enter a valid full name";
+            nameInput.classList.add('input-error');
+            isValid = false;
         }
 
-        // Phone Check (Egypt 11-digit format)
+        // Phone (Egypt)
         const phoneRegex = /^01[0125][0-9]{8}$/;
-        if (!phoneRegex.test(phoneInput)) {
-            showAlert("Please enter a valid 11-digit phone number.");
-            return;
+        if (!phoneRegex.test(phoneInput.value.trim())) {
+            phoneError.textContent = "Enter a valid Egyptian phone number";
+            phoneInput.classList.add('input-error');
+            isValid = false;
         }
 
-        // Email Check
-        if (!emailInput.includes('@') || !emailInput.includes('.')) {
-           showAlert("Please enter a valid email address.");
-            return;
+        // Email
+        const emailValue = emailInput.value.trim();
+        if (!emailValue.includes('@') || !emailValue.includes('.')) {
+            emailError.textContent = "Enter a valid email address";
+            emailInput.classList.add('input-error');
+            isValid = false;
         }
 
-        const priceDisplay = document.querySelector('.price-box').innerText; 
+        if (!isValid) return;
 
-// 2. Save it to the browser's memory
-localStorage.setItem('finalAmount', priceDisplay);
+        // ✅ Save price
+        const priceDisplay = document.querySelector('.price-box').innerText;
+        localStorage.setItem('finalAmount', priceDisplay);
 
-            window.location.href = "form.html";
-       
+        // ✅ Go to payment
+        window.location.href = "form.html";
     });
 }
 
+       
