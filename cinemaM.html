@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CineBook - Home</title>
+<link rel="stylesheet" href="css/login.css">
 <link rel="stylesheet" href="css/cinema.css">
 <link rel="stylesheet" href="css/responsive.css">
 <link rel="stylesheet" href="css/nav.css">
@@ -72,7 +73,7 @@
             <i class="fa fa-caret-down"></i>
         </div>
 
-        <i class="fa fa-user user-icon" onclick="goToLogin()"></i>
+        <i class="fa fa-user user-icon" onclick="openLogin()"></i>
 
         <!-- Mobile menu -->
      <div class="menu-icon" onclick="toggleMenu()">
@@ -245,6 +246,35 @@
 </div>
 
 </footer>
+<!-- Login Modal -->
+<div class="login-modal" id="loginModal">
+  <div class="login-box">
+    <button class="modal-close" onclick="closeLogin()">✕</button>
+    <h2>Login to your account</h2>
+    <form id="loginForm">
+      <label>Email</label>
+      <input type="email" id="email" placeholder="Enter your email">
+      <span id="emailError" class="error"></span>
+      <label>Password</label>
+      <div class="password-box">
+        <input type="password" id="password" placeholder="Enter your password">
+        <span onclick="togglePassword()">👁</span>
+      </div>
+      <span id="passwordError" class="error"></span>
+      <p id="error" class="error"></p>
+      <div class="options">
+        <a href="forget.html" class="forgot-link">Forgot Password?</a>
+      </div><br>
+      <button type="submit">Login</button>
+      <p class="create-account">
+        <a href="sign up page.html">Create a new account</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+<!-- Login Script -->
+<script src="java/login.js"></script>
 
 <script src="java/cinema.js"></script>
 <script src="java/nav.js"></script>
