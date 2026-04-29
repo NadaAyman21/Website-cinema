@@ -6,6 +6,7 @@
     <title>Cinema Menu</title>
 
     <!-- Google Font -->
+     <link rel="stylesheet" href="css/login.css">
    <link rel="stylesheet" href="css/nav.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="css/responsive.css">
@@ -67,8 +68,9 @@
             <i class="fa fa-caret-down"></i>
         </div>
 
-        <i class="fa fa-user user-icon"></i>
+       
 
+<i class="fa fa-user user-icon" onclick="openLogin()"></i>
         <!-- Mobile menu -->
      <div class="menu-icon" onclick="toggleMenu()">
             <i class="fa fa-bars"></i>
@@ -78,7 +80,7 @@
 
 </nav><br><br>
 <header>
-    <h1>🎬 our Menu</h1>
+    <h1>Menu</h1>
 </header>
 
 <main class="menu-container">
@@ -215,6 +217,36 @@
 
 </main>
 
+
+<!-- Login Modal -->
+<div class="login-modal" id="loginModal">
+  <div class="login-box">
+    <button class="modal-close" onclick="closeLogin()">✕</button>
+    <h2>Login to your account</h2>
+    <form id="loginForm">
+      <label>Email</label>
+      <input type="email" id="email" placeholder="Enter your email">
+      <span id="emailError" class="error"></span>
+      <label>Password</label>
+      <div class="password-box">
+        <input type="password" id="password" placeholder="Enter your password">
+        <span onclick="togglePassword()">👁</span>
+      </div>
+      <span id="passwordError" class="error"></span>
+      <p id="error" class="error"></p>
+      <div class="options">
+        <a href="forget.html" class="forgot-link">Forgot Password?</a>
+      </div><br>
+      <button type="submit">Login</button>
+      <p class="create-account">
+        <a href="sign up page.html">Create a new account</a>
+      </p>
+    </form>
+  </div>
+</div>
+
+<!-- Login Script -->
+<script src="java/login.js"></script>
 <!--<script src="food.js"></script>-->
 <script src="java/nav.js"></script>
 </body>
