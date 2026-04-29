@@ -1,277 +1,363 @@
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, sans-serif;
+/* =============================================
+   CINEX — cinema.css
+   Full reset + layout fix + improved design
+   ============================================= */
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-background:#111;
-color:white;
+html {
+    scroll-behavior: smooth;
 }
 
-/* NAVBAR */
+body {
+    background: #0d0d0d;
+    color: #f0efe8;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden;
+}
 
-
-
-/* HERO SLIDER */
+/* =============================================
+   HERO SLIDER — FIXED
+   ============================================= */
 
 .hero {
-    position: relative;
-    height: 70vh;        /* bigger */
-    max-height: 600px;
+    position: relative;          /* ✅ buttons anchor here */
+    height: 70vh;
+    max-height: 620px;
     width: 90%;
-    margin: 40px auto;
+    margin: 30px auto 0;
     border-radius: 20px;
     overflow: hidden;
-    z-index: 2;
-}
-.slider{
-width:100%;
-height:100%;
-position:relative;
+    z-index: 1;
+    clear: both;                 /* ✅ prevents overlap */
 }
 
-.slide{
-position:absolute;
-width:100%;
-height:100%;
-opacity:0;
-transition:1s;
+.slider {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
 
-    background-position: center;}
+.slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
 
 .slide img {
     width: 100%;
     height: 100%;
-    object-fit: cover;   /* KEY FIX */
+    object-fit: cover;
     object-position: center;
-     image-rendering: auto;
-    
-    background-position: center;
-    background-position: top;
+    display: block;
 }
 
-.slide.active{
-opacity:1;
+/* Gradient overlay on each slide */
+.slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.75) 0%,
+        rgba(0, 0, 0, 0.2) 50%,
+        transparent 100%
+    );
+    pointer-events: none;
 }
 
-.caption{
-position:absolute;
-bottom:80px;
-left:60px;
-background:rgba(0,0,0,0.7);
-padding:25px;
-border-radius:10px;
+.slide.active {
+    opacity: 1;
 }
 
-.caption h2{
-font-size:40px;
-margin-bottom:10px;
+.caption {
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+    z-index: 2;
+    max-width: 500px;
 }
 
-.caption p{
-font-size:18px;
+.caption h2 {
+    font-size: 38px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.6);
 }
 
-/* MOVIES SECTION */
-
-.movies{
-padding:50px;
-text-align:center;
+.caption p {
+    font-size: 16px;
+    color: #ccc;
+    letter-spacing: 0.5px;
 }
 
-.movies h2{
-margin-bottom:30px;
-font-size:28px;
+/* =============================================
+   SLIDER BUTTONS — FIXED (inside .hero)
+   ============================================= */
+
+.prev, .next {
+    position: absolute;          /* ✅ relative to .hero */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.15);
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 3;
+    transition: background 0.25s, transform 0.25s, border-color 0.25s;
+    backdrop-filter: blur(6px);
 }
 
+.prev { left: 18px; }
+.next { right: 18px; }
 
-/* MOVIE GRID */
+.prev:hover, .next:hover {
+    background: #09c4e5;
+    border-color: #09c4e5;
+    transform: translateY(-50%) scale(1.12);
+}
+
+/* =============================================
+   NOW SHOWING
+   ============================================= */
+
+.movies {
+    padding: 60px 50px 40px;
+    text-align: center;
+    clear: both;
+}
+
+.movies h2 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+/* Underline accent */
+.movies h2::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 3px;
+    background: #09c4e5;
+    border-radius: 2px;
+    margin: 10px auto 0;
+}
+
+#now-showing {
+    scroll-margin-top: 90px;
+}
+
+/* =============================================
+   MOVIE GRID
+   ============================================= */
+
 .movie-container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 25px;
-    padding: 40px;
+    gap: 28px;
+    padding: 40px 20px;
 }
 
-/* CARD */
 .movie-card {
-    width: 180px;
+    width: 175px;
     text-align: center;
-    transition: 0.4s;
     text-decoration: none;
-    color: white;
+    color: #f0efe8;
     display: block;
-}
-.movie-card h3 {
-    text-decoration: none;
-    color: white;
+    transition: transform 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
 }
 
-/* POSTER */
+/* Blur siblings on hover */
+.movie-container:hover .movie-card {
+    filter: blur(3px);
+    opacity: 0.55;
+}
+
+.movie-container .movie-card:hover {
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1.08);
+    z-index: 2;
+}
+
+/* Poster */
 .poster {
     position: relative;
-}
-
-.poster .age {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: rgba(0,0,0,0.85);
-    padding: 4px 8px;
-    font-size: 12px;
-    border-radius: 6px;
-    font-weight: bold;
-    border: 1px solid #fff;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .poster img {
     width: 100%;
-    height: 270px;
+    height: 265px;
     object-fit: cover;
-    transition: 0.4s;
-    
+    display: block;
+    transition: transform 0.4s ease;
+    border-radius: 10px;
 }
 
+.movie-card:hover .poster img {
+    transform: scale(1.04);
+}
 
+/* Poster shimmer on hover */
 .poster::after {
     content: "";
     position: absolute;
     inset: 0;
-    transition: 0.4s;
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.55) 0%,
+        transparent 60%
+    );
+    border-radius: 10px;
+    transition: opacity 0.3s;
 }
 
-/* TITLE */
-.movie-card h3 {
-    margin-top: 10px;
-    font-size: 16px;
-    color: #f1f1f1;
-    letter-spacing: 1px;
-}
-
-/* AGE BADGE (CIRCLE) */
+/* Age badge */
 .age {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #111;
+    top: 9px;
+    right: 9px;
+    background: rgba(0, 0, 0, 0.85);
     color: white;
-    width: 35px;
-    height: 35px;
-    font-size: 12px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 7px;
+    border-radius: 5px;
+    border: 1px solid rgba(255,255,255,0.3);
+    z-index: 1;
+    letter-spacing: 0.5px;
 }
 
-/* 🔥 HOVER EFFECT (LIKE IMAGE) */
-.movie-container:hover .movie-card {
-    opacity: 1;
+.movie-card h3 {
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #e8e8e8;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    line-height: 1.3;
 }
 
-.movie-container .movie-card:hover {
-    opacity: 1;
-    transform: scale(1.1);
-}
-
-.movie-container .movie-card:hover .poster::after {
-    background: rgba(0,0,0,0.1);
-}
+/* =============================================
+   EXPERIENCES
+   ============================================= */
 
 .experiences {
-    background: black;
+    background: #000;
     color: white;
-    padding: 40px 60px;
+    padding: 60px 60px 70px;
+    clear: both;
 }
 
 .experiences h2 {
-    font-size: 28px;
-    margin-bottom: 10px;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
 }
 
-.experiences p {
-    font-size: 14px;
-    margin-bottom: 25px;
-    color: #ccc;
+.experiences > p {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 30px;
+    max-width: 600px;
+    line-height: 1.7;
+    letter-spacing: 0.3px;
 }
 
-/* Cards container */
 .cards {
     display: flex;
-    gap: 15px;
+    gap: 16px;
 }
 
-/* Each card */
 .card {
     flex: 1;
-    height: 200px;
-    border-radius: 12px;
+    height: 220px;
+    border-radius: 14px;
     background-size: cover;
     background-position: center;
     position: relative;
     overflow: hidden;
     cursor: pointer;
-     display: block; /* مهم جدا */
+    display: block;
     text-decoration: none;
     color: white;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Dark overlay */
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+}
+
 .overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.45);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: 0.3s;
+    transition: background 0.3s;
 }
 
-/* Text */
+.card:hover .overlay {
+    background: rgba(0, 0, 0, 0.25);
+}
+
 .overlay h3 {
-    font-size: 26px;
-    letter-spacing: 2px;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
 }
 
 .overlay span {
     font-size: 12px;
-    margin-top: 5px;
+    margin-top: 6px;
     color: #ddd;
-}
-
-/* Hover effect */
-.card:hover .overlay {
-    background: rgba(0,0,0,0.3);
+    letter-spacing: 1px;
 }
 
 /* Background images */
+.card.premiere  { background-image: url('../images/image 1.jpeg'); }
+.card.deluxe    { background-image: url('../images/deluxe.jpg'); }
+.card.standard  { background-image: url('../images/standard.jpg'); }
 
-.card.premiere {
-    background-image: url('../images/image 1.jpeg');
-}
-
-.card.deluxe {
-    background-image: url('../images/deluxe.jpg');
-}
-
-.card.standard {
-    background-image: url('../images/standard.jpg');
-}
-
-
-
-/* FOOTER */
-
-/* FOOTER NEW DESIGN */
+/* =============================================
+   FOOTER
+   ============================================= */
 
 .footer {
     background: #000;
-    color: #ccc;
-    padding: 40px 50px 20px;
+    color: #999;
+    padding: 50px 60px 24px;
+    border-top: 1px solid #1a1a1a;
+    clear: both;
 }
 
 .footer-container {
@@ -279,98 +365,57 @@ font-size:28px;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 30px;
+    margin-bottom: 10px;
 }
 
 .footer-section {
-    max-width: 250px;
+    max-width: 240px;
 }
 
 .footer-section h3 {
-    color: #f1ecec;
-    margin-bottom: 15px;
+    color: #f0efe8;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
 }
 
 .footer-section p {
-    font-size: 14px;
-    margin-bottom: 10px;
+    font-size: 13px;
+    margin-bottom: 8px;
+    line-height: 1.6;
+    color: #777;
 }
 
 .footer-section a {
     display: block;
-    color: #ccc;
+    color: #777;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13px;
     margin-bottom: 8px;
-    transition: 0.3s;
+    transition: color 0.2s;
 }
 
 .footer-section a:hover {
-    color: #10d3da;
+    color: #09c4e5;
 }
 
 .footer-bottom {
     text-align: center;
-    border-top: 1px solid #222;
+    border-top: 1px solid #1a1a1a;
     margin-top: 30px;
-    padding-top: 15px;
-    font-size: 13px;
-    color: #777;
-}
-/* BLUR EFFECT */
-
-.movie-container:hover .movie-card {
-    filter: blur(5px);
-    opacity: 0.5;
-    transition: 0.3s;
+    padding-top: 16px;
+    font-size: 12px;
+    color: #444;
+    letter-spacing: 0.5px;
 }
 
-.movie-container .movie-card:hover {
-    filter: blur(0);
-    opacity: 1;
-    transform: scale(1.1);
-    z-index: 2;
-}
-nav a i {
-    font-size: 18px;
-    transition: 0.3s;
-}
+/* =============================================
+   UTILITY
+   ============================================= */
 
-nav a i:hover {
-    color: #09b9e5;
-    transform: scale(1.2);
-}
-
-.prev, .next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 30px;
-    background: rgba(0,0,0,0.5);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 50%;
-    z-index: 3;
-    transition: 0.3s;
-}
-
-.prev {
-    left: 15px;
-}
-
-.next {
-    right: 15px;
-}
-
-.prev:hover, .next:hover {
-    background: #09c4e5;
-    transform: translateY(-50%) scale(1.2);
-}
-html {
-  scroll-behavior: smooth;
-}
-
-#now-showing {
-    scroll-margin-top: 100px; /* This keeps the title visible below your header */
+section {
+    clear: both;
+    width: 100%;
 }
