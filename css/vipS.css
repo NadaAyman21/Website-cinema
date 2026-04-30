@@ -1,0 +1,347 @@
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:          #07070f;
+  --bg2:         #0d0d1a;
+  --surface:     #12121f;
+  --border:      rgba(255,255,255,0.07);
+
+  /* VIP Gold/Orange Palette */
+  --vip-base:    #2e1a10;
+  --vip-top:     #4a2510;
+  --vip-arm:     #1e0f08;
+  --vip-glow:    #ffa040;
+
+  --occ:         #1a1a22;
+  --text:        #e8e6f8;
+  --muted:       #6a6a88;
+  --accent:      #ffb040; /* Primary VIP Gold */
+
+  --screen-w: 680px;
+  --seat-w:   36px;
+  --seat-h:   34px;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Ambient Orange Room Light */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 40% at 50% 0%, rgba(255, 140, 0, 0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 60% at 10% 80%, rgba(100, 50, 0, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── HEADER ── */
+header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 32px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(7,7,15,0.85);
+  backdrop-filter: blur(20px);
+}
+
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  text-shadow: 0 0 20px rgba(255, 176, 64, 0.5);
+}
+
+.movie-title { font-size: 0.95rem; font-weight: 600; }
+.movie-sub { font-size: 0.75rem; color: var(--muted); }
+
+.stage {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 20px 250px;
+}
+.stage-meta {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 32px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.stage-meta span { color: var(--accent); font-size: 1rem; font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.1em; }
+
+
+/* ── GOLD SCREEN ── */
+.screen-wrap {
+  width: 100%;
+  max-width: var(--screen-w);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.screen {
+  width: 90%;
+  height: 20px;
+  border-top: 2px solid var(--accent);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  box-shadow: 
+  0 -5px 15px -2px rgba(255, 140, 0, 0.6),
+   0 -2px 4px rgba(255, 255, 255, 0.5);
+    margin-bottom: 0;
+     background: transparent; 
+
+}
+
+.screen-label {
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 1.5em;
+  color: var(--accent);
+  margin-top: 15px;
+  opacity: 0.8;
+  text-shadow: 0 0 10px rgba(255, 176, 64, 0.3);
+  font-family: 'Outfit', sans-serif;
+  text-transform: uppercase;
+}
+
+/* ── THEATER LAYOUT ── */
+.theater {
+  perspective: 1400px;
+  width: 100%;
+  max-width: var(--screen-w);
+}
+
+.rows-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px; /* Real cinema spacing */
+  padding: 20px 0;
+}
+
+.seat-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.row-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--muted);
+  width: 20px;
+  text-align: center;
+}
+
+/* ── 3D VIP SEAT ── */
+.seat {
+  position: relative;
+  width: var(--seat-w);
+  height: var(--seat-h);
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transform: rotateX(28deg);
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.seat-back, .seat-cushion, .seat-arm-l, .seat-arm-r {
+  position: absolute;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--vip-top), var(--vip-base));
+}
+
+.seat-back {
+  width: 100%; height: 58%; top: 0;
+  transform: translateZ(3px);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.05);
+}
+
+.seat-cushion {
+  width: 94%; height: 42%; bottom: 0; left: 3%;
+  transform: rotateX(-55deg) translateZ(4px) translateY(6px);
+  transform-origin: top center;
+  box-shadow: inset 0 2px 3px rgba(255,255,255,0.07), 0 4px 8px rgba(0,0,0,0.5);
+}
+
+.seat-arm-l, .seat-arm-r { 
+  width: 14%; height: 50%; top: 18%; 
+  background: var(--vip-arm);
+}
+.seat-arm-l { left: -8%; }
+.seat-arm-r { right: -8%; }
+
+/* Occupied & Hold States */
+.seat.occupied { opacity: 0.15; cursor: not-allowed; pointer-events: auto !important;}
+.seat.hold {
+  cursor: not-allowed;
+  pointer-events: auto !important; /* Changed to allow hover */
+}
+.seat.hold .seat-back, .seat.hold .seat-cushion { background: #3a2e10 !important; box-shadow: none; }
+
+/* HOVER: Tooltip */
+.seat::before {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  background: rgba(13, 13, 26, 0.95);
+  border: 1px solid var(--accent);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: 0.2s;
+  pointer-events: none;
+  z-index: 100;
+}
+.seat:hover::before { opacity: 1; transform: translateX(-50%) scale(1); }
+
+/* SELECTED STATE */
+.seat.selected { transform: rotateX(28deg) translateY(-6px) scale(1.1); }
+.seat.selected .seat-back, .seat.selected .seat-cushion {
+  background: linear-gradient(180deg, #ffb040 0%, #a05010 100%) !important;
+}
+.seat.selected::after {
+  content: '';
+  position: absolute;
+  inset: -5px;
+  border-radius: 6px;
+  box-shadow: 0 0 15px 5px rgba(255, 176, 64, 0.5);
+  animation: pulseGold 1.5s infinite;
+}
+
+@keyframes pulseGold { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
+
+/* ── BOTTOM LEGEND ── */
+.legend {
+  display: flex;
+  gap: 25px;
+  margin-top: 60px;
+  padding: 15px 30px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 176, 64, 0.15);
+  border-radius: 50px;
+}
+
+.legend-item { display: flex; align-items: center; gap: 10px; font-size: 0.75rem; color: var(--muted); font-weight: 500; }
+.legend-seat { width: 20px; height: 16px; border-radius: 3px; }
+.leg-vip { background: linear-gradient(180deg, var(--vip-top), var(--vip-base)); border: 1px solid var(--vip-glow);}
+.leg-sel-vip { background: linear-gradient(180deg, #ffb040, #a05010); box-shadow: 0 0 10px var(--accent); }
+.leg-occ { background: #1a1a22; opacity: 0.4; }
+.leg-hold { background: #3a2e10; opacity: 0.7; }
+
+
+/* ── CHECKOUT BAR ── */
+.checkout-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  padding: 20px 40px;
+  background: rgba(7, 7, 15, 0.95);
+  border-top: 1px solid rgba(255, 176, 64, 0.1);
+  backdrop-filter: blur(20px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transform: translateY(100%);
+  transition: 0.4s;
+  z-index: 200;
+}
+.checkout-bar.visible { transform: translateY(0); }
+
+.checkout-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.2rem;
+  color: var(--accent);
+}
+
+/* Horizontal alignment for Chips + Button */
+.checkout-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.selected-chips {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.chip {
+  background: rgba(255, 176, 64, 0.1);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+  animation: chipIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-checkout {
+  background: linear-gradient(135deg, #ffb040, #a05010);
+  color: #fff;
+  border: none;
+  padding: 14px 35px;
+  border-radius: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+}
+
+@keyframes chipIn { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+/* Limit warning */
+.limit-warning {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: rgba(244,63,94,0.15);
+  border: 1px solid rgba(244,63,94,0.4);
+  color: #f87171;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  backdrop-filter: blur(12px);
+  z-index: 300;
+}
+.limit-warning.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
