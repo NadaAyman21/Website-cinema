@@ -1,7 +1,7 @@
 
 const SEAT_LIMIT = 6;
 const PRICES = { standard: 120, deluxe: 180, vip: 250 };
-const isVIPPage = window.location.pathname.includes('vip.html');
+const isVIPPage = window.location.pathname.includes('vipSeats.html');
 /* Row definitions: label, type, count, gaps(after seat index), occupied[], hold[] */
 const ROWS = isVIPPage ?[
    // VIP DATA: Rows A-E, all VIP type
@@ -159,6 +159,23 @@ function showWarning() {
 /* ══════════════════════════════════════
    CHECKOUT
 ══════════════════════════════════════ */
+let isConfirmed = false; // Tracks if we should redirect on OK click
+
+function showAlert(message, confirmed = false) {
+    const modal = document.getElementById("customAlert");
+    document.getElementById("alertMessage").innerText = message;
+    isConfirmed = confirmed; // Set flag
+    modal.style.display = "flex";
+}
+
+function closeAlert() {
+    document.getElementById("customAlert").style.display = "none";
+    // If it was the success message, redirect to orderSum
+    if (isConfirmed) {
+        window.location.href = "orderSum.html";
+    }
+}
+
 function checkout() {
   if (selectedSeats.length === 0) return;
   const total = selectedSeats.reduce((s, x) => s + x.price, 0);
@@ -172,13 +189,22 @@ function checkout() {
   // Visual feedback before redirect
   const btn = document.getElementById('btnCheckout');
   btn.textContent = '✓ Booking…';
-  btn.style.background = 'linear-gradient(135deg, #00a878, #005c40)';
+ 
 
   // In a real app: window.location.href = '/checkout';
   setTimeout(() => {
-    alert(`Booking confirmed!\n\nSeats: ${seatIds.join(', ')}\nTotal: EGP ${total.toLocaleString()}\n\n(Redirecting to payment…)`);
+   /* alert(`Booking confirmed!\n\nSeats: ${seatIds.join(', ')}\nTotal: EGP ${total.toLocaleString()}\n\n(Redirecting to payment…)`);
     btn.textContent = 'Confirm & Pay →';
-    btn.style.background = '';
+    btn.style.background = '';*/
+
+    const msg = `Booking confirmed!\n\nSeats: ${seatIds.join(', ')}\nTotal: EGP ${total.toLocaleString()}\n\n(Redirecting to payment…)`;
+        
+        // Trigger custom alert
+        showAlert(msg, true); 
+
+        // Reset button text
+        btn.innerHTML = 'Confirm & Pay &rarr;';
+
   }, 600);
 }
 
