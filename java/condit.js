@@ -10,9 +10,9 @@ window.onload = function() {
 
 function agree() {
     if (currentType === "premiere") {
-        window.location.href = "vip.html";   // Go to VIP seats
+        window.location.href = "vipSeats.html";   // Go to VIP seats
     } else {
-        window.location.href = "seats.html"; // Go to Standard seats
+        window.location.href = "normalSeats.html"; // Go to Standard seats
     }
 }
 
