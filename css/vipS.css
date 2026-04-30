@@ -64,8 +64,8 @@ header {
   text-shadow: 0 0 20px rgba(255, 176, 64, 0.5);
 }
 
-.movie-title { font-size: 0.95rem; font-weight: 600; }
-.movie-sub { font-size: 0.75rem; color: var(--muted); }
+
+.movie-sub { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
 
 .stage {
   position: relative;

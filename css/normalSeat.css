@@ -76,11 +76,6 @@ header {
 }
 
 .movie-meta { text-align: right; }
-.movie-title {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text);
-}
 .movie-sub {
   font-size: 0.75rem;
   color: var(--muted);
