@@ -3,31 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forgot Password Modal</title>
+    <title>Forgot Password</title>
     <link rel="stylesheet" href="css/forget.css">
-    <link rel="stylesheet" href="css/responsive.css">
 </head>
-<body>
+<body style="background:#111; display:flex; justify-content:center; align-items:center; height:100vh;">
 
-    <div class="modal-overlay">
-        <div class="forgot-password-card">
-            <div class="header-section">
-                
-                <h2>FORGOT YOUR PASSWORD</h2>
-            </div>
-            
-            <form>
-                <label for="email">ENTER YOUR EMAIL ADDRESS BELOW:</label>
-                <input type="email" id="email" name="email" required>
-                
-                <button type="submit" class="reset-btn">RESET PASSWORD</button>
-            </form>
-
-            <div class="footer-links">
-                <a href="login.html" class="back-link">Go back to login</a>
-            </div>
+    <!-- Standalone version for direct access -->
+    <div class="forgot-password-card">
+        <h2>FORGOT YOUR PASSWORD</h2>
+        <form id="forgotForm">
+            <label for="email">ENTER YOUR EMAIL ADDRESS BELOW:</label>
+            <input type="email" id="email" name="email" required placeholder="your@email.com">
+            <button type="submit" class="reset-btn">RESET PASSWORD</button>
+        </form>
+        <div class="footer-links">
+            <a href="#" onclick="history.back()" class="back-link">← Go back to login</a>
         </div>
     </div>
 
+    <script src="java/forget.js"></script>
 </body>
 </html>
