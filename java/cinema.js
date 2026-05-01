@@ -9,19 +9,7 @@ function showSlide(i) {
 function goToLogin(){
     window.location.href = "login.html";
 }
-// NEXT
-document.querySelector(".next").onclick = () => {
-    index++;
-    if (index >= slides.length) index = 0;
-    showSlide(index);
-};
 
-// PREV
-document.querySelector(".prev").onclick = () => {
-    index--;
-    if (index < 0) index = slides.length - 1;
-    showSlide(index);
-};
 
 // AUTO SLIDE
 setInterval(() => {
@@ -63,3 +51,36 @@ function displayMovies() {
 }
 
 displayMovies();
+
+const dotsContainer = document.getElementById("dots");
+
+function createDots() {
+    slides.forEach((_, i) => {
+        let dot = document.createElement("span");
+        dot.classList.add("dot");
+        if (i === 0) dot.classList.add("active");
+
+        dot.onclick = () => {
+            index = i;
+            showSlide(index);
+            updateDots();
+        };
+
+        dotsContainer.appendChild(dot);
+    });
+}
+
+function updateDots() {
+    let dots = document.querySelectorAll(".dot");
+    dots.forEach(dot => dot.classList.remove("active"));
+    dots[index].classList.add("active");
+}
+
+// Update inside showSlide
+function showSlide(i) {
+    slides.forEach(slide => slide.classList.remove("active"));
+    slides[i].classList.add("active");
+    updateDots();
+}
+
+createDots();
