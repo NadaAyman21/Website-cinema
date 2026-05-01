@@ -1,3 +1,28 @@
+// ── Modal controls ──
+function openSignup() {
+    const loginModal = document.getElementById("loginModal");
+    if (loginModal) loginModal.classList.remove("active");
+
+    const modal = document.getElementById("signupModal");
+    if (modal) {
+        modal.classList.add("active");
+        const form = document.getElementById("signupForm");
+        if (form) form.reset();
+        document.querySelectorAll(".error").forEach(e => e.innerText = "");
+    } else {
+        window.location.href = "sign up page.html";
+    }
+}
+
+function closeSignup() {
+    const modal = document.getElementById("signupModal");
+    if (modal) modal.classList.remove("active");
+}
+
+window.addEventListener("click", function(e) {
+    const modal = document.getElementById("signupModal");
+    if (modal && e.target === modal) closeSignup();
+});
 function togglePassword(inputId, icon) {
     let pass = document.getElementById(inputId);
 
