@@ -4,51 +4,80 @@
     padding: 0;
 }
 
-body {
-
-    font-family: Arial, sans-serif;
-    min-height: 100vh;
-    display: flex;
+/* ── Signup Modal Overlay ── */
+.signup-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.75); /* Dark transparency over the whole screen */
-    backdrop-filter: blur(15px);    /* The frosted glass blur */
-    -webkit-backdrop-filter: blur(15px);
+    z-index: 10000;
+    overflow-y: auto;
+    padding: 20px;
 }
 
+.signup-modal.active {
+    display: flex;
+}
+
+/* ── Card ── */
 .container {
     width: 100%;
-    max-width: 400px;
-    margin: 50px auto;
-    background-color: #ffffff;
-    padding: 25px;
+    max-width: 420px;
+    margin: auto;
+    background: #ffffff;
+    padding: 30px 28px;
     border-radius: 12px;
     color: #333;
     text-align: center;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3)
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    position: relative;
 }
 
 h2 {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
+    font-size: 20px;
 }
 
+/* ── Close button ── */
+.signup-modal .modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: #333;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    width: auto;
+}
+
+.signup-modal .modal-close:hover { color: #000; }
+
+/* ── Inputs ── */
 .input-box {
     position: relative;
-    margin: 10px 0;
+    margin: 8px 0;
 }
-
 
 .input-box input {
     width: 100%;
     padding: 10px 40px;
     border-radius: 6px;
-    border:1px solid #ddd;
-    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
     outline: none;
     font-size: 14px;
+    color: #333;
 }
-.gender p, .gender label, .checkbox, .footer {
-    color: #444; /* Dark gray text */
+
+.input-box input:focus {
+    border-color: #000;
 }
 
 .input-box i {
@@ -58,152 +87,128 @@ h2 {
     color: #555;
 }
 
-.input-box i:first-child {
-    left: 10px;
-}
-
+.input-box i:first-child { left: 10px; }
 
 .toggle {
     right: 10px;
     cursor: pointer;
 }
 
-
-.row {
-    display: block;
-}
-
-
+/* ── Gender ── */
 .gender {
     text-align: left;
-    margin: 15px 0;
+    margin: 12px 0;
 }
 
 .gender p {
     margin-bottom: 5px;
+    color: #444;
+    font-size: 14px;
 }
 
 .gender label {
     margin-right: 15px;
     font-size: 14px;
+    color: #444;
 }
 
-
+/* ── Checkbox ── */
 .checkbox {
     text-align: left;
-    margin: 15px 0;
+    margin: 12px 0;
     font-size: 14px;
+    color: #444;
 }
 
-.checkbox input {
-    margin-right: 5px;
+.checkbox input { margin-right: 5px; }
+
+/* ── Social icons ── */
+.container > a {
+    display: inline-block;
+    margin: 10px 6px 4px;
+    font-size: 24px;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s;
 }
 
+.container > a:hover { color: #000; }
 
+/* ── Button ── */
 .btn {
     width: 100%;
     padding: 12px;
-    background-color: #000000;
+    background: #000;
     border: none;
     border-radius: 6px;
     color: white;
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background 0.2s;
+    margin-top: 6px;
 }
 
-.btn:hover {
-    background-color: #8b1a1a;
-}
+.btn:hover { background: #222; }
 
-
-.social {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin: 15px 0;
-}
-
-.social button {
-    width: 42px;
-    height: 42px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.google {
-    background-color: white;
-}
-
-.apple {
-    background-color: black;
-    color: white;
-}
-
-
-a {
-    color: #ff4d4d;
-    text-decoration: none;
-}
-
+/* ── Footer link ── */
 .footer {
-    margin-top: 15px;
-    font-size: 14px;
+    margin-top: 14px;
+    font-size: 13px;
+    color: #444;
 }
 
+.footer a {
+    color: #000;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+/* ── Errors ── */
 .error {
     color: red;
     font-size: 12px;
     display: block;
-    margin-top: 3px;
+    margin-top: 2px;
+    text-align: left;
 }
 
-/* Modal Background (Overlay) */
+/* ── Custom Alert Modal ── */
 .custom-modal {
-    display: none; 
+    display: none;
     position: fixed;
-    z-index: 9999;
+    z-index: 99999;
     left: 0;
-     top: 0;
-    width: 100%; 
+    top: 0;
+    width: 100%;
     height: 100%;
-    padding: 3px;
-    background-color: rgba(0, 0, 0, 0.8); /* Darken screen */
+    background: rgba(0, 0, 0, 0.8);
     justify-content: center;
     align-items: flex-start;
 }
 
-/* Modal Box */
 .black-theme {
-    background-color: #1a1a1a; /* Dark Grey/Black */
+    background: #1a1a1a;
     color: white;
     padding: 15px 40px;
-    border-radius: 0 0 15px 15px; /* Rounded bottom corners */
+    border-radius: 0 0 15px 15px;
     border: 1px solid #444;
     text-align: left;
-    width: auto;
-    box-shadow: 0 5 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
 
-.black-theme h3 {
-    color: #00d4ff; /* A nice highlight color */
-    font-weight: bold;
-}
+.black-theme h3 { color: #00d4ff; font-weight: bold; }
 
 .black-theme button {
     margin-top: 8px;
     padding: 10px 40px;
-    background-color: #00d4ff;
+    background: #00d4ff;
     border-radius: 2px;
     color: black;
     font-weight: bold;
+    width: auto;
+    border: none;
+    cursor: pointer;
 }
 
-.black-theme button:hover {
-    background-color: #008cb3;
-}
+.black-theme button:hover { background: #008cb3; }
