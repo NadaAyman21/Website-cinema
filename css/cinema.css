@@ -99,39 +99,6 @@ body {
 }
 
 /* =============================================
-   SLIDER BUTTONS — FIXED (inside .hero)
-   ============================================= */
-
-.prev, .next {
-    position: absolute;          /* ✅ relative to .hero */
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 22px;
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: 1px solid rgba(255,255,255,0.15);
-    width: 46px;
-    height: 46px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border-radius: 50%;
-    z-index: 3;
-    transition: background 0.25s, transform 0.25s, border-color 0.25s;
-    backdrop-filter: blur(6px);
-}
-
-.prev { left: 18px; }
-.next { right: 18px; }
-
-.prev:hover, .next:hover {
-    background: #09c4e5;
-    border-color: #09c4e5;
-    transform: translateY(-50%) scale(1.12);
-}
-
-/* =============================================
    NOW SHOWING
    ============================================= */
 
