@@ -1,115 +1,134 @@
-/* General Reset */
-* {
-    box-sizing: border-box;
-    
-    margin: 0;
-    padding: 0;
-}
+/* === FORGOT PASSWORD MODAL ONLY === */
 
-body {
-    display: flex;
+.forgot-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: rgba(0, 0, 0, 0.8);
-
-    backdrop-filter: blur(15px);
-
-    -webkit-backdrop-filter: blur(15px);
+    z-index: 10000;
 }
 
-/* Modal Card */
+.forgot-modal.active {
+    display: flex;
+}
+
 .forgot-password-card {
     background-color: #ffffff;
     width: 450px;
-
     padding: 40px 50px;
     border-radius: 4px;
     text-align: center;
     position: relative;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-    z-index: 10;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
 }
 
-/* Header */
-.header-section {
-    margin-bottom: 30px;
-}
-
-.header-section h2 {
-    font-size: 24px;
-    letter-spacing: 1px;
+.forgot-password-card h2 {
+    font-size: 22px;
     font-weight: 800;
     text-transform: uppercase;
+    letter-spacing: 1px;
     color: #000;
-   letter-spacing: 1px;
+    margin-bottom: 28px;
 }
 
-
-/* Form Elements */
-label {
+.forgot-password-card label {
     display: block;
     text-align: left;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     margin-bottom: 8px;
     color: #444;
     text-transform: uppercase;
-    
 }
 
-input[type="email"] {
+.forgot-password-card input[type="email"] {
     width: 100%;
     padding: 12px;
     border: 1px solid #c0c0c0;
     border-radius: 3px;
-    font-size: 16px;
-    background-color: transparent;
+    font-size: 15px;
+    background: transparent;
     outline: none;
     color: #000;
     margin-bottom: 20px;
 }
 
-/* Action Buttons */
+.forgot-password-card input[type="email"]:focus {
+    border-color: #000;
+}
+
 .reset-btn {
     width: 100%;
-    background-color: #000;
+    background: #000;
     color: #fff;
-    padding: 14px;
+    padding: 13px;
     border: 1px solid #000;
     border-radius: 5px;
     font-weight: 700;
     font-size: 14px;
     cursor: pointer;
-    transition: all 0.3s ease;
     text-transform: uppercase;
-    margin-top: 0;
-
+    transition: background 0.2s;
 }
 
 .reset-btn:hover {
-    background-color:#1a1a1a ;
-    
+    background: #222;
 }
 
-/* Footer Link */
 .footer-links {
-    margin-top: 35px;
-    border-top: 1px solid #eeeeee; /* Divider line */
-    padding-top: 25px;
+    margin-top: 28px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
 }
 
 .back-link {
     color: #666;
     text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 13px;
+    font-weight: 600;
     text-transform: uppercase;
-    transition: color 0.1s;
+    transition: color 0.2s;
 }
 
 .back-link:hover {
-    text-decoration: underline;
     color: #000;
+    text-decoration: underline;
+}
+
+.forgot-modal .modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: #333;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    width: auto;
+}
+
+.forgot-modal .modal-close:hover {
+    color: #000;
+}
+
+.success {
+    color: green;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.error {
+    color: red;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
 }
