@@ -171,8 +171,3 @@ button:hover {
     background: transparent;
     color: #000;
 }
-
-/* Make login-box position:relative so X positions inside it */
-.login-box {
-    position: relative;
-}
