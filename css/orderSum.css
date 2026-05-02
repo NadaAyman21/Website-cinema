@@ -5,6 +5,12 @@ body{
     justify-content:center;
     align-items:center;
     height:100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),  url('../images/b3.png');
+      background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    
 }
 
 .summary-container{
