@@ -291,78 +291,73 @@
 
 <!-- Signup Modal -->
 <div class="signup-modal" id="signupModal">
-    <div class="container">
+    <div class="containerS">
         <button class="modal-close" onclick="closeSignup()">✕</button>
         <h2>Create your account</h2>
         <form id="signupForm">
             <div class="row">
-                <div class="input-box">
+                <div class="input-boxS">
                     <i class="fa fa-user"></i>
                     <input type="text" id="firstName" placeholder="First Name">
-                </div>
                 <small class="error" id="firstNameError"></small>
-                <div class="input-box">
+                </div>
+                <div class="input-boxS">
                     <i class="fa fa-user"></i>
                     <input type="text" id="lastName" placeholder="Last Name">
-                </div>
                 <small class="error" id="lastNameError"></small>
+                </div>
             </div>
 
-            <div class="input-box">
+            <div class="input-boxS">
                 <i class="fa fa-envelope"></i>
                 <input type="email" id="email" placeholder="Enter your email">
-            </div>
             <small class="error" id="emailError"></small>
-
-            <div class="input-box password-box">
+               </div>
+            <div class="input-boxS password-box">
                 <i class="fa fa-lock"></i>
                 <input type="password" id="password" placeholder="Enter your password">
                 <i class="fa fa-eye toggle" onclick="togglePassword('password', this)"></i>
-            </div>
             <small class="error" id="passwordError"></small>
-
-            <div class="input-box password-box">
+               </div>
+            <div class="input-boxS password-box">
                 <input type="password" id="confirmPassword" placeholder="Confirm your password">
                 <i class="fa fa-eye toggle" onclick="togglePassword('confirmPassword', this)"></i>
-            </div>
             <small class="error" id="confirmPasswordError"></small>
-
-            <div class="gender">
+               </div>
+            <div class="genderS">
                 <p>Gender:</p>
                 <label><input type="radio" name="gender"> Male</label>
                 <label><input type="radio" name="gender"> Female</label>
-            </div>
             <small class="error" id="genderError"></small>
-
-            <div class="input-box">
+            </div>
+            <div class="input-boxS">
                 <i class="fa fa-phone"></i>
                 <input type="tel" id="tel" placeholder="Phone Number">
-            </div>
             <small class="error" id="phoneError"></small>
-
-            <div class="input-box">
+             </div>
+            <div class="input-boxS">
                 <i class="fa fa-calendar"></i>
                 <input type="date" id="dob">
-            </div>
             <small class="error" id="dobError"></small>
-
+            </div>
+           <div class="social-icons-wrap">
             <a href="https://accounts.google.com"><i class="fa-brands fa-google"></i></a>
             <a href="https://account.apple.com"><i class="fa-brands fa-apple"></i></a>
-
-            <div class="checkbox">
+           </div>
+            <div class="checkboxS">
                 <label><input type="checkbox" id="terms"> I accept the terms and conditions</label>
-            </div>
             <small class="error" id="termsError"></small>
-
+              </div>
             <button class="btn" type="submit">Sign Up</button>
         </form>
-        <div class="footer">
+        <div class="footerS">
             <p>Already have an account?
                 <a href="#" onclick="closeSignup(); openLogin(); return false;">Login</a>
             </p>
         </div>
     </div>
 </div>
+
 
 <!-- Custom Alert -->
 <div id="customAlert" class="custom-modal">
