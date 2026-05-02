@@ -193,10 +193,6 @@ function checkout() {
 
   // In a real app: window.location.href = '/checkout';
   setTimeout(() => {
-   /* alert(`Booking confirmed!\n\nSeats: ${seatIds.join(', ')}\nTotal: EGP ${total.toLocaleString()}\n\n(Redirecting to payment…)`);
-    btn.textContent = 'Confirm & Pay →';
-    btn.style.background = '';*/
-
     const msg = `Booking confirmed!\n\nSeats: ${seatIds.join(', ')}\nTotal: EGP ${total.toLocaleString()}\n\n(Redirecting to payment…)`;
         
         // Trigger custom alert

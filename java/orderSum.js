@@ -4,8 +4,7 @@
     const time = localStorage.getItem('selectedTime');
     const day = localStorage.getItem('selectedDay');
     const dateText = localStorage.getItem('selectedDateText');
-    const finalPrice = localStorage.getItem('savedTotal');
-
+      const finalPrice = localStorage.getItem('totalPrice');
     // 2. Target the elements using querySelector (required for class paths)
     const movieNameElem = document.querySelector('.movie-box h2');
     const dateTimeElem = document.querySelector('.movie-box p:nth-of-type(1)');
@@ -23,8 +22,8 @@
         fullDateElem.innerText = dateText;
     }
 
-    if (finalPrice) {
-        priceBoxElem.innerText = `${finalPrice} EGP`;
+    if (finalPrice && priceBoxElem) {
+        priceBoxElem.innerText = `${finalPrice}.00 EGP`;
     }
 });
 
@@ -110,11 +109,11 @@ if (payBtn) {
             isValid = false;
         }
 
-        if (!isValid) return;
+        /*if (!isValid) return;
 
         // ✅ Save price
         const priceDisplay = document.querySelector('.price-box').innerText;
-        localStorage.setItem('finalAmount', priceDisplay);
+        localStorage.setItem('finalAmount', priceDisplay);*/
 
         // ✅ Go to payment
         window.location.href = "form.html";
