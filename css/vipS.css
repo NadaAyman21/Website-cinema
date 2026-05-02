@@ -22,7 +22,11 @@
   --seat-w:   36px;
   --seat-h:   34px;
 }
-
+#movieTitleDisplay
+{
+    font-family: 'Outfit', sans-serif;
+    color: var(--accent);
+}
 body {
   font-family: 'Outfit', sans-serif;
   background: var(--bg);

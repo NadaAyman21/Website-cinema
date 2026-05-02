@@ -204,7 +204,26 @@ function checkout() {
   }, 600);
 }
 
-/* ══════════════════════════════════════
-   INIT
-══════════════════════════════════════ */
+function displayMovieMeta() {
+    // 1. Get the values that movie.js saved
+    const day = localStorage.getItem('selectedDay');
+    const time = localStorage.getItem('selectedTime');
+    const movieSub = document.getElementById('movieSub');
+    const movieName = localStorage.getItem('selectedMovie');
+    const movieTitle = document.getElementById('movieTitleDisplay');
+    
+if (movieTitle && movieName) {
+        movieTitle.textContent = movieName;
+    }
+
+    // Display Sub-details (Day, Time, Room)
+    if (movieSub) {
+        const roomName = isVIPPage ? "Private Suite 1" : "Screen 4";
+        if (day && time) {
+            movieSub.textContent = `${day} · ${time} · ${roomName}`;
+        }
+    }
+
+}
+displayMovieMeta();
 buildSeats();

@@ -29,6 +29,11 @@
 
 html { font-size: 16px; }
 
+#movieTitleDisplay
+{
+    font-family: 'Outfit', sans-serif;
+    color: var(--sel-glow);
+}
 body {
   font-family: 'Outfit', sans-serif;
   background: var(--bg);
@@ -37,9 +42,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ══════════════════════════════════════
-   AMBIENT ROOM LIGHTING
-══════════════════════════════════════ */
 body::before {
   content: '';
   position: fixed;
