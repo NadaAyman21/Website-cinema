@@ -71,7 +71,7 @@ h2 {
 /* ── Compact Inputs ── */
 .input-boxS {
     position: relative;
-    margin-bottom: 6px; /* Tight spacing between rows */
+    margin-bottom: 20px; /* Tight spacing between rows */
 }
 
 .input-boxS input {
@@ -87,6 +87,9 @@ h2 {
 
 .input-boxS input:focus {
     border-color: #000;
+}
+.input-boxS input.invalid {
+    border-color: red;
 }
 
 .input-boxS i:not(.toggle) {
@@ -176,13 +179,17 @@ h2 {
 }
 
 /* ── Errors ── */
-.error {
+.errorS {
     color: red;
-    font-size: 12px;
+    font-size: 10px;
+    position: absolute;
+    left: 5px;            /* Align with the start of the box */
+    bottom: -15px;        /* Position it exactly under the input box */
+    display: none;        /* Hide it by default */
+    font-weight: 500;
+}
+.errorS.active {
     display: block;
-    margin-top: 2px;
-    text-align: left;
-    margin-bottom: 5px;
 }
 
 /* ── Custom Alert Modal ── */

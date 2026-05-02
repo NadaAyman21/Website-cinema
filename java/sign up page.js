@@ -1,4 +1,19 @@
 // ── Modal controls ──
+function togglePasswordS(inputId, icon) {
+    const passInput = document.getElementById(inputId);
+    if (!passInput) return; // Safety check
+
+    if (passInput.type === "password") {
+        passInput.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        passInput.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
+
 function openSignup() {
     const loginModal = document.getElementById("loginModal");
     if (loginModal) loginModal.classList.remove("active");
@@ -6,9 +21,14 @@ function openSignup() {
     const modal = document.getElementById("signupModal");
     if (modal) {
         modal.classList.add("active");
+ 
         const form = document.getElementById("signupForm");
         if (form) form.reset();
-        document.querySelectorAll(".error").forEach(e => e.innerText = "");
+        document.querySelectorAll(".errorS").forEach(e => {
+            e.innerText = "";
+            e.classList.remove("active");
+        });
+        document.querySelectorAll(".input-boxS input").forEach(i => i.classList.remove("invalid"));
     } else {
         window.location.href = "sign up page.html";
     }
@@ -23,28 +43,9 @@ window.addEventListener("click", function(e) {
     const modal = document.getElementById("signupModal");
     if (modal && e.target === modal) closeSignup();
 });
-function togglePassword(inputId, icon) {
-    let pass = document.getElementById(inputId);
 
-    if (pass.type === "password") {
-        pass.type = "text";
-        icon.classList.remove("fa-eye");
-        icon.classList.add("fa-eye-slash");
-    } else {
-        pass.type = "password";
-        icon.classList.remove("fa-eye-slash");
-        icon.classList.add("fa-eye");
-    }
-}
 
-function toggleConfirmPassword() {
-    let pass = document.getElementById("confirmPassword");
-    if (pass.type === "password") {
-        pass.type = "text";
-    } else {
-        pass.type = "password";
-    }
-}
+
 function showAlert(message) {
     const modal = document.getElementById("customAlert");
     if (modal) {
@@ -61,100 +62,120 @@ function closeAlert() {
     }
 }
 
-  document.getElementById("signupForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+ // Ensure the form exists before adding the listener
+const signupForm = document.getElementById("signupForm");
 
-    let valid = true;
+if (signupForm) {
+    signupForm.addEventListener("submit", function(e) {
+        e.preventDefault();
 
-    // Get values
-    let firstName = document.getElementById("firstName").value.trim();
-    let lastName = document.getElementById("lastName").value.trim();
-    let email = document.getElementById("email").value.trim();
-    let password = document.getElementById("password").value;
-    let confirmPassword = document.getElementById("confirmPassword").value;
-    let phone = document.getElementById("tel").value.trim();
-    let dob = document.getElementById("dob").value;
-    let terms = document.getElementById("terms").checked;
-    let gender = document.querySelector('input[name="gender"]:checked');
+        let valid = true;
 
-   
+        let firstNameInput = document.getElementById("firstName");
+        let lastNameInput = document.getElementById("lastName");
+        let emailInput = document.getElementById("signupEmail");
+        let passwordInput = document.getElementById("signupPassword");
+        let confirmInput = document.getElementById("signupconfirmPassword");
+        let phoneInput = document.getElementById("tel");
+        let dobInput = document.getElementById("dob");
 
-    // Clear errors
-    document.querySelectorAll(".error").forEach(e => e.innerText = "");
+        let firstName = firstNameInput.value.trim();
+        let lastName = lastNameInput.value.trim();
+        let email = emailInput.value.trim();
+        let password = passwordInput.value; 
+        let confirmPassword = confirmInput.value;
+        let phone = phoneInput.value.trim();
+        let dob = dobInput.value;
+        let terms = document.getElementById("terms").checked;
+        let gender = document.querySelector('input[name="gender"]:checked');
 
-    // First Name
-    if (firstName === "" || firstName.length < 2) {
-        document.getElementById("firstNameError").innerText = "Enter valid first name";
-        valid = false;
-    }
+        // 2. Clear all previous errors and red borders
+        document.querySelectorAll(".errorS").forEach(err => {
+            err.innerText = "";
+            err.classList.remove("active");
+        });
+        document.querySelectorAll(".input-boxS input").forEach(input => {
+            input.classList.remove("invalid");
+        });
 
-    // Last Name
-    if (lastName === "" || lastName.length < 2) {
-        document.getElementById("lastNameError").innerText = "Enter valid last name";
-        valid = false;
-    }
-
-    // Email
-    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-    if (!email.match(emailPattern)) {
-        document.getElementById("emailError").innerText = "Invalid email format";
-        valid = false;
-    }
-
-    // Password
-    let passwordPattern = /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
-    if (!password.match(passwordPattern)) {
-        document.getElementById("passwordError").innerText =
-            "Password must contain 1 uppercase, 1 number, min 6 chars";
-        valid = false;
-    }
-
-    // Confirm Password
-    if (password !== confirmPassword) {
-        document.getElementById("confirmPasswordError").innerText = "Passwords do not match";
-        valid = false;
-    }
-
-    // Gender
-    if (!gender) {
-        document.getElementById("genderError").innerText = "Select your gender";
-        valid = false;
-    }
-
-    // Phone (Egypt format)
-    let phonePattern = /^01[0-2,5]{1}[0-9]{8}$/;
-    if (!phone.match(phonePattern)) {
-        document.getElementById("phoneError").innerText = "Invalid phone number";
-        valid = false;
-    }
-
-    // Date of Birth (must be 13+)
-    if (!dob) {
-        document.getElementById("dobError").innerText = "Select your birth date";
-        valid = false;
-    } else {
-        let today = new Date();
-let birthDate = new Date(dob);
-let age = today.getFullYear() - birthDate.getFullYear();
-let m = today.getMonth() - birthDate.getMonth();
-
-if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-}
-        if (age < 13) {
-            document.getElementById("dobError").innerText = "You must be at least 13";
+        // 3. Validation Logic (With Active Classes)
+        if (firstName.length < 2) {
+            let err = document.getElementById("firstNameError");
+            err.innerText = "Enter valid first name";
+            err.classList.add("active");
+            firstNameInput.classList.add("invalid");
             valid = false;
         }
-    }
+        if (lastName.length < 2) {
+            let err = document.getElementById("lastNameError");
+            err.innerText = "Enter valid last name";
+            err.classList.add("active");
+            lastNameInput.classList.add("invalid");
+            valid = false;
+        }
 
-    // Terms
-    if (!terms) {
-        document.getElementById("termsError").innerText = "You must accept terms";
-        valid = false;
-    }
+        let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+        if (!email.match(emailPattern)) {
+            let err = document.getElementById("signupemailError");
+            err.innerText = "Invalid email format";
+            err.classList.add("active");
+            emailInput.classList.add("invalid");
+            valid = false;
+        }
 
-    // Success
-    if (valid) {
-        showAlert("Signup successful 🎉");
-    }
-});
+        let passwordPattern = /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
+        if (!password.match(passwordPattern)) {
+            let err = document.getElementById("signuppasswordError");
+            err.innerText = "Password must contain 1 uppercase, 1 number, min 6 chars";
+            err.classList.add("active");
+            passwordInput.classList.add("invalid");
+            valid = false;
+        }
+
+        if (password !== confirmPassword) {
+            let err = document.getElementById("signupconfirmPasswordError");
+            err.innerText = "Passwords do not match";
+            err.classList.add("active");
+            confirmInput.classList.add("invalid");
+            valid = false;
+        }
+
+        if (!gender) {
+            let err = document.getElementById("genderError");
+            err.innerText = "Select your gender";
+            err.classList.add("active");
+            valid = false;
+        }
+
+        if (phone === "") {
+            let err = document.getElementById("phoneError");
+            err.innerText = "Invalid phone number";
+            err.classList.add("active");
+            phoneInput.classList.add("invalid");
+            valid = false;
+        }
+
+        if (!dob) {
+            let err = document.getElementById("dobError");
+            err.innerText = "Select your birth date";
+            err.classList.add("active");
+            dobInput.classList.add("invalid");
+            valid = false;
+        }
+
+        if (!terms) {
+            let err = document.getElementById("termsError");
+            err.innerText = "You must accept terms";
+            err.classList.add("active");
+            valid = false;
+        }
+
+        // 4. Success
+        if (valid) {
+            showAlert("Signup successful 🎉");
+        }
+    });
+    
+
+
+}

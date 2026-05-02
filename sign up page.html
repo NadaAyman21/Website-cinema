@@ -16,48 +16,50 @@
                 <div class="input-boxS">
                     <i class="fa fa-user"></i>
                     <input type="text" id="firstName" placeholder="First Name">
-                <small class="error" id="firstNameError"></small>
+                <small class="errorS" id="firstNameError"></small>
                 </div>
                 <div class="input-boxS">
                     <i class="fa fa-user"></i>
                     <input type="text" id="lastName" placeholder="Last Name">
-                <small class="error" id="lastNameError"></small>
+                <small class="errorS" id="lastNameError"></small>
                 </div>
             </div>
 
             <div class="input-boxS">
                 <i class="fa fa-envelope"></i>
-                <input type="email" id="email" placeholder="Enter your email">
-            <small class="error" id="emailError"></small>
+                <input type="email" id="signupEmail" placeholder="Enter your email">
+            <small class="errorS" id="signupemailError"></small>
                </div>
             <div class="input-boxS password-box">
                 <i class="fa fa-lock"></i>
-                <input type="password" id="password" placeholder="Enter your password">
-                <i class="fa fa-eye toggle" onclick="togglePassword('password', this)"></i>
-            <small class="error" id="passwordError"></small>
+                <input type="password" id="signupPassword" placeholder="Enter your password" >
+               <i class="fa fa-eye toggle" onclick="togglePasswordS('signupPassword', this)"></i>
+                
+            <small class="errorS" id="signuppasswordError"></small>
                </div>
             <div class="input-boxS password-box">
-                <input type="password" id="confirmPassword" placeholder="Confirm your password">
-                <i class="fa fa-eye toggle" onclick="togglePassword('confirmPassword', this)"></i>
+                <input type="password" id="signupconfirmPassword" placeholder="Confirm your password">
+               <i class="fa fa-eye toggle" onclick="togglePasswordS('signupconfirmPassword', this)"></i>
+                
             
-            <small class="error" id="confirmPasswordError"></small>
+            <small class="errorS" id="signupconfirmPasswordError"></small>
                </div>
             <div class="genderS">
                 <p>Gender:</p>
                 <label><input type="radio" name="gender"> Male</label>
                 <label><input type="radio" name="gender"> Female</label>
-            <small class="error" id="genderError"></small>
+            <small class="errorS" id="genderError"></small>
             </div>
             <div class="input-boxS">
                 <i class="fa fa-phone"></i>
                 <input type="tel" id="tel" placeholder="Phone Number">
-            <small class="error" id="phoneError"></small>
+            <small class="errorS" id="phoneError"></small>
              </div>
             <div class="input-boxS">
                 <i class="fa fa-calendar"></i>
                 <input type="date" id="dob">
             
-            <small class="error" id="dobError"></small>
+            <small class="errorS" id="dobError"></small>
             </div>
            <div class="social-icons-wrap">
             <a href="https://accounts.google.com"><i class="fa-brands fa-google"></i></a>
@@ -66,7 +68,7 @@
             <div class="checkboxS">
                 <label><input type="checkbox" id="terms"> I accept the terms and conditions</label>
             
-            <small class="error" id="termsError"></small>
+            <small class="errorS" id="termsError"></small>
               </div>
 
             <button class="btn" type="submit">Sign Up</button>
