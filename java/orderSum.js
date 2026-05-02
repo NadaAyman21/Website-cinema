@@ -109,11 +109,11 @@ if (payBtn) {
             isValid = false;
         }
 
-        /*if (!isValid) return;
+        if (!isValid) return;
 
         // ✅ Save price
         const priceDisplay = document.querySelector('.price-box').innerText;
-        localStorage.setItem('finalAmount', priceDisplay);*/
+        localStorage.setItem('finalAmount', priceDisplay);
 
         // ✅ Go to payment
         window.location.href = "form.html";
