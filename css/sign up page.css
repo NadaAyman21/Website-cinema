@@ -34,7 +34,7 @@
     position: relative;
 }
 
-h2 {
+.containerS h2 {
     margin-bottom: 15px;
     font-size: 17px;
     font-weight: 800;
@@ -144,7 +144,7 @@ h2 {
 }
 
 /* ── Compact Button ── */
-.btn {
+.containerS .btn {
     width: 100%;
     padding: 11px;
     background: #000;
