@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -10,8 +11,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// --- ADD THIS LINE TO SERVE YOUR FRONTEND ---
-app.use(express.static(__dirname));
+// Serve static assets (CSS, Images, JS)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Serve your HTML files
+app.use(express.static(path.join(__dirname, 'views')));
 
 // Routes
 app.use('/api/movies', movieRoutes); 
