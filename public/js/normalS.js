@@ -1,16 +1,8 @@
 
 const SEAT_LIMIT = 6;
-const PRICES = { standard: 120, deluxe: 180, vip: 250 };
-const isVIPPage = window.location.pathname.includes('vipSeats.html');
+const PRICES = { standard: 120, deluxe: 180};
 /* Row definitions: label, type, count, gaps(after seat index), occupied[], hold[] */
-const ROWS = isVIPPage ?[
-   // VIP DATA: Rows A-E, all VIP type
-  { label:'A', type:'vip', count:8, gap:4, occupied:[1, 4, 7], hold:[2,5] },
-  { label:'B', type:'vip', count:8, gap:4, occupied:[0, 3,6],    hold:[] },
-  { label:'C', type:'vip', count:8, gap:4, occupied:[5, 6],    hold:[1] },
-  { label:'D', type:'vip', count:10, gap:5, occupied:[2, 8],   hold:[] },
-  { label:'E', type:'vip', count:10, gap:5, occupied:[0, 1, 9], hold:[5] }
-] : [ 
+const ROWS = [
   { label:'A', type:'standard', count:12, gap:5, occupied:[2,5,9],      hold:[] },
   { label:'B', type:'standard', count:12, gap:5, occupied:[0,7],        hold:[3,4] },
   { label:'C', type:'standard', count:14, gap:6, occupied:[1,6,11],     hold:[8] },
