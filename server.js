@@ -18,6 +18,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.get("/cinemaM", (req, res) => {
+
+    res.render("cinemaM");
+
+});
+
+app.get("/", (req, res) => {
+
+    res.render("cinemaM");
+});
 
 app.get("/food", (req, res) => {
     res.render("food"); 
