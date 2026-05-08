@@ -2,9 +2,6 @@
 // LOAD MOVIES
 
 
-
-
-
 let movies = JSON.parse(localStorage.getItem("movies")) || [];
 let editIndex = -1;
 

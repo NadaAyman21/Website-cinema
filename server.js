@@ -10,10 +10,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/css', express.static('C:\\Users\\Razan\\OneDrive\\Documents\\web development\\cinema project\\public\\css'));
+/*app.use('/css', express.static('C:\\Users\\Razan\\OneDrive\\Documents\\web development\\cinema project\\public\\css'));
 app.use('/java', express.static('C:\\Users\\Razan\\OneDrive\\Documents\\web development\\cinema project\\public\\java'));
-app.use('/images', express.static('C:\\Users\\Razan\\OneDrive\\Documents\\web development\\cinema project\\public\\images'));
-
+app.use('/images', express.static('C:\\Users\\Razan\\OneDrive\\Documents\\web development\\cinema project\\public\\images'));*/
+app.use(express.static(path.join(__dirname, 'public')));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
