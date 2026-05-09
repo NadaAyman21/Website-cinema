@@ -62,3 +62,22 @@
     </div>
 
 </nav>
+<div class="login-modal" id="loginModal">
+    <%- include('login') %>
+</div>
+
+<div class="signup-modal" id="signupModal">
+    <%- include('sign up page') %>
+</div>
+
+<div class="forgot-modal" id="forgotModal">
+    <%- include('forget') %>
+</div>
+
+<div id="customAlert" class="custom-modal">
+    <div class="modal-content black-theme">
+        <h3 id="alertTitle">CineX says</h3>
+        <p id="alertMessage"></p>
+        <button onclick="closeAlert()">OK</button>
+    </div>
+</div>

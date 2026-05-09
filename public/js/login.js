@@ -57,10 +57,10 @@ if(form){
         const password = document.getElementById("password").value.trim();
 
         if(email === "admin@gmail.com" && password === "Admin123"){
-            window.location.href = "admin.html";
+            window.location.href = "/admin";
         }
         else if(email === "user@gmail.com" && password === "User123"){
-            window.location.href = "cinemaM.html";
+            window.location.href = "/cinemaM";
         }
         else{
             document.getElementById("error").innerText = "Invalid email or password!";
@@ -70,7 +70,7 @@ if(form){
    
 
 
-function openLogin() {
+/*function openLogin() {
     document.getElementById("loginModal").classList.add("active");
     document.getElementById("loginForm").reset();
     document.getElementById("emailError").innerText = "";
@@ -85,4 +85,4 @@ function closeLogin() {
 window.addEventListener("click", function(e) {
     const modal = document.getElementById("loginModal");
     if (e.target === modal) closeLogin();
-});
+});*/

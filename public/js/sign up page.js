@@ -14,38 +14,6 @@ function togglePasswordS(inputId, icon) {
     }
 }
 
-function openSignup() {
-    const loginModal = document.getElementById("loginModal");
-    if (loginModal) loginModal.classList.remove("active");
-
-    const modal = document.getElementById("signupModal");
-    if (modal) {
-        modal.classList.add("active");
- 
-        const form = document.getElementById("signupForm");
-        if (form) form.reset();
-        document.querySelectorAll(".errorS").forEach(e => {
-            e.innerText = "";
-            e.classList.remove("active");
-        });
-        document.querySelectorAll(".input-boxS input").forEach(i => i.classList.remove("invalid"));
-    } else {
-        window.location.href = "sign up page.html";
-    }
-}
-
-function closeSignup() {
-    const modal = document.getElementById("signupModal");
-    if (modal) modal.classList.remove("active");
-}
-
-window.addEventListener("click", function(e) {
-    const modal = document.getElementById("signupModal");
-    if (modal && e.target === modal) closeSignup();
-});
-
-
-
 function showAlert(message) {
     const modal = document.getElementById("customAlert");
     if (modal) {

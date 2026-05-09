@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="/css/sign up page.css">
-</head>
-<body style="background:#111; min-height:100vh; display:flex; justify-content:center; align-items:center;">
 
-    <!-- Standalone version for direct access -->
     <div class="containerS">
+        <button class="modal-close" onclick="closeSignup()">✕</button>
         <h2>Create your account</h2>
         <form id="signupForm">
             <div class="row">
@@ -74,18 +65,8 @@
             <button class="btn" type="submit">Sign Up</button>
         </form>
         <div class="footerS">
-            <p>Already have an account? <a href="/login">Login</a></p>
+            <p>Already have an account? <a href="#" onclick=" closeSignup(); openLogin(); return false;">Login</a></p>
         </div>
     </div>
 
-    <div id="customAlert" class="custom-modal">
-        <div class="modal-content black-theme">
-            <h3 id="alertTitle">CineX.com says</h3>
-            <p id="alertMessage"></p>
-            <button onclick="closeAlert()">OK</button>
-        </div>
-    </div>
-
-    <script src="/js/sign up page.js"></script>
-</body>
-</html>
+  

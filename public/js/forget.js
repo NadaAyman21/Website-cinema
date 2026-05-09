@@ -1,4 +1,4 @@
-function openForgot() {
+/*function openForgot() {
     const loginModal = document.getElementById("loginModal");
     if (loginModal) loginModal.classList.remove("active");
 
@@ -25,7 +25,7 @@ function closeForgot() {
 window.addEventListener("click", function(e) {
     const modal = document.getElementById("forgotModal");
     if (modal && e.target === modal) closeForgot();
-});
+});*/
 
 // ✅ Delegate submit — works even when form was hidden on load
 document.addEventListener("submit", function(e) {
