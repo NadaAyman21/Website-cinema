@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineX — VIP Suite</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="/css/vipS.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+</head>
+<body class="vip-page">
+
+<header>
+  <div class="logo"> CineX <span style="font-size: 0.6rem; vertical-align: middle; color: #ffb040; border: 1px solid #ffb040; padding: 2px 4px; border-radius: 4px; margin-left: 5px;">VIP</span></div>
+  <div class="movie-meta">
+    <h2 id="movieTitleDisplay"></h2>
+    <div class="movie-sub" id="movieSub"></div>
+  </div>
+</header>
+
+<div class="limit-warning" id="limitWarning">Maximum 6 seats per booking</div>
+
+<main class="stage">
+
+  <div class="stage-meta">
+    <div>Selected: <span id="metaCount">0</span></div>
+    <div>Max: <span>6</span> seats</div>
+  </div>
+
+  <div class="screen-wrap">
+    <div class="screen"></div>
+    <div class="screen-label">VIP SCREEN</div>
+  </div>
+
+  <div class="theater">
+    <div class="rows-container" id="seatsContainer">
+      </div>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-seat leg-vip"></div> VIP</div>
+    <div class="legend-item"><div class="legend-seat leg-sel-vip"></div> Selected</div>
+    <div class="legend-item"><div class="legend-seat leg-hold"></div> On Hold</div>
+    <div class="legend-item"><div class="legend-seat leg-occ"></div> Taken</div>
+  </div>
+
+</main>
+
+<div class="checkout-bar" id="checkoutBar">
+  <div class="checkout-info">
+    <div class="checkout-seats" id="checkoutSeats">0 seats selected</div>
+    <div class="checkout-price" id="checkoutPrice">EGP 0</div>
+  </div>
+  <div class="checkout-right">
+    <div class="selected-chips" id="selectedChips"></div>
+    <button class="btn-checkout" id="btnCheckout" onclick="checkout()">
+      Confirm &amp; Pay →
+    </button>
+  </div>
+</div>
+<div id="customAlert" class="custom-modal">
+    <div class="modal-content black-theme">
+        <h3 id="alertTitle">CineX.com says</h3>
+        <p id="alertMessage"></p>
+        <button onclick="closeAlert()">OK</button>
+    </div>
+</div>
+ 
+<script src="/js/vipS.js"></script>
+</body>
+</html>
