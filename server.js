@@ -10,9 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-/*app.use('/css', express.static('C:\\Users\\Razan\\OneDrive\\Documents\\web development\\cinema project\\public\\css'));
-app.use('/java', express.static('C:\\Users\\Razan\\OneDrive\\Documents\\web development\\cinema project\\public\\java'));
-app.use('/images', express.static('C:\\Users\\Razan\\OneDrive\\Documents\\web development\\cinema project\\public\\images'));*/
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -32,6 +30,9 @@ app.get("/", (req, res) => {
 
 app.get("/food", (req, res) => {
     res.render("food"); 
+});
+app.get("/premier", (req, res) => {
+    res.render("premier"); 
 });
 
 app.get("/admin", (req, res) => {
