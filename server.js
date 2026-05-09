@@ -31,8 +31,12 @@ app.get("/", (req, res) => {
 app.get("/food", (req, res) => {
     res.render("food"); 
 });
+
 app.get("/premier", (req, res) => {
     res.render("premier"); 
+});
+app.get("/stanard", (req, res) => {
+    res.render("stanard"); 
 });
 
 app.get("/admin", (req, res) => {
