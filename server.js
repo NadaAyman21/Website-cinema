@@ -42,6 +42,15 @@ app.get("/movie", (req, res) => {
     res.render("movie"); 
 });
 
+app.get("/normalSeats", (req, res) => {
+    res.render("normalSeats"); 
+});
+app.get("/vipSeats", (req, res) => {
+    res.render("vipSeats"); 
+});
+app.get("/condtions", (req, res) => {
+    res.render("condtions"); 
+});
 
 app.get("/admin", (req, res) => {
     console.log("ADMIN ROUTE HIT");

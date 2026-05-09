@@ -149,7 +149,7 @@ function selectTime(btn){
     }
 
     // Redirect to conditions.html with the type in the URL
-    window.location.href = `condtions.html?type=${typeParam}`;
+    window.location.href = `/condtions?type=${typeParam}`;
 
 }
 
