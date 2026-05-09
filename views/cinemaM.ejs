@@ -182,123 +182,6 @@
 </div>
 
 </footer>
-<!-- Login Modal -->
-<div class="login-modal" id="loginModal">
-  <div class="login-box">
-    <button class="modal-close" onclick="closeLogin()">✕</button>
-    <h2>Login to your account</h2>
-    <form id="loginForm">
-      <label>Email</label>
-      <input type="email" id="email" placeholder="Enter your email">
-      <span id="emailError" class="error"></span>
-      <label>Password</label>
-      <div class="password-box">
-        <input type="password" id="password" placeholder="Enter your password">
-        <span onclick="togglePassword()">👁</span>
-      </div>
-      <span id="passwordError" class="error"></span>
-      <p id="error" class="error"></p>
-      <div class="options">
-       <a href="#" class="forgot-link" onclick="closeLogin(); openForgot(); return false;">Forgot Password?</a>
-      </div><br>
-      <button type="submit">Login</button>
-      <p class="create-account">
-        <a href="#" onclick="closeLogin(); openSignup(); return false;">Create a new account</a>
-      </p>
-    </form>
-  </div>
-</div>
-<!-- Forgot Password Modal -->
-<div class="forgot-modal" id="forgotModal">
-    <div class="forgot-password-card">
-        <button class="modal-close" onclick="closeForgot()">✕</button>
-        <h2>FORGOT YOUR PASSWORD</h2>
-        <form id="forgotForm">
-            <label for="forgotEmail">ENTER YOUR EMAIL ADDRESS BELOW:</label>
-            <input type="email" id="forgotEmail" name="email" required placeholder="your@email.com">
-            <p id="forgotError" class="error"></p>
-            <p id="forgotSuccess" class="success"></p>
-            <button type="submit" class="reset-btn">RESET PASSWORD</button>
-        </form>
-        <div class="footer-links">
-            <a href="#" class="back-link" onclick="closeForgot(); openLogin(); return false;">← Back to Login</a>
-        </div>
-    </div>
-</div>
-
-<!-- Signup Modal -->
-<div class="signup-modal" id="signupModal">
-    <div class="containerS">
-        <button class="modal-close" onclick="closeSignup()">✕</button>
-        <h2>Create your account</h2>
-        <form id="signupForm">
-          <div class="row">
-                <div class="input-boxS">
-                    <i class="fa fa-user"></i>
-                    <input type="text" id="firstName" placeholder="First Name">
-                <small class="errorS" id="firstNameError"></small>
-                </div>
-                <div class="input-boxS">
-                    <i class="fa fa-user"></i>
-                    <input type="text" id="lastName" placeholder="Last Name">
-                <small class="errorS" id="lastNameError"></small>
-                </div>
-            </div>
-
-            <div class="input-boxS">
-                <i class="fa fa-envelope"></i>
-                <input type="email" id="signupEmail" placeholder="Enter your email">
-            <small class="errorS" id="signupemailError"></small>
-               </div>
-            <div class="input-boxS password-box">
-                <i class="fa fa-lock"></i>
-                <input type="password" id="signupPassword" placeholder="Enter your password">
-                <i class="fa fa-eye toggle" onclick="togglePasswordS('signupPassword', this)"></i>
-            <small class="errorS" id="signuppasswordError"></small>
-               </div>
-            <div class="input-boxS password-box">
-                <input type="password" id="signupconfirmPassword" placeholder="Confirm your password">
-                <i class="fa fa-eye toggle" onclick="togglePasswordS('signupconfirmPassword', this)"></i>
-            
-            <small class="errorS" id="signupconfirmPasswordError"></small>
-               </div>
-            <div class="genderS">
-                <p>Gender:</p>
-                <label><input type="radio" name="gender"> Male</label>
-                <label><input type="radio" name="gender"> Female</label>
-            <small class="errorS" id="genderError"></small>
-            </div>
-            <div class="input-boxS">
-                <i class="fa fa-phone"></i>
-                <input type="tel" id="tel" placeholder="Phone Number">
-            <small class="errorS" id="phoneError"></small>
-             </div>
-            <div class="input-boxS">
-                <i class="fa fa-calendar"></i>
-                <input type="date" id="dob">
-            
-            <small class="errorS" id="dobError"></small>
-            </div>
-           <div class="social-icons-wrap">
-            <a href="https://accounts.google.com"><i class="fa-brands fa-google"></i></a>
-            <a href="https://account.apple.com"><i class="fa-brands fa-apple"></i></a>
-           </div>
-            <div class="checkboxS">
-                <label><input type="checkbox" id="terms"> I accept the terms and conditions</label>
-            
-            <small class="errorS" id="termsError"></small>
-              </div>
-
-            <button class="btn" type="submit">Sign Up</button>
-        </form>
-        <div class="footerS">
-            <p>Already have an account?
-                <a href="#" onclick="closeSignup(); openLogin(); return false;">Login</a>
-            </p>
-        </div>
-    </div>
-</div>
-
 
 <!-- Custom Alert -->
 <div id="customAlert" class="custom-modal">
@@ -309,11 +192,12 @@
     </div>
 </div>
 
+
+<script src="/js/nav.js"></script>
+<script src="/js/login.js"></script>
 <script src="/js/sign up page.js"></script>
 <script src="/js/forget.js"></script>
-<script src="/js/login.js"></script>
 <script src="/js/cinema.js"></script>
-<script src="/js/nav.js"></script>
 </body>
 </html>
 
