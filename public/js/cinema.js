@@ -39,14 +39,14 @@ setInterval(() => {
 createDots();
 
 // ── NAVIGATION ──────────────────────────────────────────
-function toggleMenu() {
+/*function toggleMenu() {
     let nav = document.getElementById("navLinks");
     nav.classList.toggle("active");
 }
 
 function goToLogin() {
     window.location.href = "login.html";
-}
+}*/
 
 function goToPage(element) {
     window.location.href = element.dataset.page;
@@ -67,7 +67,7 @@ function displayMovies() {
 
     movies.forEach(movie => {
         container.innerHTML += `
-            <a href="movie.html?id=${movie.id}" class="movie-card">
+            <a href="/movie?id=${movie.id}" class="movie-card">
                 <div class="poster">
                     <img src="${movie.image}" alt="${movie.title}">
                     <span class="age">${movie.age || "+0"}</span>

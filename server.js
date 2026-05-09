@@ -38,6 +38,10 @@ app.get("/premier", (req, res) => {
 app.get("/stanard", (req, res) => {
     res.render("stanard"); 
 });
+app.get("/movie", (req, res) => {
+    res.render("movie"); 
+});
+
 
 app.get("/admin", (req, res) => {
     console.log("ADMIN ROUTE HIT");
