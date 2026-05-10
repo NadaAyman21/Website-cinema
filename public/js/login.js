@@ -1,88 +1,102 @@
-// Toggle password visibility
+// ── Toggle password visibility ──
 function togglePassword() {
-    let password = document.getElementById("password");
-
-    if (password.type === "password") {
-        password.type = "text";
-    } else {
-        password.type = "password";
-    }
+    const password = document.getElementById("loginPassword");
+    password.type = password.type === "password" ? "text" : "password";
 }
-function validateEmail(){
-    let email = document.getElementById("email").value.trim();
-    let emailError = document.getElementById("emailError");
+
+// ── Email validation ──
+function validateEmail() {
+    const email = document.getElementById("loginEmail").value.trim();
+    const emailError = document.getElementById("loginEmailError");
+    const pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
 
     emailError.innerText = "";
+    document.getElementById("loginEmail").classList.remove("invalid");
 
-    let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-
-    if(email === "" || !email.match(pattern)){
+    if (email === "" || !email.match(pattern)) {
         emailError.innerText = "Enter a valid email";
+        emailError.classList.add("active");
+        document.getElementById("loginEmail").classList.add("invalid");
         return false;
     }
 
+    emailError.classList.remove("active");
     return true;
 }
 
-function validatePassword(){
-    let password = document.getElementById("password").value.trim();
-    let passwordError = document.getElementById("passwordError");
+// ── Password validation ──
+function validatePassword() {
+    const password = document.getElementById("loginPassword").value.trim();
+    const passwordError = document.getElementById("loginPasswordError");
+    const pattern = /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
 
     passwordError.innerText = "";
+    document.getElementById("loginPassword").classList.remove("invalid");
 
-    let passwordPattern = /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
-
-    if(!password.match(passwordPattern)){
-        passwordError.innerText =
-            "Password must contain 1 uppercase, 1 number, min 6 chars";
+    if (!password.match(pattern)) {
+        passwordError.innerText = "Password must contain 1 uppercase, 1 number, min 6 chars";
+        passwordError.classList.add("active");
+        document.getElementById("loginPassword").classList.add("invalid");
         return false;
     }
 
+    passwordError.classList.remove("active");
     return true;
 }
-const form = document.getElementById("loginForm");
 
-if(form){
-    form.addEventListener("submit", function(e){
+// ── Form submit ──
+const loginForm = document.getElementById("loginForm");
+
+if (loginForm) {
+    loginForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        let valid = true;
+        const isEmailValid    = validateEmail();
+        const isPasswordValid = validatePassword();
 
-        if(!validateEmail()) valid = false;
-        if(!validatePassword()) valid = false;
+        if (!isEmailValid || !isPasswordValid) return;
 
-        if(!valid) return;
+        const email    = document.getElementById("loginEmail").value.trim();
+        const password = document.getElementById("loginPassword").value.trim();
 
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value.trim();
-
-        if(email === "admin@gmail.com" && password === "Admin123"){
+        if (email === "admin@gmail.com" && password === "Admin123") {
             window.location.href = "/admin";
-        }
-        else if(email === "user@gmail.com" && password === "User123"){
+        } else if (email === "user@gmail.com" && password === "User123") {
             window.location.href = "/cinemaM";
-        }
-        else{
-            document.getElementById("error").innerText = "Invalid email or password!";
+        } else {
+            // Show invalid credentials under the password field
+            const passwordError = document.getElementById("loginPasswordError");
+            passwordError.innerText = "Invalid email or password";
+            passwordError.classList.add("active");
+            document.getElementById("loginPassword").classList.add("invalid");
         }
     });
 }
-   
 
-
-/*function openLogin() {
+// ── Modal controls ──
+function openLogin() {
     document.getElementById("loginModal").classList.add("active");
+
+    // Reset form
     document.getElementById("loginForm").reset();
-    document.getElementById("emailError").innerText = "";
-    document.getElementById("passwordError").innerText = "";
-    document.getElementById("error").innerText = "";
+
+    // Clear all errors
+    document.getElementById("loginEmailError").innerText = "";
+    document.getElementById("loginEmailError").classList.remove("active");
+    document.getElementById("loginPasswordError").innerText = "";
+    document.getElementById("loginPasswordError").classList.remove("active");
+
+    // Clear invalid borders
+    document.getElementById("loginEmail").classList.remove("invalid");
+    document.getElementById("loginPassword").classList.remove("invalid");
 }
 
 function closeLogin() {
     document.getElementById("loginModal").classList.remove("active");
 }
 
-window.addEventListener("click", function(e) {
+// Close on backdrop click
+window.addEventListener("click", function (e) {
     const modal = document.getElementById("loginModal");
     if (e.target === modal) closeLogin();
-});*/
+});
