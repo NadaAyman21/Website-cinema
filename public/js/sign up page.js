@@ -1,7 +1,7 @@
-// ── Modal controls ──
+// ── Toggle password visibility ──
 function togglePasswordS(inputId, icon) {
     const passInput = document.getElementById(inputId);
-    if (!passInput) return; // Safety check
+    if (!passInput) return;
 
     if (passInput.type === "password") {
         passInput.type = "text";
@@ -14,6 +14,7 @@ function togglePasswordS(inputId, icon) {
     }
 }
 
+// ── Custom alert modal ──
 function showAlert(message) {
     const modal = document.getElementById("customAlert");
     if (modal) {
@@ -22,128 +23,124 @@ function showAlert(message) {
     }
 }
 
-// 2. Function to close it
 function closeAlert() {
     const modal = document.getElementById("customAlert");
-    if (modal) {
-        modal.style.display = "none";
-    }
+    if (modal) modal.style.display = "none";
 }
 
- // Ensure the form exists before adding the listener
+// ── Helper: show a field error ──
+function showError(errorId, inputEl, message) {
+    const err = document.getElementById(errorId);
+    if (!err) return;
+    err.innerText = message;
+    err.classList.add("active");
+    if (inputEl) inputEl.classList.add("invalid");
+}
+
+// ── Helper: clear all errors ──
+function clearErrors() {
+    document.querySelectorAll(".errorS").forEach(err => {
+        err.innerText = "";
+        err.classList.remove("active");
+    });
+    document.querySelectorAll(".input-boxS input").forEach(input => {
+        input.classList.remove("invalid");
+    });
+}
+
+// ── Signup form ──
 const signupForm = document.getElementById("signupForm");
 
 if (signupForm) {
-    signupForm.addEventListener("submit", function(e) {
+    signupForm.addEventListener("submit", function (e) {
         e.preventDefault();
+
+        // Get elements
+        const firstNameInput   = document.getElementById("firstName");
+        const lastNameInput    = document.getElementById("lastName");
+        const emailInput       = document.getElementById("signupEmail");
+        const passwordInput    = document.getElementById("signupPassword");
+        const confirmInput     = document.getElementById("signupConfirmPassword"); // FIX: was signupconfirmPassword
+        const phoneInput       = document.getElementById("tel");
+        const dobInput         = document.getElementById("dob");
+        const termsInput       = document.getElementById("terms");
+        const genderInput      = document.querySelector('input[name="gender"]:checked');
+
+        // Get values
+        const firstName      = firstNameInput.value.trim();
+        const lastName       = lastNameInput.value.trim();
+        const email          = emailInput.value.trim();
+        const password       = passwordInput.value;
+        const confirmPassword = confirmInput.value;
+        const phone          = phoneInput.value.trim();
+        const dob            = dobInput.value;
+        const terms          = termsInput.checked;
+
+        clearErrors();
 
         let valid = true;
 
-        let firstNameInput = document.getElementById("firstName");
-        let lastNameInput = document.getElementById("lastName");
-        let emailInput = document.getElementById("signupEmail");
-        let passwordInput = document.getElementById("signupPassword");
-        let confirmInput = document.getElementById("signupconfirmPassword");
-        let phoneInput = document.getElementById("tel");
-        let dobInput = document.getElementById("dob");
-
-        let firstName = firstNameInput.value.trim();
-        let lastName = lastNameInput.value.trim();
-        let email = emailInput.value.trim();
-        let password = passwordInput.value; 
-        let confirmPassword = confirmInput.value;
-        let phone = phoneInput.value.trim();
-        let dob = dobInput.value;
-        let terms = document.getElementById("terms").checked;
-        let gender = document.querySelector('input[name="gender"]:checked');
-
-        // 2. Clear all previous errors and red borders
-        document.querySelectorAll(".errorS").forEach(err => {
-            err.innerText = "";
-            err.classList.remove("active");
-        });
-        document.querySelectorAll(".input-boxS input").forEach(input => {
-            input.classList.remove("invalid");
-        });
-
-        // 3. Validation Logic (With Active Classes)
+        // First name
         if (firstName.length < 2) {
-            let err = document.getElementById("firstNameError");
-            err.innerText = "Enter valid first name";
-            err.classList.add("active");
-            firstNameInput.classList.add("invalid");
+            showError("firstNameError", firstNameInput, "Enter valid first name");
             valid = false;
         }
+
+        // Last name
         if (lastName.length < 2) {
-            let err = document.getElementById("lastNameError");
-            err.innerText = "Enter valid last name";
-            err.classList.add("active");
-            lastNameInput.classList.add("invalid");
+            showError("lastNameError", lastNameInput, "Enter valid last name");
             valid = false;
         }
 
-        let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+        // Email
+        const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
         if (!email.match(emailPattern)) {
-            let err = document.getElementById("signupemailError");
-            err.innerText = "Invalid email format";
-            err.classList.add("active");
-            emailInput.classList.add("invalid");
+            showError("signupEmailError", emailInput, "Invalid email format"); // FIX: was signupemailError
             valid = false;
         }
 
-        let passwordPattern = /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
+        // Password
+        const passwordPattern = /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
         if (!password.match(passwordPattern)) {
-            let err = document.getElementById("signuppasswordError");
-            err.innerText = "Password must contain 1 uppercase, 1 number, min 6 chars";
-            err.classList.add("active");
-            passwordInput.classList.add("invalid");
+            showError("signupPasswordError", passwordInput, "Password must contain 1 uppercase, 1 number, min 6 chars"); // FIX: was signuppasswordError
             valid = false;
         }
 
+        // Confirm password
         if (password !== confirmPassword) {
-            let err = document.getElementById("signupconfirmPasswordError");
-            err.innerText = "Passwords do not match";
-            err.classList.add("active");
-            confirmInput.classList.add("invalid");
+            showError("signupConfirmPasswordError", confirmInput, "Passwords do not match"); // FIX: was signupconfirmPasswordError
             valid = false;
         }
 
-        if (!gender) {
-            let err = document.getElementById("genderError");
-            err.innerText = "Select your gender";
-            err.classList.add("active");
+        // Gender
+        if (!genderInput) {
+            showError("genderError", null, "Select your gender");
             valid = false;
         }
 
-        if (phone === "") {
-            let err = document.getElementById("phoneError");
-            err.innerText = "Invalid phone number";
-            err.classList.add("active");
-            phoneInput.classList.add("invalid");
+        // Phone
+        const phonePattern = /^\+?[\d\s\-(). ]{7,}$/;
+        if (!phone.match(phonePattern)) {                          // FIX: was checking empty string only
+            showError("phoneError", phoneInput, "Invalid phone number");
             valid = false;
         }
 
+        // Date of birth
         if (!dob) {
-            let err = document.getElementById("dobError");
-            err.innerText = "Select your birth date";
-            err.classList.add("active");
-            dobInput.classList.add("invalid");
+            showError("dobError", dobInput, "Select your birth date");
             valid = false;
         }
 
+        // Terms
         if (!terms) {
-            let err = document.getElementById("termsError");
-            err.innerText = "You must accept terms";
-            err.classList.add("active");
+            showError("termsError", null, "You must accept the terms");
             valid = false;
         }
 
-        // 4. Success
+        // Success
         if (valid) {
             showAlert("Signup successful 🎉");
+            signupForm.reset();
         }
     });
-    
-
-
 }
