@@ -1,5 +1,7 @@
 const SEAT_LIMIT = 6;
 const PRICES = { vip: 250 };
+let is3dOpen = false, animFrame3d, initialized3d = false;
+let targetRotY = 0, targetRotX = 0, currentRotY = 0, currentRotX = 0;
 
 /* Row definitions for VIP Private Suite */
 const ROWS = [
