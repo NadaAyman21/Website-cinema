@@ -22,6 +22,21 @@ function toggle3dView() {
 }
 function init3dScene() {
   const movieName = localStorage.getItem('selectedMovie') || 'NOW SHOWING'; 
+const titleEl = document.getElementById('screenMovieTitle');
+  if (titleEl) titleEl.textContent = movieName.toUpperCase();
+
+  // ── Stars ──
+  const starsEl = document.getElementById('stars3d');
+  if (starsEl) {
+    for (let i = 0; i < 120; i++) {
+      const s = document.createElement('div');
+      s.className = 'star3d';
+      const size  = Math.random() * 2.5 + 0.5;
+      const minOp = (Math.random() * 0.3 + 0.1).toFixed(2);
+      s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*65}%;left:${Math.random()*100}%;--min-op:${minOp};--d:${(Math.random()*3+2).toFixed(2)}s;animation-delay:${(Math.random()*5).toFixed(2)}s;opacity:${minOp}`;
+      starsEl.appendChild(s);
+    } 
+}
 
 /* Row definitions for VIP Private Suite */
 const ROWS = [
