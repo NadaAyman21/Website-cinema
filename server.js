@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const movieRoutes = require('./routes/movieRoutes');
+const Movie = require('./models/Movie');
 require('dotenv').config();
 
 const app = express();
@@ -52,10 +53,7 @@ app.get("/condtions", (req, res) => {
     res.render("condtions"); 
 });
 
-app.get("/admin", (req, res) => {
-    console.log("ADMIN ROUTE HIT");
-    res.render("admin");
-});
+
 
 app.use('/api/movies', movieRoutes);
 
