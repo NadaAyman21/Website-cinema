@@ -3,8 +3,8 @@
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(to bottom, #000000, #0a1a1a);
-    color: #ffffff;
+    background: var(--bg-primary);
+    color: var(--text-primary);
 }
 
 /* Layout */
@@ -42,10 +42,7 @@ h2 {
 
 p {
     margin-top: 10px;
-    color: #cfcfcf;
+    color: var(--text-muted);
     line-height: 1.7;
     font-size: 15px;
 }
-
-
-

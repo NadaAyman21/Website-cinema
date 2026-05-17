@@ -14,8 +14,8 @@ html {
 }
 
 body {
-    background: #0d0d0d;
-    color: #f0efe8;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
 }
@@ -25,7 +25,7 @@ body {
    ============================================= */
 
 .hero {
-    position: relative;          /* ✅ buttons anchor here */
+    position: relative;
     height: 70vh;
     max-height: 620px;
     width: 90%;
@@ -33,7 +33,7 @@ body {
     border-radius: 20px;
     overflow: hidden;
     z-index: 1;
-    clear: both;                 /* ✅ prevents overlap */
+    clear: both;
 }
 
 .slider {
@@ -94,7 +94,7 @@ body {
 
 .caption p {
     font-size: 16px;
-    color: #ccc;
+    color: var(--text-muted);
     letter-spacing: 0.5px;
 }
 
@@ -149,7 +149,7 @@ body {
     width: 175px;
     text-align: center;
     text-decoration: none;
-    color: #f0efe8;
+    color: var(--text-primary);
     display: block;
     transition: transform 0.3s ease, filter 0.3s ease, opacity 0.3s ease;
 }
@@ -221,7 +221,7 @@ body {
     margin-top: 12px;
     font-size: 14px;
     font-weight: 600;
-    color: #e8e8e8;
+    color: var(--text-primary);
     letter-spacing: 0.8px;
     text-transform: uppercase;
     line-height: 1.3;
@@ -232,8 +232,8 @@ body {
    ============================================= */
 
 .experiences {
-    background: #000;
-    color: white;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
     padding: 60px 60px 70px;
     clear: both;
 }
@@ -248,7 +248,7 @@ body {
 
 .experiences > p {
     font-size: 13px;
-    color: #888;
+    color: var(--text-muted);
     margin-bottom: 30px;
     max-width: 600px;
     line-height: 1.7;
@@ -271,7 +271,7 @@ body {
     cursor: pointer;
     display: block;
     text-decoration: none;
-    color: white;
+    color: var(--text-primary);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -314,8 +314,6 @@ body {
 .card.premiere  { background-image: url('../images/image 1.jpeg'); }
 .card.deluxe    { background-image: url('../images/deluxe.jpg'); }
 .card.standard  { background-image: url('../images/standard.jpg'); }
-
-
 
 section {
     clear: both;
