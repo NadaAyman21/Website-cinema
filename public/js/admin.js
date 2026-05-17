@@ -46,3 +46,37 @@ function renderMoviesList(movies) {
         listContainer.appendChild(card);
     });
 }
+
+async function handleFormSubmit(e) {
+    e.preventDefault();
+
+    // Collect values matching your backend structure expectations
+    const payload = {
+        title: document.getElementById('title').value,
+        genre: document.getElementById('genre').value,
+        runTime: document.getElementById('time').value,
+        ageRating: document.getElementById('age').value,
+        imageUrl: document.getElementById('image').value,
+        videoUrl: document.getElementById('trailer').value,
+        cast: document.getElementById('cast').value,
+        description: document.getElementById('story').value
+    };
+
+    let url = '/api/movies/add';
+    let method = 'POST';
+
+    // Switch details if editing mode is active
+    if (editingMovieId) {
+        url = `/api/movies/edit/${editingMovieId}`;
+        method = 'PUT';
+    }
+
+    try {
+        const res = await fetch(url, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+      
+}
