@@ -59,7 +59,8 @@ app.get("/admin",async (req, res) => {
         const movies = await Movie.find().sort({ createdAt: -1 });
         res.render("admin", { movies: movies });
     } catch (err) {
-        
+       console.error(err);
+        res.status(500).send("Error loading dashboard data"); 
     }
 });
 
