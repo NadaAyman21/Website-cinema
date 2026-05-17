@@ -10,3 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', handleFormSubmit);
 });
 
+async function fetchMovies() {
+    try {
+        const res = await fetch('/api/movies');
+        const movies = await res.json();
+        renderMoviesList(movies);
+    } catch (err) {
+        console.error("Error fetching movies:", err);
+    }
+}
