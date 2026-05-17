@@ -139,8 +139,36 @@ if (signupForm) {
 
         // Success
         if (valid) {
-            showAlert("Signup successful 🎉");
-            signupForm.reset();
+            const data = {
+                firstName: firstName,
+                lastName:  lastName,
+                email:     email,
+                password:  password,
+                gender:    genderInput.value,
+                phone:     phone,
+                dob:       dob
+            };
+
+            fetch('/api/auth/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    showAlert("Signup successful 🎉");
+                    signupForm.reset();
+                    closeSignup();
+                    openLogin();
+                } else {
+                    showAlert(result.message); // "email already exists" etc.
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                showAlert("Something went wrong. Try again.");
+            });
         }
     });
 }
