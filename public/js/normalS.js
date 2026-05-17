@@ -1,5 +1,25 @@
 const SEAT_LIMIT = 6;
 const PRICES = { standard: 120, deluxe: 180 };
+let is3dOpen = false, animFrame3d, initialized3d = false;
+let targetRotY = 0, targetRotX = 0, currentRotY = 0, currentRotX = 0;
+
+function toggle3dView() {
+  is3dOpen = !is3dOpen;
+  const overlay = document.getElementById('view3d-overlay');
+  const btn     = document.getElementById('btn3dToggle');
+  if (is3dOpen) {
+    overlay.classList.add('visible');
+    btn.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    if (!initialized3d) { init3dScene(); initialized3d = true; }
+    start3dLoop();
+  } else {
+    overlay.classList.remove('visible');
+    btn.classList.remove('active');
+    document.body.style.overflow = '';
+    cancelAnimationFrame(animFrame3d);
+  }
+}
 
 /* Row definitions for Standard and Deluxe only */
 const ROWS = [ 
