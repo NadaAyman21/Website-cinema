@@ -59,17 +59,7 @@ if (loginForm) {
         const email    = document.getElementById("loginEmail").value.trim();
         const password = document.getElementById("loginPassword").value.trim();
 
-        if (email === "admin@gmail.com" && password === "Admin123") {
-            window.location.href = "/admin";
-        } else if (email === "user@gmail.com" && password === "User123") {
-            window.location.href = "/cinemaM";
-        } else {
-            // Show invalid credentials under the password field
-            const passwordError = document.getElementById("loginPasswordError");
-            passwordError.innerText = "Invalid email or password";
-            passwordError.classList.add("active");
-            document.getElementById("loginPassword").classList.add("invalid");
-        }
+       
     });
 }
 
