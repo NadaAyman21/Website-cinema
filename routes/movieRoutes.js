@@ -40,6 +40,16 @@ router.put('/edit/:id', async (req, res) => {
     }
 });
 
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        const deletedMovie = await Movie.findByIdAndDelete(req.params.id);
+        if (!deletedMovie) return res.status(404).json({ message: "Movie not found" });
+        res.json({ success: true, message: "Movie deleted successfully!" });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
+
 
 
 
