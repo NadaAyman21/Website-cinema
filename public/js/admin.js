@@ -77,6 +77,18 @@ async function handleFormSubmit(e) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
-
+  if (res.ok) {
+            showAlert(editingMovieId ? "Movie updated successfully!" : "Movie added successfully!");
+            document.getElementById('movieForm').reset();
+            editingMovieId = null; // Reset form status tracker
+            document.querySelector('#movieForm button[type="submit"]').innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Movie';
+            fetchMovies(); // Reload layout
+        } else {
+            const data = await res.json();
+            showAlert("Error: " + data.message);
+        }
+    } catch (err) {
+        console.error("Submission failed:", err);
+    }
       
 }
