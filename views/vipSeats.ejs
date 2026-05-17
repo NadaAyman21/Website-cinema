@@ -80,7 +80,95 @@
 </div>
  
 <script src="/js/vipS.js"></script>
+<!-- Close button -->
+<button class="btn-close-3d" id="btnClose3d" onclick="toggle3dView()">✕ &nbsp;Close 3D</button>
 
+<!-- Custom cursors for 3D mode -->
+<div id="cursor3d"></div>
+<div id="cursor3d-dot"></div>
+
+<!-- ════ 3D OVERLAY ════ -->
+<div id="view3d-overlay">
+  <div id="scene3d">
+    <div id="cinema-world">
+
+      <div id="ceiling3d">
+        <div class="ceiling-lights">
+          <div class="ceil-light"></div><div class="ceil-light"></div>
+          <div class="ceil-light"></div><div class="ceil-light"></div>
+          <div class="ceil-light"></div><div class="ceil-light"></div>
+          <div class="ceil-light"></div>
+        </div>
+      </div>
+
+      <div class="side-drape3d left"><div class="drape-trim3d"></div></div>
+      <div class="side-drape3d right"><div class="drape-trim3d"></div></div>
+
+      <div id="wall-left3d">
+        <div class="sconce sconce-left sconce-t1"></div>
+        <div class="sconce sconce-left sconce-t2"></div>
+        <div class="sconce sconce-left sconce-t3"></div>
+      </div>
+      <div id="wall-right3d">
+        <div class="sconce sconce-right sconce-t1"></div>
+        <div class="sconce sconce-right sconce-t2"></div>
+        <div class="sconce sconce-right sconce-t3"></div>
+      </div>
+
+      <div id="screen-arch3d">
+        <div class="arch-border3d">
+          <div class="corner-ornament3d co-tl3d"></div>
+          <div class="corner-ornament3d co-tr3d"></div>
+          <div class="corner-ornament3d co-bl3d"></div>
+          <div class="corner-ornament3d co-br3d"></div>
+        </div>
+        <div id="screen3d">
+          <div id="screen-content3d">
+            <div class="movie-scene3d">
+              <div class="stars-layer3d" id="stars3d"></div>
+              <div class="moon3d"></div>
+              <div class="city-bg3d" id="cityscape3d"></div>
+              <div class="water3d">
+                <div class="water-reflection3d"></div>
+                <div class="water-line3d" style="top:20%;left:10%;width:30%;animation-delay:0s"></div>
+                <div class="water-line3d" style="top:45%;left:40%;width:45%;animation-delay:1.5s"></div>
+                <div class="water-line3d" style="top:70%;left:5%;width:20%;animation-delay:3s"></div>
+              </div>
+              <div class="movie-title-card3d">
+                <div class="title-line3d"></div>
+                <div class="movie-main-title3d" id="screenMovieTitle">NOW SHOWING</div>
+                <div class="movie-sub-title3d">VIP Experience</div>
+                <div class="title-line3d"></div>
+              </div>
+            </div>
+          </div>
+          <div class="scanlines3d"></div>
+          <div class="screen-vignette3d"></div>
+        </div>
+      </div>
+
+      <div id="floor3d">
+        <div class="aisle-line left"></div>
+        <div class="aisle-line right"></div>
+      </div>
+
+      <div id="seats3d"></div>
+      <div id="ambient3d"></div>
+    </div>
+
+    <div id="particles3d"></div>
+    <div id="vignette3d"></div>
+    <div id="hud3d">
+      <div class="hud-arrows3d"><span class="hud-arrow3d">◄</span><span class="hud-arrow3d">►</span></div>
+      <div class="hud-dot3d"></div>
+      <div class="hud-text3d">Move mouse to look around</div>
+      <div class="hud-dot3d"></div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/vipS.js"></script>
+</body>
 <button class="btn-close-3d" id="btnClose3d" onclick="toggle3dView()">✕ &nbsp;Close 3D</button>
 </body>
 </html>
