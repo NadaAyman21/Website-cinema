@@ -88,7 +88,15 @@ const pEl = document.getElementById('particles3d');
     targetRotY = ((e.clientX - innerWidth/2)  / (innerWidth/2))  * -18;
     targetRotX = ((e.clientY - innerHeight/2) / (innerHeight/2)) *  8;
   });
-} 
+    function start3dLoop() {
+  const world = document.getElementById('cinema-world');
+  (function frame() {
+    currentRotY += (targetRotY - currentRotY) * 0.06;
+    currentRotX += (targetRotX - currentRotX) * 0.06;
+    world.style.transform = `rotateY(${currentRotY}deg) rotateX(${currentRotX}deg)`;
+    animFrame3d = requestAnimationFrame(frame);
+  })();
+}
 
 /* Row definitions for VIP Private Suite */
 const ROWS = [
