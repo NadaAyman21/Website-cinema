@@ -48,6 +48,34 @@ function toggle3dView() {
     el.innerHTML = html;
     cityEl.appendChild(el);
   });
+// Seats
+  const seatsEl = document.getElementById('seats3d');
+  [8,10,12,14,16,18].forEach(count => {
+    const row = document.createElement('div');
+    row.className = 'seat-row3d';
+    for (let i=0;i<count;i++) {
+      const seat = document.createElement('div');
+      const r = Math.random();
+      seat.className = 'seat3d'+(r<.25?' taken3d':r<.35?' dlx3d':'');
+      row.appendChild(seat);
+    }
+    seatsEl.appendChild(row);
+  });
+
+  const pEl = document.getElementById('particles3d');
+  for (let i=0;i<35;i++) {
+    const p = document.createElement('div');
+    p.className = 'particle3d';
+    p.style.cssText = `left:${20+Math.random()*60}%;top:${10+Math.random()*60}%;--tx:${(Math.random()-.5)*200}px;--ty:${(Math.random()-.5)*150}px;--dur:${(Math.random()*8+6).toFixed(1)}s;animation-delay:${(Math.random()*8).toFixed(1)}s;opacity:0`;
+    pEl.appendChild(p);
+  }
+  // Mouse look
+  document.getElementById('scene3d').addEventListener('mousemove', e => {
+    document.getElementById('cursor3d').style.cssText    += `;left:${e.clientX}px;top:${e.clientY}px`;
+    document.getElementById('cursor3d-dot').style.cssText += `;left:${e.clientX}px;top:${e.clientY}px`;
+    targetRotY = ((e.clientX - innerWidth/2)  / (innerWidth/2))  * -18;
+    targetRotX = ((e.clientY - innerHeight/2) / (innerHeight/2)) *  8;
+  });
 
 
 
