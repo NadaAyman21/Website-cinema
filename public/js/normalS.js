@@ -1,5 +1,92 @@
 const SEAT_LIMIT = 6;
 const PRICES = { standard: 120, deluxe: 180 };
+let is3dOpen = false, animFrame3d, initialized3d = false;
+let targetRotY = 0, targetRotX = 0, currentRotY = 0, currentRotX = 0;
+
+function toggle3dView() {
+  is3dOpen = !is3dOpen;
+  const overlay = document.getElementById('view3d-overlay');
+  const btn     = document.getElementById('btn3dToggle');
+  if (is3dOpen) {
+    overlay.classList.add('visible');
+    btn.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    if (!initialized3d) { init3dScene(); initialized3d = true; }
+    start3dLoop();
+  } else {
+    overlay.classList.remove('visible');
+    btn.classList.remove('active');
+    document.body.style.overflow = '';
+    cancelAnimationFrame(animFrame3d);
+  } }
+  function init3dScene() {
+  // Stars
+  const starsEl = document.getElementById('stars3d');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star3d';
+    const size = Math.random() * 2.5 + 0.5;
+    const minOp = (Math.random() * 0.3 + 0.1).toFixed(2);
+    s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*65}%;left:${Math.random()*100}%;--min-op:${minOp};--d:${(Math.random()*3+2).toFixed(2)}s;animation-delay:${(Math.random()*5).toFixed(2)}s;opacity:${minOp}`;
+    starsEl.appendChild(s);
+  }
+  
+}const cityEl = document.getElementById('cityscape3d');
+  [{l:2,w:7,h:38},{l:10,w:5,h:52},{l:16,w:9,h:44},{l:26,w:6,h:65},{l:33,w:8,h:48},
+   {l:42,w:5,h:72},{l:48,w:11,h:55},{l:60,w:7,h:60},{l:68,w:6,h:42},{l:75,w:9,h:58},
+   {l:85,w:6,h:50},{l:92,w:7,h:40}].forEach(b => {
+    const el = document.createElement('div');
+    el.className = 'building3d';
+    el.style.cssText = `left:${b.l}%;width:${b.w}%;height:${b.h}%;`;
+    const wc = Math.max(2,Math.floor(b.w*1.2)), wr = Math.max(3,Math.floor(b.h*0.25));
+    let html = '';
+    for (let r=0;r<wr;r++) for (let c=0;c<wc;c++) {
+      const lit = Math.random()>.4;
+      const col = lit ? `rgba(255,${200+Math.floor(Math.random()*55)},${100+Math.floor(Math.random()*80)},.9)` : 'rgba(20,20,30,.5)';
+      html += `<div style="position:absolute;width:6px;height:5px;background:${col};box-shadow:${lit?`0 0 6px ${col}`:'none'};border-radius:1px;left:${8+c*(80/wc)}%;top:${8+r*(80/wr)}%"></div>`;
+    }
+    el.innerHTML = html;
+    cityEl.appendChild(el);
+  });
+// Seats
+  const seatsEl = document.getElementById('seats3d');
+  [8,10,12,14,16,18].forEach(count => {
+    const row = document.createElement('div');
+    row.className = 'seat-row3d';
+    for (let i=0;i<count;i++) {
+      const seat = document.createElement('div');
+      const r = Math.random();
+      seat.className = 'seat3d'+(r<.25?' taken3d':r<.35?' dlx3d':'');
+      row.appendChild(seat);
+    }
+    seatsEl.appendChild(row);
+  });
+
+  const pEl = document.getElementById('particles3d');
+  for (let i=0;i<35;i++) {
+    const p = document.createElement('div');
+    p.className = 'particle3d';
+    p.style.cssText = `left:${20+Math.random()*60}%;top:${10+Math.random()*60}%;--tx:${(Math.random()-.5)*200}px;--ty:${(Math.random()-.5)*150}px;--dur:${(Math.random()*8+6).toFixed(1)}s;animation-delay:${(Math.random()*8).toFixed(1)}s;opacity:0`;
+    pEl.appendChild(p);
+  }
+  // Mouse look
+  document.getElementById('scene3d').addEventListener('mousemove', e => {
+    document.getElementById('cursor3d').style.cssText    += `;left:${e.clientX}px;top:${e.clientY}px`;
+    document.getElementById('cursor3d-dot').style.cssText += `;left:${e.clientX}px;top:${e.clientY}px`;
+    targetRotY = ((e.clientX - innerWidth/2)  / (innerWidth/2))  * -18;
+    targetRotX = ((e.clientY - innerHeight/2) / (innerHeight/2)) *  8;
+  });
+function start3dLoop() {
+  const world = document.getElementById('cinema-world');
+  (function frame() {
+    currentRotY += (targetRotY - currentRotY) * 0.06;
+    currentRotX += (targetRotX - currentRotX) * 0.06;
+    world.style.transform = `rotateY(${currentRotY}deg) rotateX(${currentRotX}deg)`;
+    animFrame3d = requestAnimationFrame(frame);
+  })();
+}
+
+
 
 /* Row definitions for Standard and Deluxe only */
 const ROWS = [ 
