@@ -3,12 +3,15 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const movieRoutes = require('./routes/movieRoutes');
+const session = require('express-session');
+const authRoutes = require('./routes/authRoutes');
 require('dotenv').config();
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
 
 
 
@@ -58,6 +61,8 @@ app.get("/admin", (req, res) => {
 });
 
 app.use('/api/movies', movieRoutes);
+
+
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Successfully connected to MongoDB!'))
