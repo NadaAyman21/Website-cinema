@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const movieRoutes = require('./routes/movieRoutes');
 const session = require('express-session');
 const authRoutes = require('./routes/authRoutes');
+const Movie = require('./models/Movie');
 require('dotenv').config();
 
 const app = express();
@@ -60,9 +61,15 @@ app.get("/condtions", (req, res) => {
     res.render("condtions"); 
 });
 
-app.get("/admin", (req, res) => {
-    console.log("ADMIN ROUTE HIT");
-    res.render("admin");
+app.get("/admin",async (req, res) => {
+    try {
+        console.log("ADMIN ROUTE HIT");
+        const movies = await Movie.find().sort({ createdAt: -1 });
+        res.render("admin", { movies: movies });
+    } catch (err) {
+       console.error(err);
+        res.status(500).send("Error loading dashboard data"); 
+    }
 });
 
 app.use('/api/movies', movieRoutes);
