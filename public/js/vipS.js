@@ -18,7 +18,10 @@ function toggle3dView() {
     document.body.style.overflow = '';
     cancelAnimationFrame(animFrame3d);
   }
+  
 }
+function init3dScene() {
+  const movieName = localStorage.getItem('selectedMovie') || 'NOW SHOWING'; 
 
 /* Row definitions for VIP Private Suite */
 const ROWS = [
