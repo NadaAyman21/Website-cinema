@@ -137,3 +137,7 @@ function closeAlert() {
 function escapeHtml(str) {
     return str.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
 }
+function logout() {
+    alert("Logging out...");
+    window.location.href = "/";
+}
