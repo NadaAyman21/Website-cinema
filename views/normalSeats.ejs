@@ -85,7 +85,26 @@
     <button onclick="closeAlert()">OK</button>
   </div>
 </div>
+<!-- Close button (floats top-right when overlay is open) -->
+<button class="btn-close-3d" id="btnClose3d" onclick="toggle3dView()">✕ &nbsp;Close 3D</button>
 
+<!-- Custom cursors for 3D mode -->
+<div id="cursor3d"></div>
+<div id="cursor3d-dot"></div>
+
+<!-- ════ 3D OVERLAY ════ -->
+<div id="view3d-overlay">
+  <div id="scene3d">
+    <div id="cinema-world">
+
+      <div id="ceiling3d">
+        <div class="ceiling-lights">
+          <div class="ceil-light"></div><div class="ceil-light"></div>
+          <div class="ceil-light"></div><div class="ceil-light"></div>
+          <div class="ceil-light"></div><div class="ceil-light"></div>
+          <div class="ceil-light"></div>
+        </div>
+      </div>
 <script src="/js/normalS.js"></script>
 </body>
 </html>
