@@ -11,19 +11,27 @@
 </head>
 <body>
 
-<!-- Header -->
+<!-- ═══ HEADER ═══ -->
 <header>
-  <div class="logo"> CineX</div>
+  <div class="logo">CineX</div>
   <div class="movie-meta">
-   <h2 id="movieTitleDisplay"></h2>
-    <div class="movie-sub" id="movieSub"></div>
+    <h2 id="movieTitleDisplay"></h2>
+    <div class="movie-sub" id="movieSub">
+      <!-- ① Paste this button wherever you want it -->
+<button class="btn-3d-view" id="btn3dToggle" onclick="toggle3dView()">
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+  </svg>
+  3D VIEW
+</button>
+    </div>
   </div>
 </header>
 
-<!-- Limit warning toast -->
+<!-- ═══ LIMIT WARNING ═══ -->
 <div class="limit-warning" id="limitWarning">Maximum 6 seats per booking</div>
 
-<!-- Main stage -->
+<!-- ═══ MAIN STAGE ═══ -->
 <main class="stage">
 
   <div class="stage-meta">
@@ -48,7 +56,6 @@
   <div class="legend">
     <div class="legend-item"><div class="legend-seat leg-std"></div> Standard</div>
     <div class="legend-item"><div class="legend-seat leg-dlx"></div> Deluxe</div>
-
     <div class="legend-item"><div class="legend-seat leg-sel"></div> Selected</div>
     <div class="legend-item"><div class="legend-seat leg-hold"></div> On Hold</div>
     <div class="legend-item"><div class="legend-seat leg-occ"></div> Taken</div>
@@ -56,7 +63,7 @@
 
 </main>
 
-<!-- Floating checkout bar -->
+<!-- ═══ CHECKOUT BAR ═══ -->
 <div class="checkout-bar" id="checkoutBar">
   <div class="checkout-info">
     <div class="checkout-seats" id="checkoutSeats">0 seats selected</div>
@@ -70,12 +77,13 @@
   </div>
 </div>
 
+<!-- ═══ ALERT MODAL ═══ -->
 <div id="customAlert" class="custom-modal">
-    <div class="modal-content black-theme">
-        <h3 id="alertTitle">CineX.com says</h3>
-        <p id="alertMessage"></p>
-        <button onclick="closeAlert()">OK</button>
-    </div>
+  <div class="modal-content black-theme">
+    <h3 id="alertTitle">CineX.com says</h3>
+    <p id="alertMessage"></p>
+    <button onclick="closeAlert()">OK</button>
+  </div>
 </div>
 
 <script src="/js/normalS.js"></script>
