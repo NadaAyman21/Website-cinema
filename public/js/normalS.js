@@ -18,8 +18,39 @@ function toggle3dView() {
     btn.classList.remove('active');
     document.body.style.overflow = '';
     cancelAnimationFrame(animFrame3d);
+  } }
+  function init3dScene() {
+  // Stars
+  const starsEl = document.getElementById('stars3d');
+  for (let i = 0; i < 120; i++) {
+    const s = document.createElement('div');
+    s.className = 'star3d';
+    const size = Math.random() * 2.5 + 0.5;
+    const minOp = (Math.random() * 0.3 + 0.1).toFixed(2);
+    s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*65}%;left:${Math.random()*100}%;--min-op:${minOp};--d:${(Math.random()*3+2).toFixed(2)}s;animation-delay:${(Math.random()*5).toFixed(2)}s;opacity:${minOp}`;
+    starsEl.appendChild(s);
   }
-}
+  
+}const cityEl = document.getElementById('cityscape3d');
+  [{l:2,w:7,h:38},{l:10,w:5,h:52},{l:16,w:9,h:44},{l:26,w:6,h:65},{l:33,w:8,h:48},
+   {l:42,w:5,h:72},{l:48,w:11,h:55},{l:60,w:7,h:60},{l:68,w:6,h:42},{l:75,w:9,h:58},
+   {l:85,w:6,h:50},{l:92,w:7,h:40}].forEach(b => {
+    const el = document.createElement('div');
+    el.className = 'building3d';
+    el.style.cssText = `left:${b.l}%;width:${b.w}%;height:${b.h}%;`;
+    const wc = Math.max(2,Math.floor(b.w*1.2)), wr = Math.max(3,Math.floor(b.h*0.25));
+    let html = '';
+    for (let r=0;r<wr;r++) for (let c=0;c<wc;c++) {
+      const lit = Math.random()>.4;
+      const col = lit ? `rgba(255,${200+Math.floor(Math.random()*55)},${100+Math.floor(Math.random()*80)},.9)` : 'rgba(20,20,30,.5)';
+      html += `<div style="position:absolute;width:6px;height:5px;background:${col};box-shadow:${lit?`0 0 6px ${col}`:'none'};border-radius:1px;left:${8+c*(80/wc)}%;top:${8+r*(80/wr)}%"></div>`;
+    }
+    el.innerHTML = html;
+    cityEl.appendChild(el);
+  });
+
+
+
 
 /* Row definitions for Standard and Deluxe only */
 const ROWS = [ 
