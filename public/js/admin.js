@@ -134,3 +134,6 @@ function showAlert(msg) {
 function closeAlert() {
     document.getElementById('customAlert').style.display = 'none';
 }
+function escapeHtml(str) {
+    return str.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+}
