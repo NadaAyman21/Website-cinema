@@ -89,7 +89,8 @@ const pEl = document.getElementById('particles3d');
     targetRotX = ((e.clientY - innerHeight/2) / (innerHeight/2)) *  8;
   });
     function start3dLoop() {
-  const world = document.getElementById('cinema-world');
+  // ✅ Target specifically the one INSIDE the 3D overlay
+  const world = document.querySelector('#view3d-overlay #cinema-world');
   (function frame() {
     currentRotY += (targetRotY - currentRotY) * 0.06;
     currentRotX += (targetRotX - currentRotX) * 0.06;
