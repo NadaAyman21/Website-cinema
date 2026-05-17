@@ -53,7 +53,15 @@ app.get("/condtions", (req, res) => {
     res.render("condtions"); 
 });
 
-
+app.get("/admin",async (req, res) => {
+    try {
+        console.log("ADMIN ROUTE HIT");
+        const movies = await Movie.find().sort({ createdAt: -1 });
+        res.render("admin", { movies: movies });
+    } catch (err) {
+        
+    }
+});
 
 app.use('/api/movies', movieRoutes);
 
