@@ -131,3 +131,6 @@ function showAlert(msg) {
     document.getElementById('alertMessage').innerText = msg;
     document.getElementById('customAlert').style.display = 'flex';
 }
+function closeAlert() {
+    document.getElementById('customAlert').style.display = 'none';
+}
