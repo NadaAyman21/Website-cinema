@@ -92,3 +92,22 @@ async function handleFormSubmit(e) {
     }
       
 }
+function editMovie(id, movieString) {
+    const movie = JSON.parse(movieString);
+    editingMovieId = id;
+
+    // Pop values up into form fields
+    document.getElementById('title').value = movie.title;
+    document.getElementById('genre').value = movie.genre;
+    document.getElementById('time').value = movie.runTime;
+    document.getElementById('age').value = movie.ageRating;
+    document.getElementById('image').value = movie.imageUrl;
+    document.getElementById('trailer').value = movie.videoUrl;
+    document.getElementById('cast').value = Array.isArray(movie.cast) ? movie.cast.join(', ') : movie.cast;
+    document.getElementById('story').value = movie.description || '';
+
+    // Transform submission button UI
+    document.querySelector('#movieForm button[type="submit"]').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Update Movie';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
