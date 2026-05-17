@@ -3,6 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const movieRoutes = require('./routes/movieRoutes');
+const session = require('express-session');
+const authRoutes = require('./routes/authRoutes');
 const Movie = require('./models/Movie');
 require('dotenv').config();
 
@@ -11,6 +13,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use(express.urlencoded({ extended: true }));
+app.use(session({
+  secret: 'cinema_secret_key',
+  resave: false,
+  saveUninitialized: false
+}));
 
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -65,6 +73,8 @@ app.get("/admin",async (req, res) => {
 });
 
 app.use('/api/movies', movieRoutes);
+
+app.use('/api/auth', authRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Successfully connected to MongoDB!'))
