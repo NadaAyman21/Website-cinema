@@ -1,26 +1,31 @@
 const express = require('express');
 const router = express.Router();
-const Movie = require('../models/Movie'); // This "imports" the model you just made
+const Movie = require('../models/Movie'); 
 
 // POST: Create a new movie
 router.post('/add', async (req, res) => {
-    try {
-        const newMovie = new Movie(req.body); // req.body is the info from your Admin form
+  
+   try {
+        // Map frontend client array split if needed
+        const movieData = {
+            ...req.body,
+            cast: typeof req.body.cast === 'string' ? req.body.cast.split(',').map(c => c.trim()) : req.body.cast
+        };
+        const newMovie = new Movie(movieData);
         const savedMovie = await newMovie.save();
         res.status(201).json(savedMovie);
     } catch (err) {
-        res.status(400).json({ message: err.message });
+        res.status(400).json({ success: false, message: err.message });
     }
 });
 
-// GET: Fetch all movies (for your home page later)
-router.get('/', async (req, res) => {
-    try {
-        const movies = await Movie.find();
-        res.json(movies);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
+
+
+
+
+
+
+
+
 
 module.exports = router;
