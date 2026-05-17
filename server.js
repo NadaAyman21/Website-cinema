@@ -67,7 +67,7 @@ app.get("/admin", (req, res) => {
 
 app.use('/api/movies', movieRoutes);
 
-
+app.use('/api/auth', authRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Successfully connected to MongoDB!'))
