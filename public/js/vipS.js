@@ -82,6 +82,14 @@ const pEl = document.getElementById('particles3d');
       pEl.appendChild(p);
     }
   }
+  document.getElementById('scene3d')?.addEventListener('mousemove', e => {
+    document.getElementById('cursor3d').style.cssText    += `;left:${e.clientX}px;top:${e.clientY}px`;
+    document.getElementById('cursor3d-dot').style.cssText += `;left:${e.clientX}px;top:${e.clientY}px`;
+    targetRotY = ((e.clientX - innerWidth/2)  / (innerWidth/2))  * -18;
+    targetRotX = ((e.clientY - innerHeight/2) / (innerHeight/2)) *  8;
+  });
+} 
+
 /* Row definitions for VIP Private Suite */
 const ROWS = [
   { label: 'A', type: 'vip', count: 8, gap: 4, occupied: [1, 4, 7], hold: [2, 5] },
