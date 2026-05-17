@@ -117,6 +117,35 @@
   background: linear-gradient(0deg,#060405,#0e090b 40%,#150e11);
   transform-origin: bottom center; transform: rotateX(-18deg);
 }
+.aisle-line {
+  position: absolute; bottom: 0; width: 3px; height: 100%;
+  background: linear-gradient(0deg,rgba(201,168,76,.5),transparent 80%);
+}
+.aisle-line.left{left:28%} .aisle-line.right{right:28%}
+
+#wall-left3d {
+  position: absolute; top: 0; left: -2%; width: 22%; height: 100%;
+  background: linear-gradient(90deg,#0a0608,#1a1015);
+  transform-origin: left center; transform: rotateY(30deg);
+}
+#wall-right3d {
+  position: absolute; top: 0; right: -2%; width: 22%; height: 100%;
+  background: linear-gradient(-90deg,#0a0608,#1a1015);
+  transform-origin: right center; transform: rotateY(-30deg);
+}
+sconce {
+  position: absolute; width: 18px; height: 50px;
+  background: linear-gradient(180deg,#8a6b2a,transparent);
+  border-radius: 9px 9px 0 0;
+}
+.sconce::after {
+  content:''; position: absolute; top:-6px; left:50%;
+  transform: translateX(-50%); width: 30px; height: 30px;
+  background: radial-gradient(circle,rgba(201,168,76,.8),transparent 70%);
+  border-radius: 50%;
+}
+.sconce-left{right:10px} .sconce-right{left:10px}
+.sconce-t1{top:20%} .sconce-t2{top:45%} .sconce-t3{top:70%}
 
 :root {
   --bg:          #07070f;
