@@ -59,6 +59,20 @@ const cityEl = document.getElementById('cityscape3d');
       cityEl.appendChild(el);
     });
   }
+  const seatsEl = document.getElementById('seats3d');
+  if (seatsEl) {
+    [8,10,12,14,16,18].forEach(count => {
+      const row = document.createElement('div');
+      row.className = 'seat-row3d';
+      for (let i = 0; i < count; i++) {
+        const seat = document.createElement('div');
+        const r = Math.random();
+        seat.className = 'seat3d' + (r < .25 ? ' taken3d' : r < .35 ? ' dlx3d' : '');
+        row.appendChild(seat);
+      }
+      seatsEl.appendChild(row);
+    });
+  }
 
 /* Row definitions for VIP Private Suite */
 const ROWS = [
