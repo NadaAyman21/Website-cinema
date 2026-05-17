@@ -26,6 +26,19 @@ router.get('/', async (req, res) => {
     }
 
 });
+router.put('/edit/:id', async (req, res) => {
+    try {
+        const movieData = {
+            ...req.body,
+            cast: typeof req.body.cast === 'string' ? req.body.cast.split(',').map(c => c.trim()) : req.body.cast
+        };
+        const updatedMovie = await Movie.findByIdAndUpdate(req.params.id, movieData, { new: true });
+        if (!updatedMovie) return res.status(404).json({ message: "Movie not found" });
+        res.json(updatedMovie);
+    } catch (err) {
+        res.status(400).json({ success: false, message: err.message });
+    }
+});
 
 
 
