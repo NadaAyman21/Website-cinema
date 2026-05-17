@@ -126,3 +126,8 @@ async function deleteMovie(id) {
         console.error(err);
     }
 }
+
+function showAlert(msg) {
+    document.getElementById('alertMessage').innerText = msg;
+    document.getElementById('customAlert').style.display = 'flex';
+}
