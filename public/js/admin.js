@@ -111,3 +111,18 @@ function editMovie(id, movieString) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+async function deleteMovie(id) {
+    if (!confirm("Are you sure you want to delete this movie?")) return;
+
+    try {
+        const res = await fetch(`/api/movies/delete/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+            showAlert("Movie deleted!");
+            fetchMovies();
+        } else {
+            showAlert("Failed to delete movie.");
+        }
+    } catch (err) {
+        console.error(err);
+    }
+}
