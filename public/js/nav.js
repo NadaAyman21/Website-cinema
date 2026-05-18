@@ -79,5 +79,8 @@ function setLang(lang) {
   // Save preference
   localStorage.setItem('cinex-lang', lang);
 }
-
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('cinex-lang') || 'en';
+  setLang(saved);
+});
 
