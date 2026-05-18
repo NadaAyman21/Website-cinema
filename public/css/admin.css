@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&family=Bebas+Neue&display=swap');
 /* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -51,11 +50,12 @@ body {
 }
 
 .navbar h2 {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  color: var(--text);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 400;           /* Bebas Neue looks best at 400 */
+  letter-spacing: 0.15em;
+  color: var(--accent2);
+  text-shadow: 0 0 16px rgba(192,132,252,0.4);
   display: flex;
   align-items: center;
   gap: 8px;
