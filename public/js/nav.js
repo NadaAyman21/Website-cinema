@@ -47,3 +47,17 @@ function toggleMenu() {
 function closeAlert() {
     document.getElementById('customAlert').style.display = 'none';
 }
+// ===== PROFILE DROPDOWN =====
+function toggleProfile() {
+    const menu = document.getElementById("profileMenu");
+    menu.classList.toggle("active");
+}
+
+// Close when clicking outside
+window.addEventListener("click", function(e) {
+    const dropdown = document.querySelector(".profile-dropdown");
+    if (dropdown && !dropdown.contains(e.target)) {
+        const menu = document.getElementById("profileMenu");
+        if (menu) menu.classList.remove("active");
+    }
+});
