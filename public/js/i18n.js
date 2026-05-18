@@ -100,3 +100,7 @@ document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
   document.getElementById('langEN')?.classList.toggle('active', lang === 'en');
   document.getElementById('langAR')?.classList.toggle('active', lang === 'ar');
 }
+function setLang(lang) {
+  localStorage.setItem('cinex-lang', lang);
+  i18next.changeLanguage(lang, () => applyTranslations());
+}
