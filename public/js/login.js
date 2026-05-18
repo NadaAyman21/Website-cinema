@@ -55,7 +55,8 @@ if (loginForm) {
         const isPasswordValid = validatePassword();
 
         if (!isEmailValid || !isPasswordValid) return;
-
+        
+           console.log("REACHING FETCH");
        const email    = document.getElementById("loginEmail").value.trim();
         const password = document.getElementById("loginPassword").value.trim();
 
@@ -70,7 +71,7 @@ if (loginForm) {
                 if (email === "admin@gmail.com") {
                     window.location.href = "/admin";
                 } else {
-                   window.location.reload();
+                   window.location.href = "/cinemaM";
                 }
             } else {
                 const passwordError = document.getElementById("loginPasswordError");
@@ -110,8 +111,3 @@ function closeLogin() {
     document.getElementById("loginModal").classList.remove("active");
 }
 
-// Close on backdrop click
-window.addEventListener("click", function (e) {
-    const modal = document.getElementById("loginModal");
-    if (e.target === modal) closeLogin();
-});
