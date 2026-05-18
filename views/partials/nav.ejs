@@ -52,7 +52,17 @@
             <i class="fa fa-caret-down"></i>
         </div>
 
-        <i class="fa fa-user user-icon" onclick="openLogin()"></i>
+     <% if (typeof user !== 'undefined' && user) { %>
+    <div class="profile-dropdown">
+        <i class="fa fa-user user-icon" onclick="toggleProfile()"></i>
+        <ul class="profile-menu" id="profileMenu">
+            <li><a href="/profile"><i class="fa fa-user"></i> My Profile</a></li>
+            <li><a href="/logout"><i class="fa fa-right-from-bracket"></i> Logout</a></li>
+        </ul>
+    </div>
+<% } else { %>
+    <i class="fa fa-user user-icon" onclick="openLogin()"></i>
+<% } %>
 
         <!-- Mobile menu -->
      <div class="menu-icon" onclick="toggleMenu()">
