@@ -220,8 +220,7 @@ body {
 .lang-btn:hover { color: #fff; }
 
 .lang-btn.active {
-  background: #7c5cfc;
-  color: white;
-  box-shadow: 0 0 10px rgba(124,92,252,0.4);
+  background: #00d4ff;
+  border-color: #00d4ff;
+  color: #000;
 }
-
