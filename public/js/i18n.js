@@ -88,3 +88,15 @@ function applyTranslations() {
     el.textContent = i18next.t(key);
     if (icon) el.appendChild(icon);
   });
+document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+  document.documentElement.lang = lang;
+
+  // Font
+  document.body.style.fontFamily = lang === 'ar'
+    ? "'Cairo', sans-serif"
+    : "'Outfit', sans-serif";
+
+  // Active button
+  document.getElementById('langEN')?.classList.toggle('active', lang === 'en');
+  document.getElementById('langAR')?.classList.toggle('active', lang === 'ar');
+}
