@@ -217,5 +217,11 @@ body {
   cursor: pointer;
   transition: all 0.2s;
 }
+.lang-btn:hover { color: #fff; }
 
+.lang-btn.active {
+  background: #7c5cfc;
+  color: white;
+  box-shadow: 0 0 10px rgba(124,92,252,0.4);
+}
 
