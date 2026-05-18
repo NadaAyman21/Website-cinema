@@ -47,3 +47,22 @@ function toggleMenu() {
 function closeAlert() {
     document.getElementById('customAlert').style.display = 'none';
 }
+
+// ── Language Switcher ──
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  const t = translations[lang];
+
+  // Update all elements with data-i18n attribute
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key]) {
+      // Preserve any <i> icons inside the element (dropdown arrows)
+      const icon = el.querySelector('i');
+      el.textContent = t[key];
+      if (icon) el.appendChild(icon);
+    }
+  });
+
