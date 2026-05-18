@@ -55,11 +55,38 @@ if (loginForm) {
         const isPasswordValid = validatePassword();
 
         if (!isEmailValid || !isPasswordValid) return;
-
-        const email    = document.getElementById("loginEmail").value.trim();
+        
+           console.log("REACHING FETCH");
+       const email    = document.getElementById("loginEmail").value.trim();
         const password = document.getElementById("loginPassword").value.trim();
 
-       
+      fetch('/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',  
+    body: JSON.stringify({ email, password })
+})
+        .then(res => res.json())
+        .then(result => {
+            if (result.success) {
+                if (email === "admin@gmail.com") {
+                    window.location.href = "/admin";
+                } else {
+                   window.location.href = "/cinemaM";
+                }
+            } else {
+                const passwordError = document.getElementById("loginPasswordError");
+                passwordError.innerText = result.message;
+                passwordError.classList.add("active");
+                document.getElementById("loginPassword").classList.add("invalid");
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            const passwordError = document.getElementById("loginPasswordError");
+            passwordError.innerText = "Something went wrong. Try again.";
+            passwordError.classList.add("active");
+        });
     });
 }
 
@@ -85,8 +112,3 @@ function closeLogin() {
     document.getElementById("loginModal").classList.remove("active");
 }
 
-// Close on backdrop click
-window.addEventListener("click", function (e) {
-    const modal = document.getElementById("loginModal");
-    if (e.target === modal) closeLogin();
-});
