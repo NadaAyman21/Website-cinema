@@ -196,5 +196,32 @@ body {
     cursor: pointer;
     font-size: 22px;
 }
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+}
 
+.lang-btn {
+  background: transparent;
+  border: none;
+  color: #6b6b80;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
 
+.lang-btn:hover { color: #fff; }
+
+.lang-btn.active {
+  background: #7c5cfc;
+  color: white;
+  box-shadow: 0 0 10px rgba(124,92,252,0.4);
+}
