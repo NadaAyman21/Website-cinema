@@ -83,4 +83,99 @@ document.addEventListener('DOMContentLoaded', () => {
   const saved = localStorage.getItem('cinex-lang') || 'en';
   setLang(saved);
 });
+const translations = {
+  en: {
+    // NAV
+    home:         'HOME',
+    movies:       'MOVIES',
+    nowShowing:   'Now Showing',
+    experiences:  'EXPERIENCES',
+    premiere:     'Premiere',
+    standard:     'Standard/Deluxe',
+    food:         'FOOD & DRINKS',
+    locations:    'LOCATIONS',
+    cairo:        'Cairo',
+    locationName: 'Cairo Festival City',
+    login:        'Login',
+    signup:       'Sign Up',
 
+    // HOME PAGE
+    nowShowingTitle: 'NOW SHOWING',
+    bookNow:         'Book Now',
+    viewAll:         'View All',
+    genre:           'Sport/Action',
+
+    // SEAT PAGE
+    selectedLabel:   'Selected:',
+    maxLabel:        'Max:',
+    seats:           'seats',
+    screenLabel:     'SCREEN',
+    legendStd:       'Standard',
+    legendDlx:       'Deluxe',
+    legendSel:       'Selected',
+    legendHold:      'On Hold',
+    legendTaken:     'Taken',
+    confirmPay:      'Confirm & Pay →',
+    seatsSelected:   'seats selected',
+    deluxeExp:       'Deluxe Experience',
+    view3d:          '3D View',
+    backToSeats:     '← Back to Seats',
+    mouseHint:       'Move mouse to look around',
+
+    // FOOD PAGE
+    foodTitle:       'FOOD & DRINKS',
+    addToCart:       'Add to Cart',
+
+    // GENERAL
+    alertOk:         'OK',
+    cinexSays:       'CineX says',
+    bookingConfirmed:'Booking Confirmed!',
+  },
+  ar: {
+    // NAV
+    home:         'الرئيسية',
+    movies:       'الأفلام',
+    nowShowing:   'يعرض الآن',
+    experiences:  'التجارب',
+    premiere:     'بريميير',
+    standard:     'ستاندرد / ديلوكس',
+    food:         'طعام ومشروبات',
+    locations:    'الفروع',
+    cairo:        'القاهرة',
+    locationName: 'القاهرة فستيفال سيتي',
+    login:        'تسجيل الدخول',
+    signup:       'إنشاء حساب',
+
+    // HOME PAGE
+    nowShowingTitle: 'يعرض الآن',
+    bookNow:         'احجز الآن',
+    viewAll:         'عرض الكل',
+    genre:           'رياضة / أكشن',
+
+    // SEAT PAGE
+    selectedLabel:   ':المختارة',
+    maxLabel:        ':الحد الأقصى',
+    seats:           'مقاعد',
+    screenLabel:     'الشاشة',
+    legendStd:       'ستاندرد',
+    legendDlx:       'ديلوكس',
+    legendSel:       'مختار',
+    legendHold:      'محجوز مؤقتاً',
+    legendTaken:     'محجوز',
+    confirmPay:      '← تأكيد والدفع',
+    seatsSelected:   'مقاعد مختارة',
+    deluxeExp:       'تجربة ديلوكس',
+    view3d:          'عرض ثلاثي الأبعاد',
+    backToSeats:     'العودة للمقاعد ←',
+    mouseHint:       'حرك الماوس للنظر حولك',
+
+    // FOOD PAGE
+    foodTitle:       'طعام ومشروبات',
+    addToCart:       'أضف للسلة',
+
+    // GENERAL
+    alertOk:         'حسناً',
+    cinexSays:       'CineX يقول',
+    bookingConfirmed:'تم تأكيد الحجز!',
+  }
+};
