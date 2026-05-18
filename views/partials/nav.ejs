@@ -1,46 +1,42 @@
-
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 <nav class="navbar">
-    <!-- LEFT (Logo) -->
-   <div class="logo">
-    <div class="logo-icon">
-        <span></span>
-        <span></span>
-        <span></span>
+  
+    <div class="logo">
+        <div class="logo-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <h1>CineX</h1>
     </div>
-    <h1>CineX</h1>
-</div>
 
     <!-- CENTER (Links) -->
     <ul class="nav-links" id="navLinks">
-
-        <li><a href="/cinemaM">HOME</a></li>
+        <li><a href="/cinemaM" data-i18n="home">HOME</a></li>
 
         <li class="dropdown">
-            <a href="#">MOVIES <i class="fa fa-caret-down"></i></a>
+            <a href="#" data-i18n="movies">MOVIES <i class="fa fa-caret-down"></i></a>
             <ul class="dropdown-menu">
-                <li><a href="/cinemaM">Now Showing</a></li>
-        
+                <li><a href="/cinemaM" data-i18n="nowShowing">Now Showing</a></li>
             </ul>
         </li>
 
         <li class="dropdown">
-            <a href="#">EXPERIENCES <i class="fa fa-caret-down"></i></a>
+            <a href="#" data-i18n="experiences">EXPERIENCES <i class="fa fa-caret-down"></i></a>
             <ul class="dropdown-menu">
-                <li><a href="/premier">premiere</a></li>
-                <li><a href="/stanard">standard/deluxe</a></li>
+                <li><a href="/premier" data-i18n="premiere">Premiere</a></li>
+                <li><a href="/stanard" data-i18n="standard">Standard/Deluxe</a></li>
             </ul>
         </li>
 
-        <li><a href="/food">FOOD & DRINKS</a></li>
+        <li><a href="/food" data-i18n="food">FOOD & DRINKS</a></li>
 
         <li class="dropdown">
-            <a href="#">LOCATIONS <i class="fa fa-caret-down"></i></a>
+            <a href="#" data-i18n="locations">LOCATIONS <i class="fa fa-caret-down"></i></a>
             <ul class="dropdown-menu">
-                <li><a href="#">Cairo</a></li>
-
+                <li><a href="#" data-i18n="cairo">Cairo</a></li>
             </ul>
         </li>
-
     </ul>
 
     <!-- RIGHT -->
@@ -48,7 +44,7 @@
 
         <div class="location">
             <i class="fa fa-location-dot"></i>
-            Cairo Festival City
+            <span data-i18n="locationName">Cairo Festival City</span>
             <i class="fa fa-caret-down"></i>
         </div>
 
@@ -64,14 +60,26 @@
     <i class="fa fa-user user-icon" onclick="openLogin()"></i>
 <% } %>
 
+        <button id="theme-toggle" aria-label="Toggle dark mode">
+            <span id="icon-moon">🌙</span>
+            <span id="icon-sun" style="display:none">☀️</span>
+        </button>
+
+        <!-- Language Switcher -->
+        <div class="lang-switcher">
+            <button class="lang-btn active" id="langEN" onclick="setLang('en')">EN</button>
+            <button class="lang-btn"        id="langAR" onclick="setLang('ar')">ع</button>
+        </div>
+
         <!-- Mobile menu -->
-     <div class="menu-icon" onclick="toggleMenu()">
+        <div class="menu-icon" onclick="toggleMenu()">
             <i class="fa fa-bars"></i>
-        </div> 
+        </div>
 
     </div>
-
 </nav>
+
+<!-- Modals -->
 <div class="login-modal" id="loginModal">
     <%- include('login') %>
 </div>
@@ -91,3 +99,5 @@
         <button onclick="closeAlert()">OK</button>
     </div>
 </div>
+<script src="https://unpkg.com/i18next@23.7.6/i18next.min.js"></script>
+<script src="/js/i18n.js"></script>

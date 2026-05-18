@@ -1,9 +1,46 @@
-/* ===== BODY ===== */
+/* ── Theme variables ── */
+:root {
+  --bg-primary:   #0d0d0d;
+  --bg-secondary: #000000;
+  --bg-card:      #1e1e1e;
+  --bg-nav:       #0a0a0a;
+  --text-primary: #f0efe8;
+  --text-muted:   #888888;
+  --border:       #2e2e2e;
+  --accent:       #09c4e5;
+}
+
+[data-theme="light"] {
+  --bg-primary:   #f5f5f0;
+  --bg-secondary: #e8e8e2;
+  --bg-card:      #ffffff;
+  --bg-nav:       #1a1a1a;
+  --text-primary: #1a1a1a;
+  --text-muted:   #6b6b6b;
+  --border:       #d0d0c8;
+  --accent:       #09c4e5;
+}
+
 body {
-    margin: 0;
-    padding-top: 80px;
-   
-    font-family: Arial, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--text-primary);
+  transition: border-color 0.2s, background 0.2s;
+}
+
+#theme-toggle:hover {
+  background: var(--bg-secondary);
+  border-color: var(--accent);
 }
 
 /* ===== NAVBAR ===== */
@@ -162,6 +199,7 @@ body {
 
 
 
+
 .profile-dropdown {
     position: relative;
     display: inline-block;
@@ -206,4 +244,34 @@ body {
 .profile-menu li a i {
     margin-right: 8px;
     color: #0ee5f5;
+=======
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.lang-btn {
+  background: transparent;
+  border: none;
+  color: #6b6b80;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.lang-btn:hover { color: #fff; }
+
+.lang-btn.active {
+  background: #7c5cfc;
+  color: white;
+  box-shadow: 0 0 10px rgba(124,92,252,0.4);
+
 }
