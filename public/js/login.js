@@ -56,12 +56,40 @@ if (loginForm) {
 
         if (!isEmailValid || !isPasswordValid) return;
 
-        const email    = document.getElementById("loginEmail").value.trim();
+       const email    = document.getElementById("loginEmail").value.trim();
         const password = document.getElementById("loginPassword").value.trim();
 
-       
+        fetch('/api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        })
+        .then(res => res.json())
+        .then(result => {
+            if (result.success) {
+                if (email === "admin@gmail.com") {
+                    window.location.href = "/admin";
+                } else {
+                    window.location.href = "/cinemaM";
+                }
+            } else {
+                const passwordError = document.getElementById("loginPasswordError");
+                passwordError.innerText = result.message;
+                passwordError.classList.add("active");
+                document.getElementById("loginPassword").classList.add("invalid");
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            const passwordError = document.getElementById("loginPasswordError");
+            passwordError.innerText = "Something went wrong. Try again.";
+            passwordError.classList.add("active");
+        });
     });
 }
+       
+    
+
 
 // ── Modal controls ──
 function openLogin() {
