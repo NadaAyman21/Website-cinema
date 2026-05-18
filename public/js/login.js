@@ -70,7 +70,7 @@ if (loginForm) {
                 if (email === "admin@gmail.com") {
                     window.location.href = "/admin";
                 } else {
-                    window.location.href = "/cinemaM";
+                   window.location.reload();
                 }
             } else {
                 const passwordError = document.getElementById("loginPasswordError");
