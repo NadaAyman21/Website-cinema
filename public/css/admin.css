@@ -368,13 +368,13 @@ i { margin-right: 6px; color: var(--accent); }
   margin-bottom: 8px;
 }
 .stat-value {
-  font-family: 'Syne', sans-serif;
-  font-size: 26px;
-  font-weight: 800;
+  font-family: 'Bebas Neue', sans-serif;  /* was Syne */
+  font-size: 42px;                         /* was 26px */
+  font-weight: 400;                        /* Bebas looks best at 400 */
   color: var(--text);
-  letter-spacing: -0.02em;
+  letter-spacing: 0.05em;
+  line-height: 1;
 }
-
 /* Search */
 #reservationSearch {
   width: 100%;
