@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>My Profile - CineX</title>
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <%- include('partials/nav') %>
+
+    <div class="profile-page">
+
+        <!-- Hero Banner -->
+        <div class="profile-banner">
+            <div class="banner-overlay"></div>
+            <div class="banner-content">
+                <div class="avatar-ring">
+                    <div class="avatar-initials">
+                        <%= user.firstName ? user.firstName[0].toUpperCase() : 'U' %><%= user.lastName ? user.lastName[0].toUpperCase() : '' %>
+                    </div>
+                </div>
+                <div class="banner-text">
+                    <h1><%= user.firstName %> <%= user.lastName %></h1>
+                    <p class="member-since"><i class="fa fa-film"></i> CineX Member</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-number" id="moviesCount">0</span>
+                <span class="stat-label">Movies Watched</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-number" id="ticketsCount">0</span>
+                <span class="stat-label">Tickets Booked</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-number" id="upcomingCount">0</span>
+                <span class="stat-label">Upcom
+</body>
+</html>
