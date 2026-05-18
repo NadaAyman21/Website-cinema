@@ -64,5 +64,20 @@ function setLang(lang) {
       el.textContent = t[key];
       if (icon) el.appendChild(icon);
     }
-  }); }
+  });document.getElementById('langEN').classList.toggle('active', lang === 'en');
+  document.getElementById('langAR').classList.toggle('active', lang === 'ar');
+
+  // RTL / LTR direction
+  document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
+  document.documentElement.lang = lang;
+
+  // Optional: flip font for Arabic
+  document.body.style.fontFamily = lang === 'ar'
+    ? "'Cairo', 'Segoe UI', sans-serif"
+    : "'Outfit', sans-serif";
+
+  // Save preference
+  localStorage.setItem('cinex-lang', lang);
+}
+
 
