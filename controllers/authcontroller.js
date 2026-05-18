@@ -36,8 +36,10 @@ exports.loginPost = async (req, res) => {
     }
 
     req.session.userId = user._id;
-    req.session.userName = user.firstName;
+req.session.userName = user.firstName;
+req.session.save(() => {
     res.status(200).json({ success: true, message: 'Login successful!' });
+});
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: 'Something went wrong. Try again.' });
