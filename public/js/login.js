@@ -87,9 +87,6 @@ if (loginForm) {
         });
     });
 }
-       
-    
-
 
 // ── Modal controls ──
 function openLogin() {
