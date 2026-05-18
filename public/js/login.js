@@ -60,11 +60,12 @@ if (loginForm) {
        const email    = document.getElementById("loginEmail").value.trim();
         const password = document.getElementById("loginPassword").value.trim();
 
-        fetch('/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        })
+      fetch('/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',  
+    body: JSON.stringify({ email, password })
+})
         .then(res => res.json())
         .then(result => {
             if (result.success) {
