@@ -64,5 +64,5 @@ function setLang(lang) {
       el.textContent = t[key];
       if (icon) el.appendChild(icon);
     }
-  });
+  }); }
 
