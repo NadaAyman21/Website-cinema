@@ -10,14 +10,19 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5000',
+  credentials: true
+}));
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
+
 app.use(session({
   secret: 'cinema_secret_key',
-  resave: false,
-  saveUninitialized: false
+  resave: true,
+  saveUninitialized: true,
+  cookie: { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 }
 }));
 
 
@@ -33,6 +38,8 @@ app.set("views", path.join(__dirname, "views"));
 
 app.get("/cinemaM", async (req, res) => {
     const user = await getUser(req);
+    console.log("SESSION:", req.session);
+    console.log("USER:", user);
     res.render("cinemaM", { user });
 });
 
