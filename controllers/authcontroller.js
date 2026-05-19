@@ -24,7 +24,7 @@ exports.signupPost = async (req, res) => {
 
     res.status(201).json({ success: true, message: 'Account created successfully!' });
   } catch (err) {
-    console.error(err);
+    console.error("MongoDB/Validation Error caught:",err);
 
 if (err.name === 'ValidationError') {
       const firstErrorKey = Object.keys(err.errors)[0];
