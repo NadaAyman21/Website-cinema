@@ -1,10 +1,10 @@
-// ── Toggle password visibility ──
+
 function togglePassword() {
     const password = document.getElementById("loginPassword");
     password.type = password.type === "password" ? "text" : "password";
 }
 
-// ── Email validation ──
+
 function validateEmail() {
     const email = document.getElementById("loginEmail").value.trim();
     const emailError = document.getElementById("loginEmailError");
@@ -24,17 +24,17 @@ function validateEmail() {
     return true;
 }
 
-// ── Password validation ──
+
 function validatePassword() {
     const password = document.getElementById("loginPassword").value.trim();
     const passwordError = document.getElementById("loginPasswordError");
-    const pattern = /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
+    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
 
     passwordError.innerText = "";
     document.getElementById("loginPassword").classList.remove("invalid");
 
     if (!password.match(pattern)) {
-        passwordError.innerText = "Password must contain 1 uppercase, 1 number, min 6 chars";
+        passwordError.innerText = "Must be min 8 chars with 1 uppercase, 1 lowercase, and 1 number";
         passwordError.classList.add("active");
         document.getElementById("loginPassword").classList.add("invalid");
         return false;
