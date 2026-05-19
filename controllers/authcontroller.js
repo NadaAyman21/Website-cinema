@@ -1,10 +1,18 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 
-// SIGNUP
+
 exports.signupPost = async (req, res) => {
   const { firstName, lastName, email, password, gender, phone, dob } = req.body;
   try {
+    // 1. Backend-level password validation before hashing
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!password || !password.match(passwordPattern)) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Password must be at least 8 characters long and contain 1 uppercase letter, 1 lowercase letter, and 1 number.' 
+      });
+    }
     const existing = await User.findOne({ email });
     if (existing) {
       return res.status(400).json({ success: false, message: 'An account with this email already exists.' });
@@ -17,11 +25,17 @@ exports.signupPost = async (req, res) => {
     res.status(201).json({ success: true, message: 'Account created successfully!' });
   } catch (err) {
     console.error(err);
+
+if (err.name === 'ValidationError') {
+      const firstErrorKey = Object.keys(err.errors)[0];
+      const customMessage = err.errors[firstErrorKey].message;
+      return res.status(400).json({ success: false, message: customMessage });
+    }
+
     res.status(500).json({ success: false, message: 'Something went wrong. Try again.' });
   }
 };
 
-// LOGIN
 exports.loginPost = async (req, res) => {
   const { email, password } = req.body;
   try {
