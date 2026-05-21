@@ -196,6 +196,55 @@ body {
     cursor: pointer;
     font-size: 22px;
 }
+
+
+
+
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: rgba(10, 20, 15, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    list-style: none;
+    min-width: 160px;
+    z-index: 999;
+    padding: 8px 0;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.profile-menu.active {
+    display: block;
+}
+
+.profile-menu li a {
+    display: block;
+    padding: 10px 16px;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.profile-menu li a:hover {
+    background: rgba(255,255,255,0.08);
+    color: #0ee5f5;
+    text-shadow: 0 0 8px #0ee5f5;
+}
+
+.profile-menu li a i {
+    margin-right: 8px;
+    color: #0ee5f5;
+=======
 .lang-switcher {
   display: flex;
   align-items: center;
@@ -224,4 +273,5 @@ body {
   background: #7c5cfc;
   color: white;
   box-shadow: 0 0 10px rgba(124,92,252,0.4);
+
 }

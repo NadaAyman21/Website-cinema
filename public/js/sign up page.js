@@ -80,55 +80,68 @@ if (signupForm) {
 
         let valid = true;
 
-        // First name
-        if (firstName.length < 2) {
-            showError("firstNameError", firstNameInput, "Enter valid first name");
+        const namePattern = /^[a-zA-Z]{2,}$/;
+        if (!firstName.match(namePattern)) {
+            showError("firstNameError", firstNameInput, "First name must be letters only (min 2)");
             valid = false;
         }
 
-        // Last name
-        if (lastName.length < 2) {
-            showError("lastNameError", lastNameInput, "Enter valid last name");
+       
+        if (!lastName.match(namePattern)) {
+            showError("lastNameError", lastNameInput, "Last name must be letters only (min 2)");
             valid = false;
         }
 
-        // Email
+        
         const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
         if (!email.match(emailPattern)) {
-            showError("signupEmailError", emailInput, "Invalid email format"); // FIX: was signupemailError
+            showError("signupEmailError", emailInput, "Please enter a valid email address"); 
             valid = false;
         }
 
         // Password
-        const passwordPattern = /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
+        const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
         if (!password.match(passwordPattern)) {
-            showError("signupPasswordError", passwordInput, "Password must contain 1 uppercase, 1 number, min 6 chars"); // FIX: was signuppasswordError
+            showError("signupPasswordError", passwordInput, "Must be min 8 chars with 1 uppercase, 1 lowercase, and 1 number"); 
             valid = false;
         }
 
-        // Confirm password
+      
         if (password !== confirmPassword) {
-            showError("signupConfirmPasswordError", confirmInput, "Passwords do not match"); // FIX: was signupconfirmPasswordError
+            showError("signupConfirmPasswordError", confirmInput, "Passwords do not match"); 
             valid = false;
         }
 
-        // Gender
+        
         if (!genderInput) {
             showError("genderError", null, "Select your gender");
             valid = false;
         }
 
-        // Phone
-        const phonePattern = /^\+?[\d\s\-(). ]{7,}$/;
-        if (!phone.match(phonePattern)) {                          // FIX: was checking empty string only
-            showError("phoneError", phoneInput, "Invalid phone number");
-            valid = false;
-        }
+       // Phone
+       const phonePattern = /^\d{11}$/;
+      if (!phone.match(phonePattern)) {                          
+    showError("phoneError", phoneInput, "Phone number must be exactly 11 digits");
+    valid = false;
+}
 
         // Date of birth
         if (!dob) {
             showError("dobError", dobInput, "Select your birth date");
             valid = false;
+        }
+        else {
+            const birthDate = new Date(dob);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            if (age < 13) {
+                showError("dobError", dobInput, "You must be at least 13 years old to create an account");
+                valid = false;
+            }
         }
 
         // Terms

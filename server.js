@@ -5,60 +5,83 @@ const mongoose = require('mongoose');
 const movieRoutes = require('./routes/movieRoutes');
 const session = require('express-session');
 const authRoutes = require('./routes/authRoutes');
+const User = require('./models/User');
 const Movie = require('./models/Movie');
 require('dotenv').config();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5000',
+  credentials: true
+}));
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
+
 app.use(session({
   secret: 'cinema_secret_key',
-  resave: false,
-  saveUninitialized: false
+  resave: true,
+  saveUninitialized: true,
+  cookie: { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 }
 }));
 
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+async function getUser(req) {
+    if (!req.session.userId) return null;
+    return await User.findById(req.session.userId);
+}
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-app.get("/cinemaM", (req, res) => {
-
-    res.render("cinemaM");
-
+app.get("/cinemaM", async (req, res) => {
+    const user = await getUser(req);
+    console.log("SESSION:", req.session);
+    console.log("USER:", user);
+    res.render("cinemaM", { user });
 });
 
-app.get("/", (req, res) => {
-
-    res.render("cinemaM");
+app.get("/", async (req, res) => {
+    const user = await getUser(req);
+    res.render("cinemaM", { user });
 });
 
-app.get("/food", (req, res) => {
-    res.render("food"); 
+app.get("/food", async (req, res) => {
+    const user = await getUser(req);
+    res.render("food", { user });
 });
 
-app.get("/premier", (req, res) => {
-    res.render("premier"); 
-});
-app.get("/stanard", (req, res) => {
-    res.render("stanard"); 
-});
-app.get("/movie", (req, res) => {
-    res.render("movie"); 
+app.get("/premier", async (req, res) => {
+    const user = await getUser(req);
+    res.render("premier", { user });
 });
 
-app.get("/normalSeats", (req, res) => {
-    res.render("normalSeats"); 
+app.get("/stanard", async (req, res) => {
+    const user = await getUser(req);
+    res.render("stanard", { user });
 });
-app.get("/vipSeats", (req, res) => {
-    res.render("vipSeats"); 
+
+app.get("/movie", async (req, res) => {
+    const user = await getUser(req);
+    res.render("movie", { user });
 });
-app.get("/condtions", (req, res) => {
-    res.render("condtions"); 
+
+app.get("/normalSeats", async (req, res) => {
+    const user = await getUser(req);
+    res.render("normalSeats", { user });
+});
+
+app.get("/vipSeats", async (req, res) => {
+    const user = await getUser(req);
+    res.render("vipSeats", { user });
+});
+
+app.get("/condtions", async (req, res) => {
+    const user = await getUser(req);
+    res.render("condtions", { user });
 });
 
 app.get("/admin",async (req, res) => {
@@ -70,6 +93,17 @@ app.get("/admin",async (req, res) => {
        console.error(err);
         res.status(500).send("Error loading dashboard data"); 
     }
+});
+
+app.get("/profile", async (req, res) => {
+    if (!req.session.userId) return res.redirect("/cinemaM");
+    const user = await getUser(req);
+    res.render("profile", { user });
+});
+
+app.get("/logout", (req, res) => {
+    req.session.destroy();
+    res.redirect("/cinemaM");
 });
 
 app.use('/api/movies', movieRoutes);
