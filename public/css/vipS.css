@@ -166,6 +166,61 @@ sconce {
   transform: translateX(-50%);
   width: 72%; height: 88%; z-index: 10;
 }
+.arch-border3d {
+  position: absolute; inset: -10px;
+  border: 6px solid #8a6b2a; border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(201,168,76,.2),inset 0 0 20px rgba(0,0,0,.8);
+}
+.arch-border3d::before {
+  content:''; position: absolute; inset: 4px;
+  border: 1px solid rgba(201,168,76,.25); border-radius: 2px;
+}
+.corner-ornament3d { position: absolute; width: 28px; height: 28px; }
+.corner-ornament3d::before,.corner-ornament3d::after {
+  content:''; position: absolute; background:#c9a84c; border-radius:1px;
+}
+.corner-ornament3d::before{top:0;left:0;width:100%;height:4px}
+.corner-ornament3d::after {top:0;left:0;width:4px;height:100%}
+.co-tl3d{top:-10px;left:-10px}
+.co-tr3d{top:-10px;right:-10px;transform:scaleX(-1)}
+.co-bl3d{bottom:-10px;left:-10px;transform:scaleY(-1)}
+.co-br3d{bottom:-10px;right:-10px;transform:scale(-1)}
+
+#screen3d {
+  position: absolute; inset:0; background:#000;
+  border-radius: 2px; overflow: hidden;
+}
+#screen3d::before {
+  content:''; position:absolute; inset:0; z-index:3; pointer-events:none;
+  background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,.012) 2px,rgba(255,255,255,.012) 4px);
+}
+#screen3d::after {
+  content:''; position:absolute; inset:-40px; z-index:-1;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%,rgba(100,160,255,.12),transparent 70%);
+  animation: screenGlow3d 6s ease-in-out infinite;
+}
+@keyframes screenGlow3d{0%,100%{opacity:.7}50%{opacity:1}}
+
+#screen-content3d {
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center; overflow:hidden;
+}
+.movie-scene3d {
+  width:100%; height:100%; position:relative; overflow:hidden;
+  background: linear-gradient(180deg,#0d1520,#1a2a3a 35%,#0a0f15);
+}
+.stars-layer3d{position:absolute;inset:0;overflow:hidden}
+.star3d {
+  position:absolute; border-radius:50%; background:white;
+  animation: twinkle3d var(--d) ease-in-out infinite;
+}
+@keyframes twinkle3d{0%,100%{opacity:var(--min-op)}50%{opacity:1}}
+.moon3d {
+  position:absolute; top:12%; right:22%;
+  width:60px; height:60px; border-radius:50%;
+  background: radial-gradient(circle at 40% 40%,#e8dfc0,#c4b890);
+  box-shadow: 0 0 40px 15px rgba(232,223,192,.2),0 0 80px 30px rgba(232,223,192,.08);
+}
 :root {
   --bg:          #07070f;
   --bg2:         #0d0d1a;
