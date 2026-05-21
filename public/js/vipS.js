@@ -24,10 +24,6 @@ function toggle3dView() {
 
 
 function init3dScene() {
-  
-  const titleEl = document.getElementById('screenMovieTitle');
-  if (titleEl) titleEl.textContent = movieName.toUpperCase();
-
   // ── Stars ──
   const starsEl = document.getElementById('stars3d');
   if (starsEl) {
