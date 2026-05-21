@@ -3,9 +3,7 @@ const PRICES = { vip: 250 };
 let is3dOpen = false, animFrame3d, initialized3d = false;
 let targetRotY = 0, targetRotX = 0, currentRotY = 0, currentRotX = 0;
 
-// ═══════════════════════════════════════
-//  3D TOGGLE
-// ═══════════════════════════════════════
+
 function toggle3dView() {
   is3dOpen = !is3dOpen;
   const overlay = document.getElementById('view3d-overlay');
@@ -24,12 +22,9 @@ function toggle3dView() {
   }
 }
 
-// ═══════════════════════════════════════
-//  INIT 3D SCENE
-// ═══════════════════════════════════════
+
 function init3dScene() {
-  // Movie title on screen
-  const movieName = localStorage.getItem('selectedMovie') || 'NOW SHOWING';
+  
   const titleEl = document.getElementById('screenMovieTitle');
   if (titleEl) titleEl.textContent = movieName.toUpperCase();
 
@@ -108,9 +103,7 @@ function init3dScene() {
   });
 }
 
-// ═══════════════════════════════════════
-//  ANIMATION LOOP  ← was trapped inside init3dScene before!
-// ═══════════════════════════════════════
+
 function start3dLoop() {
   const world = document.querySelector('#view3d-overlay #cinema-world');
   (function frame() {
@@ -279,11 +272,9 @@ function checkout() {
 function displayMovieMeta() {
   const day       = localStorage.getItem('selectedDay');
   const time      = localStorage.getItem('selectedTime');
-  const movieName = localStorage.getItem('selectedMovie');
   const movieTitle = document.getElementById('movieTitleDisplay');
   const movieSub   = document.getElementById('movieSub');
 
-  if (movieTitle && movieName) movieTitle.textContent = movieName;
 
   if (movieSub && day && time) {
     movieSub.innerHTML = `${day} · ${time} · Private Suite 1
