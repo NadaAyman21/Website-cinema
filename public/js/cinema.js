@@ -38,22 +38,12 @@ setInterval(() => {
 
 createDots();
 
-// ── NAVIGATION ──────────────────────────────────────────
-/*function toggleMenu() {
-    let nav = document.getElementById("navLinks");
-    nav.classList.toggle("active");
-}
-
-function goToLogin() {
-    window.location.href = "login.html";
-}*/
-
 function goToPage(element) {
     window.location.href = element.dataset.page;
 }
 
 // ── MOVIES ──────────────────────────────────────────────
-let movies = JSON.parse(localStorage.getItem("movies")) || [];
+/*let movies = JSON.parse(localStorage.getItem("movies")) || [];
 const container = document.getElementById("moviesList");
 
 function displayMovies() {
@@ -77,5 +67,4 @@ function displayMovies() {
         `;
     });
 }
-
-displayMovies();
+displayMovies();*/
