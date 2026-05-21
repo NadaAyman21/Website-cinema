@@ -18,6 +18,38 @@
   cursor: pointer;
   transition: all 0.25s;
 }
+.btn-3d-view:hover {
+  background: rgba(201,168,76,0.1);
+  border-color: #c9a84c;
+  box-shadow: 0 0 20px rgba(201,168,76,0.15);
+}
+.btn-3d-view.active {
+  background: rgba(201,168,76,0.18);
+  border-color: #c9a84c;
+}
+/* ── Close button ── */
+.btn-close-3d {
+  position: fixed;
+  top: 20px; right: 24px;
+  z-index: 9998;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  background: rgba(10,6,8,0.85);
+  border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 6px;
+  color: #c9a84c;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: all 0.25s;}
+.btn-close-3d:hover { background: rgba(201,168,76,0.1); border-color: #c9a84c; }
+#view3d-overlay.visible ~ .btn-close-3d { display: flex; }
 :root {
   --bg:          #07070f;
   --bg2:         #0d0d1a;
