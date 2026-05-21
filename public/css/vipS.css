@@ -338,6 +338,11 @@ sconce {
   background:#c9a84c; box-shadow:0 0 8px #c9a84c;
   animation:hudBlink3d 2s ease-in-out infinite;
 }
+@keyframes hudBlink3d{0%,100%{opacity:1}50%{opacity:.3}}
+.hud-text3d{font-size:11px;letter-spacing:.2em;color:rgba(201,168,76,.8);text-transform:uppercase;font-weight:300}
+.hud-arrows3d{display:flex;gap:6px;opacity:.6;animation:arrowHint3d 3s ease-in-out infinite}
+@keyframes arrowHint3d{0%,100%{opacity:.4}50%{opacity:.9}}
+.hud-arrow3d{color:#c9a84c;font-size:14px}
 :root {
   --bg:          #07070f;
   --bg2:         #0d0d1a;
