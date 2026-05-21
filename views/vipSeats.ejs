@@ -17,10 +17,10 @@
 
 <header>
   <div class="logo"> CineX <span style="font-size: 0.6rem; vertical-align: middle; color: #ffb040; border: 1px solid #ffb040; padding: 2px 4px; border-radius: 4px; margin-left: 5px;">VIP</span></div>
-  <div class="movie-meta">
+ <!--- <div class="movie-meta">
     <h2 id="movieTitleDisplay"></h2>
     <div class="movie-sub" id="movieSub"></div>
-  </div>
+  </div>-->
   <div class="movie-sub" id="movieSub">
   <button class="btn-3d-view" id="btn3dToggle" onclick="toggle3dView()">
     <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
@@ -78,10 +78,6 @@
         <button onclick="closeAlert()">OK</button>
     </div>
 </div>
- 
-<script src="/js/vipS.js"></script>
-<!-- Close button -->
-<button class="btn-close-3d" id="btnClose3d" onclick="toggle3dView()">✕ &nbsp;Close 3D</button>
 
 <!-- Custom cursors for 3D mode -->
 <div id="cursor3d"></div>
@@ -166,9 +162,7 @@
     </div>
   </div>
 </div>
-
-<script src="/js/vipS.js"></script>
-</body>
 <button class="btn-close-3d" id="btnClose3d" onclick="toggle3dView()">✕ &nbsp;Close 3D</button>
+<script src="/js/vipS.js"></script>
 </body>
 </html>
