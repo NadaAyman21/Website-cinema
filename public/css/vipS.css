@@ -104,6 +104,34 @@
   box-shadow: 0 0 18px 6px rgba(201,168,76,.25),0 0 40px 10px rgba(201,168,76,.1);
   animation: lightPulse 4s ease-in-out infinite;
 }
+.ceil-light:nth-child(2){animation-delay:.8s}
+.ceil-light:nth-child(3){animation-delay:1.6s}
+.ceil-light:nth-child(4){animation-delay:2.4s}
+.ceil-light:nth-child(5){animation-delay:3.2s}
+@keyframes lightPulse{0%,100%{opacity:.9}50%{opacity:.6}}
+
+#floor3d {
+  position: absolute; bottom: 0; left: -20%;
+  width: 140%; height: 52%;
+  background: linear-gradient(0deg,#060405,#0e090b 40%,#150e11);
+  transform-origin: bottom center; transform: rotateX(-18deg);
+}
+.aisle-line {
+  position: absolute; bottom: 0; width: 3px; height: 100%;
+  background: linear-gradient(0deg,rgba(201,168,76,.5),transparent 80%);
+}
+.aisle-line.left{left:28%} .aisle-line.right{right:28%}
+
+#wall-left3d {
+  position: absolute; top: 0; left: -2%; width: 22%; height: 100%;
+  background: linear-gradient(90deg,#0a0608,#1a1015);
+  transform-origin: left center; transform: rotateY(30deg);
+}
+#wall-right3d {
+  position: absolute; top: 0; right: -2%; width: 22%; height: 100%;
+  background: linear-gradient(-90deg,#0a0608,#1a1015);
+  transform-origin: right center; transform: rotateY(-30deg);
+}
 :root {
   --bg:          #07070f;
   --bg2:         #0d0d1a;
