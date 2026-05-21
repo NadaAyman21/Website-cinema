@@ -305,6 +305,23 @@ sconce {
   content:''; position:absolute; bottom:-4px; left:1px; right:1px;
   height:5px; background:#1a0d30; border-radius:0 0 2px 2px;
 }
+.seat3d:hover{transform:translateY(-3px);box-shadow:0 4px 12px rgba(100,60,200,.5)}
+.seat3d.dlx3d{background:linear-gradient(180deg,#8b2020,#4a1a1a)}
+.seat3d.taken3d{background:linear-gradient(180deg,#2e2e2e,#1a1a1a);cursor:default;opacity:.5}
+.seat3d.taken3d:hover{transform:none}
+
+#ambient3d {
+  position:absolute; inset:0; pointer-events:none; z-index:20;
+  background:radial-gradient(ellipse 70% 50% at 50% 30%,rgba(100,160,255,.06),transparent 65%);
+  animation:ambientPulse3d 5s ease-in-out infinite;
+}
+@keyframes ambientPulse3d{0%,100%{opacity:.6}50%{opacity:1}}
+#particles3d{position:absolute;inset:0;pointer-events:none;z-index:15;overflow:hidden}
+.particle3d {
+  position:absolute; width:2px; height:2px; border-radius:50%;
+  background:rgba(255,255,255,.4);
+  animation:particleFloat3d var(--dur) linear infinite;
+}
 :root {
   --bg:          #07070f;
   --bg2:         #0d0d1a;
