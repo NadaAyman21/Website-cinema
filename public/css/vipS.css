@@ -132,6 +132,40 @@
   background: linear-gradient(-90deg,#0a0608,#1a1015);
   transform-origin: right center; transform: rotateY(-30deg);
 }
+sconce {
+  position: absolute; width: 18px; height: 50px;
+  background: linear-gradient(180deg,#8a6b2a,transparent);
+  border-radius: 9px 9px 0 0;
+}
+.sconce::after {
+  content:''; position: absolute; top:-6px; left:50%;
+  transform: translateX(-50%); width: 30px; height: 30px;
+  background: radial-gradient(circle,rgba(201,168,76,.8),transparent 70%);
+  border-radius: 50%;
+}
+.sconce-left{right:10px} .sconce-right{left:10px}
+.sconce-t1{top:20%} .sconce-t2{top:45%} .sconce-t3{top:70%}
+.side-drape3d {
+  position: absolute; top: 0; width: 10%; height: 100%;
+  opacity: .85;
+}
+.side-drape3d.left  { left:7%;  background: linear-gradient(90deg,#5a0f0f,#8b1a1a); }
+.side-drape3d.right { right:7%; background: linear-gradient(-90deg,#5a0f0f,#8b1a1a); }
+.side-drape3d::before {
+  content:''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(180deg,transparent 0,transparent 30px,rgba(0,0,0,.3) 30px,rgba(0,0,0,.3) 32px);
+}
+.drape-trim3d {
+  position: absolute; top: 0; bottom: 0; width: 4px;
+  background: linear-gradient(180deg,#c9a84c,#8a6b2a,#c9a84c);
+}
+.side-drape3d.left  .drape-trim3d{right:0}
+.side-drape3d.right .drape-trim3d{left:0}
+#screen-arch3d {
+  position: absolute; top:3%; left:50%;
+  transform: translateX(-50%);
+  width: 72%; height: 88%; z-index: 10;
+}
 :root {
   --bg:          #07070f;
   --bg2:         #0d0d1a;
