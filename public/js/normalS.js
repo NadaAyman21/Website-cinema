@@ -261,25 +261,4 @@ function checkout() {
   }, 600);
 }
 
-function displayMovieMeta() {
-    const day = localStorage.getItem('selectedDay');
-    const time = localStorage.getItem('selectedTime');
-    const movieSub = document.getElementById('movieSub');
-    const movieName = localStorage.getItem('selectedMovie');
-    const movieTitle = document.getElementById('movieTitleDisplay');
-    
-    if (movieTitle && movieName) {
-        movieTitle.textContent = movieName;
-    }
-
-    if (movieSub) {
-        // Hardcoded to Screen 4 for this version
-        const roomName = "Screen 4";
-        if (day && time) {
-            movieSub.textContent = `${day} · ${time} · ${roomName}`;
-        }
-    }
-}
-
-displayMovieMeta();
 buildSeats();

@@ -244,7 +244,7 @@ body {
 .profile-menu li a i {
     margin-right: 8px;
     color: #0ee5f5;
-=======
+}
 .lang-switcher {
   display: flex;
   align-items: center;
@@ -273,5 +273,4 @@ body {
   background: #7c5cfc;
   color: white;
   box-shadow: 0 0 10px rgba(124,92,252,0.4);
-
 }
