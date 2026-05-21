@@ -1,6 +1,23 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+/* ── Button ── */
+.btn-3d-view {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 6px;
+  color: #c9a84c;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s;
+}
 :root {
   --bg:          #07070f;
   --bg2:         #0d0d1a;
