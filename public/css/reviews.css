@@ -125,3 +125,6 @@ reviews-header h1 {
     box-shadow: 0 6px 20px rgba(9, 196, 229, 0.5);
     background: #0be5f5;
 }
+.review-btn:active {
+    transform: translateY(0);
+}
