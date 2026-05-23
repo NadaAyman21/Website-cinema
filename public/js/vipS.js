@@ -87,3 +87,8 @@ function buildRoom() {
   floor.rotation.x = -Math.PI / 2;
   floor.receiveShadow = true;
   scene.add(floor);
+
+    const carpet = new THREE.Mesh(new THREE.PlaneGeometry(1.2, D * 0.6), materials.carpet);
+  carpet.rotation.x = -Math.PI / 2;
+  carpet.position.set(0, 0.01, 2);
+  scene.add(carpet);
