@@ -212,3 +212,8 @@ reviews-header h1 {
     border-radius: 20px;
     margin-top: 6px;
 }
+.badge-movie {
+    background: rgba(9, 196, 229, 0.1);
+    color: var(--accent);
+    border: 1px solid rgba(9, 196, 229, 0.2);
+}
