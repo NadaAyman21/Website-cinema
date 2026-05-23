@@ -581,3 +581,10 @@ let animFrame = 0;
 function animate() {
   requestAnimationFrame(animate);
   animFrame++;
+
+    phi    += (targetPhi    - phi)    * 0.06;
+  theta  += (targetTheta  - theta)  * 0.06;
+  radius += (targetRadius - radius) * 0.06;
+ 
+  if (autoRotate) targetTheta += autoRotateSpeed;
+  updateCamera();
