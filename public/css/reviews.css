@@ -223,3 +223,8 @@ reviews-header h1 {
     color: #7c5cfc;
     border: 1px solid rgba(124, 92, 252, 0.2);
 }
+.badge-food {
+    background: rgba(241, 196, 15, 0.1);
+    color: #f1c40f;
+    border: 1px solid rgba(241, 196, 15, 0.2);
+}
