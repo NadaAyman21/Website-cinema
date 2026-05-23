@@ -160,3 +160,8 @@ function buildRoom() {
   );
   screenMesh.position.set(0, 5, -D / 2 + 0.4);
   scene.add(screenMesh);
+
+   const screenLight = new THREE.RectAreaLight(0x4488cc, 3, 12, 7);
+  screenLight.position.set(0, 5, -D / 2 + 1);
+  screenLight.lookAt(0, 3, 0);
+  scene.add(screenLight);
