@@ -117,3 +117,7 @@ function buildRoom() {
     const frame = new THREE.Mesh(new THREE.BoxGeometry(13, 7.5, 0.2), materials.gold);
   frame.position.set(0, 5, -D / 2 + 0.25);
   scene.add(frame);
+
+    const screen = new THREE.Mesh(new THREE.PlaneGeometry(12.2, 6.8), materials.screenGlow);
+  screen.position.set(0, 5, -D / 2 + 0.36);
+  scene.add(screen);
