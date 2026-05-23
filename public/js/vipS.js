@@ -539,3 +539,19 @@ function confirmBook() {
   updateUI();
 }
  
+function setView(v, e) {
+  currentView = v;
+  document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+  if (e && e.target) e.target.classList.add('active');
+  const vd = VIEWS[v];
+  if (v === 'fly') {
+    autoRotate      = true;
+    autoRotateSpeed = 0.003;
+  } else {
+    autoRotate      = false;
+    autoRotateSpeed = 0;
+  }
+  targetPhi    = vd.phi;
+  targetTheta  = vd.theta;
+  targetRadius = vd.radius;
+}
