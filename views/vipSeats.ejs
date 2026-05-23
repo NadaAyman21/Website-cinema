@@ -17,3 +17,19 @@
   <div class="loader-bar"><div class="loader-fill"></div></div>
   <div class="loader-text">Preparing your private screening...</div>
 </div>
+
+<canvas id="cinema-canvas"></canvas>
+
+
+<div id="hud">
+  <div id="topbar">
+    <div class="logo">CINEX <span>VIP</span></div>
+    <div id="view-toggle">
+      <button class="view-btn active" onclick="setView('audience', event)">Audience View</button>
+      <button class="view-btn" onclick="setView('top', event)">Overview</button>
+      <button class="view-btn" onclick="setView('fly', event)">Fly Around</button>
+    </div>
+    <div style="font-size:0.65rem;letter-spacing:0.2em;color:rgba(201,168,76,0.5);text-transform:uppercase;">
+      MAX 6 SEATS
+    </div>
+  </div>
