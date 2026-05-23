@@ -30,10 +30,12 @@ const reviewSchema = new mongoose.Schema({
         type: String,
         default: 'Guest'
     }
-}, { timestamps: true });
+}, 
+{ timestamps: true });
 reviewSchema.pre('save', function (next) {
     if (this.item) {
         this.movie = this.item;
     }
     next();
 });
+module.exports = mongoose.model('Review', reviewSchema);
