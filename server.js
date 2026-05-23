@@ -7,7 +7,18 @@ const session = require('express-session');
 const authRoutes = require('./routes/authRoutes');
 const User = require('./models/User');
 const Movie = require('./models/Movie');
+app.set('view engine', 'ejs');
+
 require('dotenv').config();
+app.use(express.urlencoded({ extended: true }));
+app.use(session({
+  secret: 'cinema_secret_key',
+  resave: false,
+  saveUninitialized: false
+}));
+
+
+
 
 const app = express();
 
