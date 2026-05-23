@@ -1,14 +1,39 @@
-
 let editingMovieId = null;
 
-// Run automatically on page load
 document.addEventListener('DOMContentLoaded', () => {
     fetchMovies();
     
-    // Bind form submit event
     const form = document.getElementById('movieForm');
-    form.addEventListener('submit', handleFormSubmit);
+    if (form) {
+        form.addEventListener('submit', handleFormSubmit);
+    }
 });
+
+function validateTitle(title) {
+    return title.length >= 2;
+}
+
+function validateGenre(genre) {
+    return /^[A-Za-z\s\/]+$/.test(genre) && /[A-Za-z]/.test(genre);
+}
+
+function validateTime(time) {
+    return /^[0-9]+h\s?[0-9]*m?$/.test(time);
+}
+
+function validateImage(path) {
+    return /^(https?:\/\/.*\.(jpg|jpeg|png|gif|webp)|\.?\/?images\/.+\.(jpg|jpeg|png|gif|webp))$/i.test(path);
+}
+
+function validateAge(age) {
+    return /^\+(?:[1-9]|1[0-9]|2[01])$/.test(age) || /^[A-Za-z0-9\+]+$/.test(age);
+}
+
+function validateTrailer(trailer) {
+    if (trailer === "") return true;
+    return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/.test(trailer);
+}
+
 
 async function fetchMovies() {
     try {
@@ -22,16 +47,17 @@ async function fetchMovies() {
 
 function renderMoviesList(movies) {
     const listContainer = document.getElementById('moviesList');
+    if (!listContainer) return;
     listContainer.innerHTML = ''; // Reset container
 
-    if(movies.length === 0) {
+    if (movies.length === 0) {
         listContainer.innerHTML = '<p style="color:#6b6b80;">No movies found in database.</p>';
         return;
     }
 
     movies.forEach(movie => {
         const card = document.createElement('div');
-        card.className = 'movie-card'; // Double-check this matches your admin.css style
+        card.className = 'movie-card'; 
         card.innerHTML = `
             <img src="${movie.imageUrl}" alt="${movie.title}" style="width:100%; border-radius:8px;">
             <h3>${movie.title}</h3>
@@ -39,33 +65,81 @@ function renderMoviesList(movies) {
             <p><strong>Duration:</strong> ${movie.runTime}</p>
             <p><strong>Story:</strong> ${movie.description || 'N/A'}</p>
             <div style="margin-top: 10px; display:flex; gap:10px;">
-                <button onclick="editMovie('${movie._id}', '${escapeHtml(JSON.stringify(movie))}')" style="background:#f1c40f; color:#000; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Edit</button>
-                <button onclick="deleteMovie('${movie._id}')" style="background:#e74c3c; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Delete</button>
+                <button class="edit-btn-action" style="background:#f1c40f; color:#000; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Edit</button>
+                <button class="delete-btn-action" style="background:#e74c3c; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Delete</button>
             </div>
         `;
+
+        // Now these query selectors will find the buttons perfectly!
+        const editBtn = card.querySelector('.edit-btn-action');
+        const deleteBtn = card.querySelector('.delete-btn-action');
+
+        editBtn.addEventListener('click', () => {
+            populateFormForEditing(movie);
+        });
+
+        deleteBtn.addEventListener('click', () => {
+            deleteMovie(movie._id);
+        });
+
         listContainer.appendChild(card);
     });
 }
 
+function populateFormForEditing(movie) {
+    editingMovieId = movie._id;
+
+   
+    document.getElementById('title').value = movie.title || '';
+    document.getElementById('genre').value = movie.genre || '';
+    document.getElementById('time').value = movie.runTime || '';
+    document.getElementById('age').value = movie.ageRating || '';
+    document.getElementById('image').value = movie.imageUrl || '';
+    document.getElementById('trailer').value = movie.videoUrl || '';
+    
+    // Check if cast is stored as an Array object or plain text string
+    if (Array.isArray(movie.cast)) {
+        document.getElementById('cast').value = movie.cast.join(', ');
+    } else {
+        document.getElementById('cast').value = movie.cast || '';
+    }
+    
+    document.getElementById('story').value = movie.description || '';
+
+    // Transform submit button icon and label context state
+    const submitBtn = document.querySelector('#movieForm button[type="submit"]');
+    if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Update Movie';
+    }
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
 async function handleFormSubmit(e) {
     e.preventDefault();
+    const title       = document.getElementById('title').value.trim();
+    const genre       = document.getElementById('genre').value.trim();
+    const runTime     = document.getElementById('time').value.trim();
+    const ageRating   = document.getElementById('age').value.trim();
+    const imageUrl    = document.getElementById('image').value.trim();
+    const videoUrl    = document.getElementById('trailer').value.trim();
+    const cast        = document.getElementById('cast').value.trim();
+    const description = document.getElementById('story').value.trim();
 
-    // Collect values matching your backend structure expectations
-    const payload = {
-        title: document.getElementById('title').value,
-        genre: document.getElementById('genre').value,
-        runTime: document.getElementById('time').value,
-        ageRating: document.getElementById('age').value,
-        imageUrl: document.getElementById('image').value,
-        videoUrl: document.getElementById('trailer').value,
-        cast: document.getElementById('cast').value,
-        description: document.getElementById('story').value
-    };
+    
+    if (!validateTitle(title)) { showAlert("Title must be at least 2 characters!"); return; }
+    if (!validateGenre(genre)) { showAlert("Genre must contain letters only!"); return; }
+    if (!validateTime(runTime)) { showAlert("Time must be like: 2h or 2h 30m"); return; }
+    if (!validateImage(imageUrl)) { showAlert("Image must be a valid image URL or path!"); return; }
+    if (!validateAge(ageRating)) { showAlert("Age must be like +12, +16, +18 etc."); return; }
+    if (!validateTrailer(videoUrl)) { showAlert("Trailer must be a valid YouTube link!"); return; }
+
+    const payload = { title, genre, runTime, ageRating, imageUrl, videoUrl, cast, description };
 
     let url = '/api/movies/add';
     let method = 'POST';
 
-    // Switch details if editing mode is active
     if (editingMovieId) {
         url = `/api/movies/edit/${editingMovieId}`;
         method = 'PUT';
@@ -77,12 +151,17 @@ async function handleFormSubmit(e) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
-  if (res.ok) {
+
+        if (res.ok) {
             showAlert(editingMovieId ? "Movie updated successfully!" : "Movie added successfully!");
             document.getElementById('movieForm').reset();
-            editingMovieId = null; // Reset form status tracker
-            document.querySelector('#movieForm button[type="submit"]').innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Movie';
-            fetchMovies(); // Reload layout
+            editingMovieId = null; 
+            
+            const submitBtn = document.querySelector('#movieForm button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save Movie';
+            }
+            fetchMovies(); 
         } else {
             const data = await res.json();
             showAlert("Error: " + data.message);
@@ -90,25 +169,6 @@ async function handleFormSubmit(e) {
     } catch (err) {
         console.error("Submission failed:", err);
     }
-      
-}
-function editMovie(id, movieString) {
-    const movie = JSON.parse(movieString);
-    editingMovieId = id;
-
-    // Pop values up into form fields
-    document.getElementById('title').value = movie.title;
-    document.getElementById('genre').value = movie.genre;
-    document.getElementById('time').value = movie.runTime;
-    document.getElementById('age').value = movie.ageRating;
-    document.getElementById('image').value = movie.imageUrl;
-    document.getElementById('trailer').value = movie.videoUrl;
-    document.getElementById('cast').value = Array.isArray(movie.cast) ? movie.cast.join(', ') : movie.cast;
-    document.getElementById('story').value = movie.description || '';
-
-    // Transform submission button UI
-    document.querySelector('#movieForm button[type="submit"]').innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Update Movie';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 async function deleteMovie(id) {
@@ -127,17 +187,17 @@ async function deleteMovie(id) {
     }
 }
 
+
 function showAlert(msg) {
     document.getElementById('alertMessage').innerText = msg;
     document.getElementById('customAlert').style.display = 'flex';
 }
+
 function closeAlert() {
     document.getElementById('customAlert').style.display = 'none';
 }
-function escapeHtml(str) {
-    return str.replace(/'/g, "&apos;").replace(/"/g, "&quot;");
-}
+
 function logout() {
     alert("Logging out...");
-    window.location.href = "/";
+    window.location.href = "/logout";
 }
