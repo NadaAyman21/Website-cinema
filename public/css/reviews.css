@@ -228,3 +228,10 @@ reviews-header h1 {
     color: #f1c40f;
     border: 1px solid rgba(241, 196, 15, 0.2);
 }
+.filter-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 30px;
+}
