@@ -151,3 +151,10 @@ reviews-header h1 {
 .reviews-list::-webkit-scrollbar-thumb:hover {
     background: var(--accent);
 }
+.review-card {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
