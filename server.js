@@ -98,7 +98,7 @@ app.get("/admin",async (req, res) => {
 app.get("/profile", async (req, res) => {
     if (!req.session.userId) return res.redirect("/cinemaM");
     const user = await getUser(req);
-    res.render("profile", { user });
+    res.render("profile", { user, currentPage: 'profile' });
 });
 
 app.get("/logout", (req, res) => {
