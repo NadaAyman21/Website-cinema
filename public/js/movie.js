@@ -155,3 +155,39 @@ function initializeCalendarTimeline() {
         dateContainer.appendChild(card);
     }
 }
+let selectedExperience = "STANDARD&DELUXE";
+
+function selectExp(btn) {
+    document.querySelectorAll(".exp-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    selectedExperience = btn.innerText.trim();
+}
+
+function selectTime(btn) {
+    document.querySelectorAll(".time").forEach(t => t.classList.remove("active"));
+    btn.classList.add("active");
+    
+    const movieTitle = document.getElementById("title").innerText;
+    const selectedTime = btn.innerText.trim();
+    
+    const activeDateCard = document.querySelector(".date-card.active");
+    if (!activeDateCard) {
+        alert("Please pick an active reservation date coordinate target first.");
+        return;
+    }
+    
+
+    const dayName = activeDateCard.querySelector("strong").innerText; 
+    const textLines = activeDateCard.innerText.replace(dayName, "").trim();
+    localStorage.setItem('selectedMovie', movieTitle);
+    localStorage.setItem('selectedTime', selectedTime);
+    localStorage.setItem('selectedDay', dayName);
+    localStorage.setItem('selectedDateText', `${textLines}, 2026`);
+
+    let typeParam = "standard";
+    if (selectedExperience === "PREMIERE") {
+        typeParam = "premiere";
+    }
+
+    window.location.href = `/condtions?type=${typeParam}`;
+}
