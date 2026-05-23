@@ -251,3 +251,7 @@ function buildSeats() {
       const baseMat = getMat(data.status);
       const group   = new THREE.Group();
  
+            const cushion = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W, 0.18, SEAT_D * 0.85), baseMat.clone());
+      cushion.position.set(x, y + 0.48, z - 0.04);
+      cushion.castShadow = true; cushion.receiveShadow = true;
+      group.add(cushion);
