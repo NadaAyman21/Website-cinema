@@ -1,0 +1,10 @@
+.reviews-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 24px 60px; 
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+.reviews-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
