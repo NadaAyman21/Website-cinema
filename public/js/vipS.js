@@ -219,3 +219,35 @@ function buildRoom() {
     scene.add(fixture);
   }
 }
+
+const seatMeshes = {};
+const seatGroup  = new THREE.Group();
+scene.add(seatGroup);
+ 
+const SEAT_W      = 0.82;
+const SEAT_H      = 0.9;
+const SEAT_D      = 0.75;
+const ROW_Z_START = -6.5;
+const ROW_Z_STEP  = 2.5;
+const SEAT_X_STEP = 1.1;
+const ROW_Y_RISE  = 0.3;
+ 
+function buildSeats() {
+  ROWS.forEach((row, ri) => {
+    const cfg       = ROW_CONFIGS[row];
+    const seats     = cfg.seats.filter(s => s !== null);
+    const totalSeats = seats.length;
+    const totalWidth = (totalSeats - 1) * SEAT_X_STEP;
+ 
+    let seatIndex = 0;
+    cfg.seats.forEach(s => {
+      if (s === null) { seatIndex++; return; }
+      const id   = `${row}${s}`;
+      const data = seatData[id];
+      const x    = -totalWidth / 2 + seatIndex * SEAT_X_STEP;
+      const z    = ROW_Z_START + ri * ROW_Z_STEP;
+      const y    = ri * ROW_Y_RISE;
+ 
+      const baseMat = getMat(data.status);
+      const group   = new THREE.Group();
+ 
