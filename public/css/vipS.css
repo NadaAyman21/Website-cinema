@@ -38,3 +38,8 @@ html, body {
 }
 #cursor.hover { transform: scale(2.5); background: rgba(201,168,76,0.1); }
  
+#cinema-canvas {
+  position: fixed; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+}
