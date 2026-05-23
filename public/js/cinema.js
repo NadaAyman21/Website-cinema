@@ -42,29 +42,39 @@ function goToPage(element) {
     window.location.href = element.dataset.page;
 }
 
-// ── MOVIES ──────────────────────────────────────────────
-/*let movies = JSON.parse(localStorage.getItem("movies")) || [];
+
 const container = document.getElementById("moviesList");
 
-function displayMovies() {
+async function displayMovies() {
     if (!container) return;
-    container.innerHTML = "";
+    
+    container.innerHTML = "<p class='loading-movies'>Loading movies...</p>";
 
-    if (movies.length === 0) {
-        container.innerHTML = "<p class='no-movies'>No movies available.</p>";
-        return;
+    try {
+        const response = await fetch('/api/movies'); 
+        const movies = await response.json();
+
+        container.innerHTML = "";
+
+        if (!movies || movies.length === 0) {
+            container.innerHTML = "<p class='no-movies'>No movies available at the moment.</p>";
+            return;
+        }
+        
+        movies.forEach(movie => {
+            container.innerHTML += `
+                <a href="/movie?id=${movie._id}" class="movie-card">
+                    <div class="poster">
+                        <img src="${movie.imageUrl}" alt="${movie.title}" onerror="this.src='/images/homepage.jpg';">
+                        <span class="age">${movie.ageRating || "PG"}</span>
+                    </div>
+                    <h3>${movie.title}</h3>
+                </a>
+            `;
+        });
+    } catch (err) {
+        console.error("Error fetching movies from database:", err);
+        container.innerHTML = "<p class='error-movies'>Failed to load movies. Please try again later.</p>";
     }
-
-    movies.forEach(movie => {
-        container.innerHTML += `
-            <a href="/movie?id=${movie.id}" class="movie-card">
-                <div class="poster">
-                    <img src="${movie.image}" alt="${movie.title}">
-                    <span class="age">${movie.age || "+0"}</span>
-                </div>
-                <h3>${movie.title}</h3>
-            </a>
-        `;
-    });
 }
-displayMovies();*/
+displayMovies();
