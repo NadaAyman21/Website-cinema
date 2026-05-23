@@ -154,7 +154,7 @@
                         </div>
                         <button class="change-pass-btn" onclick="openPasswordModal()">Change</button>
                     </div>
-                    
+
                     <div class="settings-item danger-zone">
                         <div>
                             <div class="settings-title">Delete Account</div>
@@ -167,6 +167,32 @@
 
         </div>
     </div>
+
+    <!-- Change Password Modal -->
+<div class="modal-overlay" id="passwordModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>Change Password</h2>
+            <button onclick="closePasswordModal()"><i class="fa fa-times"></i></button>
+        </div>
+        <div class="modal-form">
+            <div class="form-row">
+                <label>Current Password</label>
+                <input type="password" id="currentPassword" placeholder="Enter current password">
+            </div>
+            <div class="form-row">
+                <label>New Password</label>
+                <input type="password" id="newPassword" placeholder="Enter new password">
+            </div>
+            <div class="form-row">
+                <label>Confirm New Password</label>
+                <input type="password" id="confirmNewPassword" placeholder="Confirm new password">
+            </div>
+            <p id="passwordError" style="color:#e83b3b; font-size:13px; display:none;"></p>
+            <button class="submit-btn" onclick="savePassword()">Save Password</button>
+        </div>
+    </div>
+</div>
 
     <!-- Edit Info Modal -->
 <div class="modal-overlay" id="editModal">
