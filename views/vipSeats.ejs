@@ -67,3 +67,27 @@
     </div>
   </div>
 </div>
+
+<div id="confirm-modal">
+  <div class="modal-box">
+    <div class="modal-corner tl"></div>
+    <div class="modal-corner tr"></div>
+    <div class="modal-corner bl"></div>
+    <div class="modal-corner br"></div>
+    <div class="modal-icon">🎬</div>
+    <div class="modal-title">Confirm Reservation</div>
+    <div class="modal-sub">VIP Screening · Tonight 9:00 PM</div>
+    <div class="modal-seats" id="modal-seats"></div>
+    <div class="modal-total">Total</div>
+    <div class="modal-price" id="modal-price">EGP 0</div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeConfirm()">Cancel</button>
+      <button class="btn-confirm" onclick="confirmBook()">Confirm & Pay</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="/js/vipS.js"></script>
+</body>
+</html>
