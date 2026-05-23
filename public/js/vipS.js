@@ -63,3 +63,19 @@ function updateCamera() {
   camera.position.set(x, y + 2, z);
   camera.lookAt(0, 1, -2);
 }
+
+const materials = {
+  screen:       new THREE.MeshStandardMaterial({ color: 0x1a4a7a, emissive: 0x0a2a4a, roughness: 0.1, metalness: 0.05 }),
+  screenGlow:   new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x8bbfe0, emissiveIntensity: 1.2, roughness: 0.05, metalness: 0.1, transparent: true, opacity: 0.97 }),
+  wall:         new THREE.MeshStandardMaterial({ color: 0x1a0d12, roughness: 0.9, metalness: 0.1 }),
+  floor:        new THREE.MeshStandardMaterial({ color: 0x0d0810, roughness: 0.95, metalness: 0.0 }),
+  ceiling:      new THREE.MeshStandardMaterial({ color: 0x120a10, roughness: 1, metalness: 0 }),
+  gold:         new THREE.MeshStandardMaterial({ color: 0xc9a84c, roughness: 0.2, metalness: 0.9, emissive: 0x2a1800, emissiveIntensity: 0.3 }),
+  curtain:      new THREE.MeshStandardMaterial({ color: 0x5a0a14, roughness: 0.95, metalness: 0.0 }),
+  seatVip:      new THREE.MeshStandardMaterial({ color: 0x7a1a28, roughness: 0.88, metalness: 0.0, emissive: 0x2a0008, emissiveIntensity: 0.35 }),
+  seatSelected: new THREE.MeshStandardMaterial({ color: 0xd4a017, roughness: 0.25, metalness: 0.5, emissive: 0x8a5000, emissiveIntensity: 0.8 }),
+  seatHold:     new THREE.MeshStandardMaterial({ color: 0x3a4a1a, roughness: 0.88, metalness: 0.0, emissive: 0x0a1000, emissiveIntensity: 0.2 }),
+  seatTaken:    new THREE.MeshStandardMaterial({ color: 0x110909, roughness: 0.95, metalness: 0.05 }),
+  seatHover:    new THREE.MeshStandardMaterial({ color: 0xe8c060, roughness: 0.2, metalness: 0.5, emissive: 0x7a5000, emissiveIntensity: 0.7 }),
+  carpet:       new THREE.MeshStandardMaterial({ color: 0x3a0a1a, roughness: 1, metalness: 0 }),
+};
