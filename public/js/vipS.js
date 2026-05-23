@@ -165,3 +165,7 @@ function buildRoom() {
   screenLight.position.set(0, 5, -D / 2 + 1);
   screenLight.lookAt(0, 3, 0);
   scene.add(screenLight);
+
+    const rail = new THREE.Mesh(new THREE.BoxGeometry(14, 0.12, 0.3), materials.gold);
+  rail.position.set(0, 1.4, -D / 2 + 0.3);
+  scene.add(rail);
