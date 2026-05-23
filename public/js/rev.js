@@ -7,3 +7,15 @@
         const experienceSelect = document.getElementById('experience-item');
         const foodSelect = document.getElementById('food-item');
         const hiddenItemInput = document.getElementById('item');
+
+         function switchCategory(category) {
+            movieGroup.style.display = category === 'movie' ? 'block' : 'none';
+            experienceGroup.style.display = category === 'experience' ? 'block' : 'none';
+            foodGroup.style.display = category === 'food-drinks' ? 'block' : 'none';
+            
+            movieSelect.required = category === 'movie';
+            experienceSelect.required = category === 'experience';
+            foodSelect.required = category === 'food-drinks';
+
+            updateHiddenItem();
+        }
