@@ -155,7 +155,19 @@
 
 </main>
 
+<section class="embed-reviews-section glass-panel">
+        <h2>Customer Reviews</h2>
+        <p>See what our guests are saying about the food and drinks at CineX!</p>
 
+        <div class="reviews-embed-grid">
+            <% if (typeof reviews !== 'undefined' && reviews && reviews.length > 0) { %>
+                <% reviews.forEach(review => { %>
+                    <article class="review-card">
+                        <div class="review-card-header">
+                            <div>
+                                <h3 class="review-movie-name"><%= review.item %></h3>
+                                <div class="review-author">by <%= review.userName %></div>
+                            </div>
 <script src="/js/nav.js"></script>
 <script src="/js/login.js"></script>
 <script src="/js/sign up page.js"></script>
