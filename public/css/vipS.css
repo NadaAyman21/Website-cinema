@@ -101,3 +101,19 @@ html, body {
   0%,100%{ transform: translateY(0); }
   50%{ transform: translateY(-4px); }
 }
+
+#seat-panel {
+  position: fixed;
+  bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 900px;
+  padding: 24px 40px 32px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.98) 0%, rgba(10,6,8,0.85) 70%, transparent 100%);
+  pointer-events: auto;
+  z-index: 20;
+  transition: opacity 0.4s;
+}
+.panel-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px;
+}
+ 
