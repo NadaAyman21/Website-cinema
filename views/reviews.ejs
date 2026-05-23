@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cinema Reviews</title>
+</head>
+<body>
+    <h1>Cinema Reviews</h1>
+<!-- Review Form -->
+    <form action="/reviews" method="POST">
+
+        <label>Movie Name:</label><br>
+        <input type="text" name="movie" required><br><br>
+        
+        <label>Rating:</label><br>
+        <select name="rating" required>
+            <option value="1">1 Star</option>
+            <option value="2">2 Stars</option>
+            <option value="3">3 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="5">5 Stars</option>
+ </select><br><br>
+<label>Comment:</label><br>
+        <textarea name="comment" required></textarea><br><br>
+<button type="submit">Submit Review</button>
+    </form>
+     <hr>
+
+    <!-- Show Reviews -->
+    <h2>All Reviews</h2>
+<% reviews.forEach(review => { %>
+ <div>
+            <h3><%= review.movie %></h3>
+            <p>⭐ Rating: <%= review.rating %>/5</p>
+            <p><%= review.comment %></p>
+            <hr>
+        </div>
+    <% }) %>
+
+</body>
+</html>
+
+
+
