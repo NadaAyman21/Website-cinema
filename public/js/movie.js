@@ -1,72 +1,124 @@
-
-// GET MOVIE ID FROM URL
 const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+const movieId = params.get("id");
 
-// GET MOVIES FROM LOCAL STORAGE
-const movies = JSON.parse(localStorage.getItem("movies")) || [];
 
-// FIND MOVIE
-const movie = movies.find(m => m.id == id);
-
-// DISPLAY DATA
-if (movie) {
-
-    document.getElementById("title").innerText = movie.title;
-    document.getElementById("genre").innerText = movie.genre;
-    document.getElementById("time").innerText = "⏱ " + movie.time;
-    document.getElementById("story").innerText = movie.story || "No story available";
-    document.getElementById("cast").innerText = movie.cast || "No cast info";
-
-    document.getElementById("poster").src = movie.image;
-    document.getElementById("age").textContent = movie.age || "+0";
-
-    // BACKGROUND IMAGE
-    document.getElementById("hero").style.backgroundImage =
-        `linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.6)), url('${movie.image}')`;
-
-    // TRAILER BUTTON
-  document.getElementById("trailerBtn").onclick = function () {
-    const iframe = document.getElementById("videoPlayer");
-
-    let link = movie.trailer;
-
-    // CASE 1: already embed link
-    if (link.includes("embed")) {
-        iframe.src = link + "?autoplay=1";
+document.addEventListener("DOMContentLoaded", () => {
+    if (!movieId) {
+        console.error("No Movie ID supplied in query parameters.");
+        return;
     }
+    
+    loadMovieDetails(movieId);
+    loadOtherRecommendations(movieId);
+    initializeCalendarTimeline();
+});
 
-    // CASE 2: normal youtube link
-    else if (link.includes("watch?v=")) {
-        let id = link.split("v=")[1].split("&")[0];
-        iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+async function loadMovieDetails(id) {
+    try {
+        const res = await fetch(`/api/movies/${id}`);
+        if (!res.ok) throw new Error("Target movie payload couldn't be loaded.");
+        
+        const movie = await res.json();
+        renderActiveMovieInfo(movie);
+    } catch (err) {
+        console.error("Error setting up details area view:", err);
+        document.getElementById("title").innerText = "Failed to load movie.";
     }
-
-    // CASE 3: short youtu.be link
-    else if (link.includes("youtu.be")) {
-        let id = link.split("youtu.be/")[1];
-        iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
-    }
-
-    // CASE 4: just ID
-    else {
-        iframe.src = `https://www.youtube.com/embed/${link}?autoplay=1`;
-    }
-
-    document.getElementById("videoModal").style.display = "block";
-};
 }
 
-// CLOSE MODAL
-document.querySelector(".close-btn").onclick = function () {
-    const modal = document.getElementById("videoModal");
-    const iframe = document.getElementById("videoPlayer");
+function renderActiveMovieInfo(movie) {
+    document.getElementById("title").innerText = movie.title || "Untitled";
+    document.getElementById("genre").innerText = movie.genre || "N/A";
+    document.getElementById("time").innerText = "⏱ " + (movie.runTime || "N/A");
+    document.getElementById("story").innerText = movie.description || "No synopsis recorded yet.";
+    document.getElementById("age").textContent = movie.ageRating || "+0";
 
-    modal.style.display = "none";
-    iframe.src = ""; // stop video
-};
+    if (Array.isArray(movie.cast)) {
+        document.getElementById("cast").innerText = movie.cast.join(', ');
+    } else {
+        document.getElementById("cast").innerText = movie.cast || "No cast breakdown available.";
+    }
 
-// CLICK OUTSIDE TO CLOSE
+   
+    const posterImg = document.getElementById("poster");
+    if (posterImg) {
+        posterImg.src = movie.imageUrl || "/images/homepage.jpg";
+        posterImg.alt = movie.title;
+    }
+
+    const heroBg = document.getElementById("hero");
+    if (heroBg && movie.imageUrl) {
+        heroBg.style.backgroundImage = `linear-gradient(to bottom, rgba(11, 11, 18, 0.95), rgba(11, 11, 18, 0.75)), url('${movie.imageUrl}')`;
+    }
+
+    const trailerBtn = document.getElementById("trailerBtn");
+    if (trailerBtn) {
+        trailerBtn.onclick = function () {
+            const iframe = document.getElementById("videoPlayer");
+            let link = movie.videoUrl || "";
+
+            if (!link) {
+                alert("No trailer link provided for this title.");
+                return;
+            }
+
+            if (link.includes("embed")) {
+                iframe.src = link + "?autoplay=1";
+            } else if (link.includes("watch?v=")) {
+                let vId = link.split("v=")[1].split("&")[0];
+                iframe.src = `https://www.youtube.com/embed/${vId}?autoplay=1`;
+            } else if (link.includes("youtu.be")) {
+                let vId = link.split("youtu.be/")[1];
+                iframe.src = `https://www.youtube.com/embed/${vId}?autoplay=1`;
+            } else {
+                iframe.src = `https://www.youtube.com/embed/${link}?autoplay=1`;
+            }
+
+            document.getElementById("videoModal").style.display = "block";
+        };
+    }
+}
+
+async function loadOtherRecommendations(currentId) {
+    const otherContainer = document.getElementById("otherMovies");
+    if (!otherContainer) return;
+    
+    try {
+        const res = await fetch('/api/movies');
+        const allMovies = await res.json();
+        otherContainer.innerHTML = "";
+
+        // Filter away the currently active movie object card out of recommendation limits
+        const filterList = allMovies.filter(m => m._id !== currentId);
+
+        if (filterList.length === 0) {
+            otherContainer.innerHTML = `<p style="padding: 0 40px; color:#6b6b80;">No alternative matches found.</p>`;
+            return;
+        }
+
+        // Render dynamic element components into row grid viewport wrapper
+        filterList.forEach(m => {
+            otherContainer.innerHTML += `
+                <a href="/movie?id=${m._id}" class="movie-card">
+                    <img src="${m.imageUrl}" alt="${m.title}" onerror="this.src='/images/homepage.jpg';">
+                    <span class="age">${m.ageRating || "+0"}</span>
+                </a>
+            `;
+        });
+    } catch (err) {
+        console.error("Error setting up database carousel rows:", err);
+        otherContainer.innerHTML = `<p style="padding: 0 40px; color:#e74c3c;">Failed to populate recommended movies.</p>`;
+    }
+}
+
+const closeModalElement = document.querySelector(".close-btn");
+if (closeModalElement) {
+    closeModalElement.onclick = function () {
+        document.getElementById("videoModal").style.display = "none";
+        document.getElementById("videoPlayer").src = ""; 
+    };
+}
+
 window.onclick = function(event) {
     const modal = document.getElementById("videoModal");
     if (event.target == modal) {
@@ -75,82 +127,67 @@ window.onclick = function(event) {
     }
 };
 
-// SHOW OTHER MOVIES
-const otherContainer = document.getElementById("otherMovies");
+function initializeCalendarTimeline() {
+    const dateContainer = document.getElementById("date-container");
+    if (!dateContainer) return;
+    dateContainer.innerHTML = ""; // Clean structural setup boundaries
 
-movies.forEach(m => {
+    const days = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
 
-    // skip current movie
-    if (m.id == id) return;
+    for (let i = 0; i < 4; i++) {
+        let d = new Date();
+        d.setDate(d.getDate() + i);
 
-    otherContainer.innerHTML += `
-        <a href="movie.html?id=${m.id}" class="movie-card">
-            <img src="${m.image}">
-           <span class="age">${m.age || "+0"}</span>
-        </a>
-    `;
-});
-// CREATE DATES (Today + 3 days)
-const dateContainer = document.getElementById("date-container");
+        const card = document.createElement("div");
+        card.classList.add("date-card");
+        if (i === 0) card.classList.add("active");
 
-const days = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+        card.innerHTML = `
+            <strong>${i === 0 ? "Today" : days[d.getDay()]}</strong><br>
+            ${d.getDate()} ${d.toLocaleString('default', { month: 'short' })}
+        `;
 
-for (let i = 0; i < 4; i++) {
-    let d = new Date();
-    d.setDate(d.getDate() + i);
+        card.onclick = () => {
+            document.querySelectorAll(".date-card").forEach(c => c.classList.remove("active"));
+            card.classList.add("active");
+        };
 
-    const card = document.createElement("div");
-    card.classList.add("date-card");
-
-    if (i === 0) card.classList.add("active");
-
-    card.innerHTML = `
-        <strong>${i === 0 ? "Today" : days[d.getDay()]}</strong><br>
-        ${d.getDate()} ${d.toLocaleString('default', { month: 'short' })}
-    `;
-
-    card.onclick = () => {
-        document.querySelectorAll(".date-card").forEach(c => c.classList.remove("active"));
-        card.classList.add("active");
-    };
-
-    dateContainer.appendChild(card);
+        dateContainer.appendChild(card);
+    }
 }
-
 let selectedExperience = "STANDARD&DELUXE";
-function selectExp(btn){
+
+function selectExp(btn) {
     document.querySelectorAll(".exp-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
-    // Store the choice
-     selectedExperience = btn.innerText.trim();
+    selectedExperience = btn.innerText.trim();
 }
 
-function selectTime(btn){
+function selectTime(btn) {
     document.querySelectorAll(".time").forEach(t => t.classList.remove("active"));
     btn.classList.add("active");
- const movieTitle = document.getElementById("title").innerText;
-    const selectedTime = btn.innerText;
     
-    // Get date parts from the active date card
+    const movieTitle = document.getElementById("title").innerText;
+    const selectedTime = btn.innerText.trim();
+    
     const activeDateCard = document.querySelector(".date-card.active");
-    const dayName = activeDateCard.querySelector("strong").innerText; // e.g., "Today" or "SUN"
-    const fullDate = activeDateCard.innerText.split('\n')[1] || activeDateCard.innerText; // e.g., "20 Apr"
+    if (!activeDateCard) {
+        alert("Please pick an active reservation date coordinate target first.");
+        return;
+    }
+    
 
-    // SAVE using the keys orderSum.js expects
+    const dayName = activeDateCard.querySelector("strong").innerText; 
+    const textLines = activeDateCard.innerText.replace(dayName, "").trim();
     localStorage.setItem('selectedMovie', movieTitle);
     localStorage.setItem('selectedTime', selectedTime);
     localStorage.setItem('selectedDay', dayName);
-    localStorage.setItem('selectedDateText', `${fullDate}, 2026`);
+    localStorage.setItem('selectedDateText', `${textLines}, 2026`);
 
-    // Determine the type to send to conditions.html
     let typeParam = "standard";
     if (selectedExperience === "PREMIERE") {
         typeParam = "premiere";
     }
 
-    // Redirect to conditions.html with the type in the URL
     window.location.href = `/condtions?type=${typeParam}`;
-
 }
-
-
