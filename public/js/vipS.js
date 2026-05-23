@@ -316,3 +316,24 @@ function buildSeats() {
         trim.position.set(x + side * (SEAT_W / 2 + 0.065), y + 0.09, z - 0.04);
         group.add(trim);
  
+         const cupRim = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.04, 16), materials.gold);
+        cupRim.position.set(x + side * (SEAT_W / 2 + 0.065), y + 0.66, z + SEAT_D * 0.28);
+        group.add(cupRim);
+ 
+        const cupHole = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.055, 0.055, 0.06, 16),
+          new THREE.MeshStandardMaterial({ color: 0x080404, roughness: 1 })
+        );
+        cupHole.position.set(x + side * (SEAT_W / 2 + 0.065), y + 0.64, z + SEAT_D * 0.28);
+        group.add(cupHole);
+      });
+ 
+     
+      const foot = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W - 0.1, 0.09, 0.25), baseMat.clone());
+      foot.position.set(x, y + 0.27, z - SEAT_D * 0.52);
+      group.add(foot);
+ 
+      const footRail = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W, 0.03, 0.03), materials.gold);
+      footRail.position.set(x, y + 0.32, z - SEAT_D * 0.64);
+      group.add(footRail);
+ 
