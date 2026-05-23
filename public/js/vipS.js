@@ -588,3 +588,24 @@ function animate() {
  
   if (autoRotate) targetTheta += autoRotateSpeed;
   updateCamera();
+
+    if (animFrame % 2 === 0) {
+    raycaster.setFromCamera(mouse, camera);
+    const hits = raycaster.intersectObjects(allSeatMeshes, false);
+    if (hits.length > 0) {
+      const id = getSeatIdFromObject(hits[0].object);
+      if (id && id !== hoveredSeat) {
+        if (hoveredSeat) updateSeatVisual(hoveredSeat);
+        hoveredSeat = id;
+        if (!selected.has(id) && seatData[id].status === 'vip') updateSeatVisual(id);
+      }
+      if (id) {
+        cursorEl.classList.add('hover');
+        showTooltip(id, mouseScreen.x, mouseScreen.y);
+      }
+    } else {
+      if (hoveredSeat) { updateSeatVisual(hoveredSeat); hoveredSeat = null; }
+      cursorEl.classList.remove('hover');
+      hideTooltip();
+    }
+  }
