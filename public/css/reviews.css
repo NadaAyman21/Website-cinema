@@ -105,3 +105,18 @@ reviews-header h1 {
     resize: vertical;
     min-height: 120px;
 }
+.review-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent);
+    color: #000;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(9, 196, 229, 0.3);
+}
