@@ -283,3 +283,11 @@ function buildSeats() {
       lumbar.position.set(x, y + 0.62, z + SEAT_D / 2 - 0.04);
       group.add(lumbar);
  
+            const plinth = new THREE.Mesh(
+        new THREE.BoxGeometry(SEAT_W + 0.06, 0.1, SEAT_D * 0.9),
+        new THREE.MeshStandardMaterial({ color: 0x1a0e0e, roughness: 0.8, metalness: 0.2 })
+      );
+      plinth.position.set(x, y + 0.05, z - 0.04);
+      plinth.receiveShadow = true;
+      group.add(plinth);
+ 
