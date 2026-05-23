@@ -193,3 +193,18 @@ function buildRoom() {
     riser.position.set(0, i * 0.3 + 0.05, -2 + i * 2.6);
     scene.add(riser);
   }
+
+    for (let si = 0; si < 4; si++) {
+    [-1, 1].forEach(side => {
+      const sconce = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.08, 0.6, 8), materials.gold);
+      sconce.position.set(side * (W / 2 - 0.1), 3.5, -8 + si * 4);
+      scene.add(sconce);
+      const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.08, 8, 8),
+        new THREE.MeshStandardMaterial({ emissive: 0xffc060, emissiveIntensity: 2, color: 0xffc060 }));
+      bulb.position.set(side * (W / 2 - 0.15), 3.7, -8 + si * 4);
+      scene.add(bulb);
+      const pl = new THREE.PointLight(0xffaa44, 0.6, 5);
+      pl.position.copy(bulb.position);
+      scene.add(pl);
+    });
+  }
