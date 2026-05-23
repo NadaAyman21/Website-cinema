@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Movie = require('../models/Movie'); 
+const movieController = require('../controllers/movie');
+/*const Movie = require('../models/Movie'); 
 
 router.post('/add', async (req, res) => {
   
@@ -48,13 +49,17 @@ router.delete('/delete/:id', async (req, res) => {
     } catch (err) {
         res.status(500).json({ success: false, message: err.message });
     }
-});
+});*/
 
 
 
+router.get('/', movieController.getAllMovies);          // Used on homepage
+router.get('/:id', movieController.getMovieById);       // Used on movie detail page
 
-
-
+// Admin management routes
+router.post('/add', movieController.addMovie);
+router.put('/edit/:id', movieController.editMovie);
+router.delete('/delete/:id', movieController.deleteMovie);
 
 
 
