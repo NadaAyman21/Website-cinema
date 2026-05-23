@@ -169,3 +169,13 @@ function buildRoom() {
     const rail = new THREE.Mesh(new THREE.BoxGeometry(14, 0.12, 0.3), materials.gold);
   rail.position.set(0, 1.4, -D / 2 + 0.3);
   scene.add(rail);
+
+    [-1, 1].forEach(side => {
+    const c = new THREE.Mesh(new THREE.BoxGeometry(2.5, 8, 0.3), materials.curtain);
+    c.position.set(side * 7.2, 4.5, -D / 2 + 0.3);
+    scene.add(c);
+    const trim = new THREE.Mesh(new THREE.BoxGeometry(0.12, 8, 0.4), materials.gold);
+    trim.position.set(side * 5.95, 4.5, -D / 2 + 0.3);
+    scene.add(trim);
+  });
+ 
