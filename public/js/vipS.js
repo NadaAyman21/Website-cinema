@@ -427,3 +427,73 @@ function getSeatIdFromObject(obj) {
   if (obj.userData.seatId) return obj.userData.seatId;
   return null;
 }
+
+const cursorEl = document.getElementById('cursor');
+ 
+document.addEventListener('mousemove', e => {
+  mouseScreen = { x: e.clientX, y: e.clientY };
+  cursorEl.style.left = e.clientX + 'px';
+  cursorEl.style.top  = e.clientY + 'px';
+  mouse.x =  (e.clientX / window.innerWidth)  * 2 - 1;
+  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+ 
+  if (isDragging) {
+    const dx = e.clientX - prevMouse.x;
+    const dy = e.clientY - prevMouse.y;
+    targetTheta -= dx * 0.005;
+    targetPhi = Math.max(0.2, Math.min(Math.PI / 1.5, targetPhi + dy * 0.005));
+    prevMouse = { x: e.clientX, y: e.clientY };
+  }
+});
+ 
+document.addEventListener('mousedown', e => {
+  if (e.target.closest('#topbar') || e.target.closest('#seat-panel') || e.target.closest('#confirm-modal')) return;
+  isDragging = true;
+  prevMouse  = { x: e.clientX, y: e.clientY };
+  autoRotate = false;
+});
+ 
+document.addEventListener('mouseup', e => {
+  if (isDragging && Math.abs(e.clientX - prevMouse.x) < 3 && Math.abs(e.clientY - prevMouse.y) < 3) {
+    if (hoveredSeat) toggleSeat(hoveredSeat);
+  }
+  isDragging = false;
+});
+ 
+document.addEventListener('wheel', e => {
+  targetRadius = Math.max(5, Math.min(25, targetRadius + e.deltaY * 0.02));
+  e.preventDefault();
+}, { passive: false });
+ 
+
+let touchStart = null;
+document.addEventListener('touchstart', e => {
+  touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  prevMouse  = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  isDragging = true;
+  autoRotate = false;
+});
+document.addEventListener('touchmove', e => {
+  if (!isDragging) return;
+  const dx = e.touches[0].clientX - prevMouse.x;
+  const dy = e.touches[0].clientY - prevMouse.y;
+  targetTheta -= dx * 0.006;
+  targetPhi = Math.max(0.2, Math.min(Math.PI / 1.5, targetPhi + dy * 0.006));
+  prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  e.preventDefault();
+}, { passive: false });
+document.addEventListener('touchend', e => {
+  if (touchStart) {
+    const dx = Math.abs(e.changedTouches[0].clientX - touchStart.x);
+    const dy = Math.abs(e.changedTouches[0].clientY - touchStart.y);
+    if (dx < 5 && dy < 5 && hoveredSeat) toggleSeat(hoveredSeat);
+  }
+  isDragging = false;
+});
+ 
+window.addEventListener('resize', () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+});
+ 
