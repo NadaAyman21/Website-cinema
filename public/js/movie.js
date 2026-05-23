@@ -126,3 +126,32 @@ window.onclick = function(event) {
         document.getElementById("videoPlayer").src = "";
     }
 };
+
+function initializeCalendarTimeline() {
+    const dateContainer = document.getElementById("date-container");
+    if (!dateContainer) return;
+    dateContainer.innerHTML = ""; // Clean structural setup boundaries
+
+    const days = ["SUN","MON","TUE","WED","THU","FRI","SAT"];
+
+    for (let i = 0; i < 4; i++) {
+        let d = new Date();
+        d.setDate(d.getDate() + i);
+
+        const card = document.createElement("div");
+        card.classList.add("date-card");
+        if (i === 0) card.classList.add("active");
+
+        card.innerHTML = `
+            <strong>${i === 0 ? "Today" : days[d.getDay()]}</strong><br>
+            ${d.getDate()} ${d.toLocaleString('default', { month: 'short' })}
+        `;
+
+        card.onclick = () => {
+            document.querySelectorAll(".date-card").forEach(c => c.classList.remove("active"));
+            card.classList.add("active");
+        };
+
+        dateContainer.appendChild(card);
+    }
+}
