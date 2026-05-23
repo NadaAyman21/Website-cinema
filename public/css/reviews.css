@@ -38,3 +38,8 @@ reviews-header h1 {
     gap: 40px;
     align-items: start;
 }
+@media (max-width: 900px) {
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+}
