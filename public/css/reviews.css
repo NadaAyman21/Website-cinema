@@ -16,3 +16,13 @@ reviews-header h1 {
     color: var(--text-primary);
     margin-bottom: 12px;
 }
+.reviews-header h1::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin: 12px auto 0;
+    box-shadow: 0 0 10px var(--accent);
+}
