@@ -34,3 +34,32 @@ ROWS.forEach((row, ri) => {
     seatData[id] = { row, num: s, status, rowIndex: ri };
   });
 });
+
+const canvas   = document.getElementById('cinema-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled  = true;
+renderer.shadowMap.type     = THREE.PCFSoftShadowMap;
+renderer.toneMapping        = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.8;
+ 
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x080408);
+scene.fog        = new THREE.FogExp2(0x0a0608, 0.028);
+ 
+const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 200);
+ 
+const VIEWS = {
+  audience: { phi: Math.PI / 2.1, theta: Math.PI,        radius: 13 },
+  top:      { phi: 0.4,           theta: Math.PI,        radius: 20 },
+  fly:      { phi: Math.PI / 2.5, theta: Math.PI * 0.85, radius: 16 },
+};
+ 
+function updateCamera() {
+  const x = radius * Math.sin(phi) * Math.sin(theta);
+  const y = radius * Math.cos(phi);
+  const z = radius * Math.sin(phi) * Math.cos(theta);
+  camera.position.set(x, y + 2, z);
+  camera.lookAt(0, 1, -2);
+}
