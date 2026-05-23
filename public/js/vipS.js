@@ -291,3 +291,11 @@ function buildSeats() {
       plinth.receiveShadow = true;
       group.add(plinth);
  
+         const railGeo = new THREE.BoxGeometry(SEAT_W + 0.1, 0.04, 0.04);
+      const railF   = new THREE.Mesh(railGeo, materials.gold);
+      railF.position.set(x, y + 0.1, z - SEAT_D * 0.45);
+      group.add(railF);
+      const railB = railF.clone();
+      railB.position.set(x, y + 0.1, z + SEAT_D * 0.45);
+      group.add(railB);
+ 
