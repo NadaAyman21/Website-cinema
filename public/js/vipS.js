@@ -98,3 +98,8 @@ function buildRoom() {
   ceil.position.y = H;
   scene.add(ceil);
  
+    const bwall = new THREE.Mesh(new THREE.PlaneGeometry(W, H), materials.wall);
+  bwall.position.set(0, H / 2, D / 2);
+  bwall.rotation.y = Math.PI;
+  scene.add(bwall);
+ 
