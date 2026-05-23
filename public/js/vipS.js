@@ -387,3 +387,20 @@ function flashMax() {
   el.style.color = '#ff4444';
   setTimeout(() => { el.style.color = ''; }, 600);
 }
+
+function buildLights() {
+  scene.add(new THREE.AmbientLight(0x1a1020, 0.8));
+  scene.add(new THREE.HemisphereLight(0x1a1030, 0x0a0510, 0.5));
+ 
+  const dir = new THREE.DirectionalLight(0xffe8c0, 0.6);
+  dir.position.set(5, 15, 10);
+  dir.castShadow = true;
+  dir.shadow.mapSize.set(2048, 2048);
+  scene.add(dir);
+ 
+  const spot = new THREE.SpotLight(0xffd080, 1.5, 30, Math.PI / 5, 0.4);
+  spot.position.set(0, 9, 2);
+  spot.target.position.set(0, 4, -12);
+  scene.add(spot);
+  scene.add(spot.target);
+}
