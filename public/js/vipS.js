@@ -299,3 +299,20 @@ function buildSeats() {
       railB.position.set(x, y + 0.1, z + SEAT_D * 0.45);
       group.add(railB);
  
+[-1, 1].forEach(side => {
+        const armBody = new THREE.Mesh(
+          new THREE.BoxGeometry(0.13, 0.52, SEAT_D * 0.88),
+          new THREE.MeshStandardMaterial({ color: 0x120a0a, roughness: 0.7, metalness: 0.3 })
+        );
+        armBody.position.set(x + side * (SEAT_W / 2 + 0.065), y + 0.35, z - 0.04);
+        armBody.castShadow = true;
+        group.add(armBody);
+ 
+        const armTop = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.07, SEAT_D * 0.78), baseMat.clone());
+        armTop.position.set(x + side * (SEAT_W / 2 + 0.065), y + 0.62, z - 0.04);
+        group.add(armTop);
+ 
+        const trim = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.02, SEAT_D * 0.88), materials.gold);
+        trim.position.set(x + side * (SEAT_W / 2 + 0.065), y + 0.09, z - 0.04);
+        group.add(trim);
+ 
