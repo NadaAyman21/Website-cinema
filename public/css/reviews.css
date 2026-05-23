@@ -291,3 +291,8 @@ reviews-header h1 {
     margin-bottom: 40px;
     font-size: 1.05rem;
 }
+.reviews-embed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+}
