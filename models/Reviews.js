@@ -6,3 +6,13 @@ const reviewSchema = new mongoose.Schema({
         enum: ['movie', 'experience', 'food-drinks'],
         default: 'movie'
     },
+    item: {
+        type: String,
+        required: false,
+        trim: true,
+        default: 'General'
+    },
+    movie: {
+        type: String,
+        trim: true
+    },
