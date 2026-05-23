@@ -109,3 +109,7 @@ function buildRoom() {
     w.rotation.y = side * -Math.PI / 2;
     scene.add(w);
   });
+
+    const swall = new THREE.Mesh(new THREE.PlaneGeometry(W, H), materials.wall);
+  swall.position.set(0, H / 2, -D / 2);
+  scene.add(swall);
