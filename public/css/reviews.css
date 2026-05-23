@@ -169,3 +169,10 @@ reviews-header h1 {
     align-items: flex-start;
     margin-bottom: 12px;
 }
+.review-movie-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
