@@ -79,3 +79,6 @@ const materials = {
   seatHover:    new THREE.MeshStandardMaterial({ color: 0xe8c060, roughness: 0.2, metalness: 0.5, emissive: 0x7a5000, emissiveIntensity: 0.7 }),
   carpet:       new THREE.MeshStandardMaterial({ color: 0x3a0a1a, roughness: 1, metalness: 0 }),
 };
+
+function buildRoom() {
+  const W = 22, H = 10, D = 28;
