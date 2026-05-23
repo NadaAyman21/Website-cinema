@@ -94,3 +94,10 @@ reviews-header h1 {
     background: var(--bg-primary);
     color: var(--text-primary);
 }
+.review-input:focus,
+.review-select:focus,
+.review-textarea:focus {
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 8px rgba(9, 196, 229, 0.2);
+}
