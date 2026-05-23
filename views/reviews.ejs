@@ -28,7 +28,16 @@
     <!-- Show Reviews -->
     <h2>All Reviews</h2>
 <% reviews.forEach(review => { %>
+ <div>
+            <h3><%= review.movie %></h3>
+            <p>⭐ Rating: <%= review.rating %>/5</p>
+            <p><%= review.comment %></p>
+            <hr>
+        </div>
+    <% }) %>
 
+</body>
+</html>
 
 
 
