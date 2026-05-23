@@ -196,3 +196,9 @@ reviews-header h1 {
     margin-top: 10px;
     text-align: right;
 }
+.no-reviews {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+    font-style: italic;
+}
