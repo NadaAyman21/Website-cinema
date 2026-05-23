@@ -73,8 +73,11 @@
             <div class="tab-content active" id="tab-info">
                 <div class="info-grid">
                     <div class="info-card">
-                        <div class="info-card-header">
+                       <div class="info-card-header">
                             <i class="fa fa-user"></i> Personal Info
+                            <button class="edit-btn" onclick="openEditModal()">
+                                <i class="fa fa-pen"></i> Edit
+                            </button>
                         </div>
                         <div class="info-rows">
                             <div class="info-row">
@@ -156,6 +159,35 @@
 
         </div>
     </div>
+
+    <!-- Edit Info Modal -->
+<div class="modal-overlay" id="editModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>Edit Info</h2>
+            <button onclick="closeEditModal()"><i class="fa fa-times"></i></button>
+        </div>
+        <div class="modal-form">
+            <div class="form-row">
+                <label>First Name</label>
+                <input type="text" id="editFirstName" value="<%= user.firstName %>">
+            </div>
+            <div class="form-row">
+                <label>Last Name</label>
+                <input type="text" id="editLastName" value="<%= user.lastName %>">
+            </div>
+            <div class="form-row">
+                <label>Phone</label>
+                <input type="text" id="editPhone" value="<%= user.phone %>">
+            </div>
+            <div class="form-row">
+                <label>Date of Birth</label>
+                <input type="date" id="editDob" value="<%= user.dob %>">
+            </div>
+            <button class="submit-btn" onclick="saveEdit()">Save Changes</button>
+        </div>
+    </div>
+</div>
 
     <script src="/js/nav.js"></script>
     <script>
