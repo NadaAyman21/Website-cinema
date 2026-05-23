@@ -26,3 +26,9 @@ reviews-header h1 {
     margin: 12px auto 0;
     box-shadow: 0 0 10px var(--accent);
 }
+.reviews-header p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+}
