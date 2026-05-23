@@ -208,3 +208,14 @@ function buildRoom() {
       scene.add(pl);
     });
   }
+
+    for (let ci = 0; ci < 6; ci++) {
+    const light = new THREE.PointLight(0xffeecc, 0.4, 8);
+    light.position.set(0, H - 0.3, -8 + ci * 3);
+    scene.add(light);
+    const fixture = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.12, 0.1, 12), materials.gold);
+    fixture.position.copy(light.position);
+    fixture.position.y -= 0.1;
+    scene.add(fixture);
+  }
+}
