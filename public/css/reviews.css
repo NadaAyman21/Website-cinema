@@ -90,3 +90,7 @@ reviews-header h1 {
     outline: none;
     transition: all 0.3s ease;
 }
+.review-select option {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+}
