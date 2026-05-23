@@ -255,3 +255,8 @@ function buildSeats() {
       cushion.position.set(x, y + 0.48, z - 0.04);
       cushion.castShadow = true; cushion.receiveShadow = true;
       group.add(cushion);
+
+           const lip = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, SEAT_W, 12, 1, false, 0, Math.PI), baseMat.clone());
+      lip.rotation.z = Math.PI / 2;
+      lip.position.set(x, y + 0.43, z - SEAT_D * 0.85 / 2 - 0.04);
+      group.add(lip);
