@@ -278,3 +278,8 @@ function buildSeats() {
         group.add(wing);
       });
  
+            const lumbar = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W * 0.6, 0.18, 0.08), baseMat.clone());
+      lumbar.rotation.x = -0.10;
+      lumbar.position.set(x, y + 0.62, z + SEAT_D / 2 - 0.04);
+      group.add(lumbar);
+ 
