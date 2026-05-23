@@ -70,7 +70,7 @@ function renderMoviesList(movies) {
             </div>
         `;
 
-        // Now these query selectors will find the buttons perfectly!
+       
         const editBtn = card.querySelector('.edit-btn-action');
         const deleteBtn = card.querySelector('.delete-btn-action');
 
@@ -97,7 +97,7 @@ function populateFormForEditing(movie) {
     document.getElementById('image').value = movie.imageUrl || '';
     document.getElementById('trailer').value = movie.videoUrl || '';
     
-    // Check if cast is stored as an Array object or plain text string
+    
     if (Array.isArray(movie.cast)) {
         document.getElementById('cast').value = movie.cast.join(', ');
     } else {
@@ -106,7 +106,6 @@ function populateFormForEditing(movie) {
     
     document.getElementById('story').value = movie.description || '';
 
-    // Transform submit button icon and label context state
     const submitBtn = document.querySelector('#movieForm button[type="submit"]');
     if (submitBtn) {
         submitBtn.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Update Movie';
