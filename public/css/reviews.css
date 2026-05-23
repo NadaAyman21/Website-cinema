@@ -217,3 +217,9 @@ reviews-header h1 {
     color: var(--accent);
     border: 1px solid rgba(9, 196, 229, 0.2);
 }
+
+.badge-experience {
+    background: rgba(124, 92, 252, 0.1);
+    color: #7c5cfc;
+    border: 1px solid rgba(124, 92, 252, 0.2);
+}
