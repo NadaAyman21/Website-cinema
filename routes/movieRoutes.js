@@ -10,7 +10,13 @@ router.get('/:id', movieController.getMovieById);       // Used on movie detail 
 router.post('/add', movieController.addMovie);
 router.put('/edit/:id', movieController.editMovie);
 router.delete('/delete/:id', movieController.deleteMovie);
-
-
-
+router.get('/', async (req, res) => {
+        try {
+        const movies = await Movie.find().sort({ createdAt: -1 });
+        res.json(movies);
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
+    }
+});
 module.exports = router;
+

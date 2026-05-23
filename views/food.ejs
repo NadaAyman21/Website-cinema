@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="/css/responsive.css">
     <link rel="stylesheet" href="/css/food.css">
+      <link rel="stylesheet" href="/css/reviews.css">
 </head>
 
 <body>
@@ -155,7 +156,40 @@
 
 </main>
 
+<section class="embed-reviews-section glass-panel">
+        <h2>Customer Reviews</h2>
+        <p>See what our guests are saying about the food and drinks at CineX!</p>
 
+        <div class="reviews-embed-grid">
+            <% if (typeof reviews !== 'undefined' && reviews && reviews.length > 0) { %>
+                <% reviews.forEach(review => { %>
+                    <article class="review-card">
+                        <div class="review-card-header">
+                            <div>
+                                <h3 class="review-movie-name"><%= review.item %></h3>
+                                <div class="review-author">by <%= review.userName %></div>
+                            </div>
+                            <div class="review-rating-stars">
+                                <% for(let i = 1; i <= 5; i++) { %>
+                                    <% if(i <= review.rating) { %>
+                                        <i class="fa-solid fa-star"></i>
+                                    <% } else { %>
+                                        <i class="fa-regular fa-star" style="opacity: 0.3;"></i>
+                                    <% } %>
+                                <% } %>
+                            </div>
+                        </div>
+                        <p class="review-comment">“<%= review.comment %>”</p>
+                    </article>
+                <% }) %>
+            <% } else { %>
+                <div class="no-reviews" style="grid-column: 1 / -1;">
+                    <i class="fa-regular fa-comments" style="font-size: 2.5rem; display: block; margin-bottom: 12px; opacity: 0.5;"></i>
+                    No food & drinks reviews yet. Be the first to add a review on the <a href="/reviews" style="color: var(--accent); text-decoration: underline;">Reviews page</a>!
+                </div>
+            <% } %>
+        </div>
+    </section>
 <script src="/js/nav.js"></script>
 <script src="/js/login.js"></script>
 <script src="/js/sign up page.js"></script>
