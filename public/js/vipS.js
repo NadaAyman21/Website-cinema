@@ -555,3 +555,24 @@ function setView(v, e) {
   targetTheta  = vd.theta;
   targetRadius = vd.radius;
 }
+
+const tooltip = document.getElementById('tooltip');
+ 
+function showTooltip(id, x, y) {
+  const data = seatData[id];
+  if (!data) return;
+  document.getElementById('tip-seat').textContent  = `Seat ${id}`;
+  document.getElementById('tip-price').textContent =
+    data.status === 'taken' ? '—' : `EGP ${SEAT_PRICE}`;
+  document.getElementById('tip-status').textContent =
+    data.status === 'taken'   ? 'Unavailable' :
+    data.status === 'hold'    ? 'On Hold' :
+    selected.has(id)          ? 'Selected — click to deselect' : 'Click to select';
+  tooltip.style.display = 'block';
+  tooltip.style.left    = x + 'px';
+  tooltip.style.top     = y + 'px';
+}
+ 
+function hideTooltip() {
+  tooltip.style.display = 'none';
+}
