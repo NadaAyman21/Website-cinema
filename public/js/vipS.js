@@ -497,3 +497,45 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
 });
  
+function updateUI() {
+  const count = selected.size;
+  document.getElementById('sel-count').textContent = count;
+  document.getElementById('book-btn').disabled = count === 0;
+ 
+  const tagsEl = document.getElementById('seat-tags');
+  tagsEl.innerHTML = '';
+  Array.from(selected).sort().forEach(id => {
+    const tag = document.createElement('div');
+    tag.className   = 'seat-tag';
+    tag.textContent = id;
+    tagsEl.appendChild(tag);
+  });
+}
+ 
+function openConfirm() {
+  if (selected.size === 0) return;
+  const seatsEl = document.getElementById('modal-seats');
+  const priceEl = document.getElementById('modal-price');
+  seatsEl.innerHTML = '';
+  Array.from(selected).sort().forEach(id => {
+    const el = document.createElement('div');
+    el.className   = 'modal-seat-tag';
+    el.textContent = id;
+    seatsEl.appendChild(el);
+  });
+  priceEl.textContent = `EGP ${selected.size * SEAT_PRICE}`;
+  document.getElementById('confirm-modal').classList.add('show');
+}
+ 
+function closeConfirm() {
+  document.getElementById('confirm-modal').classList.remove('show');
+}
+ 
+function confirmBook() {
+  closeConfirm();
+  alert('🎬 Booking confirmed! Enjoy your VIP experience.');
+  selected.clear();
+  Object.keys(seatMeshes).forEach(id => updateSeatVisual(id));
+  updateUI();
+}
+ 
