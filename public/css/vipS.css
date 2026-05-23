@@ -207,3 +207,22 @@ html, body {
 }
 #book-btn:not(:disabled):hover::after { transform: translateX(100%); }
  
+#tooltip {
+  position: fixed;
+  background: rgba(10,6,8,0.95);
+  border: 1px solid var(--gold-dark);
+  color: var(--cream);
+  padding: 10px 16px;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  pointer-events: none;
+  z-index: 30;
+  display: none;
+  transform: translate(-50%, -115%);
+  white-space: nowrap;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+}
+#tooltip .tip-seat   { font-family: 'Cinzel', serif; color: var(--gold); font-size: 0.9rem; font-weight: 600; }
+#tooltip .tip-price  { color: var(--gold-light); margin-top: 2px; }
+#tooltip .tip-status { color: #888; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 1px; }
+ 
