@@ -267,3 +267,7 @@ function buildSeats() {
       back.castShadow = true;
       group.add(back);
  
+            const head = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W * 0.7, 0.28, 0.16), baseMat.clone());
+      head.rotation.x = -0.10;
+      head.position.set(x, y + 1.68, z + SEAT_D / 2 - 0.06);
+      group.add(head);
