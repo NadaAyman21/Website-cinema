@@ -117,3 +117,19 @@ html, body {
   gap: 20px;
 }
  
+.legend {
+  display: flex; gap: 20px; align-items: center;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 0.68rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(245,236,215,0.6);
+}
+.legend-dot {
+  width: 12px; height: 8px; border-radius: 3px;
+}
+.ld-vip      { background: var(--seat-vip); border: 1px solid #8b4a35; }
+.ld-selected { background: var(--seat-selected); }
+.ld-hold     { background: var(--seat-hold); }
+.ld-taken    { background: #111; border: 1px solid #333; }
+ 
