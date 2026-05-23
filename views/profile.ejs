@@ -225,6 +225,56 @@
 
     <script src="/js/nav.js"></script>
     <script>
+        function openPasswordModal() {
+            document.getElementById('passwordModal').classList.add('open');
+        }
+
+        function closePasswordModal() {
+            document.getElementById('passwordModal').classList.remove('open');
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmNewPassword').value = '';
+            document.getElementById('passwordError').style.display = 'none';
+        }
+
+        function savePassword() {
+            const currentPassword  = document.getElementById('currentPassword').value;
+            const newPassword      = document.getElementById('newPassword').value;
+            const confirmPassword  = document.getElementById('confirmNewPassword').value;
+            const errorEl          = document.getElementById('passwordError');
+
+            if (newPassword !== confirmPassword) {
+                errorEl.innerText = 'New passwords do not match!';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            const pattern = /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
+            if (!newPassword.match(pattern)) {
+                errorEl.innerText = 'Password must contain 1 uppercase, 1 number, min 6 chars';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            errorEl.style.display = 'none';
+
+            fetch('/api/auth/changePassword', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ currentPassword, newPassword })
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Password changed successfully!');
+                    closePasswordModal();
+                } else {
+                    errorEl.innerText = result.message;
+                    errorEl.style.display = 'block';
+                }
+            });
+        }
+        
         function openEditModal() {
             document.getElementById('editModal').classList.add('open');
         }
