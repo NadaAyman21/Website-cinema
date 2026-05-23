@@ -260,3 +260,10 @@ function buildSeats() {
       lip.rotation.z = Math.PI / 2;
       lip.position.set(x, y + 0.43, z - SEAT_D * 0.85 / 2 - 0.04);
       group.add(lip);
+
+            const back = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W, SEAT_H * 1.15, 0.14), baseMat.clone());
+      back.rotation.x = -0.10;
+      back.position.set(x, y + 1.05, z + SEAT_D / 2 - 0.08);
+      back.castShadow = true;
+      group.add(back);
+ 
