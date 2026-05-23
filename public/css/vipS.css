@@ -133,3 +133,42 @@ html, body {
 .ld-hold     { background: var(--seat-hold); }
 .ld-taken    { background: #111; border: 1px solid #333; }
  
+.selection-info {
+  text-align: center;
+  flex: 1;
+}
+.selection-count {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(201,168,76,0.4);
+  transition: color 0.3s;
+}
+.selection-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  color: rgba(201,168,76,0.5);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+.seat-tags {
+  display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+  margin-top: 8px; min-height: 24px;
+}
+.seat-tag {
+  background: rgba(201,168,76,0.15);
+  border: 1px solid rgba(201,168,76,0.4);
+  color: var(--gold-light);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border-radius: 2px;
+  font-family: 'Cinzel', serif;
+  animation: tagIn 0.3s ease;
+}
+@keyframes tagIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
