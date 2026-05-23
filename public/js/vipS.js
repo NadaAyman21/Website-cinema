@@ -404,3 +404,26 @@ function buildLights() {
   scene.add(spot);
   scene.add(spot.target);
 }
+
+buildRoom();
+buildLights();
+buildSeats();
+updateCamera();
+ 
+const raycaster    = new THREE.Raycaster();
+const mouse        = new THREE.Vector2(-9999, -9999);
+let   mouseScreen  = { x: 0, y: 0 };
+const allSeatMeshes = [];
+ 
+function refreshPickable() {
+  allSeatMeshes.length = 0;
+  Object.values(seatMeshes).forEach(g => g.children.forEach(c => allSeatMeshes.push(c)));
+}
+refreshPickable();
+ 
+function getSeatIdFromObject(obj) {
+  if (!obj) return null;
+  if (obj.parent && obj.parent.userData.seatId) return obj.parent.userData.seatId;
+  if (obj.userData.seatId) return obj.userData.seatId;
+  return null;
+}
