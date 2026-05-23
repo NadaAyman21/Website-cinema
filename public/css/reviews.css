@@ -256,3 +256,9 @@ reviews-header h1 {
     border-color: var(--accent);
     box-shadow: 0 0 12px rgba(9, 196, 229, 0.4);
 }
+.review-author {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-top: 4px;
+}
