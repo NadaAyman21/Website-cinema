@@ -47,8 +47,22 @@
             Comfortable, modern seating designed for an immersive movie experience. Equipped with advanced projection and powerful surround sound for crystal-clear visuals and audio.
         </p>
     </div>
+    
 
 </section>
+<section class="embed-reviews-section glass-panel">
+        <h2>Standard & Deluxe Reviews</h2>
+        <p>See what our guests say about their Standard and Deluxe screen experiences at CineX!</p>
+
+        <div class="reviews-embed-grid">
+            <% if (typeof reviews !== 'undefined' && reviews && reviews.length > 0) { %>
+                <% reviews.forEach(review => { %>
+                    <article class="review-card">
+                        <div class="review-card-header">
+                            <div>
+                                <h3 class="review-movie-name"><%= review.item %></h3>
+                                <div class="review-author">by <%= review.userName %></div>
+                            </div>
 
 
 
