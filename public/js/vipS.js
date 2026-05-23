@@ -178,4 +178,13 @@ function buildRoom() {
     trim.position.set(side * 5.95, 4.5, -D / 2 + 0.3);
     scene.add(trim);
   });
+
+   [-1, 1].forEach(side => {
+    const strip = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.08, D), materials.gold);
+    strip.position.set(side * (W / 2 - 0.05), 1.5, 0);
+    scene.add(strip);
+    const strip2 = strip.clone();
+    strip2.position.y = H - 0.5;
+    scene.add(strip2);
+  });
  
