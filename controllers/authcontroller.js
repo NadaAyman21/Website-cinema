@@ -59,3 +59,15 @@ req.session.save(() => {
     res.status(500).json({ success: false, message: 'Something went wrong. Try again.' });
   }
 };
+exports.updateProfile = async (req, res) => {
+    try {
+        const { firstName, lastName, phone, dob } = req.body;
+        await User.findByIdAndUpdate(req.session.userId, {
+            firstName, lastName, phone, dob
+        });
+        res.json({ success: true });
+    } catch (err) {
+        console.error(err);
+        res.json({ success: false, message: 'Something went wrong.' });
+    }
+};
