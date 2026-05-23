@@ -1,265 +1,625 @@
-const SEAT_LIMIT = 6;
-const PRICES = { vip: 250 };
-let is3dOpen = false, animFrame3d, initialized3d = false;
-let targetRotY = 0, targetRotX = 0, currentRotY = 0, currentRotX = 0;
+const MAX_SEATS  = 6;
+const SEAT_PRICE = 450;
+let selected     = new Set();
+let hoveredSeat  = null;
+let currentView  = 'audience';
+let isDragging   = false;
+let prevMouse    = { x: 0, y: 0 };
+let phi = Math.PI / 2.2, theta = Math.PI, radius = 14;
+let targetPhi = phi, targetTheta = theta, targetRadius = radius;
+let autoRotate      = false;
+let autoRotateSpeed = 0;
 
-
-function toggle3dView() {
-  is3dOpen = !is3dOpen;
-  const overlay = document.getElementById('view3d-overlay');
-  const btn     = document.getElementById('btn3dToggle');
-  if (is3dOpen) {
-    overlay.classList.add('visible');
-    btn.classList.add('active');
-    document.body.style.overflow = 'hidden';
-    if (!initialized3d) { init3dScene(); initialized3d = true; }
-    start3dLoop();
-  } else {
-    overlay.classList.remove('visible');
-    btn.classList.remove('active');
-    document.body.style.overflow = '';
-    cancelAnimationFrame(animFrame3d);
-  }
-}
-
-
-function init3dScene() {
-  // ── Stars ──
-  const starsEl = document.getElementById('stars3d');
-  if (starsEl) {
-    for (let i = 0; i < 120; i++) {
-      const s = document.createElement('div');
-      s.className = 'star3d';
-      const size  = Math.random() * 2.5 + 0.5;
-      const minOp = (Math.random() * 0.3 + 0.1).toFixed(2);
-      s.style.cssText = `width:${size}px;height:${size}px;top:${Math.random()*65}%;left:${Math.random()*100}%;--min-op:${minOp};--d:${(Math.random()*3+2).toFixed(2)}s;animation-delay:${(Math.random()*5).toFixed(2)}s;opacity:${minOp}`;
-      starsEl.appendChild(s);
-    }
-  }
-
-  // ── City ──
-  const cityEl = document.getElementById('cityscape3d');
-  if (cityEl) {
-    [{l:2,w:7,h:38},{l:10,w:5,h:52},{l:16,w:9,h:44},{l:26,w:6,h:65},{l:33,w:8,h:48},
-     {l:42,w:5,h:72},{l:48,w:11,h:55},{l:60,w:7,h:60},{l:68,w:6,h:42},{l:75,w:9,h:58},
-     {l:85,w:6,h:50},{l:92,w:7,h:40}].forEach(b => {
-      const el = document.createElement('div');
-      el.className = 'building3d';
-      el.style.cssText = `left:${b.l}%;width:${b.w}%;height:${b.h}%;`;
-      const wc = Math.max(2, Math.floor(b.w * 1.2));
-      const wr = Math.max(3, Math.floor(b.h * 0.25));
-      let html = '';
-      for (let r = 0; r < wr; r++) for (let c = 0; c < wc; c++) {
-        const lit = Math.random() > .4;
-        const col = lit
-          ? `rgba(255,${200+Math.floor(Math.random()*55)},${100+Math.floor(Math.random()*80)},.9)`
-          : 'rgba(20,20,30,.5)';
-        html += `<div style="position:absolute;width:6px;height:5px;background:${col};box-shadow:${lit?`0 0 6px ${col}`:'none'};border-radius:1px;left:${8+c*(80/wc)}%;top:${8+r*(80/wr)}%"></div>`;
-      }
-      el.innerHTML = html;
-      cityEl.appendChild(el);
-    });
-  }
-
-  // ── 3D Seats ──
-  const seatsEl = document.getElementById('seats3d');
-  if (seatsEl) {
-    [8,10,12,14,16,18].forEach(count => {
-      const row = document.createElement('div');
-      row.className = 'seat-row3d';
-      for (let i = 0; i < count; i++) {
-        const seat = document.createElement('div');
-        const r = Math.random();
-        seat.className = 'seat3d' + (r < .25 ? ' taken3d' : r < .35 ? ' dlx3d' : '');
-        row.appendChild(seat);
-      }
-      seatsEl.appendChild(row);
-    });
-  }
-
-  // ── Particles ──
-  const pEl = document.getElementById('particles3d');
-  if (pEl) {
-    for (let i = 0; i < 35; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle3d';
-      p.style.cssText = `left:${20+Math.random()*60}%;top:${10+Math.random()*60}%;--tx:${(Math.random()-.5)*200}px;--ty:${(Math.random()-.5)*150}px;--dur:${(Math.random()*8+6).toFixed(1)}s;animation-delay:${(Math.random()*8).toFixed(1)}s;opacity:0`;
-      pEl.appendChild(p);
-    }
-  }
-
-  // ── Mouse look ──
-  document.getElementById('scene3d')?.addEventListener('mousemove', e => {
-    document.getElementById('cursor3d').style.left = e.clientX + 'px';
-    document.getElementById('cursor3d').style.top  = e.clientY + 'px';
-    document.getElementById('cursor3d-dot').style.left = e.clientX + 'px';
-    document.getElementById('cursor3d-dot').style.top  = e.clientY + 'px';
-    targetRotY = ((e.clientX - innerWidth/2)  / (innerWidth/2))  * -18;
-    targetRotX = ((e.clientY - innerHeight/2) / (innerHeight/2)) *  8;
+const ROWS = ['A', 'B', 'C', 'D', 'E'];
+const ROW_CONFIGS = {
+  A: { seats: [1, 2, null, 3, 4, null, 5, 6] },
+  B: { seats: [1, 2, 3, null, 4, 5, 6, null, 7] },
+  C: { seats: [1, 2, 3, 4, 5, null, 6, 7, null, 8] },
+  D: { seats: [1, 2, 3, null, 4, 5, 6, 7, null, 8, 9] },
+  E: { seats: [1, 2, 3, 4, 5, 6, 7] },
+};
+const TAKEN_SEATS = new Set(['A3', 'A5', 'B2', 'B6', 'C1', 'C4', 'D3', 'D7', 'E4']);
+const HOLD_SEATS  = new Set(['A1', 'C2', 'E3']);
+ 
+// Build seat data map
+const seatData = {};
+ROWS.forEach((row, ri) => {
+  const cfg = ROW_CONFIGS[row];
+  cfg.seats.forEach(s => {
+    if (s === null) return;
+    const id = `${row}${s}`;
+    let status = 'vip';
+    if (TAKEN_SEATS.has(id)) status = 'taken';
+    else if (HOLD_SEATS.has(id)) status = 'hold';
+    seatData[id] = { row, num: s, status, rowIndex: ri };
   });
+});
+
+const canvas   = document.getElementById('cinema-canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled  = true;
+renderer.shadowMap.type     = THREE.PCFSoftShadowMap;
+renderer.toneMapping        = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.8;
+ 
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x080408);
+scene.fog        = new THREE.FogExp2(0x0a0608, 0.028);
+ 
+const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 200);
+ 
+const VIEWS = {
+  audience: { phi: Math.PI / 2.1, theta: Math.PI,        radius: 13 },
+  top:      { phi: 0.4,           theta: Math.PI,        radius: 20 },
+  fly:      { phi: Math.PI / 2.5, theta: Math.PI * 0.85, radius: 16 },
+};
+ 
+function updateCamera() {
+  const x = radius * Math.sin(phi) * Math.sin(theta);
+  const y = radius * Math.cos(phi);
+  const z = radius * Math.sin(phi) * Math.cos(theta);
+  camera.position.set(x, y + 2, z);
+  camera.lookAt(0, 1, -2);
 }
 
+const materials = {
+  screen:       new THREE.MeshStandardMaterial({ color: 0x1a4a7a, emissive: 0x0a2a4a, roughness: 0.1, metalness: 0.05 }),
+  screenGlow:   new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x8bbfe0, emissiveIntensity: 1.2, roughness: 0.05, metalness: 0.1, transparent: true, opacity: 0.97 }),
+  wall:         new THREE.MeshStandardMaterial({ color: 0x1a0d12, roughness: 0.9, metalness: 0.1 }),
+  floor:        new THREE.MeshStandardMaterial({ color: 0x0d0810, roughness: 0.95, metalness: 0.0 }),
+  ceiling:      new THREE.MeshStandardMaterial({ color: 0x120a10, roughness: 1, metalness: 0 }),
+  gold:         new THREE.MeshStandardMaterial({ color: 0xc9a84c, roughness: 0.2, metalness: 0.9, emissive: 0x2a1800, emissiveIntensity: 0.3 }),
+  curtain:      new THREE.MeshStandardMaterial({ color: 0x5a0a14, roughness: 0.95, metalness: 0.0 }),
+  seatVip:      new THREE.MeshStandardMaterial({ color: 0x7a1a28, roughness: 0.88, metalness: 0.0, emissive: 0x2a0008, emissiveIntensity: 0.35 }),
+  seatSelected: new THREE.MeshStandardMaterial({ color: 0xd4a017, roughness: 0.25, metalness: 0.5, emissive: 0x8a5000, emissiveIntensity: 0.8 }),
+  seatHold:     new THREE.MeshStandardMaterial({ color: 0x3a4a1a, roughness: 0.88, metalness: 0.0, emissive: 0x0a1000, emissiveIntensity: 0.2 }),
+  seatTaken:    new THREE.MeshStandardMaterial({ color: 0x110909, roughness: 0.95, metalness: 0.05 }),
+  seatHover:    new THREE.MeshStandardMaterial({ color: 0xe8c060, roughness: 0.2, metalness: 0.5, emissive: 0x7a5000, emissiveIntensity: 0.7 }),
+  carpet:       new THREE.MeshStandardMaterial({ color: 0x3a0a1a, roughness: 1, metalness: 0 }),
+};
 
-function start3dLoop() {
-  const world = document.querySelector('#view3d-overlay #cinema-world');
-  (function frame() {
-    currentRotY += (targetRotY - currentRotY) * 0.06;
-    currentRotX += (targetRotX - currentRotX) * 0.06;
-    world.style.transform = `rotateY(${currentRotY}deg) rotateX(${currentRotX}deg)`;
-    animFrame3d = requestAnimationFrame(frame);
-  })();
+function buildRoom() {
+  const W = 22, H = 10, D = 28;
+
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(W, D), materials.floor);
+  floor.rotation.x = -Math.PI / 2;
+  floor.receiveShadow = true;
+  scene.add(floor);
+
+    const carpet = new THREE.Mesh(new THREE.PlaneGeometry(1.2, D * 0.6), materials.carpet);
+  carpet.rotation.x = -Math.PI / 2;
+  carpet.position.set(0, 0.01, 2);
+  scene.add(carpet);
+
+    const ceil = new THREE.Mesh(new THREE.PlaneGeometry(W, D), materials.ceiling);
+  ceil.rotation.x = Math.PI / 2;
+  ceil.position.y = H;
+  scene.add(ceil);
+ 
+    const bwall = new THREE.Mesh(new THREE.PlaneGeometry(W, H), materials.wall);
+  bwall.position.set(0, H / 2, D / 2);
+  bwall.rotation.y = Math.PI;
+  scene.add(bwall);
+ 
+  [-1, 1].forEach(side => {
+    const w = new THREE.Mesh(new THREE.PlaneGeometry(D, H), materials.wall);
+    w.position.set(side * W / 2, H / 2, 0);
+    w.rotation.y = side * -Math.PI / 2;
+    scene.add(w);
+  });
+
+    const swall = new THREE.Mesh(new THREE.PlaneGeometry(W, H), materials.wall);
+  swall.position.set(0, H / 2, -D / 2);
+  scene.add(swall);
+
+    const frame = new THREE.Mesh(new THREE.BoxGeometry(13, 7.5, 0.2), materials.gold);
+  frame.position.set(0, 5, -D / 2 + 0.25);
+  scene.add(frame);
+
+    const screen = new THREE.Mesh(new THREE.PlaneGeometry(12.2, 6.8), materials.screenGlow);
+  screen.position.set(0, 5, -D / 2 + 0.36);
+  scene.add(screen);
+
+   const stCanvas = document.createElement('canvas');
+  stCanvas.width = 1024; stCanvas.height = 576;
+  const ctx = stCanvas.getContext('2d');
+  const grad = ctx.createLinearGradient(0, 0, 0, 576);
+  grad.addColorStop(0, '#0a2a4a');
+  grad.addColorStop(1, '#05162a');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 1024, 576);
+  for (let i = 0; i < 200; i++) {
+    ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.5 + 0.1})`;
+    ctx.beginPath();
+    ctx.arc(Math.random() * 1024, Math.random() * 576, Math.random() * 1.5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.fillStyle = '#c9a84c';
+  ctx.fillRect(0, 48, 1024, 3);
+  ctx.fillRect(0, 525, 1024, 3);
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 110px serif';
+  ctx.shadowColor = '#aad4ff';
+  ctx.shadowBlur = 30;
+  ctx.fillText('NOW SHOWING', 512, 310);
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = 'rgba(200,220,255,0.7)';
+  ctx.font = '300 28px serif';
+  ctx.fillText('VIP EXPERIENCE', 512, 375);
+  ctx.fillStyle = 'rgba(201,168,76,0.5)';
+  ctx.font = '18px serif';
+  ctx.fillText('• SELECT YOUR SEAT BELOW •', 512, 500);
+ 
+  const sTex = new THREE.CanvasTexture(stCanvas);
+  const screenMesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(12, 6.7),
+    new THREE.MeshBasicMaterial({ map: sTex })
+  );
+  screenMesh.position.set(0, 5, -D / 2 + 0.4);
+  scene.add(screenMesh);
+
+   const screenLight = new THREE.RectAreaLight(0x4488cc, 3, 12, 7);
+  screenLight.position.set(0, 5, -D / 2 + 1);
+  screenLight.lookAt(0, 3, 0);
+  scene.add(screenLight);
+
+    const rail = new THREE.Mesh(new THREE.BoxGeometry(14, 0.12, 0.3), materials.gold);
+  rail.position.set(0, 1.4, -D / 2 + 0.3);
+  scene.add(rail);
+
+    [-1, 1].forEach(side => {
+    const c = new THREE.Mesh(new THREE.BoxGeometry(2.5, 8, 0.3), materials.curtain);
+    c.position.set(side * 7.2, 4.5, -D / 2 + 0.3);
+    scene.add(c);
+    const trim = new THREE.Mesh(new THREE.BoxGeometry(0.12, 8, 0.4), materials.gold);
+    trim.position.set(side * 5.95, 4.5, -D / 2 + 0.3);
+    scene.add(trim);
+  });
+
+   [-1, 1].forEach(side => {
+    const strip = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.08, D), materials.gold);
+    strip.position.set(side * (W / 2 - 0.05), 1.5, 0);
+    scene.add(strip);
+    const strip2 = strip.clone();
+    strip2.position.y = H - 0.5;
+    scene.add(strip2);
+  });
+ 
+    for (let i = 0; i < 5; i++) {
+    const riser = new THREE.Mesh(new THREE.BoxGeometry(W - 2, 0.12, 0.3), materials.gold);
+    riser.position.set(0, i * 0.3 + 0.05, -2 + i * 2.6);
+    scene.add(riser);
+  }
+
+    for (let si = 0; si < 4; si++) {
+    [-1, 1].forEach(side => {
+      const sconce = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.08, 0.6, 8), materials.gold);
+      sconce.position.set(side * (W / 2 - 0.1), 3.5, -8 + si * 4);
+      scene.add(sconce);
+      const bulb = new THREE.Mesh(new THREE.SphereGeometry(0.08, 8, 8),
+        new THREE.MeshStandardMaterial({ emissive: 0xffc060, emissiveIntensity: 2, color: 0xffc060 }));
+      bulb.position.set(side * (W / 2 - 0.15), 3.7, -8 + si * 4);
+      scene.add(bulb);
+      const pl = new THREE.PointLight(0xffaa44, 0.6, 5);
+      pl.position.copy(bulb.position);
+      scene.add(pl);
+    });
+  }
+
+    for (let ci = 0; ci < 6; ci++) {
+    const light = new THREE.PointLight(0xffeecc, 0.4, 8);
+    light.position.set(0, H - 0.3, -8 + ci * 3);
+    scene.add(light);
+    const fixture = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.12, 0.1, 12), materials.gold);
+    fixture.position.copy(light.position);
+    fixture.position.y -= 0.1;
+    scene.add(fixture);
+  }
 }
 
-// ═══════════════════════════════════════
-//  SEAT ROWS
-// ═══════════════════════════════════════
-const ROWS = [
-  { label: 'A', type: 'vip', count: 8,  gap: 4, occupied: [1, 4, 7], hold: [2, 5] },
-  { label: 'B', type: 'vip', count: 8,  gap: 4, occupied: [0, 3, 6], hold: [] },
-  { label: 'C', type: 'vip', count: 8,  gap: 4, occupied: [5, 6],    hold: [1] },
-  { label: 'D', type: 'vip', count: 10, gap: 5, occupied: [2, 8],    hold: [] },
-  { label: 'E', type: 'vip', count: 10, gap: 5, occupied: [0, 1, 9], hold: [5] }
-];
-
-let selectedSeats = [];
-
+const seatMeshes = {};
+const seatGroup  = new THREE.Group();
+scene.add(seatGroup);
+ 
+const SEAT_W      = 0.82;
+const SEAT_H      = 0.9;
+const SEAT_D      = 0.75;
+const ROW_Z_START = -6.5;
+const ROW_Z_STEP  = 2.5;
+const SEAT_X_STEP = 1.1;
+const ROW_Y_RISE  = 0.3;
+ 
 function buildSeats() {
-  const container = document.getElementById('seatsContainer');
-  container.innerHTML = '';
+  ROWS.forEach((row, ri) => {
+    const cfg       = ROW_CONFIGS[row];
+    const seats     = cfg.seats.filter(s => s !== null);
+    const totalSeats = seats.length;
+    const totalWidth = (totalSeats - 1) * SEAT_X_STEP;
+ 
+    let seatIndex = 0;
+    cfg.seats.forEach(s => {
+      if (s === null) { seatIndex++; return; }
+      const id   = `${row}${s}`;
+      const data = seatData[id];
+      const x    = -totalWidth / 2 + seatIndex * SEAT_X_STEP;
+      const z    = ROW_Z_START + ri * ROW_Z_STEP;
+      const y    = ri * ROW_Y_RISE;
+ 
+      const baseMat = getMat(data.status);
+      const group   = new THREE.Group();
+ 
+            const cushion = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W, 0.18, SEAT_D * 0.85), baseMat.clone());
+      cushion.position.set(x, y + 0.48, z - 0.04);
+      cushion.castShadow = true; cushion.receiveShadow = true;
+      group.add(cushion);
 
-  ROWS.forEach((rowDef) => {
-    const rowEl = document.createElement('div');
-    rowEl.className = 'seat-row';
+           const lip = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, SEAT_W, 12, 1, false, 0, Math.PI), baseMat.clone());
+      lip.rotation.z = Math.PI / 2;
+      lip.position.set(x, y + 0.43, z - SEAT_D * 0.85 / 2 - 0.04);
+      group.add(lip);
 
-    const lbl = document.createElement('div');
-    lbl.className = 'row-label';
-    lbl.textContent = rowDef.label;
-    rowEl.appendChild(lbl);
+            const back = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W, SEAT_H * 1.15, 0.14), baseMat.clone());
+      back.rotation.x = -0.10;
+      back.position.set(x, y + 1.05, z + SEAT_D / 2 - 0.08);
+      back.castShadow = true;
+      group.add(back);
+ 
+            const head = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W * 0.7, 0.28, 0.16), baseMat.clone());
+      head.rotation.x = -0.10;
+      head.position.set(x, y + 1.68, z + SEAT_D / 2 - 0.06);
+      group.add(head);
 
-    for (let i = 0; i < rowDef.count; i++) {
-      if (rowDef.gap && i === rowDef.gap) {
-        const gap = document.createElement('div');
-        gap.className = 'gap';
-        rowEl.appendChild(gap);
-      }
-
-      const seatId = `${rowDef.label}${i + 1}`;
-      const seat = document.createElement('div');
-      seat.className = `seat ${rowDef.type}`;
-      seat.dataset.id    = seatId;
-      seat.dataset.type  = rowDef.type;
-      seat.dataset.label = `${seatId} • ${capitalise(rowDef.type)} • EGP ${PRICES[rowDef.type]}`;
-
-      seat.innerHTML = `
-        <div class="seat-arm-l"></div>
-        <div class="seat-back"></div>
-        <div class="seat-cushion"></div>
-        <div class="seat-arm-r"></div>
-        <div class="seat-leg"></div>
-      `;
-
-      if (rowDef.occupied.includes(i))  seat.classList.add('occupied');
-      else if (rowDef.hold.includes(i)) seat.classList.add('hold');
-
-      seat.addEventListener('click', () => toggleSeat(seat));
-      rowEl.appendChild(seat);
-    }
-
-    const lbl2 = lbl.cloneNode(true);
-    rowEl.appendChild(lbl2);
-    container.appendChild(rowEl);
+       [-1, 1].forEach(side => {
+        const wing = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.22, 0.14), baseMat.clone());
+        wing.position.set(x + side * SEAT_W * 0.32, y + 1.68, z + SEAT_D / 2 - 0.06);
+        group.add(wing);
+      });
+ 
+            const lumbar = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W * 0.6, 0.18, 0.08), baseMat.clone());
+      lumbar.rotation.x = -0.10;
+      lumbar.position.set(x, y + 0.62, z + SEAT_D / 2 - 0.04);
+      group.add(lumbar);
+ 
+            const plinth = new THREE.Mesh(
+        new THREE.BoxGeometry(SEAT_W + 0.06, 0.1, SEAT_D * 0.9),
+        new THREE.MeshStandardMaterial({ color: 0x1a0e0e, roughness: 0.8, metalness: 0.2 })
+      );
+      plinth.position.set(x, y + 0.05, z - 0.04);
+      plinth.receiveShadow = true;
+      group.add(plinth);
+ 
+         const railGeo = new THREE.BoxGeometry(SEAT_W + 0.1, 0.04, 0.04);
+      const railF   = new THREE.Mesh(railGeo, materials.gold);
+      railF.position.set(x, y + 0.1, z - SEAT_D * 0.45);
+      group.add(railF);
+      const railB = railF.clone();
+      railB.position.set(x, y + 0.1, z + SEAT_D * 0.45);
+      group.add(railB);
+ 
+[-1, 1].forEach(side => {
+        const armBody = new THREE.Mesh(
+          new THREE.BoxGeometry(0.13, 0.52, SEAT_D * 0.88),
+          new THREE.MeshStandardMaterial({ color: 0x120a0a, roughness: 0.7, metalness: 0.3 })
+        );
+        armBody.position.set(x + side * (SEAT_W / 2 + 0.065), y + 0.35, z - 0.04);
+        armBody.castShadow = true;
+        group.add(armBody);
+ 
+        const armTop = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.07, SEAT_D * 0.78), baseMat.clone());
+        armTop.position.set(x + side * (SEAT_W / 2 + 0.065), y + 0.62, z - 0.04);
+        group.add(armTop);
+ 
+        const trim = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.02, SEAT_D * 0.88), materials.gold);
+        trim.position.set(x + side * (SEAT_W / 2 + 0.065), y + 0.09, z - 0.04);
+        group.add(trim);
+ 
+         const cupRim = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.04, 16), materials.gold);
+        cupRim.position.set(x + side * (SEAT_W / 2 + 0.065), y + 0.66, z + SEAT_D * 0.28);
+        group.add(cupRim);
+ 
+        const cupHole = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.055, 0.055, 0.06, 16),
+          new THREE.MeshStandardMaterial({ color: 0x080404, roughness: 1 })
+        );
+        cupHole.position.set(x + side * (SEAT_W / 2 + 0.065), y + 0.64, z + SEAT_D * 0.28);
+        group.add(cupHole);
+      });
+ 
+     
+      const foot = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W - 0.1, 0.09, 0.25), baseMat.clone());
+      foot.position.set(x, y + 0.27, z - SEAT_D * 0.52);
+      group.add(foot);
+ 
+      const footRail = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W, 0.03, 0.03), materials.gold);
+      footRail.position.set(x, y + 0.32, z - SEAT_D * 0.64);
+      group.add(footRail);
+ 
+       const badge = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.06, 0.02), materials.gold);
+      badge.position.set(x, y + 0.75, z + SEAT_D / 2 - 0.02);
+      group.add(badge);
+ 
+      group.userData = { seatId: id, status: data.status };
+      seatGroup.add(group);
+      seatMeshes[id] = group;
+ 
+      seatIndex++;
+    });
   });
 }
-
-function capitalise(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
-
-// ═══════════════════════════════════════
-//  SEAT INTERACTIONS
-// ═══════════════════════════════════════
-function toggleSeat(seat) {
-  if (seat.classList.contains('occupied') || seat.classList.contains('hold')) return;
-  const id    = seat.dataset.id;
-  const type  = seat.dataset.type;
-  const price = PRICES[type];
-
-  if (seat.classList.contains('selected')) {
-    seat.classList.remove('selected');
-    selectedSeats = selectedSeats.filter(s => s.id !== id);
+ 
+function getMat(status) {
+  if (status === 'taken') return materials.seatTaken;
+  if (status === 'hold')  return materials.seatHold;
+  return materials.seatVip;
+}
+ 
+function updateSeatVisual(id) {
+  const mesh = seatMeshes[id];
+  if (!mesh) return;
+  const data = seatData[id];
+  let mat;
+  if      (data.status === 'taken') mat = materials.seatTaken;
+  else if (data.status === 'hold')  mat = materials.seatHold;
+  else if (selected.has(id))        mat = materials.seatSelected;
+  else if (hoveredSeat === id)      mat = materials.seatHover;
+  else                              mat = materials.seatVip;
+  mesh.children.forEach(c => { if (c.material && c.material !== materials.gold) c.material = mat; });
+}
+ 
+function toggleSeat(id) {
+  const data = seatData[id];
+  if (!data || data.status === 'taken' || data.status === 'hold') return;
+  if (selected.has(id)) {
+    selected.delete(id);
   } else {
-    if (selectedSeats.length >= SEAT_LIMIT) { showWarning(); return; }
-    seat.classList.add('selected');
-    selectedSeats.push({ id, label: id, type, price });
+    if (selected.size >= MAX_SEATS) { flashMax(); return; }
+    selected.add(id);
   }
+  updateSeatVisual(id);
   updateUI();
 }
+ 
+function flashMax() {
+  const el = document.getElementById('sel-count');
+  el.style.color = '#ff4444';
+  setTimeout(() => { el.style.color = ''; }, 600);
+}
 
+function buildLights() {
+  scene.add(new THREE.AmbientLight(0x1a1020, 0.8));
+  scene.add(new THREE.HemisphereLight(0x1a1030, 0x0a0510, 0.5));
+ 
+  const dir = new THREE.DirectionalLight(0xffe8c0, 0.6);
+  dir.position.set(5, 15, 10);
+  dir.castShadow = true;
+  dir.shadow.mapSize.set(2048, 2048);
+  scene.add(dir);
+ 
+  const spot = new THREE.SpotLight(0xffd080, 1.5, 30, Math.PI / 5, 0.4);
+  spot.position.set(0, 9, 2);
+  spot.target.position.set(0, 4, -12);
+  scene.add(spot);
+  scene.add(spot.target);
+}
+
+buildRoom();
+buildLights();
+buildSeats();
+updateCamera();
+ 
+const raycaster    = new THREE.Raycaster();
+const mouse        = new THREE.Vector2(-9999, -9999);
+let   mouseScreen  = { x: 0, y: 0 };
+const allSeatMeshes = [];
+ 
+function refreshPickable() {
+  allSeatMeshes.length = 0;
+  Object.values(seatMeshes).forEach(g => g.children.forEach(c => allSeatMeshes.push(c)));
+}
+refreshPickable();
+ 
+function getSeatIdFromObject(obj) {
+  if (!obj) return null;
+  if (obj.parent && obj.parent.userData.seatId) return obj.parent.userData.seatId;
+  if (obj.userData.seatId) return obj.userData.seatId;
+  return null;
+}
+
+const cursorEl = document.getElementById('cursor');
+ 
+document.addEventListener('mousemove', e => {
+  mouseScreen = { x: e.clientX, y: e.clientY };
+  cursorEl.style.left = e.clientX + 'px';
+  cursorEl.style.top  = e.clientY + 'px';
+  mouse.x =  (e.clientX / window.innerWidth)  * 2 - 1;
+  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+ 
+  if (isDragging) {
+    const dx = e.clientX - prevMouse.x;
+    const dy = e.clientY - prevMouse.y;
+    targetTheta -= dx * 0.005;
+    targetPhi = Math.max(0.2, Math.min(Math.PI / 1.5, targetPhi + dy * 0.005));
+    prevMouse = { x: e.clientX, y: e.clientY };
+  }
+});
+ 
+document.addEventListener('mousedown', e => {
+  if (e.target.closest('#topbar') || e.target.closest('#seat-panel') || e.target.closest('#confirm-modal')) return;
+  isDragging = true;
+  prevMouse  = { x: e.clientX, y: e.clientY };
+  autoRotate = false;
+});
+ 
+document.addEventListener('mouseup', e => {
+  if (isDragging && Math.abs(e.clientX - prevMouse.x) < 3 && Math.abs(e.clientY - prevMouse.y) < 3) {
+    if (hoveredSeat) toggleSeat(hoveredSeat);
+  }
+  isDragging = false;
+});
+ 
+document.addEventListener('wheel', e => {
+  targetRadius = Math.max(5, Math.min(25, targetRadius + e.deltaY * 0.02));
+  e.preventDefault();
+}, { passive: false });
+ 
+
+let touchStart = null;
+document.addEventListener('touchstart', e => {
+  touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  prevMouse  = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  isDragging = true;
+  autoRotate = false;
+});
+document.addEventListener('touchmove', e => {
+  if (!isDragging) return;
+  const dx = e.touches[0].clientX - prevMouse.x;
+  const dy = e.touches[0].clientY - prevMouse.y;
+  targetTheta -= dx * 0.006;
+  targetPhi = Math.max(0.2, Math.min(Math.PI / 1.5, targetPhi + dy * 0.006));
+  prevMouse = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  e.preventDefault();
+}, { passive: false });
+document.addEventListener('touchend', e => {
+  if (touchStart) {
+    const dx = Math.abs(e.changedTouches[0].clientX - touchStart.x);
+    const dy = Math.abs(e.changedTouches[0].clientY - touchStart.y);
+    if (dx < 5 && dy < 5 && hoveredSeat) toggleSeat(hoveredSeat);
+  }
+  isDragging = false;
+});
+ 
+window.addEventListener('resize', () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+});
+ 
 function updateUI() {
-  const total = selectedSeats.reduce((s, x) => s + x.price, 0);
-  const count = selectedSeats.length;
-
-  document.getElementById('metaCount').textContent = count;
-  document.getElementById('checkoutBar').classList.toggle('visible', count > 0);
-
-  document.getElementById('checkoutSeats').textContent =
-    count === 0 ? '0 seats selected' : `${count} seat${count > 1 ? 's' : ''} selected`;
-
-  const priceEl = document.getElementById('checkoutPrice');
-  priceEl.textContent = `EGP ${total.toLocaleString()}`;
-  priceEl.classList.remove('bump');
-  void priceEl.offsetWidth;
-  priceEl.classList.add('bump');
-
-  const chips = document.getElementById('selectedChips');
-  chips.innerHTML = '';
-  selectedSeats.forEach(s => {
-    const chip = document.createElement('div');
-    chip.className = 'chip vip';
-    chip.textContent = s.id;
-    chips.appendChild(chip);
+  const count = selected.size;
+  document.getElementById('sel-count').textContent = count;
+  document.getElementById('book-btn').disabled = count === 0;
+ 
+  const tagsEl = document.getElementById('seat-tags');
+  tagsEl.innerHTML = '';
+  Array.from(selected).sort().forEach(id => {
+    const tag = document.createElement('div');
+    tag.className   = 'seat-tag';
+    tag.textContent = id;
+    tagsEl.appendChild(tag);
   });
 }
-
-let warnTimeout;
-function showWarning() {
-  const el = document.getElementById('limitWarning');
-  el.classList.add('show');
-  clearTimeout(warnTimeout);
-  warnTimeout = setTimeout(() => el.classList.remove('show'), 2200);
+ 
+function openConfirm() {
+  if (selected.size === 0) return;
+  const seatsEl = document.getElementById('modal-seats');
+  const priceEl = document.getElementById('modal-price');
+  seatsEl.innerHTML = '';
+  Array.from(selected).sort().forEach(id => {
+    const el = document.createElement('div');
+    el.className   = 'modal-seat-tag';
+    el.textContent = id;
+    seatsEl.appendChild(el);
+  });
+  priceEl.textContent = `EGP ${selected.size * SEAT_PRICE}`;
+  document.getElementById('confirm-modal').classList.add('show');
+}
+ 
+function closeConfirm() {
+  document.getElementById('confirm-modal').classList.remove('show');
+}
+ 
+function confirmBook() {
+  closeConfirm();
+  alert('🎬 Booking confirmed! Enjoy your VIP experience.');
+  selected.clear();
+  Object.keys(seatMeshes).forEach(id => updateSeatVisual(id));
+  updateUI();
+}
+ 
+function setView(v, e) {
+  currentView = v;
+  document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+  if (e && e.target) e.target.classList.add('active');
+  const vd = VIEWS[v];
+  if (v === 'fly') {
+    autoRotate      = true;
+    autoRotateSpeed = 0.003;
+  } else {
+    autoRotate      = false;
+    autoRotateSpeed = 0;
+  }
+  targetPhi    = vd.phi;
+  targetTheta  = vd.theta;
+  targetRadius = vd.radius;
 }
 
-// ═══════════════════════════════════════
-//  ALERT / CHECKOUT
-// ═══════════════════════════════════════
-let isConfirmed = false;
-
-function showAlert(message, confirmed = false) {
-  const modal = document.getElementById('customAlert');
-  document.getElementById('alertMessage').innerText = message;
-  isConfirmed = confirmed;
-  modal.style.display = 'flex';
+const tooltip = document.getElementById('tooltip');
+ 
+function showTooltip(id, x, y) {
+  const data = seatData[id];
+  if (!data) return;
+  document.getElementById('tip-seat').textContent  = `Seat ${id}`;
+  document.getElementById('tip-price').textContent =
+    data.status === 'taken' ? '—' : `EGP ${SEAT_PRICE}`;
+  document.getElementById('tip-status').textContent =
+    data.status === 'taken'   ? 'Unavailable' :
+    data.status === 'hold'    ? 'On Hold' :
+    selected.has(id)          ? 'Selected — click to deselect' : 'Click to select';
+  tooltip.style.display = 'block';
+  tooltip.style.left    = x + 'px';
+  tooltip.style.top     = y + 'px';
+}
+ 
+function hideTooltip() {
+  tooltip.style.display = 'none';
 }
 
-function closeAlert() {
-  document.getElementById('customAlert').style.display = 'none';
-  if (isConfirmed) window.location.href = 'orderSum.html';
+let animFrame = 0;
+function animate() {
+  requestAnimationFrame(animate);
+  animFrame++;
+
+    phi    += (targetPhi    - phi)    * 0.06;
+  theta  += (targetTheta  - theta)  * 0.06;
+  radius += (targetRadius - radius) * 0.06;
+ 
+  if (autoRotate) targetTheta += autoRotateSpeed;
+  updateCamera();
+
+    if (animFrame % 2 === 0) {
+    raycaster.setFromCamera(mouse, camera);
+    const hits = raycaster.intersectObjects(allSeatMeshes, false);
+    if (hits.length > 0) {
+      const id = getSeatIdFromObject(hits[0].object);
+      if (id && id !== hoveredSeat) {
+        if (hoveredSeat) updateSeatVisual(hoveredSeat);
+        hoveredSeat = id;
+        if (!selected.has(id) && seatData[id].status === 'vip') updateSeatVisual(id);
+      }
+      if (id) {
+        cursorEl.classList.add('hover');
+        showTooltip(id, mouseScreen.x, mouseScreen.y);
+      }
+    } else {
+      if (hoveredSeat) { updateSeatVisual(hoveredSeat); hoveredSeat = null; }
+      cursorEl.classList.remove('hover');
+      hideTooltip();
+    }
+  }
+
+    materials.screenGlow.emissiveIntensity = 1.1 + Math.sin(animFrame * 0.02) * 0.1;
+ 
+  renderer.render(scene, camera);
 }
 
-function checkout() {
-  if (selectedSeats.length === 0) return;
-  const total   = selectedSeats.reduce((s, x) => s + x.price, 0);
-  const seatIds = selectedSeats.map(s => s.id);
-
-  localStorage.setItem('bookedSeats',  JSON.stringify(seatIds));
-  localStorage.setItem('totalPrice',   total);
-  localStorage.setItem('bookingTime',  new Date().toISOString());
-
-  const btn = document.getElementById('btnCheckout');
-  btn.textContent = '✓ Booking…';
-
+setTimeout(() => {
+  document.getElementById('loader').classList.add('hidden');
   setTimeout(() => {
-    showAlert(`Booking confirmed!\n\nSeats: ${seatIds.join(', ')}\nTotal: EGP ${total.toLocaleString()}\n\n(Redirecting to payment…)`, true);
-    btn.innerHTML = 'Confirm & Pay &rarr;';
-  }, 600);
-}
-
-buildSeats();
+    document.getElementById('instructions').style.opacity = '0.7';
+  }, 500);
+}, 2000);
+ 
+animate();
