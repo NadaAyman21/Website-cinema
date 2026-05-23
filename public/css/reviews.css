@@ -285,3 +285,9 @@ reviews-header h1 {
     margin: 12px auto 0;
     box-shadow: 0 0 10px var(--accent);
 }
+.embed-reviews-section > p {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    font-size: 1.05rem;
+}
