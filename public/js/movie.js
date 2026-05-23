@@ -110,3 +110,19 @@ async function loadOtherRecommendations(currentId) {
         otherContainer.innerHTML = `<p style="padding: 0 40px; color:#e74c3c;">Failed to populate recommended movies.</p>`;
     }
 }
+
+const closeModalElement = document.querySelector(".close-btn");
+if (closeModalElement) {
+    closeModalElement.onclick = function () {
+        document.getElementById("videoModal").style.display = "none";
+        document.getElementById("videoPlayer").src = ""; 
+    };
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById("videoModal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+        document.getElementById("videoPlayer").src = "";
+    }
+};
