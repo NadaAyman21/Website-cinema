@@ -136,3 +136,6 @@ reviews-header h1 {
     overflow-y: auto;
     padding-right: 10px;
 }
+.reviews-list::-webkit-scrollbar {
+    width: 6px;
+}
