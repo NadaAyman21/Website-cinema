@@ -75,3 +75,29 @@ html, body {
   border: 1px solid var(--gold);
   padding: 2px 5px;
 }
+
+#instructions {
+  position: fixed;
+  bottom: 120px; left: 50%; transform: translateX(-50%);
+  text-align: center;
+  pointer-events: none;
+  z-index: 20;
+  transition: opacity 0.5s;
+}
+#instructions p {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: rgba(201,168,76,0.7);
+  text-transform: uppercase;
+}
+.drag-hint {
+  display: flex; align-items: center; gap: 8px;
+  justify-content: center; margin-top: 6px;
+}
+.drag-hint span { font-size: 1.1rem; animation: float 2s ease-in-out infinite; }
+ 
+@keyframes float {
+  0%,100%{ transform: translateY(0); }
+  50%{ transform: translateY(-4px); }
+}
