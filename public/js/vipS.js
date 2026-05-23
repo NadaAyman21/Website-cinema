@@ -576,3 +576,8 @@ function showTooltip(id, x, y) {
 function hideTooltip() {
   tooltip.style.display = 'none';
 }
+
+let animFrame = 0;
+function animate() {
+  requestAnimationFrame(animate);
+  animFrame++;
