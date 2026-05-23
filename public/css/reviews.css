@@ -296,3 +296,8 @@ reviews-header h1 {
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 24px;
 }
+@media (max-width: 600px) {
+    .reviews-embed-grid {
+        grid-template-columns: 1fr;
+    }
+}
