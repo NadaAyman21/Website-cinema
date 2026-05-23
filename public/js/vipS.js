@@ -92,3 +92,9 @@ function buildRoom() {
   carpet.rotation.x = -Math.PI / 2;
   carpet.position.set(0, 0.01, 2);
   scene.add(carpet);
+
+    const ceil = new THREE.Mesh(new THREE.PlaneGeometry(W, D), materials.ceiling);
+  ceil.rotation.x = Math.PI / 2;
+  ceil.position.y = H;
+  scene.add(ceil);
+ 
