@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
     initializeCalendarTimeline();
 });
 
-
 async function loadMovieDetails(id) {
     try {
         const res = await fetch(`/api/movies/${id}`);
@@ -24,5 +23,58 @@ async function loadMovieDetails(id) {
     } catch (err) {
         console.error("Error setting up details area view:", err);
         document.getElementById("title").innerText = "Failed to load movie.";
+    }
+}
+
+function renderActiveMovieInfo(movie) {
+    document.getElementById("title").innerText = movie.title || "Untitled";
+    document.getElementById("genre").innerText = movie.genre || "N/A";
+    document.getElementById("time").innerText = "⏱ " + (movie.runTime || "N/A");
+    document.getElementById("story").innerText = movie.description || "No synopsis recorded yet.";
+    document.getElementById("age").textContent = movie.ageRating || "+0";
+
+    if (Array.isArray(movie.cast)) {
+        document.getElementById("cast").innerText = movie.cast.join(', ');
+    } else {
+        document.getElementById("cast").innerText = movie.cast || "No cast breakdown available.";
+    }
+
+   
+    const posterImg = document.getElementById("poster");
+    if (posterImg) {
+        posterImg.src = movie.imageUrl || "/images/homepage.jpg";
+        posterImg.alt = movie.title;
+    }
+
+    const heroBg = document.getElementById("hero");
+    if (heroBg && movie.imageUrl) {
+        heroBg.style.backgroundImage = `linear-gradient(to bottom, rgba(11, 11, 18, 0.95), rgba(11, 11, 18, 0.75)), url('${movie.imageUrl}')`;
+    }
+
+    const trailerBtn = document.getElementById("trailerBtn");
+    if (trailerBtn) {
+        trailerBtn.onclick = function () {
+            const iframe = document.getElementById("videoPlayer");
+            let link = movie.videoUrl || "";
+
+            if (!link) {
+                alert("No trailer link provided for this title.");
+                return;
+            }
+
+            if (link.includes("embed")) {
+                iframe.src = link + "?autoplay=1";
+            } else if (link.includes("watch?v=")) {
+                let vId = link.split("v=")[1].split("&")[0];
+                iframe.src = `https://www.youtube.com/embed/${vId}?autoplay=1`;
+            } else if (link.includes("youtu.be")) {
+                let vId = link.split("youtu.be/")[1];
+                iframe.src = `https://www.youtube.com/embed/${vId}?autoplay=1`;
+            } else {
+                iframe.src = `https://www.youtube.com/embed/${link}?autoplay=1`;
+            }
+
+            document.getElementById("videoModal").style.display = "block";
+        };
     }
 }
