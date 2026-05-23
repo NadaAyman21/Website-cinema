@@ -19,3 +19,30 @@
 
             updateHiddenItem();
         }
+  function updateHiddenItem() {
+            const category = categorySelect.value;
+            if (category === 'movie') {
+                hiddenItemInput.value = movieSelect.value;
+            } else if (category === 'experience') {
+                hiddenItemInput.value = experienceSelect.value;
+            } else if (category === 'food-drinks') {
+                hiddenItemInput.value = foodSelect.value;
+            }
+        }
+
+        categorySelect.addEventListener('change', (e) => {
+            switchCategory(e.target.value);
+        });
+
+        movieSelect.addEventListener('change', updateHiddenItem);
+        experienceSelect.addEventListener('change', updateHiddenItem);
+        foodSelect.addEventListener('change', updateHiddenItem);
+
+        function validateForm() {
+            updateHiddenItem();
+            if (!hiddenItemInput.value) {
+                alert('Please select the item you are reviewing!');
+                return false;
+            }
+            return true;
+        }
