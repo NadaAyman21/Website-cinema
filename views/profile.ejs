@@ -2,9 +2,13 @@
 <html lang="en">
 <head>
     <title>My Profile - CineX</title>
-    <link rel="stylesheet" href="/css/profile.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="/css/profile.css">
+<link rel="stylesheet" href="/css/login.css">
+<link rel="stylesheet" href="/css/sign%20up%20page.css">
+<link rel="stylesheet" href="/css/forget.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -42,6 +46,273 @@
             <div class="stat-divider"></div>
             <div class="stat-item">
                 <span class="stat-number" id="upcomingCount">0</span>
-                <span class="stat-label">Upcom
+                <span class="stat-label">Upcoming</span>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="profile-tabs">
+            <button class="tab-btn active" onclick="switchTab('info')">
+                <i class="fa fa-user"></i> Personal Info
+            </button>
+            <button class="tab-btn" onclick="switchTab('tickets')">
+                <i class="fa fa-ticket"></i> My Tickets
+            </button>
+            <button class="tab-btn" onclick="switchTab('history')">
+                <i class="fa fa-clock"></i> History
+            </button>
+            <button class="tab-btn" onclick="switchTab('settings')">
+                <i class="fa fa-gear"></i> Settings
+            </button>
+        </div>
+
+        <!-- Body -->
+        <div class="profile-body">
+
+            <!-- Info Tab -->
+            <div class="tab-content active" id="tab-info">
+                <div class="info-grid">
+                    <div class="info-card">
+                       <div class="info-card-header">
+                            <i class="fa fa-user"></i> Personal Info
+                            <button class="edit-btn" onclick="openEditModal()">
+                                <i class="fa fa-pen"></i> Edit
+                            </button>
+                        </div>
+                        <div class="info-rows">
+                            <div class="info-row">
+                                <span class="info-label">First Name</span>
+                                <span class="info-value"><%= user.firstName %></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Last Name</span>
+                                <span class="info-value"><%= user.lastName %></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Gender</span>
+                                <span class="info-value"><%= user.gender %></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Date of Birth</span>
+                                <span class="info-value"><%= user.dob %></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-header">
+                            <i class="fa fa-envelope"></i> Contact Info
+                        </div>
+                        <div class="info-rows">
+                            <div class="info-row">
+                                <span class="info-label">Email</span>
+                                <span class="info-value"><%= user.email %></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Phone</span>
+                                <span class="info-value"><%= user.phone %></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tickets Tab -->
+            <div class="tab-content" id="tab-tickets">
+                <div class="empty-state">
+                    <i class="fa fa-ticket"></i>
+                    <p>No upcoming tickets</p>
+                    <a href="/cinemaM" class="cta-btn">Browse Movies</a>
+                </div>
+            </div>
+
+            <!-- History Tab -->
+            <div class="tab-content" id="tab-history">
+                <div class="empty-state">
+                    <i class="fa fa-clock"></i>
+                    <p>No watch history yet</p>
+                    <a href="/cinemaM" class="cta-btn">Browse Movies</a>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div class="tab-content" id="tab-settings">
+                <div class="settings-list">
+                    <div class="settings-item">
+                        <div>
+                            <div class="settings-title">Email Notifications</div>
+                            <div class="settings-sub">Receive booking confirmations</div>
+                        </div>
+                        <label class="toggle">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-item">
+                        <div>
+                            <div class="settings-title">Change Password</div>
+                            <div class="settings-sub">Update your current password</div>
+                        </div>
+                        <button class="change-pass-btn" onclick="openPasswordModal()">Change</button>
+                    </div>
+
+                    <div class="settings-item danger-zone">
+                        <div>
+                            <div class="settings-title">Delete Account</div>
+                            <div class="settings-sub">Permanently remove your account</div>
+                        </div>
+                        <button class="danger-btn">Delete</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Change Password Modal -->
+<div class="modal-overlay" id="passwordModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>Change Password</h2>
+            <button onclick="closePasswordModal()"><i class="fa fa-times"></i></button>
+        </div>
+        <div class="modal-form">
+            <div class="form-row">
+                <label>Current Password</label>
+                <input type="password" id="currentPassword" placeholder="Enter current password">
+            </div>
+            <div class="form-row">
+                <label>New Password</label>
+                <input type="password" id="newPassword" placeholder="Enter new password">
+            </div>
+            <div class="form-row">
+                <label>Confirm New Password</label>
+                <input type="password" id="confirmNewPassword" placeholder="Confirm new password">
+            </div>
+            <p id="passwordError" style="color:#e83b3b; font-size:13px; display:none;"></p>
+            <button class="submit-btn" onclick="savePassword()">Save Password</button>
+        </div>
+    </div>
+</div>
+
+    <!-- Edit Info Modal -->
+<div class="modal-overlay" id="editModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2>Edit Info</h2>
+            <button onclick="closeEditModal()"><i class="fa fa-times"></i></button>
+        </div>
+        <div class="modal-form">
+            <div class="form-row">
+                <label>First Name</label>
+                <input type="text" id="editFirstName" value="<%= user.firstName %>">
+            </div>
+            <div class="form-row">
+                <label>Last Name</label>
+                <input type="text" id="editLastName" value="<%= user.lastName %>">
+            </div>
+            <div class="form-row">
+                <label>Phone</label>
+                <input type="text" id="editPhone" value="<%= user.phone %>">
+            </div>
+            <div class="form-row">
+                <label>Date of Birth</label>
+                <input type="date" id="editDob" value="<%= user.dob %>">
+            </div>
+            <button class="submit-btn" onclick="saveEdit()">Save Changes</button>
+        </div>
+    </div>
+</div>
+
+    <script src="/js/nav.js"></script>
+    <script>
+        function openPasswordModal() {
+            document.getElementById('passwordModal').classList.add('open');
+        }
+
+        function closePasswordModal() {
+            document.getElementById('passwordModal').classList.remove('open');
+            document.getElementById('currentPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmNewPassword').value = '';
+            document.getElementById('passwordError').style.display = 'none';
+        }
+
+        function savePassword() {
+            const currentPassword  = document.getElementById('currentPassword').value;
+            const newPassword      = document.getElementById('newPassword').value;
+            const confirmPassword  = document.getElementById('confirmNewPassword').value;
+            const errorEl          = document.getElementById('passwordError');
+
+            if (newPassword !== confirmPassword) {
+                errorEl.innerText = 'New passwords do not match!';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            const pattern = /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
+            if (!newPassword.match(pattern)) {
+                errorEl.innerText = 'Password must contain 1 uppercase, 1 number, min 6 chars';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            errorEl.style.display = 'none';
+
+            fetch('/api/auth/changePassword', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ currentPassword, newPassword })
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Password changed successfully!');
+                    closePasswordModal();
+                } else {
+                    errorEl.innerText = result.message;
+                    errorEl.style.display = 'block';
+                }
+            });
+        }
+        
+        function openEditModal() {
+            document.getElementById('editModal').classList.add('open');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('open');
+        }
+
+        function saveEdit() {
+            const data = {
+                firstName: document.getElementById('editFirstName').value,
+                lastName:  document.getElementById('editLastName').value,
+                phone:     document.getElementById('editPhone').value,
+                dob:       document.getElementById('editDob').value
+            };
+
+            fetch('/api/auth/updateProfile', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    alert('Profile updated!');
+                    location.reload();
+                } else {
+                    alert(result.message);
+                }
+            });
+        }
+        function switchTab(name) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + name).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+
 </body>
 </html>

@@ -33,11 +33,11 @@ function closeAllModals() {
 }
 
 // Close when clicking the dark background
-window.onclick = function(event) {
+window.addEventListener("click", function(event) {
     if (event.target.className.includes('modal') && event.target.className.includes('active')) {
         closeAllModals();
     }
-};
+});
 
 // Toggle for mobile menu (if you have one)
 function toggleMenu() {

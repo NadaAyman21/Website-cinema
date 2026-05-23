@@ -59,3 +59,31 @@ req.session.save(() => {
     res.status(500).json({ success: false, message: 'Something went wrong. Try again.' });
   }
 };
+exports.updateProfile = async (req, res) => {
+    try {
+        const { firstName, lastName, phone, dob } = req.body;
+        await User.findByIdAndUpdate(req.session.userId, {
+            firstName, lastName, phone, dob
+        });
+        res.json({ success: true });
+    } catch (err) {
+        console.error(err);
+        res.json({ success: false, message: 'Something went wrong.' });
+    }
+};
+exports.changePassword = async (req, res) => {
+    const { currentPassword, newPassword } = req.body;
+    try {
+        const user = await User.findById(req.session.userId);
+        const match = await bcrypt.compare(currentPassword, user.password);
+        if (!match) {
+            return res.json({ success: false, message: 'Current password is incorrect.' });
+        }
+        const hashed = await bcrypt.hash(newPassword, 10);
+        await User.findByIdAndUpdate(req.session.userId, { password: hashed });
+        res.json({ success: true });
+    } catch (err) {
+        console.error(err);
+        res.json({ success: false, message: 'Something went wrong.' });
+    }
+};
