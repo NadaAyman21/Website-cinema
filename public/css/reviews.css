@@ -235,3 +235,14 @@ reviews-header h1 {
     gap: 12px;
     margin-bottom: 30px;
 }
+.filter-tab {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
