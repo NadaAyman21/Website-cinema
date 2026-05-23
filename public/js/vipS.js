@@ -337,3 +337,53 @@ function buildSeats() {
       footRail.position.set(x, y + 0.32, z - SEAT_D * 0.64);
       group.add(footRail);
  
+       const badge = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.06, 0.02), materials.gold);
+      badge.position.set(x, y + 0.75, z + SEAT_D / 2 - 0.02);
+      group.add(badge);
+ 
+      group.userData = { seatId: id, status: data.status };
+      seatGroup.add(group);
+      seatMeshes[id] = group;
+ 
+      seatIndex++;
+    });
+  });
+}
+ 
+function getMat(status) {
+  if (status === 'taken') return materials.seatTaken;
+  if (status === 'hold')  return materials.seatHold;
+  return materials.seatVip;
+}
+ 
+function updateSeatVisual(id) {
+  const mesh = seatMeshes[id];
+  if (!mesh) return;
+  const data = seatData[id];
+  let mat;
+  if      (data.status === 'taken') mat = materials.seatTaken;
+  else if (data.status === 'hold')  mat = materials.seatHold;
+  else if (selected.has(id))        mat = materials.seatSelected;
+  else if (hoveredSeat === id)      mat = materials.seatHover;
+  else                              mat = materials.seatVip;
+  mesh.children.forEach(c => { if (c.material && c.material !== materials.gold) c.material = mat; });
+}
+ 
+function toggleSeat(id) {
+  const data = seatData[id];
+  if (!data || data.status === 'taken' || data.status === 'hold') return;
+  if (selected.has(id)) {
+    selected.delete(id);
+  } else {
+    if (selected.size >= MAX_SEATS) { flashMax(); return; }
+    selected.add(id);
+  }
+  updateSeatVisual(id);
+  updateUI();
+}
+ 
+function flashMax() {
+  const el = document.getElementById('sel-count');
+  el.style.color = '#ff4444';
+  setTimeout(() => { el.style.color = ''; }, 600);
+}
