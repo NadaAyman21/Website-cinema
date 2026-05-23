@@ -1,4 +1,4 @@
-// ── SLIDER ──────────────────────────────────────────────
+
 let slides = document.querySelectorAll(".slide");
 let index = 0;
 
@@ -29,7 +29,7 @@ function createDots() {
     });
 }
 
-// AUTO SLIDE
+
 setInterval(() => {
     index++;
     if (index >= slides.length) index = 0;
