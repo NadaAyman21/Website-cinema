@@ -78,3 +78,35 @@ function renderActiveMovieInfo(movie) {
         };
     }
 }
+
+async function loadOtherRecommendations(currentId) {
+    const otherContainer = document.getElementById("otherMovies");
+    if (!otherContainer) return;
+    
+    try {
+        const res = await fetch('/api/movies');
+        const allMovies = await res.json();
+        otherContainer.innerHTML = "";
+
+        // Filter away the currently active movie object card out of recommendation limits
+        const filterList = allMovies.filter(m => m._id !== currentId);
+
+        if (filterList.length === 0) {
+            otherContainer.innerHTML = `<p style="padding: 0 40px; color:#6b6b80;">No alternative matches found.</p>`;
+            return;
+        }
+
+        // Render dynamic element components into row grid viewport wrapper
+        filterList.forEach(m => {
+            otherContainer.innerHTML += `
+                <a href="/movie?id=${m._id}" class="movie-card">
+                    <img src="${m.imageUrl}" alt="${m.title}" onerror="this.src='/images/homepage.jpg';">
+                    <span class="age">${m.ageRating || "+0"}</span>
+                </a>
+            `;
+        });
+    } catch (err) {
+        console.error("Error setting up database carousel rows:", err);
+        otherContainer.innerHTML = `<p style="padding: 0 40px; color:#e74c3c;">Failed to populate recommended movies.</p>`;
+    }
+}
