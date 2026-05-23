@@ -31,3 +31,9 @@ const reviewSchema = new mongoose.Schema({
         default: 'Guest'
     }
 }, { timestamps: true });
+reviewSchema.pre('save', function (next) {
+    if (this.item) {
+        this.movie = this.item;
+    }
+    next();
+});
