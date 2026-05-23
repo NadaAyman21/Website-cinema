@@ -262,3 +262,8 @@ reviews-header h1 {
     font-weight: 600;
     margin-top: 4px;
 }
+.embed-reviews-section {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 40px 24px;
+}
