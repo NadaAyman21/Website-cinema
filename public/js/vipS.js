@@ -121,3 +121,42 @@ function buildRoom() {
     const screen = new THREE.Mesh(new THREE.PlaneGeometry(12.2, 6.8), materials.screenGlow);
   screen.position.set(0, 5, -D / 2 + 0.36);
   scene.add(screen);
+
+   const stCanvas = document.createElement('canvas');
+  stCanvas.width = 1024; stCanvas.height = 576;
+  const ctx = stCanvas.getContext('2d');
+  const grad = ctx.createLinearGradient(0, 0, 0, 576);
+  grad.addColorStop(0, '#0a2a4a');
+  grad.addColorStop(1, '#05162a');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 1024, 576);
+  for (let i = 0; i < 200; i++) {
+    ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.5 + 0.1})`;
+    ctx.beginPath();
+    ctx.arc(Math.random() * 1024, Math.random() * 576, Math.random() * 1.5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.fillStyle = '#c9a84c';
+  ctx.fillRect(0, 48, 1024, 3);
+  ctx.fillRect(0, 525, 1024, 3);
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 110px serif';
+  ctx.shadowColor = '#aad4ff';
+  ctx.shadowBlur = 30;
+  ctx.fillText('NOW SHOWING', 512, 310);
+  ctx.shadowBlur = 0;
+  ctx.fillStyle = 'rgba(200,220,255,0.7)';
+  ctx.font = '300 28px serif';
+  ctx.fillText('VIP EXPERIENCE', 512, 375);
+  ctx.fillStyle = 'rgba(201,168,76,0.5)';
+  ctx.font = '18px serif';
+  ctx.fillText('• SELECT YOUR SEAT BELOW •', 512, 500);
+ 
+  const sTex = new THREE.CanvasTexture(stCanvas);
+  const screenMesh = new THREE.Mesh(
+    new THREE.PlaneGeometry(12, 6.7),
+    new THREE.MeshBasicMaterial({ map: sTex })
+  );
+  screenMesh.position.set(0, 5, -D / 2 + 0.4);
+  scene.add(screenMesh);
