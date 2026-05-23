@@ -176,3 +176,9 @@ reviews-header h1 {
     letter-spacing: 0.5px;
     text-transform: uppercase;
 }
+.review-rating-stars {
+    color: #ffc107; /* Golden Star Color */
+    font-size: 0.95rem;
+    display: flex;
+    gap: 3px;
+}
