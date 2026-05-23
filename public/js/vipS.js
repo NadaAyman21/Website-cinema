@@ -82,3 +82,8 @@ const materials = {
 
 function buildRoom() {
   const W = 22, H = 10, D = 28;
+
+    const floor = new THREE.Mesh(new THREE.PlaneGeometry(W, D), materials.floor);
+  floor.rotation.x = -Math.PI / 2;
+  floor.receiveShadow = true;
+  scene.add(floor);
