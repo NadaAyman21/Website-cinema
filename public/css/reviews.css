@@ -128,3 +128,11 @@ reviews-header h1 {
 .review-btn:active {
     transform: translateY(0);
 }
+.reviews-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 700px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
