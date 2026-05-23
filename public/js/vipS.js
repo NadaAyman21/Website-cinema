@@ -271,3 +271,10 @@ function buildSeats() {
       head.rotation.x = -0.10;
       head.position.set(x, y + 1.68, z + SEAT_D / 2 - 0.06);
       group.add(head);
+
+       [-1, 1].forEach(side => {
+        const wing = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.22, 0.14), baseMat.clone());
+        wing.position.set(x + side * SEAT_W * 0.32, y + 1.68, z + SEAT_D / 2 - 0.06);
+        group.add(wing);
+      });
+ 
