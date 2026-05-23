@@ -188,3 +188,8 @@ function buildRoom() {
     scene.add(strip2);
   });
  
+    for (let i = 0; i < 5; i++) {
+    const riser = new THREE.Mesh(new THREE.BoxGeometry(W - 2, 0.12, 0.3), materials.gold);
+    riser.position.set(0, i * 0.3 + 0.05, -2 + i * 2.6);
+    scene.add(riser);
+  }
