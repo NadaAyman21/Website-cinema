@@ -161,3 +161,43 @@ function buildHall(hallKey) {
   buildSeats(cfg);
   refreshPickable();
 }
+
+function makeMaterials(cfg) {
+  return {
+    gold: new THREE.MeshStandardMaterial({
+      color: 0xc9a84c, roughness: 0.2, metalness: 0.9,
+      emissive: 0x2a1800, emissiveIntensity: 0.3
+    }),
+    accent: new THREE.MeshStandardMaterial({
+      color: cfg.accentColor, roughness: 0.2, metalness: 0.8,
+      emissive: cfg.accentColor, emissiveIntensity: 0.25
+    }),
+    wall:      new THREE.MeshStandardMaterial({ color: cfg.wallColor,    roughness: 0.9, metalness: 0.05 }),
+    floor:     new THREE.MeshStandardMaterial({ color: cfg.floorColor,   roughness: 0.95 }),
+    ceiling:   new THREE.MeshStandardMaterial({ color: cfg.ceilingColor, roughness: 1 }),
+    curtain:   new THREE.MeshStandardMaterial({ color: cfg.curtainColor, roughness: 0.95 }),
+    carpet:    new THREE.MeshStandardMaterial({ color: cfg.carpetColor,  roughness: 1 }),
+    screenGlow: new THREE.MeshStandardMaterial({
+      color: 0xffffff, emissive: 0x6699cc, emissiveIntensity: 1.2,
+      roughness: 0.05, transparent: true, opacity: 0.97
+    }),
+    seatAvail: new THREE.MeshStandardMaterial({
+      color: cfg.seatColor, roughness: 0.88,
+      emissive: cfg.seatEmissive, emissiveIntensity: cfg.seatEmissiveIntensity
+    }),
+    seatSelected: new THREE.MeshStandardMaterial({
+      color: cfg.accentColor, roughness: 0.25, metalness: 0.4,
+      emissive: cfg.accentColor, emissiveIntensity: 0.9
+    }),
+    seatHold:  new THREE.MeshStandardMaterial({ color: 0x3a4a1a, roughness: 0.88, emissive: 0x0a1000, emissiveIntensity: 0.2 }),
+    seatTaken: new THREE.MeshStandardMaterial({ color: 0x100808, roughness: 0.95, metalness: 0.05 }),
+    seatHover: new THREE.MeshStandardMaterial({
+      color: cfg.accentColor, roughness: 0.2, metalness: 0.5,
+      emissive: cfg.accentColor, emissiveIntensity: 1.1
+    }),
+    plinth:  new THREE.MeshStandardMaterial({ color: 0x0e0c14, roughness: 0.8, metalness: 0.2 }),
+    armBody: new THREE.MeshStandardMaterial({ color: 0x0a0810, roughness: 0.7, metalness: 0.3 }),
+  };
+}
+ 
+let mats = {};
