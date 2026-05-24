@@ -532,3 +532,6 @@ function updateHallUI(hallKey) {
     const badge = document.getElementById('tier-badge');
   badge.textContent = cfg.badge;
   badge.className   = `tier-badge ${cls}`;
+
+    document.getElementById('max-label').textContent = `MAX ${cfg.maxSeats} SEATS`;
+ 
