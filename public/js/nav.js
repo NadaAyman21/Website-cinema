@@ -146,6 +146,21 @@ const translations = {
     alertOk:         'OK',
     cinexSays:       'CineX says',
     bookingConfirmed:'Booking Confirmed!',
+
+    footerBrand:      'CineX',
+  footerDesc:       'Your gateway to the latest movies. Book tickets easily and enjoy cinema like never before.',
+  footerQuickLinks: 'Quick Links',
+  reserveSeat:      'Reserve Seat',
+  login:            'Login',
+  footerContact:    'Contact Us',
+  footerEmail:      'Email: CineX@email.com',
+  footerPhone:      'Phone: +20 123 456 7890',
+  footerLocation:   'Location: Cairo, Egypt',
+  footerFollow:     'Follow Us',
+  facebook:         'Facebook',
+  instagram:        'Instagram',
+  twitter:          'Twitter',
+  footerRights:     '© 2026 CineX | All Rights Reserved',
   },
   ar: {
     // NAV
