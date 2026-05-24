@@ -793,3 +793,10 @@ function animate() {
       hideTooltip();
     }
   }
+
+    if (mats.screenGlow) {
+    mats.screenGlow.emissiveIntensity = 1.1 + Math.sin(animFrame * 0.02) * 0.1;
+  }
+ 
+  renderer.render(scene, camera);
+}
