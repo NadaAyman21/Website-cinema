@@ -7,28 +7,22 @@ const session = require('express-session');
 const authRoutes = require('./routes/authRoutes');
 const User = require('./models/User');
 const Movie = require('./models/Movie');
-app.set('view engine', 'ejs');
-
-require('dotenv').config();
-app.use(express.urlencoded({ extended: true }));
-app.use(session({
-  secret: 'cinema_secret_key',
-  resave: false,
-  saveUninitialized: false
-}));
-
-
-
+const Review = require('./models/Reviews');
 
 const app = express();
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+require('dotenv').config();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
   origin: 'http://localhost:5000',
   credentials: true
 }));
-app.use(express.json());
-
-app.use(express.urlencoded({ extended: true }));
 
 app.use(session({
   secret: 'cinema_secret_key',
@@ -45,8 +39,7 @@ async function getUser(req) {
     return await User.findById(req.session.userId);
 }
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
+
 
 app.get("/cinemaM", async (req, res) => {
     const user = await getUser(req);
@@ -73,6 +66,61 @@ app.get("/premier", async (req, res) => {
 app.get("/stanard", async (req, res) => {
     const user = await getUser(req);
     res.render("stanard", { user });
+});
+
+
+app.get("/reviews", async (req, res) => {
+   try {
+        const user = await getUser(req);
+        // Fetch data elements simultaneously from MongoDB
+        const [reviews, movies] = await Promise.all([
+            Review.find().sort({ createdAt: -1 }),
+            Movie.find().sort({ title: 1 })
+        ]);
+        
+        res.render("reviews", { user, reviews, movies });
+    } catch (err) {
+        console.error("Error loading reviews dashboard:", err);
+        res.status(500).send("Error loading reviews");
+    }
+});
+
+app.post("/reviews", async (req, res) => {
+    
+      try {
+        const user = await getUser(req);
+        
+        // Let's create a robust check to find whatever string name exists on your user object
+        let reviewerName = 'Guest';
+       
+        if (user) {
+            reviewerName = user.firstName; 
+        }
+        const newReview = new Review({
+            category: req.body.category || 'movie',
+            item: req.body.item || 'General',
+            rating: parseInt(req.body.rating),
+            comment: req.body.comment,
+            userName: reviewerName 
+        });
+
+        await newReview.save();
+        res.redirect("/reviews"); 
+    } catch (err) {
+        console.error(err);
+        res.status(400).send("Error saving review. Please fill out all fields.");
+    }
+});
+
+// API TO FETCH EXPERIENCE REVIEWS DYNAMICALLY FOR THE BOTTOM OF PAGES
+app.get("/api/reviews/experience", async (req, res) => {
+    try {
+        // Fetch only reviews belonging to the experience category
+        const experienceReviews = await Review.find({ category: 'experience' }).sort({ createdAt: -1 });
+        res.json(experienceReviews);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 app.get("/movie", async (req, res) => {
@@ -116,6 +164,8 @@ app.get("/logout", (req, res) => {
     req.session.destroy();
     res.redirect("/cinemaM");
 });
+
+
 
 app.use('/api/movies', movieRoutes);
 
