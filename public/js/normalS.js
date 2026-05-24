@@ -628,3 +628,29 @@ function confirmBook() {
   updateUI();
 }
  
+const tooltip = document.getElementById('tooltip');
+ 
+function showTooltip(id, x, y) {
+  const data = seatData[id];
+  if (!data) return;
+  const cfg = HALL_CONFIGS[currentHall];
+  const cls = currentHall === 'standard' ? 'std' : 'dlx';
+ 
+  const tipSeat = document.getElementById('tip-seat');
+  tipSeat.textContent = `Seat ${id}`;
+  tipSeat.className   = `tip-seat ${cls}`;
+ 
+  document.getElementById('tip-price').textContent  = data.status === 'taken' ? '—' : `EGP ${cfg.price}`;
+  document.getElementById('tip-status').textContent =
+    data.status === 'taken' ? 'Unavailable' :
+    data.status === 'hold'  ? 'On Hold' :
+    selected.has(id) ? 'Selected — click to deselect' : 'Click to select';
+ 
+  tooltip.style.display = 'block';
+  tooltip.style.left    = x + 'px';
+  tooltip.style.top     = y + 'px';
+}
+ 
+function hideTooltip() {
+  tooltip.style.display = 'none';
+}
