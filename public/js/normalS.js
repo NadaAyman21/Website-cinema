@@ -684,3 +684,45 @@ function getSeatId(obj) {
   if (obj.userData.seatId) return obj.userData.seatId;
   return null;
 }
+
+const cursor = document.getElementById('cursor');
+ 
+document.addEventListener('mousemove', e => {
+  mouseScreen = { x: e.clientX, y: e.clientY };
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top  = e.clientY + 'px';
+  mouse.x = (e.clientX / window.innerWidth)  * 2 - 1;
+  mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+ 
+  if (isDragging) {
+    const dx = e.clientX - prevMouse.x;
+    const dy = e.clientY - prevMouse.y;
+    targetTheta -= dx * 0.005;
+    targetPhi    = Math.max(0.2, Math.min(Math.PI / 1.5, targetPhi + dy * 0.005));
+    prevMouse    = { x: e.clientX, y: e.clientY };
+  }
+});
+ 
+document.addEventListener('mousedown', e => {
+  if (e.target.closest('#topbar') ||
+      e.target.closest('#seat-panel') ||
+      e.target.closest('#confirm-modal') ||
+      e.target.closest('#hall-tabs')) return;
+  isDragging = true;
+  prevMouse  = { x: e.clientX, y: e.clientY };
+  autoRotate = false;
+});
+ 
+document.addEventListener('mouseup', e => {
+  if (isDragging &&
+      Math.abs(e.clientX - prevMouse.x) < 3 &&
+      Math.abs(e.clientY - prevMouse.y) < 3) {
+    if (hoveredSeat) toggleSeat(hoveredSeat);
+  }
+  isDragging = false;
+});
+ 
+document.addEventListener('wheel', e => {
+  targetRadius = Math.max(5, Math.min(27, targetRadius + e.deltaY * 0.02));
+  e.preventDefault();
+}, { passive: false });
