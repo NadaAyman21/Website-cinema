@@ -191,6 +191,21 @@ const translations = {
     alertOk:         'حسناً',
     cinexSays:       'CineX يقول',
     bookingConfirmed:'تم تأكيد الحجز!',
+
+    footerBrand:      'سين اكس',
+  footerDesc:       'بوابتك لأحدث الأفلام. احجز تذاكرك بسهولة واستمتع بالسينما كما لم تفعل من قبل.',
+  footerQuickLinks: 'روابط سريعة',
+  reserveSeat:      'احجز مقعدك',
+  login:            'تسجيل الدخول',
+  footerContact:    'تواصل معنا',
+  footerEmail:      'البريد: CineX@email.com',
+  footerPhone:      'الهاتف: 7890 456 123 20+',
+  footerLocation:   'الموقع: القاهرة، مصر',
+  footerFollow:     'تابعنا',
+  facebook:         'فيسبوك',
+  instagram:        'انستغرام',
+  twitter:          'تويتر',
+  footerRights:     '© 2026 سين اكس | جميع الحقوق محفوظة',
   }
 };
 
