@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 exports.signupPost = async (req, res) => {
   const { firstName, lastName, email, password, gender, phone, dob } = req.body;
   try {
-    // 1. Backend-level password validation before hashing
+   
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
     if (!password || !password.match(passwordPattern)) {
       return res.status(400).json({ 
