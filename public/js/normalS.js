@@ -596,3 +596,35 @@ function updateUI() {
     tagsEl.appendChild(tag);
   });
 }
+
+function openConfirm() {
+  if (selected.size === 0) return;
+  const cfg    = HALL_CONFIGS[currentHall];
+  const cls    = currentHall === 'standard' ? 'std' : 'dlx';
+  const seatsEl = document.getElementById('modal-seats');
+  seatsEl.innerHTML = '';
+ 
+  Array.from(selected).sort().forEach(id => {
+    const el = document.createElement('div');
+    el.className   = `modal-seat-tag ${cls}`;
+    el.textContent = id;
+    seatsEl.appendChild(el);
+  });
+ 
+  document.getElementById('modal-price').textContent = `EGP ${selected.size * cfg.price}`;
+  document.getElementById('confirm-modal').classList.add('show');
+}
+ 
+function closeConfirm() {
+  document.getElementById('confirm-modal').classList.remove('show');
+}
+ 
+function confirmBook() {
+  closeConfirm();
+  const cfg = HALL_CONFIGS[currentHall];
+  alert(`🎬 Booking confirmed! Enjoy your ${cfg.label} experience.`);
+  selected.clear();
+  Object.keys(seatMeshes).forEach(id => updateSeatVisual(id));
+  updateUI();
+}
+ 
