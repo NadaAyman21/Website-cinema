@@ -264,3 +264,9 @@ function buildRoom(cfg) {
   ctx.shadowColor = '#aaccff';
   ctx.shadowBlur = 30;
   ctx.fillText(cfg.screenText, 512, 320);
+
+    ctx.shadowBlur = 0;
+  ctx.fillStyle = 'rgba(200,220,255,0.6)';
+  ctx.font = '300 26px serif';
+  ctx.letterSpacing = '0.8em';
+  ctx.fillText(cfg.screenSubText, 512, 380);
