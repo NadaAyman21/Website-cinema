@@ -537,3 +537,8 @@ function updateHallUI(hallKey) {
  
       document.getElementById('cursor').style.borderColor = isStd ? 'var(--std-accent)' : 'var(--dlx-accent)';
  
+        const ldSeat = document.getElementById('ld-seat');
+  ldSeat.className = `legend-dot ld-seat-${cls}`;
+  document.getElementById('ld-seat-label').textContent = cfg.label;
+  document.getElementById('ld-selected').className = `legend-dot ld-selected-${cls}`;
+ 
