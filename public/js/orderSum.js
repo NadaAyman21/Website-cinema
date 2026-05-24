@@ -90,5 +90,19 @@ if (payBtn) {
         if (nameInput.value.trim().length < 3) {
             nameError.textContent = "Enter a valid full name";
             nameInput.classList.add('input-error');
+            isValid = false;}
+            const phoneRegex = /^01[0125][0-9]{8}$/;
+        if (!phoneRegex.test(phoneInput.value.trim())) {
+            phoneError.textContent = "Enter a valid Egyptian phone number";
+            phoneInput.classList.add('input-error');
             isValid = false;
         }
+
+        // Email validation
+        const emailValue = emailInput.value.trim();
+        if (!emailValue.includes('@') || !emailValue.includes('.')) {
+            emailError.textContent = "Enter a valid email address";
+            emailInput.classList.add('input-error');
+            isValid = false;
+        }
+
