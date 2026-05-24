@@ -210,6 +210,10 @@ const translations = {
   instagram:        'انستغرام',
   twitter:          'تويتر',
   footerRights:     '© 2026 سين اكس | جميع الحقوق محفوظة',
+
+   premiere:     'بريميير',
+  deluxe:       'ديلوكس',
+  standardCard: 'ستاندرد',
   }
 };
 
