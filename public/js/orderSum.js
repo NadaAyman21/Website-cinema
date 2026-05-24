@@ -57,3 +57,23 @@ if (closeBtn) {
         window.location.href = "/cinemaM";
     });
 }
+document.getElementById('custName').addEventListener('input', function() {
+    this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+});
+
+document.getElementById('custPhone').addEventListener('input', function() {
+    this.value = this.value.replace(/[^0-9]/g, '');
+});
+const payBtn = document.querySelector('.pay-btn');
+
+if (payBtn) {
+    payBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const nameInput  = document.getElementById('custName');
+        const phoneInput = document.getElementById('custPhone');
+        const emailInput = document.getElementById('custEmail');
+
+        const nameError  = document.getElementById('custNameError');
+        const phoneError = document.getElementById('custPhoneError');
+        const emailError = document.getElementById('custEmailError');
