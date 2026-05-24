@@ -335,3 +335,10 @@ function buildLights(cfg) {
     const sLight = addL(new THREE.PointLight(cfg.accentColor, 2.5, 18));
   sLight.position.set(0, 5, -13);
  
+    for (let si = 0; si < 4; si++) {
+    [-1, 1].forEach(side => {
+      const pl = addL(new THREE.PointLight(cfg.sconce, 0.5, 6));
+      pl.position.set(side * 10.5, 3.7, -10 + si * 5);
+    });
+  }
+ 
