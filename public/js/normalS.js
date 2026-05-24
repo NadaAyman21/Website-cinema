@@ -654,3 +654,15 @@ function showTooltip(id, x, y) {
 function hideTooltip() {
   tooltip.style.display = 'none';
 }
+
+function setView(v) {
+  currentView = v;
+  document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  const vd = VIEWS[v];
+  autoRotate      = v === 'fly';
+  autoRotateSpeed = v === 'fly' ? 0.003 : 0;
+  targetPhi       = vd.phi;
+  targetTheta     = vd.theta;
+  targetRadius    = vd.radius;
+}
