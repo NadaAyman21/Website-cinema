@@ -57,6 +57,12 @@ const userSchema = new mongoose.Schema({
       },
       message: 'You must be at least 13 years old.'
     }
+  },
+
+  role: {
+    type: String,
+    enum: ['user', 'admin'],
+    default: 'user'
   }
 
 });
