@@ -168,23 +168,6 @@ const translations = {
     viewAll:         'عرض الكل',
     genre:           'رياضة / أكشن',
 
-    // SEAT PAGE
-    selectedLabel:   ':المختارة',
-    maxLabel:        ':الحد الأقصى',
-    seats:           'مقاعد',
-    screenLabel:     'الشاشة',
-    legendStd:       'ستاندرد',
-    legendDlx:       'ديلوكس',
-    legendSel:       'مختار',
-    legendHold:      'محجوز مؤقتاً',
-    legendTaken:     'محجوز',
-    confirmPay:      '← تأكيد والدفع',
-    seatsSelected:   'مقاعد مختارة',
-    deluxeExp:       'تجربة ديلوكس',
-    view3d:          'عرض ثلاثي الأبعاد',
-    backToSeats:     'العودة للمقاعد ←',
-    mouseHint:       'حرك الماوس للنظر حولك',
-
     // FOOD PAGE
     foodTitle:       'طعام ومشروبات',
     addToCart:       'أضف للسلة',
