@@ -286,3 +286,10 @@ function buildRoom(cfg) {
     const rail = add(new THREE.Mesh(new THREE.BoxGeometry(14, 0.12, 0.3), mats.gold));
   rail.position.set(0, 1.4, -D / 2 + 0.3);
  
+   [-1, 1].forEach(side => {
+    const c = add(new THREE.Mesh(new THREE.BoxGeometry(2.5, 8, 0.3), mats.curtain));
+    c.position.set(side * 7.2, 4.5, -D / 2 + 0.3);
+    const trim = add(new THREE.Mesh(new THREE.BoxGeometry(0.12, 8, 0.4), mats.gold));
+    trim.position.set(side * 5.95, 4.5, -D / 2 + 0.3);
+  });
+ 
