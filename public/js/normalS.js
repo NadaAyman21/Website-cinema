@@ -806,3 +806,10 @@ buildHall('standard');
 updateHallUI('standard');
 updateCamera();
 animate();
+
+setTimeout(() => {
+  document.getElementById('loader').classList.add('hidden');
+  setTimeout(() => {
+    document.getElementById('instructions').style.opacity = '0.7';
+  }, 500);
+}, 2000);
