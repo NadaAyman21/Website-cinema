@@ -548,3 +548,14 @@ function updateHallUI(hallKey) {
       const btn     = document.getElementById('book-btn');
   btn.className = cls;
   btn.disabled  = true;
+
+    const cornerColor = isStd ? 'var(--std-accent)' : 'var(--dlx-accent)';
+  ['mc-tl', 'mc-tr', 'mc-bl', 'mc-br'].forEach(id => {
+    document.getElementById(id).style.borderColor = cornerColor;
+  });
+  document.getElementById('modal-title').style.color = isStd ? 'var(--std-accent-light)' : 'var(--dlx-accent-light)';
+  document.getElementById('modal-sub').textContent   = `${cfg.label} Hall · Tonight 9:00 PM`;
+  document.getElementById('modal-price').style.color = isStd ? 'var(--std-accent-light)' : 'var(--dlx-accent-light)';
+  document.getElementById('btn-confirm').className   = `btn-confirm ${cls}`;
+}
+ 
