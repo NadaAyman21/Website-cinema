@@ -800,3 +800,9 @@ function animate() {
  
   renderer.render(scene, camera);
 }
+
+scene.add(seatGroup);
+buildHall('standard');
+updateHallUI('standard');
+updateCamera();
+animate();
