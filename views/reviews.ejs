@@ -1,43 +1,165 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Cinema Reviews</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineX - Cinema Reviews</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/sign up page.css">
+    <link rel="stylesheet" href="/css/forget.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/reviews.css">
+    <link rel="stylesheet" href="/css/responsive.css">
 </head>
 <body>
-    <h1>Cinema Reviews</h1>
-<!-- Review Form -->
-    <form action="/reviews" method="POST">
+    <%- include('partials/nav') %>
+    
+    <div class="reviews-page">
+        <header class="reviews-header">
+            <h1>Cinema Reviews</h1>
+            <p>Share your experiences or read what other moviegoers think about movies, experiences, and food at CineX.</p>
+        </header>
 
-        <label>Movie Name:</label><br>
-        <input type="text" name="movie" required><br><br>
-        
-        <label>Rating:</label><br>
-        <select name="rating" required>
-            <option value="1">1 Star</option>
-            <option value="2">2 Stars</option>
-            <option value="3">3 Stars</option>
-            <option value="4">4 Stars</option>
-            <option value="5">5 Stars</option>
- </select><br><br>
-<label>Comment:</label><br>
-        <textarea name="comment" required></textarea><br><br>
-<button type="submit">Submit Review</button>
-    </form>
-     <hr>
+        <div class="reviews-grid">
+            <section class="glass-panel">
+                <h2>Write a Review</h2>
+                <form action="/reviews" method="POST" onsubmit="return validateForm()">
+                    
+                    <div class="review-form-group">
+                        <label for="category">Category</label>
+                        <select id="category" name="category" class="review-select" required>
+                            <option value="movie" selected>🎬 Movie</option>
+                            <option value="experience">✨ Experience</option>
+                            <option value="food-drinks">🍿 Food & Drinks</option>
+                        </select>
+                    </div>
 
-    <!-- Show Reviews -->
-    <h2>All Reviews</h2>
-<% reviews.forEach(review => { %>
- <div>
-            <h3><%= review.movie %></h3>
-            <p>⭐ Rating: <%= review.rating %>/5</p>
-            <p><%= review.comment %></p>
-            <hr>
+                    <div class="review-form-group" id="movie-select-group">
+                        <label for="movie-item">Select Movie</label>
+                        <select id="movie-item" class="review-select">
+                            <option value="" disabled selected>Select Movie</option>
+                            <% if (typeof movies !== 'undefined' && movies && movies.length > 0) { %>
+                                <% movies.forEach(movie => { %>
+                                    <option value="<%= movie.title %>"><%= movie.title %></option>
+                                <% }) %>
+                            <% } else { %>
+                                <option value="Inside Out">Inside Out</option>
+                                <option value="Interstellar">Interstellar</option>
+                                <option value="F1">F1</option>
+                            <% } %>
+                        </select>
+                    </div>
+
+                    <div class="review-form-group" id="experience-select-group" style="display: none;">
+                        <label for="experience-item">Select Experience</label>
+                        <select id="experience-item" class="review-select">
+                            <option value="" disabled selected>Select Experience</option>
+                            <option value="Premiere">Premiere</option>
+                            <option value="Deluxe">Deluxe</option>
+                            <option value="Standard">Standard</option>
+                        </select>
+                    </div>
+
+                    <div class="review-form-group" id="food-select-group" style="display: none;">
+                        <label for="food-item">Select Food/Drink</label>
+                        <select id="food-item" class="review-select">
+                            <option value="" disabled selected>Select Food/Drink</option>
+                            <option value="Popcorn">Popcorn</option>
+                            <option value="Soft Drinks">Soft Drinks</option>
+                            <option value="Hot Drinks">Hot Drinks</option>
+                            <option value="Slushies">Slushies</option>
+                            <option value="Snacks & Candy">Snacks & Candy</option>
+                            <option value="Chocolates">Chocolates</option>
+                        </select>
+                    </div>
+
+                    <input type="hidden" id="item" name="item" required>
+
+                    <div class="review-form-group">
+                        <label for="rating">Rating</label>
+                        <select id="rating" name="rating" class="review-select" required>
+                            <option value="" disabled selected>Select Rating</option>
+                            <option value="5">⭐⭐⭐⭐⭐ (5 Stars)</option>
+                            <option value="4">⭐⭐⭐⭐ (4 Stars)</option>
+                            <option value="3">⭐⭐⭐ (3 Stars)</option>
+                            <option value="2">⭐⭐ (2 Stars)</option>
+                            <option value="1">⭐ (1 Star)</option>
+                        </select>
+                    </div>
+
+                    <div class="review-form-group">
+                        <label for="comment">Comment</label>
+                        <textarea id="comment" name="comment" class="review-textarea" placeholder="Share your experience..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="review-btn">Submit Review</button>
+                </form>
+            </section>
+
+            <section class="glass-panel">
+                <h2>All Reviews</h2>
+                
+                <div class="filter-tabs">
+                    <button class="filter-tab active" onclick="filterReviews('all', event)">All</button>
+                    <button class="filter-tab" onclick="filterReviews('movie', event)">🎬 Movies</button>
+                    <button class="filter-tab" onclick="filterReviews('experience', event)">✨ Experiences</button>
+                    <button class="filter-tab" onclick="filterReviews('food-drinks', event)">🍿 Food</button>
+                </div>
+
+                <div class="reviews-list">
+                    <% if (typeof reviews !== 'undefined' && reviews && reviews.length > 0) { %>
+                        <% reviews.forEach(review => { %>
+                            <article class="review-card" data-category="<%= review.category %>">
+                                <div class="review-card-header">
+                                    <div>
+                                        <h3 class="review-movie-name"><%= review.item || review.movie %></h3>
+                                        <div class="review-author">by <%= review.userName || 'Guest' %></div>
+                                        
+                                        <% if (review.category === 'movie') { %>
+                                            <span class="category-badge badge-movie">🎬 Movie</span>
+                                        <% } else if (review.category === 'experience') { %>
+                                            <span class="category-badge badge-experience">✨ Experience</span>
+                                        <% } else if (review.category === 'food-drinks') { %>
+                                            <span class="category-badge badge-food">🍿 Food & Drinks</span>
+                                        <% } %>
+                                    </div>
+                                    <div class="review-rating-stars">
+                                        <% for(let i = 1; i <= 5; i++) { %>
+                                            <% if(i <= review.rating) { %>
+                                                <i class="fa-solid fa-star"></i>
+                                            <% } else { %>
+                                                <i class="fa-regular fa-star" style="opacity: 0.3;"></i>
+                                            <% } %>
+                                        <% } %>
+                                    </div>
+                                </div>
+                                <p class="review-comment">“<%= review.comment %>”</p>
+                                <div class="review-date">
+                                    <%= new Date(review.createdAt).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) %>
+                                </div>
+                            </article>
+                        <% }) %>
+                    <% } else { %>
+                        <div class="no-reviews">
+                            <i class="fa-regular fa-comments" style="font-size: 2.5rem; display: block; margin-bottom: 12px; opacity: 0.5;"></i>
+                            No reviews submitted yet. Be the first to share your thoughts!
+                        </div>
+                    <% } %>
+                </div>
+            </section>
         </div>
-    <% }) %>
+    </div>
 
+    <script src="/js/rev.js"></script>
+    <script src="/js/nav.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="/js/sign up page.js"></script>
+    <script src="/js/forget.js"></script>
+    <script src="/js/theme.js"></script>
+
+    <%- include('partials/footer') %>
 </body>
 </html>
-
-
-
