@@ -666,3 +666,21 @@ function setView(v) {
   targetTheta     = vd.theta;
   targetRadius    = vd.radius;
 }
+
+// ═══════════════════════════════════════════════════════════════════════════════
+const raycaster    = new THREE.Raycaster();
+const mouse        = new THREE.Vector2(-9999, -9999);
+let   mouseScreen  = { x: 0, y: 0 };
+const allSeatMeshes = [];
+ 
+function refreshPickable() {
+  allSeatMeshes.length = 0;
+  Object.values(seatMeshes).forEach(g => g.children.forEach(c => allSeatMeshes.push(c)));
+}
+ 
+function getSeatId(obj) {
+  if (!obj) return null;
+  if (obj.parent && obj.parent.userData.seatId) return obj.parent.userData.seatId;
+  if (obj.userData.seatId) return obj.userData.seatId;
+  return null;
+}
