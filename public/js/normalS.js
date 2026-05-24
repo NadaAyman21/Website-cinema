@@ -506,7 +506,18 @@ function switchHall(hallKey) {
     updateHallUI(hallKey);
     updateUI();
  
-    // Reset camera
+  
     phi = Math.PI / 2.2; theta = Math.PI; radius = 15;
     targetPhi = phi; targetTheta = theta; targetRadius = radius;
     autoRotate = false;
+
+     document.querySelectorAll('.view-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
+ 
+    setTimeout(() => overlay.classList.remove('visible'), 50);
+  }, 350);
+}
+ 
+function updateHallUI(hallKey) {
+  const cfg   = HALL_CONFIGS[hallKey];
+  const isStd = hallKey === 'standard';
+  const cls   = isStd ? 'std' : 'dlx';
