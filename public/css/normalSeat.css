@@ -204,3 +204,51 @@ html, body {
 .ld-selected-dlx { background: #7a3ac9; }
 .ld-hold         { background: #3a4a1a; border: 1px solid #2a3a10; }
 .ld-taken        { background: #111;    border: 1px solid #333; }
+
+.selection-info {
+  text-align: center;
+  flex: 1;
+}
+
+.selection-count {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1;
+  transition: color 0.4s;
+}
+.selection-count.std { color: var(--std-accent-light); text-shadow: 0 0 20px rgba(58,143,201,0.4); }
+.selection-count.dlx { color: var(--dlx-accent-light); text-shadow: 0 0 20px rgba(138,74,201,0.4); }
+
+.selection-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.3em;
+  opacity: 0.45;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.seat-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 8px;
+  min-height: 24px;
+}
+
+.seat-tag {
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border-radius: 2px;
+  font-family: 'Cinzel', serif;
+  animation: tagIn 0.3s ease;
+}
+.seat-tag.std { background: rgba(58,143,201,0.15);  border: 1px solid rgba(58,143,201,0.4);  color: var(--std-accent-light); }
+.seat-tag.dlx { background: rgba(138,74,201,0.15);  border: 1px solid rgba(138,74,201,0.4);  color: var(--dlx-accent-light); }
+
+@keyframes tagIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
