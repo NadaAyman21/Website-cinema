@@ -270,3 +270,15 @@ function buildRoom(cfg) {
   ctx.font = '300 26px serif';
   ctx.letterSpacing = '0.8em';
   ctx.fillText(cfg.screenSubText, 512, 380);
+
+   ctx.fillStyle = `${cfg.screenGoldLine}88`;
+  ctx.font = '17px serif';
+  ctx.letterSpacing = '0.25em';
+  ctx.fillText('• SELECT YOUR SEAT BELOW •', 512, 500);
+ 
+  const sTex = new THREE.CanvasTexture(stCanvas);
+  const screenMesh = add(new THREE.Mesh(
+    new THREE.PlaneGeometry(12, 6.7),
+    new THREE.MeshBasicMaterial({ map: sTex })
+  ));
+  screenMesh.position.set(0, 5, -D / 2 + 0.4);
