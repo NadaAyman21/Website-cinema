@@ -212,3 +212,6 @@ function buildRoom(cfg) {
   floor.rotation.x = -Math.PI / 2;
   floor.receiveShadow = true;
  
+    const carpet = add(new THREE.Mesh(new THREE.PlaneGeometry(1.2, D * 0.6), mats.carpet));
+  carpet.rotation.x = -Math.PI / 2;
+  carpet.position.set(0, 0.01, 2);
