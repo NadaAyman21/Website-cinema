@@ -70,3 +70,35 @@ const HALL_CONFIGS = {
   }
 };
   
+let currentHall    = 'standard';
+let selected       = new Set();
+let hoveredSeat    = null;
+let isDragging     = false;
+let prevMouse      = { x: 0, y: 0 };
+let phi            = Math.PI / 2.2;
+let theta          = Math.PI;
+let radius         = 15;
+let targetPhi      = phi;
+let targetTheta    = theta;
+let targetRadius   = radius;
+let autoRotate     = false;
+let autoRotateSpeed = 0;
+let currentView    = 'audience';
+ 
+const seatMeshes = {};
+let   seatData   = {};
+const seatGroup  = new THREE.Group();
+ 
+const SEAT_W      = 0.82;
+const SEAT_H      = 0.9;
+const SEAT_D      = 0.75;
+const ROW_Z_START = -7;
+const ROW_Z_STEP  = 2.4;
+const SEAT_X_STEP = 1.1;
+const ROW_Y_RISE  = 0.3;
+ 
+const VIEWS = {
+  audience: { phi: Math.PI / 2.1,  theta: Math.PI,       radius: 14 },
+  top:      { phi: 0.4,             theta: Math.PI,       radius: 22 },
+  fly:      { phi: Math.PI / 2.5,   theta: Math.PI * 0.85, radius: 17 },
+};
