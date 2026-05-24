@@ -282,3 +282,7 @@ function buildRoom(cfg) {
     new THREE.MeshBasicMaterial({ map: sTex })
   ));
   screenMesh.position.set(0, 5, -D / 2 + 0.4);
+
+    const rail = add(new THREE.Mesh(new THREE.BoxGeometry(14, 0.12, 0.3), mats.gold));
+  rail.position.set(0, 1.4, -D / 2 + 0.3);
+ 
