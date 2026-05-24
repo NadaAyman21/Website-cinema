@@ -19,3 +19,23 @@ document.addEventListener('DOMContentLoaded', () => {
     // ✅ Generate QR
     generateQR({ movie, day, time, seats, finalPrice });
 });
+function generateQR({ movie, day, time, seats, finalPrice }) {
+    const qrData = [
+        `CineX Ticket`,
+        `Movie: ${movie    || 'N/A'}`,
+        `Date:  ${day      || 'N/A'}`,
+        `Time:  ${time     || 'N/A'}`,
+        `Seats: ${seats.join(', ') || 'N/A'}`,
+        `Total: ${finalPrice || '0'} EGP`,
+        `Ref:   CX-${Date.now()}`
+    ].join('\n');
+
+    new QRCode(document.getElementById('qrCode'), {
+        text:         qrData,
+        width:        160,
+        height:       160,
+        colorDark:    '#000000',
+        colorLight:   '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+    });
+}
