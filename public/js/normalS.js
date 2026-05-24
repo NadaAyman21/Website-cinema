@@ -544,3 +544,7 @@ function updateHallUI(hallKey) {
  
     document.getElementById('sel-count').className = `selection-count ${cls}`;
  
+
+      const btn     = document.getElementById('book-btn');
+  btn.className = cls;
+  btn.disabled  = true;
