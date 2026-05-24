@@ -331,3 +331,7 @@ function buildLights(cfg) {
   spot.position.set(0, 9, 2);
   spot.target.position.set(0, 4, -14);
   addL(spot.target);
+
+    const sLight = addL(new THREE.PointLight(cfg.accentColor, 2.5, 18));
+  sLight.position.set(0, 5, -13);
+ 
