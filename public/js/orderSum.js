@@ -76,4 +76,19 @@ if (payBtn) {
 
         const nameError  = document.getElementById('custNameError');
         const phoneError = document.getElementById('custPhoneError');
-        const emailError = document.getElementById('custEmailError');
+        const emailError = document.getElementById('custEmailError'); 
+[nameInput, phoneInput, emailInput].forEach(input => {
+            input.classList.remove('input-error');
+        });
+        [nameError, phoneError, emailError].forEach(el => {
+            el.textContent = '';
+        });
+
+        let isValid = true;
+
+        // Name validation
+        if (nameInput.value.trim().length < 3) {
+            nameError.textContent = "Enter a valid full name";
+            nameInput.classList.add('input-error');
+            isValid = false;
+        }
