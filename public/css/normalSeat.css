@@ -180,3 +180,27 @@ html, body {
   justify-content: space-between;
   gap: 20px;
 }
+
+.legend {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245,236,215,0.55);
+}
+
+.legend-dot { width: 12px; height: 8px; border-radius: 3px; }
+.ld-seat-std     { background: var(--std-seat);  border: 1px solid var(--std-accent-dark); }
+.ld-seat-dlx     { background: var(--dlx-seat);  border: 1px solid var(--dlx-accent-dark); }
+.ld-selected-std { background: #1a7ac9; }
+.ld-selected-dlx { background: #7a3ac9; }
+.ld-hold         { background: #3a4a1a; border: 1px solid #2a3a10; }
+.ld-taken        { background: #111;    border: 1px solid #333; }
