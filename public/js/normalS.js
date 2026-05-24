@@ -559,3 +559,40 @@ function updateHallUI(hallKey) {
   document.getElementById('btn-confirm').className   = `btn-confirm ${cls}`;
 }
  
+function toggleSeat(id) {
+  const data = seatData[id];
+  if (!data || data.status === 'taken' || data.status === 'hold') return;
+ 
+  const cfg = HALL_CONFIGS[currentHall];
+  if (selected.has(id)) {
+    selected.delete(id);
+  } else {
+    if (selected.size >= cfg.maxSeats) { flashMax(); return; }
+    selected.add(id);
+  }
+  updateSeatVisual(id);
+  updateUI();
+}
+ 
+function flashMax() {
+  const el = document.getElementById('sel-count');
+  el.style.color = '#ff4444';
+  setTimeout(() => { el.style.color = ''; }, 600);
+}
+ 
+function updateUI() {
+  const count = selected.size;
+  document.getElementById('sel-count').textContent  = count;
+  document.getElementById('book-btn').disabled      = count === 0;
+ 
+  const tagsEl = document.getElementById('seat-tags');
+  tagsEl.innerHTML = '';
+  const cls = currentHall === 'standard' ? 'std' : 'dlx';
+ 
+  Array.from(selected).sort().forEach(id => {
+    const tag = document.createElement('div');
+    tag.className   = `seat-tag ${cls}`;
+    tag.textContent = id;
+    tagsEl.appendChild(tag);
+  });
+}
