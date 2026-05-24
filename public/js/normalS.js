@@ -215,3 +215,7 @@ function buildRoom(cfg) {
     const carpet = add(new THREE.Mesh(new THREE.PlaneGeometry(1.2, D * 0.6), mats.carpet));
   carpet.rotation.x = -Math.PI / 2;
   carpet.position.set(0, 0.01, 2);
+
+   const ceil = add(new THREE.Mesh(new THREE.PlaneGeometry(W, D), mats.ceiling));
+  ceil.rotation.x = Math.PI / 2;
+  ceil.position.y = H;
