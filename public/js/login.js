@@ -44,7 +44,7 @@ function validatePassword() {
     return true;
 }
 
-// ── Form submit ──
+
 const loginForm = document.getElementById("loginForm");
 
 if (loginForm) {
@@ -69,7 +69,7 @@ if (loginForm) {
         .then(res => res.json())
         .then(result => {
             if (result.success) {
-                if (email === "admin@gmail.com") {
+                if (result.role === "admin") {
                     window.location.href = "/admin";
                 } else {
                    window.location.href = "/cinemaM";

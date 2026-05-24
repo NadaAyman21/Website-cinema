@@ -1,4 +1,4 @@
-// ── Toggle password visibility ──
+
 function togglePasswordS(inputId, icon) {
     const passInput = document.getElementById(inputId);
     if (!passInput) return;
@@ -14,7 +14,7 @@ function togglePasswordS(inputId, icon) {
     }
 }
 
-// ── Custom alert modal ──
+// ── Custom alert modal (Kept exclusively for displaying error states) ──
 function showAlert(message) {
     const modal = document.getElementById("customAlert");
     if (modal) {
@@ -60,7 +60,7 @@ if (signupForm) {
         const lastNameInput    = document.getElementById("lastName");
         const emailInput       = document.getElementById("signupEmail");
         const passwordInput    = document.getElementById("signupPassword");
-        const confirmInput     = document.getElementById("signupConfirmPassword"); // FIX: was signupconfirmPassword
+        const confirmInput     = document.getElementById("signupConfirmPassword"); 
         const phoneInput       = document.getElementById("tel");
         const dobInput         = document.getElementById("dob");
         const termsInput       = document.getElementById("terms");
@@ -86,13 +86,11 @@ if (signupForm) {
             valid = false;
         }
 
-       
         if (!lastName.match(namePattern)) {
             showError("lastNameError", lastNameInput, "Last name must be letters only (min 2)");
             valid = false;
         }
 
-        
         const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
         if (!email.match(emailPattern)) {
             showError("signupEmailError", emailInput, "Please enter a valid email address"); 
@@ -106,31 +104,28 @@ if (signupForm) {
             valid = false;
         }
 
-      
         if (password !== confirmPassword) {
             showError("signupConfirmPasswordError", confirmInput, "Passwords do not match"); 
             valid = false;
         }
 
-        
         if (!genderInput) {
             showError("genderError", null, "Select your gender");
             valid = false;
         }
 
-       // Phone
-       const phonePattern = /^\d{11}$/;
-      if (!phone.match(phonePattern)) {                          
-    showError("phoneError", phoneInput, "Phone number must be exactly 11 digits");
-    valid = false;
-}
+        // Phone
+        const phonePattern = /^\d{11}$/;
+        if (!phone.match(phonePattern)) {                                  
+            showError("phoneError", phoneInput, "Phone number must be exactly 11 digits");
+            valid = false;
+        }
 
         // Date of birth
         if (!dob) {
             showError("dobError", dobInput, "Select your birth date");
             valid = false;
-        }
-        else {
+        } else {
             const birthDate = new Date(dob);
             const today = new Date();
             let age = today.getFullYear() - birthDate.getFullYear();
@@ -170,12 +165,16 @@ if (signupForm) {
             .then(res => res.json())
             .then(result => {
                 if (result.success) {
-                    showAlert("Signup successful 🎉");
                     signupForm.reset();
-                    closeSignup();
-                    openLogin();
+                    
+                    // 🚀 Instant Redirect with absolutely zero alert interruptions!
+                    if (result.role === 'admin') {
+                        window.location.href = '/admin';
+                    } else {
+                        window.location.href = '/cinemaM';
+                    }
                 } else {
-                    showAlert(result.message); // "email already exists" etc.
+                    showAlert(result.message); // Keeps alerts ONLY for fallback errors like "Account already exists"
                 }
             })
             .catch(err => {
