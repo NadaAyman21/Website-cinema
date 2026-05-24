@@ -232,3 +232,6 @@ function buildRoom(cfg) {
 
     const swall = add(new THREE.Mesh(new THREE.PlaneGeometry(W, H), mats.wall));
   swall.position.set(0, H / 2, -D / 2);
+
+    const frame = add(new THREE.Mesh(new THREE.BoxGeometry(13, 7.5, 0.2), mats.gold));
+  frame.position.set(0, 5, -D / 2 + 0.25);
