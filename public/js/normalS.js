@@ -491,3 +491,22 @@ function updateSeatVisual(id) {
   });
 }
  
+function switchHall(hallKey) {
+  if (hallKey === currentHall) return;
+ 
+  const overlay = document.getElementById('switch-overlay');
+  overlay.classList.add('visible');
+ 
+  setTimeout(() => {
+    currentHall = hallKey;
+    selected.clear();
+    hoveredSeat = null;
+ 
+    buildHall(hallKey);
+    updateHallUI(hallKey);
+    updateUI();
+ 
+    // Reset camera
+    phi = Math.PI / 2.2; theta = Math.PI; radius = 15;
+    targetPhi = phi; targetTheta = theta; targetRadius = radius;
+    autoRotate = false;
