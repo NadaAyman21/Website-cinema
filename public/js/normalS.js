@@ -293,3 +293,7 @@ function buildRoom(cfg) {
     trim.position.set(side * 5.95, 4.5, -D / 2 + 0.3);
   });
  
+    for (let i = 0; i < 7; i++) {
+    const riser = add(new THREE.Mesh(new THREE.BoxGeometry(W - 2, 0.12, 0.3), mats.accent));
+    riser.position.set(0, i * 0.3 + 0.05, -2 + i * 2.2);
+  }
