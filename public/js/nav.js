@@ -161,6 +161,10 @@ const translations = {
   instagram:        'Instagram',
   twitter:          'Twitter',
   footerRights:     '© 2026 CineX | All Rights Reserved',
+
+  premiere:     'PREMIERE',
+  deluxe:       'DELUXE',
+  standardCard: 'STANDARD',
   },
   ar: {
     // NAV
