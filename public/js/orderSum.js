@@ -105,4 +105,18 @@ if (payBtn) {
             emailInput.classList.add('input-error');
             isValid = false;
         }
+if (!isValid) return;
 
+        // ✅ Save customer info
+        localStorage.setItem('custName',  nameInput.value.trim());
+        localStorage.setItem('custPhone', phoneInput.value.trim());
+        localStorage.setItem('custEmail', emailInput.value.trim());
+
+        // ✅ Save price
+        const priceDisplay = document.querySelector('.price-box').innerText;
+        localStorage.setItem('finalAmount', priceDisplay);
+
+        // ✅ Go to payment
+        window.location.href = "form.html";
+    });
+}
