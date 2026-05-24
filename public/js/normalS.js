@@ -342,3 +342,8 @@ function buildLights(cfg) {
     });
   }
  
+    for (let ci = 0; ci < 7; ci++) {
+    const pl = addL(new THREE.PointLight(0xdde8ff, 0.35, 8));
+    pl.position.set(0, 9.5, -10 + ci * 3.5);
+  }
+}
