@@ -471,3 +471,17 @@ html, body {
   color: rgba(201,168,76,0.35);
   text-transform: uppercase;
 }
+
+#switch-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 150;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s;
+}
+#switch-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
