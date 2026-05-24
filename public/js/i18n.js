@@ -53,16 +53,6 @@ const resources = {
       nowShowingTitle: "يعرض الآن",
       bookNow: "احجز الآن",
 
-      // SEATS
-      screenLabel: "الشاشة",
-      confirmPay: "تأكيد والدفع ←",
-      backToSeats: "العودة للمقاعد ←",
-      legendStd: "ستاندرد",
-      legendDlx: "ديلوكس",
-      legendSel: "مختار",
-      legendHold: "محجوز مؤقتاً",
-      legendTaken: "محجوز",
-
       // FOOD
       foodTitle: "طعام ومشروبات",
       addToCart: "أضف للسلة",
