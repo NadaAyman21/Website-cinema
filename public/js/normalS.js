@@ -309,3 +309,9 @@ function buildRoom(cfg) {
       bulb.position.set(side * (W / 2 - 0.15), 3.7, -10 + si * 5);
     });
   }
+  
+    for (let ci = 0; ci < 7; ci++) {
+    const fix = add(new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.12, 0.1, 12), mats.gold));
+    fix.position.set(0, H - 0.4, -10 + ci * 3.5);
+  }
+}
