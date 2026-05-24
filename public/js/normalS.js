@@ -726,3 +726,37 @@ document.addEventListener('wheel', e => {
   targetRadius = Math.max(5, Math.min(27, targetRadius + e.deltaY * 0.02));
   e.preventDefault();
 }, { passive: false });
+
+let touchStart = null;
+ 
+document.addEventListener('touchstart', e => {
+  touchStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  prevMouse  = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  isDragging = true;
+  autoRotate = false;
+});
+ 
+document.addEventListener('touchmove', e => {
+  if (!isDragging) return;
+  const dx = e.touches[0].clientX - prevMouse.x;
+  const dy = e.touches[0].clientY - prevMouse.y;
+  targetTheta -= dx * 0.006;
+  targetPhi    = Math.max(0.2, Math.min(Math.PI / 1.5, targetPhi + dy * 0.006));
+  prevMouse    = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+  e.preventDefault();
+}, { passive: false });
+ 
+document.addEventListener('touchend', e => {
+  if (touchStart) {
+    const dx = Math.abs(e.changedTouches[0].clientX - touchStart.x);
+    const dy = Math.abs(e.changedTouches[0].clientY - touchStart.y);
+    if (dx < 5 && dy < 5 && hoveredSeat) toggleSeat(hoveredSeat);
+  }
+  isDragging = false;
+});
+ 
+window.addEventListener('resize', () => {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+});
