@@ -130,15 +130,17 @@ let lightObjects = [];
 function buildHall(hallKey) {
   const cfg = HALL_CONFIGS[hallKey];
  
-  // Remove old room & lights
   roomObjects.forEach(o => scene.remove(o));
   roomObjects = [];
   lightObjects.forEach(o => scene.remove(o));
   lightObjects = [];
  
-  // Remove old seats
   Object.keys(seatMeshes).forEach(k => {
     seatGroup.remove(seatMeshes[k]);
     delete seatMeshes[k];
   });
   seatData = {};
+
+  scene.background = new THREE.Color(cfg.fogColor);
+  scene.fog        = new THREE.FogExp2(cfg.fogColor, 0.024);
+ 
