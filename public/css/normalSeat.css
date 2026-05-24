@@ -160,3 +160,23 @@ html, body {
   color: rgba(255,255,255,0.35);
   opacity: 0.45;
 }
+
+#seat-panel {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 900px;
+  padding: 22px 40px 30px;
+  background: linear-gradient(0deg, rgba(0,0,0,0.98) 0%, rgba(10,6,8,0.85) 70%, transparent 100%);
+  pointer-events: auto;
+  z-index: 20;
+}
+
+.panel-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
