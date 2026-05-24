@@ -54,18 +54,40 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/food", async (req, res) => {
-    const user = await getUser(req);
-    res.render("food", { user });
+  try {
+        const user = await getUser(req);
+        const reviews = await Review.find({ 
+            category: 'food-drinks' 
+        }).sort({ createdAt: -1 });
+
+        console.log("FOUND FOOD REVIEWS:", reviews); 
+
+        res.render("food", { user, reviews });
+    } catch (err) {
+        console.error("Error loading Food page:", err);
+        res.status(500).send("Error loading page data");
+    }
 });
 
 app.get("/premier", async (req, res) => {
-    const user = await getUser(req);
-    res.render("premier", { user });
+  
 });
 
 app.get("/stanard", async (req, res) => {
-    const user = await getUser(req);
-    res.render("stanard", { user });
+   try {
+        const user = await getUser(req);
+        
+        // Find reviews where category is 'experience' and item is 'Standard' or 'Deluxe'
+        const reviews = await Review.find({ 
+            category: 'experience', 
+            item: { $in: ['Standard', 'Deluxe'] } 
+        }).sort({ createdAt: -1 });
+
+        res.render("stanard", { user, reviews });
+    } catch (err) {
+        console.error("Error loading Standard page:", err);
+        res.status(500).send("Error loading page data");
+    }
 });
 
 
