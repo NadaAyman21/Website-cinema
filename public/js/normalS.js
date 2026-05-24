@@ -521,3 +521,10 @@ function updateHallUI(hallKey) {
   const cfg   = HALL_CONFIGS[hallKey];
   const isStd = hallKey === 'standard';
   const cls   = isStd ? 'std' : 'dlx';
+
+  document.querySelectorAll('.hall-tab').forEach(t => {
+    t.classList.remove('active');
+    if ((isStd && t.classList.contains('std')) || (!isStd && t.classList.contains('dlx'))) {
+      t.classList.add('active');
+    }
+  });
