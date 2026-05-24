@@ -235,3 +235,22 @@ function buildRoom(cfg) {
 
     const frame = add(new THREE.Mesh(new THREE.BoxGeometry(13, 7.5, 0.2), mats.gold));
   frame.position.set(0, 5, -D / 2 + 0.25);
+
+    const stCanvas = document.createElement('canvas');
+  stCanvas.width = 1024;
+  stCanvas.height = 576;
+  const ctx = stCanvas.getContext('2d');
+
+  const grad = ctx.createLinearGradient(0, 0, 0, 576);
+  grad.addColorStop(0, cfg.screenBg1);
+  grad.addColorStop(1, cfg.screenBg2);
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, 1024, 576);
+ 
+  for (let i = 0; i < 180; i++) {
+    ctx.fillStyle = `rgba(255,255,255,${Math.random() * 0.4 + 0.08})`;
+    ctx.beginPath();
+    ctx.arc(Math.random() * 1024, Math.random() * 576, Math.random() * 1.5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+ 
