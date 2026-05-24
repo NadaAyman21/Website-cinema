@@ -14,7 +14,6 @@ function togglePasswordS(inputId, icon) {
     }
 }
 
-// ── Custom alert modal (Kept exclusively for displaying error states) ──
 function showAlert(message) {
     const modal = document.getElementById("customAlert");
     if (modal) {
@@ -167,14 +166,14 @@ if (signupForm) {
                 if (result.success) {
                     signupForm.reset();
                     
-                    // 🚀 Instant Redirect with absolutely zero alert interruptions!
+                   
                     if (result.role === 'admin') {
                         window.location.href = '/admin';
                     } else {
                         window.location.href = '/cinemaM';
                     }
                 } else {
-                    showAlert(result.message); // Keeps alerts ONLY for fallback errors like "Account already exists"
+                    showAlert(result.message); 
                 }
             })
             .catch(err => {
