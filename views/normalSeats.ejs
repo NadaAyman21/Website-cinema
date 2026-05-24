@@ -16,21 +16,21 @@
 
   <div id="switch-overlay"></div>
 
-    <div id="loader">
+  <div id="loader">
     <div class="loader-logo">CINEX</div>
     <div class="loader-sub">Hall Selection</div>
     <div class="loader-bar"><div class="loader-fill"></div></div>
     <div class="loader-text">Preparing your experience...</div>
   </div>
 
-    <canvas id="cinema-canvas"></canvas>
+  <canvas id="cinema-canvas"></canvas>
 
   <div id="hall-tabs">
     <button class="hall-tab std active" onclick="switchHall('standard')">Standard</button>
     <button class="hall-tab dlx" onclick="switchHall('deluxe')">Deluxe</button>
   </div>
 
-   <div id="topbar">
+  <div id="topbar">
     <div class="logo">CINEX <span id="tier-badge" class="tier-badge std">STD</span></div>
     <div id="view-toggle">
       <button class="view-btn active" onclick="setView('audience')">Audience</button>
@@ -40,13 +40,13 @@
     <div id="max-label">MAX 8 SEATS</div>
   </div>
 
-    <div id="tooltip">
+  <div id="tooltip">
     <div class="tip-seat std" id="tip-seat">A1</div>
     <div class="tip-price" id="tip-price">EGP 120</div>
     <div class="tip-status" id="tip-status">Available</div>
   </div>
 
-    <div id="instructions">
+  <div id="instructions">
     <div class="drag-hint">
       <span>←</span>
       <p>Drag to look around · Scroll to zoom · Click a seat to select</p>
@@ -54,7 +54,7 @@
     </div>
   </div>
 
-   <div id="seat-panel">
+  <div id="seat-panel">
     <div class="panel-inner">
 
       <!-- Legend -->
@@ -77,20 +77,22 @@
         </div>
       </div>
 
-            <div class="selection-info">
+      <div class="selection-info">
         <div class="selection-count std" id="sel-count">0</div>
         <div class="selection-label">seats selected</div>
         <div class="seat-tags" id="seat-tags"></div>
-      </div
+      </div>
 
-       <button id="book-btn" class="std" disabled onclick="openConfirm()">
+   
+      <button id="book-btn" class="std" disabled onclick="openConfirm()">
         Reserve Seats →
       </button>
 
     </div>
   </div>
 
-   <div id="confirm-modal">
+
+  <div id="confirm-modal">
     <div class="modal-box">
       <div class="modal-corner tl" id="mc-tl"></div>
       <div class="modal-corner tr" id="mc-tr"></div>
@@ -109,7 +111,7 @@
     </div>
   </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="/js/normalS.js"></script>
 
 </body>
