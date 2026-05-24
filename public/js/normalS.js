@@ -223,3 +223,9 @@ function buildRoom(cfg) {
    const bwall = add(new THREE.Mesh(new THREE.PlaneGeometry(W, H), mats.wall));
   bwall.position.set(0, H / 2, D / 2);
   bwall.rotation.y = Math.PI;
+
+   [-1, 1].forEach(side => {
+    const w = add(new THREE.Mesh(new THREE.PlaneGeometry(D, H), mats.wall));
+    w.position.set(side * W / 2, H / 2, 0);
+    w.rotation.y = side * -Math.PI / 2;
+  });
