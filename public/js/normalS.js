@@ -528,3 +528,7 @@ function updateHallUI(hallKey) {
       t.classList.add('active');
     }
   });
+
+    const badge = document.getElementById('tier-badge');
+  badge.textContent = cfg.badge;
+  badge.className   = `tier-badge ${cls}`;
