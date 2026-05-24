@@ -102,3 +102,27 @@ const VIEWS = {
   top:      { phi: 0.4,             theta: Math.PI,       radius: 22 },
   fly:      { phi: Math.PI / 2.5,   theta: Math.PI * 0.85, radius: 17 },
 };
+
+const canvas = document.getElementById('cinema-canvas');
+ 
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.85;
+ 
+const scene  = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 200);
+ 
+function updateCamera() {
+  const x = radius * Math.sin(phi) * Math.sin(theta);
+  const y = radius * Math.cos(phi);
+  const z = radius * Math.sin(phi) * Math.cos(theta);
+  camera.position.set(x, y + 2, z);
+  camera.lookAt(0, 1, -2);
+}
+ 
+let roomObjects  = [];
+let lightObjects = [];
