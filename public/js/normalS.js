@@ -347,3 +347,36 @@ function buildLights(cfg) {
     pl.position.set(0, 9.5, -10 + ci * 3.5);
   }
 }
+
+function buildSeats(cfg) {
+  cfg.ROWS.forEach((row, ri) => {
+    const rowCfg   = cfg.ROW_CONFIGS[row];
+    const valid    = rowCfg.seats.filter(s => s !== null);
+    const totalW   = (valid.length - 1) * SEAT_X_STEP;
+    let seatIndex  = 0;
+ 
+    rowCfg.seats.forEach(s => {
+      if (s === null) { seatIndex++; return; }
+ 
+      const id      = `${row}${s}`;
+      const data    = seatData[id];
+      const x       = -totalW / 2 + seatIndex * SEAT_X_STEP;
+      const z       = ROW_Z_START + ri * ROW_Z_STEP;
+      const y       = ri * ROW_Y_RISE;
+      const baseMat = getBaseMat(data.status);
+      const group   = buildSeatMesh(x, y, z, baseMat, currentHall === 'deluxe');
+ 
+      group.userData = { seatId: id, status: data.status };
+      seatGroup.add(group);
+      seatMeshes[id] = group;
+      seatIndex++;
+    });
+  });
+}
+ 
+function buildSeatMesh(x, y, z, baseMat, isDeluxe) {
+  const group  = new THREE.Group();
+  const bm     = () => baseMat.clone();
+  const goldM  = mats.gold;
+  const arm    = mats.armBody;
+  const plinth = mats.plinth;
