@@ -257,3 +257,10 @@ function buildRoom(cfg) {
     ctx.fillStyle = cfg.screenGoldLine;
   ctx.fillRect(0, 48, 1024, 3);
   ctx.fillRect(0, 525, 1024, 3);
+
+    ctx.textAlign = 'center';
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 130px serif';
+  ctx.shadowColor = '#aaccff';
+  ctx.shadowBlur = 30;
+  ctx.fillText(cfg.screenText, 512, 320);
