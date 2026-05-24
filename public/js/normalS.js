@@ -254,3 +254,6 @@ function buildRoom(cfg) {
     ctx.fill();
   }
  
+    ctx.fillStyle = cfg.screenGoldLine;
+  ctx.fillRect(0, 48, 1024, 3);
+  ctx.fillRect(0, 525, 1024, 3);
