@@ -309,9 +309,25 @@ function buildRoom(cfg) {
       bulb.position.set(side * (W / 2 - 0.15), 3.7, -10 + si * 5);
     });
   }
-  
+
     for (let ci = 0; ci < 7; ci++) {
     const fix = add(new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.12, 0.1, 12), mats.gold));
     fix.position.set(0, H - 0.4, -10 + ci * 3.5);
   }
 }
+
+function buildLights(cfg) {
+  function addL(l) { scene.add(l); lightObjects.push(l); return l; }
+ 
+  addL(new THREE.AmbientLight(0x10111a, 0.9));
+  addL(new THREE.HemisphereLight(0x111528, 0x080510, 0.5));
+ 
+  const dir = addL(new THREE.DirectionalLight(0xdde8ff, 0.5));
+  dir.position.set(5, 15, 10);
+  dir.castShadow = true;
+  dir.shadow.mapSize.set(2048, 2048);
+ 
+  const spot = addL(new THREE.SpotLight(cfg.accentColor, 1.8, 30, Math.PI / 5, 0.4));
+  spot.position.set(0, 9, 2);
+  spot.target.position.set(0, 4, -14);
+  addL(spot.target);
