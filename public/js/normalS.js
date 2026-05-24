@@ -542,3 +542,5 @@ function updateHallUI(hallKey) {
   document.getElementById('ld-seat-label').textContent = cfg.label;
   document.getElementById('ld-selected').className = `legend-dot ld-selected-${cls}`;
  
+    document.getElementById('sel-count').className = `selection-count ${cls}`;
+ 
