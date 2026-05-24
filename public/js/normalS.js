@@ -201,3 +201,10 @@ function makeMaterials(cfg) {
 }
  
 let mats = {};
+
+function buildRoom(cfg) {
+  mats = makeMaterials(cfg);
+  const W = 22, H = 10, D = 30;
+ 
+  function add(mesh) { scene.add(mesh); roomObjects.push(mesh); return mesh; }
+ 
