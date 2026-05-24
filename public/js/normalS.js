@@ -297,3 +297,15 @@ function buildRoom(cfg) {
     const riser = add(new THREE.Mesh(new THREE.BoxGeometry(W - 2, 0.12, 0.3), mats.accent));
     riser.position.set(0, i * 0.3 + 0.05, -2 + i * 2.2);
   }
+
+   for (let si = 0; si < 4; si++) {
+    [-1, 1].forEach(side => {
+      const sconce = add(new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.08, 0.6, 8), mats.gold));
+      sconce.position.set(side * (W / 2 - 0.1), 3.5, -10 + si * 5);
+      const bulb = add(new THREE.Mesh(
+        new THREE.SphereGeometry(0.08, 8, 8),
+        new THREE.MeshStandardMaterial({ emissive: cfg.sconce, emissiveIntensity: 2.5, color: cfg.sconce })
+      ));
+      bulb.position.set(side * (W / 2 - 0.15), 3.7, -10 + si * 5);
+    });
+  }
