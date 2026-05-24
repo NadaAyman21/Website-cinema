@@ -89,8 +89,6 @@ app.get("/premier", async (req, res) => {
 app.get("/stanard", async (req, res) => {
    try {
         const user = await getUser(req);
-        
-        // Find reviews where category is 'experience' and item is 'Standard' or 'Deluxe'
         const reviews = await Review.find({ 
             category: 'experience', 
             item: { $in: ['Standard', 'Deluxe'] } 
@@ -147,10 +145,8 @@ app.post("/reviews", async (req, res) => {
     }
 });
 
-// API TO FETCH EXPERIENCE REVIEWS DYNAMICALLY FOR THE BOTTOM OF PAGES
 app.get("/api/reviews/experience", async (req, res) => {
     try {
-        // Fetch only reviews belonging to the experience category
         const experienceReviews = await Review.find({ category: 'experience' }).sort({ createdAt: -1 });
         res.json(experienceReviews);
     } catch (err) {
