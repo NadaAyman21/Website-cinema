@@ -17,12 +17,17 @@ exports.signupPost = async (req, res) => {
     if (existing) {
       return res.status(400).json({ success: false, message: 'An account with this email already exists.' });
     }
+    //for admin
+    let assignedRole = 'user';
+    if (email && email.toLowerCase().endsWith('@cinex.com')) {
+      assignedRole = 'admin';
+    }
 
     const hashed = await bcrypt.hash(password, 10);
-    const user = new User({ firstName, lastName, email, password: hashed, gender, phone, dob });
+    const user = new User({ firstName, lastName, email, password: hashed, gender, phone, dob, role: assignedRole });
     await user.save();
 
-    res.status(201).json({ success: true, message: 'Account created successfully!' });
+    res.status(201).json({ success: true, message: 'Account created successfully!' ,role: user.role});
   } catch (err) {
     console.error("MongoDB/Validation Error caught:",err);
 
@@ -52,7 +57,7 @@ exports.loginPost = async (req, res) => {
     req.session.userId = user._id;
 req.session.userName = user.firstName;
 req.session.save(() => {
-    res.status(200).json({ success: true, message: 'Login successful!' });
+    res.status(200).json({ success: true, message: 'Login successful!',role: user.role });
 });
   } catch (err) {
     console.error(err);
