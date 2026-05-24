@@ -760,3 +760,9 @@ window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
 });
+
+let animFrame = 0;
+ 
+function animate() {
+  requestAnimationFrame(animate);
+  animFrame++;
