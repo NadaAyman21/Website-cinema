@@ -144,3 +144,20 @@ function buildHall(hallKey) {
   scene.background = new THREE.Color(cfg.fogColor);
   scene.fog        = new THREE.FogExp2(cfg.fogColor, 0.024);
  
+   cfg.ROWS.forEach((row, ri) => {
+    const rowCfg = cfg.ROW_CONFIGS[row];
+    rowCfg.seats.forEach(s => {
+      if (s === null) return;
+      const id = `${row}${s}`;
+      let status = 'available';
+      if (cfg.TAKEN.has(id)) status = 'taken';
+      else if (cfg.HOLD.has(id)) status = 'hold';
+      seatData[id] = { row, num: s, status, rowIndex: ri };
+    });
+  });
+ 
+  buildRoom(cfg);
+  buildLights(cfg);
+  buildSeats(cfg);
+  refreshPickable();
+}
