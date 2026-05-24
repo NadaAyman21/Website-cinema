@@ -535,3 +535,5 @@ function updateHallUI(hallKey) {
 
     document.getElementById('max-label').textContent = `MAX ${cfg.maxSeats} SEATS`;
  
+      document.getElementById('cursor').style.borderColor = isStd ? 'var(--std-accent)' : 'var(--dlx-accent)';
+ 
