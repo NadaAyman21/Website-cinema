@@ -208,3 +208,7 @@ function buildRoom(cfg) {
  
   function add(mesh) { scene.add(mesh); roomObjects.push(mesh); return mesh; }
  
+   const floor = add(new THREE.Mesh(new THREE.PlaneGeometry(W, D), mats.floor));
+  floor.rotation.x = -Math.PI / 2;
+  floor.receiveShadow = true;
+ 
