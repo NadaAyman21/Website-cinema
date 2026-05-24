@@ -70,7 +70,20 @@ app.get("/food", async (req, res) => {
 });
 
 app.get("/premier", async (req, res) => {
-  
+   try {
+      const user = await getUser(req);
+        const reviews = await Review.find({ 
+            category: 'experience', 
+            item: { $regex: /^premiere$/i } 
+        }).sort({ createdAt: -1 });
+
+        console.log("FOUND PREMIERE REVIEWS:", reviews); 
+
+        res.render("premier", { user, reviews });
+    } catch (err) {
+        console.error("Error loading Premiere page:", err);
+        res.status(500).send("Error loading page data");
+    }
 });
 
 app.get("/stanard", async (req, res) => {
