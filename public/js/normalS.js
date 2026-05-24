@@ -380,3 +380,114 @@ function buildSeatMesh(x, y, z, baseMat, isDeluxe) {
   const goldM  = mats.gold;
   const arm    = mats.armBody;
   const plinth = mats.plinth;
+
+  if (isDeluxe) {
+  
+    const cushion = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W, 0.18, SEAT_D * 0.85), bm());
+    cushion.position.set(x, y + 0.48, z - 0.04); cushion.castShadow = true; group.add(cushion);
+ 
+    const lip = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, SEAT_W, 12, 1, false, 0, Math.PI), bm());
+    lip.rotation.z = Math.PI / 2; lip.position.set(x, y + 0.43, z - SEAT_D * 0.85 / 2 - 0.04); group.add(lip);
+ 
+    const back = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W, SEAT_H * 1.15, 0.14), bm());
+    back.rotation.x = -0.10; back.position.set(x, y + 1.05, z + SEAT_D / 2 - 0.08); back.castShadow = true; group.add(back);
+ 
+    const head = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W * 0.7, 0.28, 0.16), bm());
+    head.rotation.x = -0.10; head.position.set(x, y + 1.68, z + SEAT_D / 2 - 0.06); group.add(head);
+ 
+    [-1, 1].forEach(side => {
+      const wing = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.22, 0.14), bm());
+      wing.position.set(x + side * SEAT_W * 0.32, y + 1.68, z + SEAT_D / 2 - 0.06); group.add(wing);
+    });
+ 
+    const lumbar = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W * 0.6, 0.18, 0.08), bm());
+    lumbar.rotation.x = -0.10; lumbar.position.set(x, y + 0.62, z + SEAT_D / 2 - 0.04); group.add(lumbar);
+ 
+    const p = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W + 0.06, 0.1, SEAT_D * 0.9), plinth);
+    p.position.set(x, y + 0.05, z - 0.04); group.add(p);
+ 
+    const railF = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W + 0.1, 0.04, 0.04), goldM);
+    railF.position.set(x, y + 0.1, z - SEAT_D * 0.45); group.add(railF);
+    const railB = railF.clone(); railB.position.set(x, y + 0.1, z + SEAT_D * 0.45); group.add(railB);
+ 
+    [-1, 1].forEach(side => {
+      const ab = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.52, SEAT_D * 0.88), arm);
+      ab.position.set(x + side * (SEAT_W / 2 + 0.065), y + 0.35, z - 0.04); group.add(ab);
+ 
+      const at = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.07, SEAT_D * 0.78), bm());
+      at.position.set(x + side * (SEAT_W / 2 + 0.065), y + 0.62, z - 0.04); group.add(at);
+ 
+      const tr = new THREE.Mesh(new THREE.BoxGeometry(0.16, 0.02, SEAT_D * 0.88), goldM);
+      tr.position.set(x + side * (SEAT_W / 2 + 0.065), y + 0.09, z - 0.04); group.add(tr);
+ 
+      const cup = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.04, 16), goldM);
+      cup.position.set(x + side * (SEAT_W / 2 + 0.065), y + 0.66, z + SEAT_D * 0.28); group.add(cup);
+    });
+ 
+    const foot = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W - 0.1, 0.09, 0.25), bm());
+    foot.position.set(x, y + 0.27, z - SEAT_D * 0.52); group.add(foot);
+ 
+    const footR = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W, 0.03, 0.03), goldM);
+    footR.position.set(x, y + 0.32, z - SEAT_D * 0.64); group.add(footR);
+ 
+    const badge = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.06, 0.02), goldM);
+    badge.position.set(x, y + 0.75, z + SEAT_D / 2 - 0.02); group.add(badge);
+ 
+  } else {
+   
+    const cushion = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W, 0.15, SEAT_D * 0.8), bm());
+    cushion.position.set(x, y + 0.42, z); cushion.castShadow = true; group.add(cushion);
+ 
+    const back = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W, SEAT_H, 0.13), bm());
+    back.rotation.x = -0.05; back.position.set(x, y + 0.95, z + SEAT_D / 2 - 0.08); back.castShadow = true; group.add(back);
+ 
+    const head = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W * 0.8, 0.22, 0.14), bm());
+    head.position.set(x, y + 1.5, z + SEAT_D / 2 - 0.06); group.add(head);
+ 
+    const p = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W + 0.04, 0.1, SEAT_D * 0.85), plinth);
+    p.position.set(x, y + 0.04, z); group.add(p);
+ 
+    const railF = new THREE.Mesh(new THREE.BoxGeometry(SEAT_W + 0.08, 0.04, 0.04), mats.accent);
+    railF.position.set(x, y + 0.09, z - SEAT_D * 0.42); group.add(railF);
+    const railB = railF.clone(); railB.position.set(x, y + 0.09, z + SEAT_D * 0.42); group.add(railB);
+ 
+    [-1, 1].forEach(side => {
+      const ab = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.44, SEAT_D * 0.82), arm);
+      ab.position.set(x + side * (SEAT_W / 2 + 0.055), y + 0.3, z); group.add(ab);
+ 
+      const at = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.06, SEAT_D * 0.72), bm());
+      at.position.set(x + side * (SEAT_W / 2 + 0.055), y + 0.52, z); group.add(at);
+    });
+  }
+ 
+  return group;
+}
+ 
+function getBaseMat(status) {
+  if (status === 'taken') return mats.seatTaken;
+  if (status === 'hold')  return mats.seatHold;
+  return mats.seatAvail;
+}
+ 
+function updateSeatVisual(id) {
+  const mesh = seatMeshes[id];
+  if (!mesh) return;
+  const data = seatData[id];
+  let mat;
+  if      (data.status === 'taken') mat = mats.seatTaken;
+  else if (data.status === 'hold')  mat = mats.seatHold;
+  else if (selected.has(id))        mat = mats.seatSelected;
+  else if (hoveredSeat === id)      mat = mats.seatHover;
+  else                               mat = mats.seatAvail;
+ 
+  mesh.children.forEach(c => {
+    if (c.material &&
+        c.material !== mats.gold &&
+        c.material !== mats.accent &&
+        c.material !== mats.plinth &&
+        c.material !== mats.armBody) {
+      c.material = mat;
+    }
+  });
+}
+ 
