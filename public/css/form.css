@@ -141,3 +141,8 @@ button:active {
     letter-spacing: 0.5px;
     transition: background 0.25s, border-color 0.25s, color 0.25s;
 }
+.pay-button:hover {
+    background: rgba(9, 196, 229, 0.08);
+    border-color: var(--accent);
+    color: var(--accent);
+}
