@@ -149,3 +149,10 @@ button:active {
 .pay-button span {
     margin-right: 10px;
 }
+.error {
+    color: #e84a4a;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+    letter-spacing: 0.3px;
+}
