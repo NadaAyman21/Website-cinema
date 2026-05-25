@@ -78,7 +78,9 @@ body {
     font-size: 15px;
     letter-spacing: 0.5px;
 }
-
+.customer-info {
+    padding: 22px 22px 18px;
+}
 /*.qr-section {
     display: flex;
     flex-direction: column;
