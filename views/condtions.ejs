@@ -7,27 +7,21 @@
     <link rel="stylesheet" href="/css/responsive.css">
   </head>
     <body>
-        <!-- Terms Modal -->
-<div id="termsModal" class="modal">
-
-  <div class="modal-content">
-    <h3>TERMS & CONDITIONS</h3>
-
-    <ul>
-<li id="premiereRule" style="display: none; color: #ff0000; font-weight: bold;">
-      Children under the age of 12 are not permitted to attend Premiere Experience shows.
-    </li>
-
-      <li>Children under 3 years of age are not permitted at any screenings.</li>
-      <li>Please note that tickets, once purchased, cannot be refunded or exchanged.</li>
-      <li>Outside food and drinks are not allowed in the cinema premises.</li>
-    </ul>
-    <button class="agree" onclick="agree()">I AGREE</button>
-    <button class="disagree" onclick="closeTerms()">I DON'T AGREE</button>
-
-  </div>
-</div>
+    <div id="termsModal" class="modal">
+      <div class="modal-content" id="modalBox">
+        <h2>TERMS & CONDITIONS</h2>
+        <span id="premiereRule" style="display:none;" class="warning-text">
+          Children under the age of 12 are not permitted to attend Premiere Experience shows.
+        </span>
+        <ul>
+          <li>Children under 3 years of age are not permitted at any screenings.</li>
+          <li>Please note that tickets, once purchased, cannot be refunded or exchanged.</li>
+          <li>Outside food and drinks are not allowed in the cinema premises.</li>
+        </ul>
+        <button class="agree" onclick="agree()">I AGREE</button>
+        <button class="disagree" onclick="closeTerms()">I DON'T AGREE</button>
+      </div>
+    </div>
 <script src="/js/condit.js"></script>
     </body>
-
 </html>
