@@ -43,3 +43,13 @@ h3 {
     position: relative;
     padding-bottom: 10px;
 }
+h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 36px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+}
