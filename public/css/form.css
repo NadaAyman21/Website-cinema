@@ -53,3 +53,13 @@ h3::after {
     background: var(--accent);
     border-radius: 2px;
 }
+/* Labels */
+label {
+    display: block;
+    margin-top: 14px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
