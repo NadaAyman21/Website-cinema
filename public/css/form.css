@@ -116,3 +116,8 @@ button {
     cursor: pointer;
     transition: background 0.25s, box-shadow 0.25s, transform 0.15s;
 }
+button:hover {
+    background: #0ee5f5;
+    box-shadow: 0 0 18px rgba(9, 196, 229, 0.45);
+    transform: translateY(-1px);
+}
