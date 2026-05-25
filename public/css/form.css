@@ -88,3 +88,6 @@ input::placeholder {
     position: relative;
     width: 100%;
 }
+.input-box input {
+    padding-right: 42px;
+}
