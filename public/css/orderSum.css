@@ -148,6 +148,9 @@ input::placeholder {
     box-shadow: 0 0 22px rgba(9, 196, 229, 0.5);
     transform: translateY(-1px);
 }
+.pay-btn:active {
+    transform: translateY(0);
+}
 
 /*.qr-section {
     display: flex;
