@@ -146,3 +146,6 @@ button:active {
     border-color: var(--accent);
     color: var(--accent);
 }
+.pay-button span {
+    margin-right: 10px;
+}
