@@ -142,6 +142,13 @@ input::placeholder {
     cursor: pointer;
     transition: background 0.25s, box-shadow 0.25s, transform 0.15s;
 }
+
+.pay-btn:hover {
+    background: #0ee5f5;
+    box-shadow: 0 0 22px rgba(9, 196, 229, 0.5);
+    transform: translateY(-1px);
+}
+
 /*.qr-section {
     display: flex;
     flex-direction: column;
