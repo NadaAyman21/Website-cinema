@@ -65,6 +65,19 @@ body {
     border-radius: 2px;
     margin: 10px auto 0;
 }
+.price-box {
+    position: absolute;
+    right: 20px;
+    top: 74px;
+    background: rgba(9, 196, 229, 0.1);
+    border: 1px solid rgba(9, 196, 229, 0.3);
+    padding: 10px 15px;
+    border-radius: 8px;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
 
 /*.qr-section {
     display: flex;
