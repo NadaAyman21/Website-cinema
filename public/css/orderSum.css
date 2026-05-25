@@ -20,6 +20,17 @@ body {
     --border:       #2e2e2e;
     --accent:       #09c4e5;
 }
+.summary-container {
+    width: 500px;
+    background: rgba(18, 18, 18, 0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(9, 196, 229, 0.07);
+    color: var(--text-primary);
+}
 
 /*.qr-section {
     display: flex;
