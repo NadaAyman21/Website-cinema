@@ -84,3 +84,7 @@ input:focus {
 input::placeholder {
     color: #555;
 }
+.input-box {
+    position: relative;
+    width: 100%;
+}
