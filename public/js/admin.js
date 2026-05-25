@@ -170,7 +170,7 @@ async function handleFormSubmit(e) {
     if (!validateAge(ageRating)) { showAlert("Age must be like +12, +16, +18 etc."); return; }
     if (!validateTrailer(videoUrl)) { showAlert("Trailer must be a valid YouTube link!"); return; }
 
-    const payload = { title, genre, runTime, ageRating, imageUrl, videoUrl, cast, description };
+    const payload = { title, genre, runTime, ageRating, imageUrl, videoUrl, cast, description, showtimes };
 
     let url = '/api/movies/add';
     let method = 'POST';
