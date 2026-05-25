@@ -151,6 +151,21 @@ input::placeholder {
 .pay-btn:active {
     transform: translateY(0);
 }
+.close-btn {
+    width: 100%;
+    padding: 13px;
+    margin-top: 10px;
+    background: transparent;
+    color: #e84a4a;
+    border: 1px solid rgba(232, 74, 74, 0.35);
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
 
 /*.qr-section {
     display: flex;
