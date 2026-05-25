@@ -166,6 +166,11 @@ input::placeholder {
     cursor: pointer;
     transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
 }
+.close-btn:hover {
+    background: rgba(232, 74, 74, 0.1);
+    border-color: #e84a4a;
+    box-shadow: 0 0 16px rgba(232, 74, 74, 0.25);
+}
 
 /*.qr-section {
     display: flex;
