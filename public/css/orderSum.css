@@ -165,3 +165,31 @@ input{
 .input-error {
   border: 1px solid #e84a4a !important;
 }
+.qr-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    gap: 8px;
+}
+
+.qr-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted, #888);
+    font-weight: 600;
+}
+#qrCode {
+    padding: 10px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+}
+
+.qr-hint {
+    font-size: 11px;
+    color: var(--muted, #888);
+    letter-spacing: 0.1em;
+}

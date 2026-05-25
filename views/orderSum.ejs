@@ -16,9 +16,20 @@
     </div>
 
     <div class="movie-box">
-    <h2></h2> <p></p>  <p></p>  <p>CineX - Cairo Festival City</p>
-    <div class="price-box">-- EGP</div>
-</div>
+        <h2></h2>
+        <p></p>
+        <p></p>
+        <p>CineX - Cairo Festival City</p>
+        <div class="price-box">-- EGP</div>
+
+        <!-- ✅ QR Code -->
+        <div class="qr-section">
+            <p class="qr-label">YOUR TICKET QR</p>
+            <div id="qrCode"></div>
+            <p class="qr-hint">Scan at the entrance</p>
+        </div>
+    </div>
+
     <div class="customer-info">
 
         <h3>CUSTOMER INFORMATION</h3>
@@ -33,14 +44,14 @@
             <div class="input-group">
                 <label>PHONE</label>
                 <input type="tel" id="custPhone" required>
-                 <small class="error" id="custPhoneError"></small>
+                <small class="error" id="custPhoneError"></small>
             </div>
         </div>
 
         <div class="input-group full">
             <label>EMAIL</label>
             <input type="email" id="custEmail" required>
-              <small class="error" id="custEmailError"></small>
+            <small class="error" id="custEmailError"></small>
         </div>
 
         <p class="note">
@@ -53,14 +64,17 @@
     </div>
 
 </div>
-  <!--custom alret-->
+
 <div id="customAlert" class="custom-modal">
-        <div class="modal-content black-theme">
-            <h3 id="alertTitle">CineX.com says</h3>
-            <p id="alertMessage"></p>
-            <button onclick="closeAlert()">OK</button>
-        </div>
+    <div class="modal-content black-theme">
+        <h3 id="alertTitle">CineX.com says</h3>
+        <p id="alertMessage"></p>
+        <button onclick="closeAlert()">OK</button>
     </div>
+</div>
+
+<!-- ✅ QR Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="/js/orderSum.js"></script>
 </body>
 </html>
