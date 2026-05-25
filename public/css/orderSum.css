@@ -48,6 +48,14 @@ body {
     position: relative;
     border-bottom: 1px solid var(--border);
 }
+.movie-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
 
 /*.qr-section {
     display: flex;
