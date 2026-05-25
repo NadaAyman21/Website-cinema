@@ -196,6 +196,15 @@ app.get("/logout", (req, res) => {
     res.redirect("/cinemaM");
 });
 
+app.get("/orderSum", async (req, res) => {
+    const user = await getUser(req);
+    res.render("orderSum", { user });
+});
+
+app.get("/form", async (req, res) => {
+    const user = await getUser(req);
+    res.render("form", { user });
+});
 
 
 app.use('/api/movies', movieRoutes);
