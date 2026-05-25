@@ -108,6 +108,11 @@ input {
     outline: none;
     transition: border-color 0.25s, box-shadow 0.25s;
 }
+
+input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(9, 196, 229, 0.12);
+}
 /*.qr-section {
     display: flex;
     flex-direction: column;
