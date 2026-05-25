@@ -8,99 +8,155 @@ body {
     background-repeat: no-repeat;
 }
 
+/* ── Theme tokens (mirrors nav.css) ── */
+:root {
+    --bg-primary:   #0d0d0d;
+    --bg-secondary: #000000;
+    --bg-card:      #1e1e1e;
+    --text-primary: #f0efe8;
+    --text-muted:   #888888;
+    --border:       #2e2e2e;
+    --accent:       #09c4e5;
+}
 /* Container */
 .box {
-    background: rgba(240, 240, 240, 0.95);
+    background: rgba(18, 18, 18, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     width: 100%;
     max-width: 650px;
     margin: 100px auto;
-    padding: 20px;
-    border-radius: 8px;
+    padding: 32px 36px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(9, 196, 229, 0.06);
+    color: var(--text-primary);
 }
-
 /* Headings */
 h3 {
-    margin-bottom: 15px;
+    margin-bottom: 18px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    position: relative;
+    padding-bottom: 10px;
 }
-
+h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 36px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+}
 /* Labels */
 label {
     display: block;
-    margin-top: 10px;
+    margin-top: 14px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    color: var(--text-muted);
+    text-transform: uppercase;
 }
-
 /* Inputs */
 input {
     width: 100%;
-    padding: 10px;
-    margin-top: 5px;
+    padding: 11px 14px;
+    margin-top: 6px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
 }
-
-/* Input with icon */
+input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(9, 196, 229, 0.12);
+}
+input::placeholder {
+    color: #555;
+}
 .input-box {
     position: relative;
     width: 100%;
 }
-
 .input-box input {
-    padding-right: 40px;
+    padding-right: 42px;
 }
 
 .input-box .icon {
     position: absolute;
-    right: 10px;
+    right: 12px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 16px;
+    color: var(--text-muted);
     pointer-events: none;
 }
-
-/* Normal button */
 button {
     width: 100%;
-    margin-top: 15px;
-    padding: 10px;
-    background: red;
-    color: white;
+    margin-top: 18px;
+    padding: 12px;
+    background: var(--accent);
+    color: #000;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
     cursor: pointer;
+    transition: background 0.25s, box-shadow 0.25s, transform 0.15s;
 }
-
-/* Pay button (grey style) */
+button:hover {
+    background: #0ee5f5;
+    box-shadow: 0 0 18px rgba(9, 196, 229, 0.45);
+    transform: translateY(-1px);
+}
+button:active {
+    transform: translateY(0);
+}
 .pay-button {
     width: 100%;
-    margin-top: 25px;
+    margin-top: 28px;
     padding: 15px;
-
-    background-color: #e0e0e0;
-    color: #757575;
-
-    border: none;
-    border-radius: 4px;
-
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 6px;
     display: flex;
     justify-content: center;
     align-items: center;
-
     cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: background 0.25s, border-color 0.25s, color 0.25s;
 }
-
-/* Icon spacing inside pay button */
+.pay-button:hover {
+    background: rgba(9, 196, 229, 0.08);
+    border-color: var(--accent);
+    color: var(--accent);
+}
 .pay-button span {
     margin-right: 10px;
 }
-
 .error {
-  color: #e84a4a;
-  font-size: 12px;
-  margin-top: 4px;
-  display: block;
+    color: #e84a4a;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+    letter-spacing: 0.3px;
 }
-
 .input-error {
-  border: 1px solid #e84a4a !important;
+    border: 1px solid #e84a4a !important;
+    box-shadow: 0 0 0 3px rgba(232, 74, 74, 0.1) !important;
 }
