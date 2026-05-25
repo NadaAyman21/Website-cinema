@@ -18,3 +18,17 @@ body {
     --border:       #2e2e2e;
     --accent:       #09c4e5;
 }
+/* Container */
+.box {
+    background: rgba(18, 18, 18, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    width: 100%;
+    max-width: 650px;
+    margin: 100px auto;
+    padding: 32px 36px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(9, 196, 229, 0.06);
+    color: var(--text-primary);
+}
