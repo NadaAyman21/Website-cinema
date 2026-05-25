@@ -41,7 +41,13 @@ body {
     color: var(--text-muted);
     border-bottom: 1px solid var(--border);
 }
-
+.movie-box {
+    background: linear-gradient(135deg, #0a0a0a 0%, #111 100%);
+    color: var(--text-primary);
+    padding: 28px 25px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+}
 
 /*.qr-section {
     display: flex;
