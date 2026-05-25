@@ -224,7 +224,13 @@ input::placeholder {
     box-shadow: 0 0 18px rgba(9, 196, 229, 0.45);
     transform: translateY(-1px);
 }
-
+.error {
+    color: #e84a4a;
+    font-size: 12px;
+    margin-top: 5px;
+    display: block;
+    letter-spacing: 0.3px;
+}
 /*.qr-section {
     display: flex;
     flex-direction: column;
