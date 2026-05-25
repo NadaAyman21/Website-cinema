@@ -90,6 +90,15 @@ body {
     display: flex;
     flex-direction: column;
 }
+.input-group label {
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
 /*.qr-section {
     display: flex;
     flex-direction: column;
