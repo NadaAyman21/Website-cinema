@@ -131,7 +131,8 @@ function populateFormForEditing(movie) {
     document.getElementById('age').value = movie.ageRating || '';
     document.getElementById('image').value = movie.imageUrl || '';
     document.getElementById('trailer').value = movie.videoUrl || '';
-    
+    showtimes = movie.showtimes || [];
+  renderShowtimeTags();
     
     if (Array.isArray(movie.cast)) {
         document.getElementById('cast').value = movie.cast.join(', ');
