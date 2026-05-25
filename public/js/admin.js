@@ -160,7 +160,7 @@ async function handleFormSubmit(e) {
     const imageUrl    = document.getElementById('image').value.trim();
     const videoUrl    = document.getElementById('trailer').value.trim();
     const cast        = document.getElementById('cast').value.trim();
-    const description = document.getElementById('story').value.trim();
+   // const description = document.getElementById('story').value.trim();
 
     
     if (!validateTitle(title)) { showAlert("Title must be at least 2 characters!"); return; }
