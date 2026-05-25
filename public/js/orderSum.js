@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // ✅ Generate QR
     generateQR({ movie, day, time, seats, finalPrice });
 });
-function generateQR({ movie, day, time, seats, finalPrice }) {
+
+/*function generateQR({ movie, day, time, seats, finalPrice }) {
     const qrData = [
         `CineX Ticket`,
         `Movie: ${movie    || 'N/A'}`,
@@ -38,7 +39,7 @@ function generateQR({ movie, day, time, seats, finalPrice }) {
         colorLight:   '#ffffff',
         correctLevel: QRCode.CorrectLevel.H
     });
-}
+}*/
 function showAlert(message) {
     const modal = document.getElementById("customAlert");
     if (modal) {
@@ -117,6 +118,6 @@ if (!isValid) return;
         localStorage.setItem('finalAmount', priceDisplay);
 
         // ✅ Go to payment
-        window.location.href = "form.html";
+        window.location.href = "form";
     });
 }

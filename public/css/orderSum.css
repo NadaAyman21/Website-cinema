@@ -165,7 +165,7 @@ input{
 .input-error {
   border: 1px solid #e84a4a !important;
 }
-.qr-section {
+/*.qr-section {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -192,4 +192,4 @@ input{
     font-size: 11px;
     color: var(--muted, #888);
     letter-spacing: 0.1em;
-}
+}*/
