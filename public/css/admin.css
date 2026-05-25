@@ -527,3 +527,12 @@ i { margin-right: 6px; color: var(--accent); }
   font-size: 12px;
   font-weight: 600;
 }
+.showtime-tag button {
+  background: none;
+  border: none;
+  color: var(--accent2);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0;
+  line-height: 1;
+}
