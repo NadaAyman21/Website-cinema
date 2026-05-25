@@ -515,3 +515,15 @@ i { margin-right: 6px; color: var(--accent); }
   border-radius: 9px;
   padding: 8px 10px;
 }
+.showtime-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(124,92,252,0.15);
+  border: 1px solid rgba(124,92,252,0.3);
+  color: var(--accent2);
+  border-radius: 20px;
+  padding: 3px 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
