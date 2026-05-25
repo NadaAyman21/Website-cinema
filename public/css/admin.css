@@ -504,3 +504,14 @@ i { margin-right: 6px; color: var(--accent); }
 .delete-btn:hover {
   background: rgba(232,74,74,0.25);
 }
+
+.showtimes-builder {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 38px;
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  border-radius: 9px;
+  padding: 8px 10px;
+}
