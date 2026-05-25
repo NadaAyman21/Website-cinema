@@ -56,6 +56,15 @@ body {
     letter-spacing: 1.5px;
     text-transform: uppercase;
 }
+.movie-box h2::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
+    border-radius: 2px;
+    margin: 10px auto 0;
+}
 
 /*.qr-section {
     display: flex;
