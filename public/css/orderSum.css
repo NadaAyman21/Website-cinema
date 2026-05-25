@@ -205,7 +205,20 @@ input::placeholder {
     text-transform: uppercase;
     margin-bottom: 10px;
 }
-
+.black-theme button {
+    margin-top: 12px;
+    padding: 11px 40px;
+    background: var(--accent);
+    border-radius: 6px;
+    color: #000;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background 0.25s, box-shadow 0.25s, transform 0.15s;
+}
 /*.qr-section {
     display: flex;
     flex-direction: column;
