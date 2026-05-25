@@ -121,3 +121,6 @@ button:hover {
     box-shadow: 0 0 18px rgba(9, 196, 229, 0.45);
     transform: translateY(-1px);
 }
+button:active {
+    transform: translateY(0);
+}
