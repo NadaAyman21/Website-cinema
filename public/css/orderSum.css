@@ -197,6 +197,14 @@ input::placeholder {
     width: auto;
     box-shadow: 0 12px 50px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(9, 196, 229, 0.06);
 }
+.black-theme h3 {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
 
 /*.qr-section {
     display: flex;
