@@ -120,6 +120,14 @@ input::placeholder {
 .full {
     margin-top: 12px;
 }
+.note {
+    color: #e84a4a;
+    margin-top: 14px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+
 /*.qr-section {
     display: flex;
     flex-direction: column;
