@@ -156,3 +156,7 @@ button:active {
     display: block;
     letter-spacing: 0.3px;
 }
+.input-error {
+    border: 1px solid #e84a4a !important;
+    box-shadow: 0 0 0 3px rgba(232, 74, 74, 0.1) !important;
+}
