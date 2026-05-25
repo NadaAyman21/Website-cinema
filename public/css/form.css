@@ -101,3 +101,18 @@ input::placeholder {
     color: var(--text-muted);
     pointer-events: none;
 }
+button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s, box-shadow 0.25s, transform 0.15s;
+}
