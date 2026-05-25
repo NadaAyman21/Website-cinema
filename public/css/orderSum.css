@@ -117,7 +117,9 @@ input:focus {
 input::placeholder {
     color: #444;
 }
-
+.full {
+    margin-top: 12px;
+}
 /*.qr-section {
     display: flex;
     flex-direction: column;
