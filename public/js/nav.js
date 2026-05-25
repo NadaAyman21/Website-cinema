@@ -146,6 +146,25 @@ const translations = {
     alertOk:         'OK',
     cinexSays:       'CineX says',
     bookingConfirmed:'Booking Confirmed!',
+
+    footerBrand:      'CineX',
+  footerDesc:       'Your gateway to the latest movies. Book tickets easily and enjoy cinema like never before.',
+  footerQuickLinks: 'Quick Links',
+  reserveSeat:      'Reserve Seat',
+  login:            'Login',
+  footerContact:    'Contact Us',
+  footerEmail:      'Email: CineX@email.com',
+  footerPhone:      'Phone: +20 123 456 7890',
+  footerLocation:   'Location: Cairo, Egypt',
+  footerFollow:     'Follow Us',
+  facebook:         'Facebook',
+  instagram:        'Instagram',
+  twitter:          'Twitter',
+  footerRights:     '© 2026 CineX | All Rights Reserved',
+
+  premiere:     'PREMIERE',
+  deluxe:       'DELUXE',
+  standardCard: 'STANDARD',
   },
   ar: {
     // NAV
@@ -168,23 +187,6 @@ const translations = {
     viewAll:         'عرض الكل',
     genre:           'رياضة / أكشن',
 
-    // SEAT PAGE
-    selectedLabel:   ':المختارة',
-    maxLabel:        ':الحد الأقصى',
-    seats:           'مقاعد',
-    screenLabel:     'الشاشة',
-    legendStd:       'ستاندرد',
-    legendDlx:       'ديلوكس',
-    legendSel:       'مختار',
-    legendHold:      'محجوز مؤقتاً',
-    legendTaken:     'محجوز',
-    confirmPay:      '← تأكيد والدفع',
-    seatsSelected:   'مقاعد مختارة',
-    deluxeExp:       'تجربة ديلوكس',
-    view3d:          'عرض ثلاثي الأبعاد',
-    backToSeats:     'العودة للمقاعد ←',
-    mouseHint:       'حرك الماوس للنظر حولك',
-
     // FOOD PAGE
     foodTitle:       'طعام ومشروبات',
     addToCart:       'أضف للسلة',
@@ -193,6 +195,25 @@ const translations = {
     alertOk:         'حسناً',
     cinexSays:       'CineX يقول',
     bookingConfirmed:'تم تأكيد الحجز!',
+
+    footerBrand:      'سين اكس',
+  footerDesc:       'بوابتك لأحدث الأفلام. احجز تذاكرك بسهولة واستمتع بالسينما كما لم تفعل من قبل.',
+  footerQuickLinks: 'روابط سريعة',
+  reserveSeat:      'احجز مقعدك',
+  login:            'تسجيل الدخول',
+  footerContact:    'تواصل معنا',
+  footerEmail:      'البريد: CineX@email.com',
+  footerPhone:      'الهاتف: 7890 456 123 20+',
+  footerLocation:   'الموقع: القاهرة، مصر',
+  footerFollow:     'تابعنا',
+  facebook:         'فيسبوك',
+  instagram:        'انستغرام',
+  twitter:          'تويتر',
+  footerRights:     '© 2026 سين اكس | جميع الحقوق محفوظة',
+
+   premiere:     'بريميير',
+  deluxe:       'ديلوكس',
+  standardCard: 'ستاندرد',
   }
 };
 
