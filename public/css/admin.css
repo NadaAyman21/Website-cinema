@@ -4,23 +4,8 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-    --bg: #080810;
-    --surface: #0f0f1a;
-    --surface2: #14141f;
-    --surface3: #1c1c2e;
-    --border: rgba(255,255,255,0.07);
-    --border2: rgba(255,255,255,0.12);
-    --gold: #7c5cfc;
-    --gold2: #c084fc;
-    --red: #f43f5e;
-    --text: #e8e6f0;
-    --text-muted: #6b6b80;
-    --font-display: 'Bebas Neue', cursive;
-    --font-body: 'DM Sans', sans-serif;
-    --radius: 12px;
-    --radius-lg: 18px;
-    --transition: 0.25s ease;
-    --accent-glow: rgba(124,92,252,0.35);
+   
+   
 }
 
 body {
@@ -36,7 +21,7 @@ body {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 99px; }
 
-/* ── Navbar ── */
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -54,7 +39,7 @@ body {
 .navbar h2 {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 1.3rem;
-  font-weight: 400;           /* Bebas Neue looks best at 400 */
+  font-weight: 400;           
   letter-spacing: 0.15em;
   color: var(--accent2);
   text-shadow: 0 0 16px rgba(192,132,252,0.4);
@@ -81,14 +66,14 @@ body {
   border-color: var(--red);
 }
 
-/* ── Container ── */
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 40px 0;
 }
 
-/* ── Section headings ── */
+
 .section-heading {
   font-family: 'Syne', sans-serif;
   font-size: 0.65rem;
@@ -99,7 +84,7 @@ body {
   margin-bottom: 20px;
 }
 
-/* ── Form ── */
+
 form {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -132,7 +117,7 @@ form h3 {
 
 form h3 i { color: var(--accent); margin-right: 0; }
 
-/* 2-column grid for inputs */
+
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -164,7 +149,7 @@ textarea {
   min-height: 80px;
 }
 
-/* Form footer */
+
 .form-footer {
   display: flex;
   align-items: center;
@@ -190,10 +175,10 @@ button[type="submit"] {
 button[type="submit"]:hover { opacity: 0.9; transform: translateY(-1px); }
 button[type="submit"]:active { transform: translateY(0); }
 
-/* Generic icon accent */
+
 i { margin-right: 6px; color: var(--accent); }
 
-/* ── Movies Grid ── */
+
 .movies {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
@@ -259,7 +244,6 @@ i { margin-right: 6px; color: var(--accent); }
 .edit { background: rgba(251,146,60,0.15); color: var(--orange); }
 .edit:hover { background: rgba(251,146,60,0.28); }
 
-/* ── Custom Alert Modal ── */
 .custom-modal {
   display: none;
   position: fixed;
@@ -313,7 +297,7 @@ i { margin-right: 6px; color: var(--accent); }
 }
 .black-theme button:hover { opacity: 0.88; }
 
-/* ── Reservations Section ── */
+
 #reservations-section {
   max-width: 1200px;
   margin: 0 auto 60px;
@@ -341,7 +325,7 @@ i { margin-right: 6px; color: var(--accent); }
 }
 #clearAllBtn:hover { background: rgba(244,63,94,0.1); }
 
-/* Stat Cards */
+
 .admin-stat-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -369,14 +353,14 @@ i { margin-right: 6px; color: var(--accent); }
   margin-bottom: 8px;
 }
 .stat-value {
-  font-family: 'Bebas Neue', sans-serif;  /* was Syne */
-  font-size: 42px;                         /* was 26px */
-  font-weight: 400;                        /* Bebas looks best at 400 */
+  font-family: 'Bebas Neue', sans-serif;  
+  font-size: 42px;                         
+  font-weight: 400;                        
   color: var(--text);
   letter-spacing: 0.05em;
   line-height: 1;
 }
-/* Search */
+
 #reservationSearch {
   width: 100%;
   padding: 10px 14px;
@@ -396,7 +380,7 @@ i { margin-right: 6px; color: var(--accent); }
   box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
-/* Table wrapper */
+
 #reservations-section > div:last-child {
   border: 1px solid var(--border) !important;
   border-radius: var(--radius-lg) !important;
