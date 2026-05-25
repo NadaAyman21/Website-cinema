@@ -190,6 +190,8 @@ async function handleFormSubmit(e) {
         if (res.ok) {
             showAlert(editingMovieId ? "Movie updated successfully!" : "Movie added successfully!");
             document.getElementById('movieForm').reset();
+            showtimes = [];              
+            renderShowtimeTags();
             editingMovieId = null; 
             
             const submitBtn = document.querySelector('#movieForm button[type="submit"]');
