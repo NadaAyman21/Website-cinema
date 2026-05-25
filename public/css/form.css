@@ -63,3 +63,17 @@ label {
     color: var(--text-muted);
     text-transform: uppercase;
 }
+/* Inputs */
+input {
+    width: 100%;
+    padding: 11px 14px;
+    margin-top: 6px;
+    box-sizing: border-box;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+}
