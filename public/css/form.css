@@ -7,3 +7,14 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
 }
+
+/* ── Theme tokens (mirrors nav.css) ── */
+:root {
+    --bg-primary:   #0d0d0d;
+    --bg-secondary: #000000;
+    --bg-card:      #1e1e1e;
+    --text-primary: #f0efe8;
+    --text-muted:   #888888;
+    --border:       #2e2e2e;
+    --accent:       #09c4e5;
+}
