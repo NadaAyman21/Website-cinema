@@ -81,6 +81,11 @@ body {
 .customer-info {
     padding: 22px 22px 18px;
 }
+.input-row {
+    display: flex;
+    gap: 14px;
+}
+
 /*.qr-section {
     display: flex;
     flex-direction: column;
