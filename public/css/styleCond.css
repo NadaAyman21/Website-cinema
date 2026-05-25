@@ -48,15 +48,62 @@ button {
     text-transform: uppercase;
     border-radius: 2px;
 }
-
-/* agree button */
-.agree{
-    background:black;
-    color:white;
+.modal-content.blue-theme {
+    background: #0d1b2e;
+    color: #a8d4f5;
+    border: 1px solid #1e3a5f;
+    /* corner brackets effect */
+    box-shadow:
+        inset 0 0 0 1px #1e3a5f,
+        0 0 30px rgba(0, 100, 200, 0.2);
 }
 
-/* disagree button */
-.disagree{
-    background:red;
-    color:white;
+.modal-content.blue-theme::before,
+.modal-content.blue-theme::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: #4a90d9;
+    border-style: solid;
+}
+
+.modal-content.blue-theme::before {
+    top: 10px;
+    left: 10px;
+    border-width: 2px 0 0 2px;
+}
+
+.modal-content.blue-theme::after {
+    bottom: 10px;
+    right: 10px;
+    border-width: 0 2px 2px 0;
+}
+
+.modal-content.blue-theme h2 {
+    color: #5bb8f5;
+    font-family: Georgia, serif;
+}
+
+.modal-content.blue-theme ul {
+    color: #a8d4f5;
+}
+
+.modal-content.blue-theme .warning-text {
+    color: #5bb8f5;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.modal-content.blue-theme .agree {
+    background: #5bb8f5;
+    color: #0d1b2e;
+    font-weight: bold;
+}
+
+.modal-content.blue-theme .disagree {
+    background: transparent;
+    color: #a8d4f5;
+    border: 1px solid #4a90d9;
 }
