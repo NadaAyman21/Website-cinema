@@ -91,3 +91,13 @@ input::placeholder {
 .input-box input {
     padding-right: 42px;
 }
+
+.input-box .icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: var(--text-muted);
+    pointer-events: none;
+}
