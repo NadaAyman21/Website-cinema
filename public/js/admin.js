@@ -1,4 +1,39 @@
 let editingMovieId = null;
+//  SHOWTIMES BUILDER
+// ═══════════════════════════════════════
+let showtimes = [];
+
+function addShowtime() {
+  const input = document.getElementById('showtimeInput');
+  const val   = input.value.trim();
+  if (!val) return;
+  if (showtimes.includes(val)) { showAlert('This time already exists!'); return; }
+
+  showtimes.push(val);
+  input.value = '';
+  renderShowtimeTags();
+}
+
+function removeShowtime(time) {
+  showtimes = showtimes.filter(t => t !== time);
+  renderShowtimeTags();
+}
+
+function renderShowtimeTags() {
+  const builder = document.getElementById('showtimesBuilder');
+  builder.innerHTML = '';
+  showtimes.forEach(t => {
+    const tag = document.createElement('div');
+    tag.className = 'showtime-tag';
+    tag.innerHTML = `${t} <button type="button" onclick="removeShowtime('${t}')">×</button>`;
+    builder.appendChild(tag);
+  });
+}
+
+// ── Allow pressing Enter to add showtime ──
+document.getElementById('showtimeInput')?.addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); addShowtime(); }
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchMovies();
@@ -96,7 +131,8 @@ function populateFormForEditing(movie) {
     document.getElementById('age').value = movie.ageRating || '';
     document.getElementById('image').value = movie.imageUrl || '';
     document.getElementById('trailer').value = movie.videoUrl || '';
-    
+    showtimes = movie.showtimes || [];
+  renderShowtimeTags();
     
     if (Array.isArray(movie.cast)) {
         document.getElementById('cast').value = movie.cast.join(', ');
@@ -134,7 +170,7 @@ async function handleFormSubmit(e) {
     if (!validateAge(ageRating)) { showAlert("Age must be like +12, +16, +18 etc."); return; }
     if (!validateTrailer(videoUrl)) { showAlert("Trailer must be a valid YouTube link!"); return; }
 
-    const payload = { title, genre, runTime, ageRating, imageUrl, videoUrl, cast, description };
+    const payload = { title, genre, runTime, ageRating, imageUrl, videoUrl, cast, description, showtimes };
 
     let url = '/api/movies/add';
     let method = 'POST';
@@ -154,6 +190,8 @@ async function handleFormSubmit(e) {
         if (res.ok) {
             showAlert(editingMovieId ? "Movie updated successfully!" : "Movie added successfully!");
             document.getElementById('movieForm').reset();
+            showtimes = [];              
+            renderShowtimeTags();
             editingMovieId = null; 
             
             const submitBtn = document.querySelector('#movieForm button[type="submit"]');

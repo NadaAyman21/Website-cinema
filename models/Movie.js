@@ -33,7 +33,7 @@ const movieSchema = new mongoose.Schema({
     description: {
         type: String, // For your Story / Synopsis
         required: true
-    }
+    },  showtimes:   { type: [String], default: [] },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Movie', movieSchema);
