@@ -107,3 +107,56 @@ button {
     color: #a8d4f5;
     border: 1px solid #4a90d9;
 }
+.modal-content.gold-theme {
+    background: #1a1209;
+    color: #c9a84c;
+    box-shadow:
+        inset 0 0 0 1px #3d2e10,
+        0 0 30px rgba(180, 130, 30, 0.2);
+}
+
+.modal-content.gold-theme::before,
+.modal-content.gold-theme::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: #c9a84c;
+    border-style: solid;
+}
+.modal-content.gold-theme::before {
+    top: 10px;
+    left: 10px;
+    border-width: 2px 0 0 2px;
+}
+
+.modal-content.gold-theme::after {
+    bottom: 10px;
+    right: 10px;
+    border-width: 0 2px 2px 0;
+}
+.modal-content.gold-theme h2 {
+    color: #c9a84c;
+    font-family: Georgia, serif;
+}
+
+.modal-content.gold-theme ul {
+    color: #c9a84c;
+}
+
+.modal-content.gold-theme .warning-text {
+    color: #e8b84b;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+.modal-content.gold-theme .agree {
+    background: #c9a84c;
+    color: #1a1209;
+    font-weight: bold;
+}
+.modal-content.gold-theme .disagree {
+    background: transparent;
+    color: #c9a84c;
+    border: 1px solid #c9a84c;
+}
