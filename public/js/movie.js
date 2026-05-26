@@ -2,7 +2,7 @@ const params = new URLSearchParams(window.location.search);
 const movieId = params.get("id");
 
 let selectedExperience = "STANDARD&DELUXE";
-let selectedDayLabel = ""; // Tracks labels like "TODAY", "THU", "FRI"
+let selectedDayLabel = ""; 
 
 document.addEventListener("DOMContentLoaded", () => {
     if (!movieId) {
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
     
-    // Background gradient layout styling setup
+   
     const heroBg = document.getElementById("hero");
     const posterImg = document.getElementById("poster");
     if (heroBg && posterImg && posterImg.src) {
@@ -20,12 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
     loadOtherRecommendations(movieId);
     initializeCalendarClickListeners();
     
-    // Sync starting weekday tracking from the active initial calendar card
+  
     const defaultActiveCard = document.querySelector(".date-card.active");
     if (defaultActiveCard) {
         selectedDayLabel = defaultActiveCard.querySelector("strong").innerText.trim().toUpperCase();
     } else {
-        selectedDayLabel = "TODAY"; // Fallback default
+        selectedDayLabel = "TODAY"; 
     }
     
     renderDynamicTimeChips();
@@ -37,54 +37,59 @@ function initializeCalendarClickListeners() {
         card.onclick = () => {
             document.querySelectorAll(".date-card").forEach(c => c.classList.remove("active"));
             card.classList.add("active");
-            
-            // Extract the weekday label string (e.g., "TODAY", "THU", "FRI")
             selectedDayLabel = card.querySelector("strong").innerText.trim().toUpperCase();
-            renderDynamicTimeChips(); // Re-filter chips based on selection
+            renderDynamicTimeChips(); 
         };
     });
 }
+
 
 function renderDynamicTimeChips() {
     const timesContainer = document.getElementById("times-chips-wrapper");
     if (!timesContainer) return;
     
-    timesContainer.innerHTML = ""; // Wipe previous pass chips
+    timesContainer.innerHTML = ""; 
     
-    // Normalize our target day label to match your database format
-    const dayToMatch = selectedDayLabel.toUpperCase(); // "TODAY", "THU", "FRI", etc.
-    
-    // Map experience flag to short tags saved in admin strings
-    const expTagToMatch = selectedExperience === "STANDARD&DELUXE" ? "(Std)" : "(Prem)";
+   
+    const activeCard = document.querySelector(".date-card.active");
+    if (!activeCard) return;
 
-    // 🛡️ ACCURATE STRING FILTERING: Matches entries like "[Today] 10pm (Prem)" or "[THU] 01:00pm (Prem)"
+    let dayToMatch = activeCard.querySelector("strong").innerText.trim().toUpperCase(); 
+    
+    if (dayToMatch === "TODAY") {
+        const daysOfWeek = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+        const currentRealDayIndex = new Date().getDay(); 
+        dayToMatch = daysOfWeek[currentRealDayIndex]; 
+    }
+    
+    
+    const expTagToMatch = selectedExperience === "STANDARD&DELUXE" ? "(Std)" : "(Prem)";
     const matchedShowtimes = dbShowtimes.filter(slot => {
         const upperSlot = slot.toUpperCase();
         return upperSlot.includes(`[${dayToMatch}]`) && upperSlot.includes(expTagToMatch.toUpperCase());
     });
 
+   
     if (matchedShowtimes.length === 0) {
         timesContainer.innerHTML = '<p style="color:#6b6b80; font-size:13.5px; padding:10px 0;">No showtimes available for this selection.</p>';
         return;
     }
 
     matchedShowtimes.forEach(slot => {
-        // Safe regex extraction: pull out everything between the closing bracket ']' and the opening parenthesis '('
-        // Example: "[Today] 10pm (Prem)" -> matches " 10pm "
         const matchRegex = /\](.*)\(/;
         const matches = slot.match(matchRegex);
         
         let cleanTime = "";
         if (matches && matches[1]) {
-            cleanTime = matches[1].trim(); // Leaves just "10pm" or "01:00pm"
+            cleanTime = matches[1].trim(); 
         } else {
-            // Fallback safety if string structure differs slightly
+            // Fallback parsing just in case regex misses
             cleanTime = slot.replace(/\[.*?\]\s?/, '').replace(/\s?\(.*?\)/, '').trim();
         }
 
         const timeBtn = document.createElement("button");
         timeBtn.className = "time";
-        timeBtn.innerText = cleanTime;
+        timeBtn.innerText = cleanTime; // Displays clean text like "01:00pm" or "10pm"
         timeBtn.onclick = () => handleShowtimeSelection(timeBtn);
         timesContainer.appendChild(timeBtn);
     });
