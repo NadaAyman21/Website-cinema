@@ -154,10 +154,10 @@ app.get("/api/reviews/experience", async (req, res) => {
     }
 });
 
-app.get("/movie", async (req, res) => {
+/*app.get("/movie", async (req, res) => {
     const user = await getUser(req);
     res.render("movie", { user });
-});
+});*/
 
 app.get("/normalSeats", async (req, res) => {
     const user = await getUser(req);
@@ -207,7 +207,7 @@ app.get("/form", async (req, res) => {
 });
 
 
-app.use('/api/movies', movieRoutes);
+app.use('/movie', movieRoutes);
 
 app.use('/api/auth', authRoutes);
 
