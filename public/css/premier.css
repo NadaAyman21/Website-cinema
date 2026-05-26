@@ -1,51 +1,74 @@
+/* ── Base ── */
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: var(--bg-primary);
-    color: var(--text-primary);
+    font-family: 'Arial', sans-serif;
+    background: #0d0d0d;
+    color: #f0efe8;
+    min-height: 100vh;
 }
 
-/* Section */
+/* ── Section ── */
 .premiere {
-    padding: 40px;
+    padding: 60px 40px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* Title */
+/* ── Title ── */
 .premiere h1 {
-    font-size: 32px;
+    font-size: 3rem;
     font-weight: bold;
-    margin-bottom: 20px;
-    font: 3em arial;
+    margin-bottom: 30px;
+    letter-spacing: 0.08em;
+    color: #f0efe8;
+    text-transform: uppercase;
 }
 
-/* Image Gallery */
+/* ── Image Gallery ── */
 .gallery {
     display: flex;
-    gap: 20px;
-    margin-bottom: 20px;
+    gap: 16px;
+    margin-bottom: 30px;
 }
 
 .gallery img {
     width: 33%;
-    height: 220px;
+    height: 240px;
     object-fit: cover;
-    border-radius: 5px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
-/* Description */
+.gallery img:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+
+/* ── Description ── */
 .description {
-    font-size: 16px;
-    line-height: 1.6;
+    font-size: 15px;
+    line-height: 1.8;
     max-width: 1000px;
     margin-bottom: 40px;
-    font: arial;
+    color: #b0aec0;
 }
 
-/* Conditions */
+/* ── Conditions ── */
+.conditions {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 28px 32px;
+    max-width: 1000px;
+    margin-bottom: 50px;
+}
+
 .conditions h2 {
-    font-size: 20px;
-    margin-bottom: 15px;
-    font: 1.5em arial;
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+    color: #09c4e5;
+    letter-spacing: 0.04em;
 }
 
 .conditions ul {
@@ -53,6 +76,93 @@ body {
 }
 
 .conditions li {
-    margin-bottom: 10px;
-    font: arial;
+    margin-bottom: 12px;
+    color: #b0aec0;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* ── Reviews Section ── */
+.embed-reviews-section {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 40px;
+}
+
+.embed-reviews-section h2 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #f0efe8;
+    letter-spacing: 0.04em;
+}
+
+.embed-reviews-section > p {
+    color: #b0aec0;
+    margin-bottom: 28px;
+    font-size: 14px;
+}
+
+.glass-panel {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 18px;
+}
+
+/* ── Review Cards Grid ── */
+.reviews-embed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.review-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.review-card:hover {
+    border-color: rgba(9,196,229,0.3);
+    transform: translateY(-2px);
+}
+
+.review-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+}
+
+.review-movie-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #f0efe8;
+    margin-bottom: 4px;
+}
+
+.review-author {
+    font-size: 12px;
+    color: #6b6b80;
+}
+
+.review-rating-stars i {
+    color: #f59e0b;
+    font-size: 13px;
+}
+
+.review-comment {
+    font-size: 13px;
+    color: #b0aec0;
+    line-height: 1.7;
+    font-style: italic;
+}
+
+.no-reviews {
+    text-align: center;
+    color: #6b6b80;
+    padding: 2rem;
+    font-size: 14px;
 }
