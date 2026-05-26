@@ -4,6 +4,11 @@ const movieController = require('../controllers/movie');
 const Movie = require('../models/Movie');
 const User = require('../models/User');
 
+async function getUser(req) {
+    if (!req.session || !req.session.userId) return null;
+    return await User.findById(req.session.userId);
+}
+
 router.get('/', movieController.getAllMovies);          
 router.get('/:id', movieController.getMovieById);       
 
