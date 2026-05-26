@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const movieController = require('../controllers/movie');
-
+const Movie = require('../models/Movie');
+const User = require('../models/User');
 
 router.get('/', movieController.getAllMovies);          
 router.get('/:id', movieController.getMovieById);       
@@ -19,4 +20,3 @@ router.get('/', async (req, res) => {
     }
 });
 module.exports = router;
-
