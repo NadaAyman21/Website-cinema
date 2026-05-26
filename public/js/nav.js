@@ -121,22 +121,7 @@ const translations = {
     viewAll:         'View All',
     genre:           'Sport/Action',
 
-    // SEAT PAGE
-    selectedLabel:   'Selected:',
-    maxLabel:        'Max:',
-    seats:           'seats',
-    screenLabel:     'SCREEN',
-    legendStd:       'Standard',
-    legendDlx:       'Deluxe',
-    legendSel:       'Selected',
-    legendHold:      'On Hold',
-    legendTaken:     'Taken',
-    confirmPay:      'Confirm & Pay →',
-    seatsSelected:   'seats selected',
-    deluxeExp:       'Deluxe Experience',
-    view3d:          '3D View',
-    backToSeats:     '← Back to Seats',
-    mouseHint:       'Move mouse to look around',
+    
 
     // FOOD PAGE
     foodTitle:       'FOOD & DRINKS',
