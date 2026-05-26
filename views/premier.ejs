@@ -1,97 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premiere Cinema</title>
-    <link rel="stylesheet" href="/css/nav.css">
-    <link rel="stylesheet" href="/css/login.css">
-    <link rel="stylesheet" href="/css/sign up page.css">
-    <link rel="stylesheet" href="/css/forget.css">
-   <link rel="stylesheet" href="/css/footer.css">
-    <link rel="stylesheet" href="/css/premier.css">
-      <link rel="stylesheet" href="/css/reviews.css">
-    
-    <link rel="stylesheet" href="/css/responsive.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
-
-<body>
-<%- include('partials/nav') %>
-    
 <section class="premiere">
 
-    <h1>PREMIERE</h1>
+    <h1 data-i18n="premiereTitle">PREMIERE</h1>
 
-    <!-- Image Gallery -->
     <div class="gallery">
         <img src="/images/image 1.jpeg" alt="Cinema 1">
         <img src="/images/image 2.jpeg" alt="Cinema 2">
         <img src="/images/image 3.jpeg" alt="Cinema 3">
     </div>
 
-    <!-- Description -->
-    <p class="description">
+    <p class="description" data-i18n="premiereDesc">
         Our Premiere halls are designed to create an unforgettable experience, where every detail is tailored to your comfort and enjoyment.
         Indulge in the ultimate cinematic luxury with our Premiere cinema halls. Our exclusive seating features chaise lounge chairs that recline,
         offering unmatched relaxation and sophistication. Sink into plush cushioning and enjoy the show in a way that elevates traditional movie-watching.
     </p>
 
-    <!-- شروط -->
     <div class="conditions">
-        <h2>Conditions of Entry</h2>
+        <h2 data-i18n="conditionsTitle">Conditions of Entry</h2>
         <ul>
-            <li>Please note that children under the age of 12 are not permitted to attend Premiere Experience shows.</li>
-            <li>Please note that children under 3 years of age are not permitted at any screenings.</li>
-            <li>Outside food and beverages are not permitted inside cinema halls.</li>
-            <li>Valid ID showing proof of age is required for admission for certain movie classifications.</li>
+            <li data-i18n="condition1">Please note that children under the age of 12 are not permitted to attend Premiere Experience shows.</li>
+            <li data-i18n="condition2">Please note that children under 3 years of age are not permitted at any screenings.</li>
+            <li data-i18n="condition3">Outside food and beverages are not permitted inside cinema halls.</li>
+            <li data-i18n="condition4">Valid ID showing proof of age is required for admission for certain movie classifications.</li>
         </ul>
     </div>
 
 </section>
+
 <section class="embed-reviews-section glass-panel">
-        <h2>Premiere Reviews</h2>
-        <p>Read what our guests say about their luxurious Premiere experience at CineX!</p>
+    <h2 data-i18n="premiereReviews">Premiere Reviews</h2>
+    <p data-i18n="premiereReviewsDesc">Read what our guests say about their luxurious Premiere experience at CineX!</p>
 
-        <div class="reviews-embed-grid">
-            <% if (typeof reviews !== 'undefined' && reviews && reviews.length > 0) { %>
-                <% reviews.forEach(review => { %>
-                    <article class="review-card">
-                        <div class="review-card-header">
-                            <div>
-                                <h3 class="review-movie-name"><%= review.item %></h3>
-                                <div class="review-author">by <%= review.userName %></div>
-                            </div>
-                            <div class="review-rating-stars">
-                                <% for(let i = 1; i <= 5; i++) { %>
-                                    <% if(i <= review.rating) { %>
-                                        <i class="fa-solid fa-star"></i>
-                                    <% } else { %>
-                                        <i class="fa-regular fa-star" style="opacity: 0.3;"></i>
-                                    <% } %>
-                                <% } %>
-                            </div>
+    <div class="reviews-embed-grid">
+        <% if (typeof reviews !== 'undefined' && reviews && reviews.length > 0) { %>
+            <% reviews.forEach(review => { %>
+                <article class="review-card">
+                    <div class="review-card-header">
+                        <div>
+                            <h3 class="review-movie-name"><%= review.item %></h3>
+                            <div class="review-author">by <%= review.userName %></div>
                         </div>
-                        <p class="review-comment">“<%= review.comment %>”</p>
-                    </article>
-                <% }) %>
-            <% } else { %>
-                <div class="no-reviews" style="grid-column: 1 / -1;">
-                    <i class="fa-regular fa-comments" style="font-size: 2.5rem; display: block; margin-bottom: 12px; opacity: 0.5;"></i>
-                    No Premiere reviews yet. Be the first to share your experience on the <a href="/reviews" style="color: var(--accent); text-decoration: underline;">Reviews page</a>!
-                </div>
-            <% } %>
-        </div>
-    </section>
-
-
-
-<script src="/js/nav.js"></script>
-<script src="/js/login.js"></script>
-<script src="/js/sign up page.js"></script>
-<script src="/js/forget.js"></script>
-<script src="/js/theme.js"></script>
-
-<%- include('partials/footer') %>
-</body>
-</html>
+                        <div class="review-rating-stars">
+                            <% for(let i = 1; i <= 5; i++) { %>
+                                <% if(i <= review.rating) { %>
+                                    <i class="fa-solid fa-star"></i>
+                                <% } else { %>
+                                    <i class="fa-regular fa-star" style="opacity: 0.3;"></i>
+                                <% } %>
+                            <% } %>
+                        </div>
+                    </div>
+                    <p class="review-comment">"<%= review.comment %>"</p>
+                </article>
+            <% }) %>
+        <% } else { %>
+            <div class="no-reviews" style="grid-column: 1 / -1;">
+                <i class="fa-regular fa-comments" style="font-size: 2.5rem; display: block; margin-bottom: 12px; opacity: 0.5;"></i>
+                <span data-i18n="noReviews">No Premiere reviews yet. Be the first to share your experience on the</span>
+                <a href="/reviews" style="color: var(--accent); text-decoration: underline;" data-i18n="reviewsPage">Reviews page</a>!
+            </div>
+        <% } %>
+    </div>
+</section>
