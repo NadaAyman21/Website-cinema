@@ -165,6 +165,16 @@ const translations = {
   premiere:     'PREMIERE',
   deluxe:       'DELUXE',
   standardCard: 'STANDARD',
+
+ premiereTitle:       'PREMIERE',
+  premiereDesc:        'Our Premiere halls are designed to create an unforgettable experience, where every detail is tailored to your comfort and enjoyment. Indulge in the ultimate cinematic luxury with our Premiere cinema halls. Our exclusive seating features chaise lounge chairs that recline, offering unmatched relaxation and sophistication. Sink into plush cushioning and enjoy the show in a way that elevates traditional movie-watching.',
+  conditionsTitle:     'Conditions of Entry',
+  condition1:          'Please note that children under the age of 12 are not permitted to attend Premiere Experience shows.',
+  condition2:          'Please note that children under 3 years of age are not permitted at any screenings.',
+  condition3:          'Outside food and beverages are not permitted inside cinema halls.',
+  condition4:          'Valid ID showing proof of age is required for admission for certain movie classifications.',
+  premiereReviews:     'Premiere Reviews',
+
   },
   ar: {
     // NAV
