@@ -1,8 +1,6 @@
 let editingMovieId = null;
 let showtimes = [];
 
-
-
 function addShowtime() {
   const timeInput = document.getElementById('showtimeInput');
   const daySelect = document.getElementById('showtimeDaySelect');
@@ -14,17 +12,15 @@ function addShowtime() {
 
   if (!timeVal) return;
 
- 
   const payloadString = `${dayVal}|${timeVal}|${expVal}`;
 
-  // Check for duplicate configurations
   if (showtimes.includes(payloadString)) { 
     showAlert('This exact showtime mapping configuration already exists!'); 
     return; 
   }
 
   showtimes.push(payloadString);
-  timeInput.value = ''; // Clean time text string area for quick next inputs
+  timeInput.value = ''; 
   renderShowtimeTags();
 }
 
@@ -37,7 +33,7 @@ function renderShowtimeTags() {
   const builder = document.getElementById('showtimesBuilder');
   if (!builder) return;
   
-  builder.innerHTML = ''; // Wipe out previous layout tracking pass context
+  builder.innerHTML = ''; 
   
   showtimes.forEach(t => {
     const parts = t.split('|');
@@ -50,7 +46,6 @@ function renderShowtimeTags() {
     const tag = document.createElement('div');
     tag.className = 'showtime-tag';
     
-    // Style configurations for responsive badges alignment
     tag.style.display = 'inline-flex';
     tag.style.alignItems = 'center';
     tag.style.gap = '6px';
@@ -70,7 +65,6 @@ function renderShowtimeTags() {
   });
 }
 
-// Intercept Enter key inside the time field to submit entries automatically
 document.getElementById('showtimeInput')?.addEventListener('keydown', e => {
   if (e.key === 'Enter') { 
     e.preventDefault(); 
@@ -78,9 +72,6 @@ document.getElementById('showtimeInput')?.addEventListener('keydown', e => {
   }
 });
 
-// ═══════════════════════════════════════
-//   CORE APP LOGIC VALIDATION & DATA CRUD
-// ═══════════════════════════════════════
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchMovies();
@@ -102,7 +93,7 @@ function validateTrailer(trailer) {
 
 async function fetchMovies() {
     try {
-        const res = await fetch('/api/movies');
+        const res = await fetch('/movie/api/all');
         const movies = await res.json();
         renderMoviesList(movies);
     } catch (err) {
@@ -150,14 +141,34 @@ function populateFormForEditing(movie) {
     document.getElementById('age').value = movie.ageRating || '';
     document.getElementById('image').value = movie.imageUrl || '';
     document.getElementById('trailer').value = movie.videoUrl || '';
+    if (movie.showtimes && movie.showtimes.length > 0) {
+        showtimes = movie.showtimes.map(str => {
+            try {
+                const dayMatch = str.match(/\[(.*?)\]/);
+                const timeMatch = str.match(/\]\s*(.*?)\s*\(/); 
+                const expMatch = str.match(/\((.*?)\)/);
+
+                if (dayMatch && timeMatch && expMatch) {
+                    const day = dayMatch[1].trim();
+                    const time = timeMatch[1].trim();
+                    
+                    let exp = 'PREMIERE';
+                    if (expMatch[1].trim() === 'Std' || expMatch[1].trim() === 'STANDARD&DELUXE') {
+                        exp = 'STANDARD&DELUXE';
+                    }
+                    return `${day}|${time}|${exp}`;
+                }
+            } catch (e) {
+                console.error("String mapping fail fallback:", e);
+            }
+            return str; 
+        });
+    } else {
+        showtimes = [];
+    }
     
-    if (movie.showtimes && movie.showtimes.length > 0 && typeof movie.showtimes[0] === 'object') {
-    showtimes = movie.showtimes.map(s => `${s.day}|${s.time}|${s.experience}`);
-} else {
-    showtimes = movie.showtimes || [];
-}
     renderShowtimeTags();
-     
+         
     if (Array.isArray(movie.cast)) {
         document.getElementById('cast').value = movie.cast.join(', ');
     } else {
@@ -192,20 +203,19 @@ async function handleFormSubmit(e) {
     if (!validateTrailer(videoUrl)) { showAlert("Trailer must be a valid YouTube link!"); return; }
 
     const structuredShowtimes = showtimes.map(t => {
-    const parts = t.split('|');
-    return {
-        day: parts[0],        // e.g., "WED"
-        time: parts[1],       // e.g., "02:00 PM"
-        experience: parts[2]  // e.g., "PREMIERE"
-    };
-});
+        const parts = t.split('|');
+        const dayLabel = parts[0];
+        const displayExp = parts[2] === 'STANDARD&DELUXE' ? 'Std' : 'Prem';
+        return `[${dayLabel}] ${parts[1]} (${displayExp})`;
+    });
+
     const payload = { title, genre, runTime, ageRating, imageUrl, videoUrl, cast, description, showtimes: structuredShowtimes };
 
-    let url = '/api/movies/add';
+    let url = '/movie/add';
     let method = 'POST';
 
     if (editingMovieId) {
-        url = `/api/movies/edit/${editingMovieId}`;
+        url = `/movie/edit/${editingMovieId}`;
         method = 'PUT';
     }
 
@@ -238,7 +248,7 @@ async function handleFormSubmit(e) {
 async function deleteMovie(id) {
     if (!confirm("Are you sure you want to delete this movie?")) return;
     try {
-        const res = await fetch(`/api/movies/delete/${id}`, { method: 'DELETE' });
+        const res = await fetch(`/movie/delete/${id}`, { method: 'DELETE' });
         if (res.ok) {
             showAlert("Movie deleted!");
             fetchMovies();
