@@ -121,7 +121,6 @@ const translations = {
     viewAll:         'View All',
     genre:           'Sport/Action',
 
-    
 
     // FOOD PAGE
     foodTitle:       'FOOD & DRINKS',
@@ -162,6 +161,11 @@ const translations = {
   premiereReviewsDesc: 'Read what our guests say about their luxurious Premiere experience at CineX!',
   noReviews:           'No Premiere reviews yet. Be the first to share your experience on the',
   reviewsPage:         'Reviews page',
+
+  deluxeDesc:              'Elevate your movie night with our luxurious seating. Premium leather recliners offer unmatched comfort with plush cushions and generous legroom. Enjoy a fully immersive cinematic experience in style.',
+  standardDesc:            'Comfortable, modern seating designed for an immersive movie experience. Equipped with advanced projection and powerful surround sound for crystal-clear visuals and audio.',
+  standardDeluxeReviews:   'Standard & Deluxe Reviews',
+
   },
   ar: {
     // NAV
