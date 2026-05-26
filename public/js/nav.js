@@ -121,22 +121,6 @@ const translations = {
     viewAll:         'View All',
     genre:           'Sport/Action',
 
-    // SEAT PAGE
-    selectedLabel:   'Selected:',
-    maxLabel:        'Max:',
-    seats:           'seats',
-    screenLabel:     'SCREEN',
-    legendStd:       'Standard',
-    legendDlx:       'Deluxe',
-    legendSel:       'Selected',
-    legendHold:      'On Hold',
-    legendTaken:     'Taken',
-    confirmPay:      'Confirm & Pay →',
-    seatsSelected:   'seats selected',
-    deluxeExp:       'Deluxe Experience',
-    view3d:          '3D View',
-    backToSeats:     '← Back to Seats',
-    mouseHint:       'Move mouse to look around',
 
     // FOOD PAGE
     foodTitle:       'FOOD & DRINKS',
@@ -165,6 +149,23 @@ const translations = {
   premiere:     'PREMIERE',
   deluxe:       'DELUXE',
   standardCard: 'STANDARD',
+
+ premiereTitle:       'PREMIERE',
+  premiereDesc:        'Our Premiere halls are designed to create an unforgettable experience, where every detail is tailored to your comfort and enjoyment. Indulge in the ultimate cinematic luxury with our Premiere cinema halls. Our exclusive seating features chaise lounge chairs that recline, offering unmatched relaxation and sophistication. Sink into plush cushioning and enjoy the show in a way that elevates traditional movie-watching.',
+  conditionsTitle:     'Conditions of Entry',
+  condition1:          'Please note that children under the age of 12 are not permitted to attend Premiere Experience shows.',
+  condition2:          'Please note that children under 3 years of age are not permitted at any screenings.',
+  condition3:          'Outside food and beverages are not permitted inside cinema halls.',
+  condition4:          'Valid ID showing proof of age is required for admission for certain movie classifications.',
+  premiereReviews:     'Premiere Reviews',
+  premiereReviewsDesc: 'Read what our guests say about their luxurious Premiere experience at CineX!',
+  noReviews:           'No Premiere reviews yet. Be the first to share your experience on the',
+  reviewsPage:         'Reviews page',
+
+  deluxeDesc:              'Elevate your movie night with our luxurious seating. Premium leather recliners offer unmatched comfort with plush cushions and generous legroom. Enjoy a fully immersive cinematic experience in style.',
+  standardDesc:            'Comfortable, modern seating designed for an immersive movie experience. Equipped with advanced projection and powerful surround sound for crystal-clear visuals and audio.',
+  standardDeluxeReviews:   'Standard & Deluxe Reviews',
+
   },
   ar: {
     // NAV
@@ -214,6 +215,23 @@ const translations = {
    premiere:     'بريميير',
   deluxe:       'ديلوكس',
   standardCard: 'ستاندرد',
+
+  premiereTitle:       'بريميير',
+  premiereDesc:        'صُممت قاعات البريميير لدينا لتقديم تجربة لا تُنسى، حيث كل تفصيلة مصممة لراحتك ومتعتك. استمتع بأقصى درجات الفخامة السينمائية في قاعات البريميير الحصرية. تتميز مقاعدنا بكراسي شيز لونج قابلة للإمالة، توفر استرخاءً وأناقة لا مثيل لهما.',
+  conditionsTitle:     'شروط الدخول',
+  condition1:          'يُرجى العلم بأنه لا يُسمح للأطفال دون سن 12 عامًا بحضور عروض تجربة البريميير.',
+  condition2:          'يُرجى العلم بأنه لا يُسمح للأطفال دون سن 3 سنوات بحضور أي عروض.',
+  condition3:          'لا يُسمح بإدخال الأطعمة والمشروبات من خارج القاعة.',
+  condition4:          'يُشترط تقديم هوية سارية تُثبت العمر عند الدخول لبعض تصنيفات الأفلام.',
+
+  premiereReviews:     'تقييمات البريميير',
+  premiereReviewsDesc: 'اقرأ ما يقوله ضيوفنا عن تجربتهم الفاخرة في بريميير CineX!',
+  noReviews:           'لا توجد تقييمات للبريميير بعد. كن أول من يشارك تجربته في',
+  reviewsPage:         'صفحة التقييمات',
+
+  deluxeDesc:              'ارتقِ بليلة السينما مع مقاعدنا الفاخرة. توفر الكراسي الجلدية المتكئة راحة لا مثيل لها مع وسائد ناعمة ومساحة واسعة للقدمين. استمتع بتجربة سينمائية غامرة بالكامل بأسلوب راقٍ.',
+  standardDesc:            'مقاعد مريحة وعصرية مصممة لتجربة سينمائية غامرة. مجهزة بأحدث تقنيات العرض وصوت محيطي قوي لصور وصوت بوضوح كريستالي.',
+  standardDeluxeReviews:   'تقييمات ستاندرد وديلوكس',
   }
 };
 
