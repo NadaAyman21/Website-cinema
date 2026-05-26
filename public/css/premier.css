@@ -43,10 +43,20 @@ body {
 }
 
 /* Conditions */
+.conditions {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 28px 32px;
+    max-width: 1000px;
+    margin-bottom: 50px;
+}
+
 .conditions h2 {
-    font-size: 20px;
-    margin-bottom: 15px;
-    font: 1.5em arial;
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+    color: #09c4e5;
+    letter-spacing: 0.04em;
 }
 
 .conditions ul {
@@ -54,6 +64,8 @@ body {
 }
 
 .conditions li {
-    margin-bottom: 10px;
-    font: arial;
+    margin-bottom: 12px;
+    color: #b0aec0;
+    font-size: 14px;
+    line-height: 1.7;
 }
