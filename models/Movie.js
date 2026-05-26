@@ -27,12 +27,10 @@ const movieSchema = new mongoose.Schema({
         required: true
     },
     cast: {
-        type: [String], 
-        required: true
+        type: mongoose.Schema.Types.Mixed
     },
     description: {
         type: String,
-        
         required: true
     },  showtimes:   { type: [String], default: [] },
 }, { timestamps: true });
