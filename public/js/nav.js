@@ -174,7 +174,9 @@ const translations = {
   condition3:          'Outside food and beverages are not permitted inside cinema halls.',
   condition4:          'Valid ID showing proof of age is required for admission for certain movie classifications.',
   premiereReviews:     'Premiere Reviews',
-
+  premiereReviewsDesc: 'Read what our guests say about their luxurious Premiere experience at CineX!',
+  noReviews:           'No Premiere reviews yet. Be the first to share your experience on the',
+  reviewsPage:         'Reviews page',
   },
   ar: {
     // NAV
