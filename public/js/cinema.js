@@ -51,7 +51,7 @@ async function displayMovies() {
     container.innerHTML = "<p class='loading-movies'>Loading movies...</p>";
 
     try {
-        const response = await fetch('/api/movies'); 
+        const response = await fetch('/movie/api/all'); 
         const movies = await response.json();
 
         container.innerHTML = "";
