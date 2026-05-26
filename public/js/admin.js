@@ -1,8 +1,6 @@
 let editingMovieId = null;
 let showtimes = [];
 
-
-
 function addShowtime() {
   const timeInput = document.getElementById('showtimeInput');
   const daySelect = document.getElementById('showtimeDaySelect');
@@ -14,7 +12,7 @@ function addShowtime() {
 
   if (!timeVal) return;
 
- 
+  // Internal pipeline storage format stays unified
   const payloadString = `${dayVal}|${timeVal}|${expVal}`;
 
   // Check for duplicate configurations
@@ -100,9 +98,10 @@ function validateTrailer(trailer) {
     return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/.test(trailer);
 }
 
+// 🌐 ROUTING FIX: Matches your /movie/api/all backend endpoint definition
 async function fetchMovies() {
     try {
-        const res = await fetch('/api/movies');
+        const res = await fetch('/movie/api/all');
         const movies = await res.json();
         renderMoviesList(movies);
     } catch (err) {
@@ -151,13 +150,31 @@ function populateFormForEditing(movie) {
     document.getElementById('image').value = movie.imageUrl || '';
     document.getElementById('trailer').value = movie.videoUrl || '';
     
-    if (movie.showtimes && movie.showtimes.length > 0 && typeof movie.showtimes[0] === 'object') {
-    showtimes = movie.showtimes.map(s => `${s.day}|${s.time}|${s.experience}`);
-} else {
-    showtimes = movie.showtimes || [];
-}
+    // 🛡️ FIX PARSING: Converts incoming array strings "[WED] 02:00pm (Prem)" back to "WED|02:00pm|PREMIERE"
+    if (movie.showtimes && movie.showtimes.length > 0) {
+        showtimes = movie.showtimes.map(str => {
+            try {
+                const dayMatch = str.match(/\[(.*?)\]/);
+                const timeMatch = str.match(/\] (.*?) \(/);
+                const expMatch = str.match(/\((.*?)\)/);
+
+                if (dayMatch && timeMatch && expMatch) {
+                    const day = dayMatch[1];
+                    const time = timeMatch[1];
+                    const exp = expMatch[1] === 'Std' ? 'STANDARD&DELUXE' : 'PREMIERE';
+                    return `${day}|${time}|${exp}`;
+                }
+            } catch (e) {
+                console.error("String mapping fail fallback:", e);
+            }
+            return str; // Fallback match protection
+        });
+    } else {
+        showtimes = [];
+    }
+    
     renderShowtimeTags();
-     
+         
     if (Array.isArray(movie.cast)) {
         document.getElementById('cast').value = movie.cast.join(', ');
     } else {
@@ -191,21 +208,22 @@ async function handleFormSubmit(e) {
     if (!validateAge(ageRating)) { showAlert("Age must be like +12, +16, +18 etc."); return; }
     if (!validateTrailer(videoUrl)) { showAlert("Trailer must be a valid YouTube link!"); return; }
 
+    // 🛡️ FIX MATCHING: Transforms your data strings directly into flat plain array of strings
     const structuredShowtimes = showtimes.map(t => {
-    const parts = t.split('|');
-    return {
-        day: parts[0],        // e.g., "WED"
-        time: parts[1],       // e.g., "02:00 PM"
-        experience: parts[2]  // e.g., "PREMIERE"
-    };
-});
+        const parts = t.split('|');
+        const dayLabel = parts[0];
+        const displayExp = parts[2] === 'STANDARD&DELUXE' ? 'Std' : 'Prem';
+        return `[${dayLabel}] ${parts[1]} (${displayExp})`;
+    });
+
     const payload = { title, genre, runTime, ageRating, imageUrl, videoUrl, cast, description, showtimes: structuredShowtimes };
 
-    let url = '/api/movies/add';
+    // 🌐 ROUTING FIX: Pointing cleanly under the dynamic '/movie' mount endpoints
+    let url = '/movie/add';
     let method = 'POST';
 
     if (editingMovieId) {
-        url = `/api/movies/edit/${editingMovieId}`;
+        url = `/movie/edit/${editingMovieId}`;
         method = 'PUT';
     }
 
@@ -235,10 +253,11 @@ async function handleFormSubmit(e) {
     } catch (err) { console.error("Submission failed:", err); }
 }
 
+// 🌐 ROUTING FIX: Clean delete path
 async function deleteMovie(id) {
     if (!confirm("Are you sure you want to delete this movie?")) return;
     try {
-        const res = await fetch(`/api/movies/delete/${id}`, { method: 'DELETE' });
+        const res = await fetch(`/movie/delete/${id}`, { method: 'DELETE' });
         if (res.ok) {
             showAlert("Movie deleted!");
             fetchMovies();
