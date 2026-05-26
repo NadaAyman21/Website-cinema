@@ -10,8 +10,7 @@
 <link rel="stylesheet" href="/css/login.css">
 <link rel="stylesheet" href="/css/sign up page.css">
 <link rel="stylesheet" href="/css/forget.css">
-  <link rel="stylesheet" href="/css/reviews.css">
-
+<link rel="stylesheet" href="/css/reviews.css">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -28,63 +27,64 @@
 
     <!-- DELUXE FIRST -->
     <div class="section">
-        <h2>DELUXE</h2>
+        <h2 data-i18n="deluxe">DELUXE</h2>
         <div class="image-wrapper">
             <img src="/images/deluxe.jpg" alt="Deluxe Seats">
         </div>
-        <p>
+        <p data-i18n="deluxeDesc">
             Elevate your movie night with our luxurious seating. Premium leather recliners offer unmatched comfort with plush cushions and generous legroom. Enjoy a fully immersive cinematic experience in style.
         </p>
     </div>
 
     <!-- STANDARD SECOND -->
     <div class="section">
-         <h2>STANDARD</h2>
+        <h2 data-i18n="standardCard">STANDARD</h2>
         <div class="image-wrapper">
             <img src="/images/standard.jpg" alt="Standard Seats">
         </div>
-       
-        <p>
+        <p data-i18n="standardDesc">
             Comfortable, modern seating designed for an immersive movie experience. Equipped with advanced projection and powerful surround sound for crystal-clear visuals and audio.
         </p>
     </div>
     
 
 </section>
-<section class="embed-reviews-section glass-panel">
-        <h2>Standard & Deluxe Reviews</h2>
-        <p>See what our guests say about their Standard and Deluxe screen experiences at CineX!</p>
 
-        <div class="reviews-embed-grid">
-            <% if (typeof reviews !== 'undefined' && reviews && reviews.length > 0) { %>
-                <% reviews.forEach(review => { %>
-                    <article class="review-card">
-                        <div class="review-card-header">
-                            <div>
-                                <h3 class="review-movie-name"><%= review.item %></h3>
-                                <div class="review-author">by <%= review.userName %></div>
-                            </div>
-                            <div class="review-rating-stars">
-                                <% for(let i = 1; i <= 5; i++) { %>
-                                    <% if(i <= review.rating) { %>
-                                        <i class="fa-solid fa-star"></i>
-                                    <% } else { %>
-                                        <i class="fa-regular fa-star" style="opacity: 0.3;"></i>
-                                    <% } %>
-                                <% } %>
-                            </div>
+<section class="embed-reviews-section glass-panel">
+    <h2 data-i18n="standardDeluxeReviews">Standard & Deluxe Reviews</h2>
+    <p data-i18n="standardDeluxeReviewsDesc">See what our guests say about their Standard and Deluxe screen experiences at CineX!</p>
+
+    <div class="reviews-embed-grid">
+        <% if (typeof reviews !== 'undefined' && reviews && reviews.length > 0) { %>
+            <% reviews.forEach(review => { %>
+                <article class="review-card">
+                    <div class="review-card-header">
+                        <div>
+                            <h3 class="review-movie-name"><%= review.item %></h3>
+                            <div class="review-author"><span data-i18n="by">by</span> <%= review.userName %></div>
                         </div>
-                        <p class="review-comment">“<%= review.comment %>”</p>
-                    </article>
-                <% }) %>
-            <% } else { %>
-                <div class="no-reviews" style="grid-column: 1 / -1;">
-                    <i class="fa-regular fa-comments" style="font-size: 2.5rem; display: block; margin-bottom: 12px; opacity: 0.5;"></i>
-                    No reviews yet. Be the first to share your experience on the <a href="/reviews" style="color: var(--accent); text-decoration: underline;">Reviews page</a>!
-                </div>
-            <% } %>
-        </div>
-    </section>
+                        <div class="review-rating-stars">
+                            <% for(let i = 1; i <= 5; i++) { %>
+                                <% if(i <= review.rating) { %>
+                                    <i class="fa-solid fa-star"></i>
+                                <% } else { %>
+                                    <i class="fa-regular fa-star" style="opacity: 0.3;"></i>
+                                <% } %>
+                            <% } %>
+                        </div>
+                    </div>
+                    <p class="review-comment">"<%= review.comment %>"</p>
+                </article>
+            <% }) %>
+        <% } else { %>
+            <div class="no-reviews" style="grid-column: 1 / -1;">
+                <i class="fa-regular fa-comments" style="font-size: 2.5rem; display: block; margin-bottom: 12px; opacity: 0.5;"></i>
+                <span data-i18n="noReviewsStd">No reviews yet. Be the first to share your experience on the</span>
+                <a href="/reviews" style="color: var(--accent); text-decoration: underline;" data-i18n="reviewsPage">Reviews page</a>!
+            </div>
+        <% } %>
+    </div>
+</section>
 
 
 
