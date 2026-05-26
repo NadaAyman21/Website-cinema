@@ -42,7 +42,8 @@ router.get('/', async (req, res, next) => {
     }
 });    
 
-
+router.get('/api/all', movieController.getAllMovies);      
+router.get('/:id', movieController.getMovieById);  
 router.post('/add', movieController.addMovie);
 router.put('/edit/:id', movieController.editMovie);
 router.delete('/delete/:id', movieController.deleteMovie);
