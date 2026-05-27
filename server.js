@@ -154,6 +154,10 @@ app.get("/api/reviews/experience", async (req, res) => {
     }
 });
 
+app.get("/movie", async (req, res) => {
+    const user = await getUser(req);
+    res.render("movie", { user });
+});
 
 app.get("/normalSeats", async (req, res) => {
     const user = await getUser(req);
@@ -192,18 +196,9 @@ app.get("/logout", (req, res) => {
     res.redirect("/cinemaM");
 });
 
-app.get("/orderSum", async (req, res) => {
-    const user = await getUser(req);
-    res.render("orderSum", { user });
-});
-
-app.get("/form", async (req, res) => {
-    const user = await getUser(req);
-    res.render("form", { user });
-});
 
 
-app.use('/movie', movieRoutes);
+app.use('/api/movies', movieRoutes);
 
 app.use('/api/auth', authRoutes);
 

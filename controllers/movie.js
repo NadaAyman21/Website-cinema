@@ -1,6 +1,6 @@
 const Movie = require('../models/Movie');
 
-// 1. GET ALL MOVIES
+
 exports.getAllMovies = async (req, res) => {
     try {
         const movies = await Movie.find().sort({ createdAt: -1 });
@@ -10,7 +10,6 @@ exports.getAllMovies = async (req, res) => {
     }
 };
 
-// 2. GET MOVIE BY ID
 exports.getMovieById = async (req, res) => {
     try {
         const movie = await Movie.findById(req.params.id);
@@ -23,22 +22,12 @@ exports.getMovieById = async (req, res) => {
     }
 };
 
-
 exports.addMovie = async (req, res) => {
     try {
-        const castData = typeof req.body.cast === 'string' 
-            ? req.body.cast.split(',').map(c => c.trim()) 
-            : req.body.cast;
-
-       
-        const processedShowtimes = Array.isArray(req.body.showtimes) ? req.body.showtimes : [];
-
         const movieData = {
             ...req.body,
-            cast: castData,
-            showtimes: processedShowtimes 
+            cast: typeof req.body.cast === 'string' ? req.body.cast.split(',').map(c => c.trim()) : req.body.cast
         };
-
         const newMovie = new Movie(movieData);
         const savedMovie = await newMovie.save();
         res.status(201).json(savedMovie);
@@ -46,21 +35,12 @@ exports.addMovie = async (req, res) => {
         res.status(400).json({ success: false, message: err.message });
     }
 };
-
-
 exports.editMovie = async (req, res) => {
     try {
-        const castData = typeof req.body.cast === 'string' 
-            ? req.body.cast.split(',').map(c => c.trim()) 
-            : req.body.cast;
-        const processedShowtimes = Array.isArray(req.body.showtimes) ? req.body.showtimes : [];
-
         const movieData = {
             ...req.body,
-            cast: castData,
-            showtimes: processedShowtimes
+            cast: typeof req.body.cast === 'string' ? req.body.cast.split(',').map(c => c.trim()) : req.body.cast
         };
-
         const updatedMovie = await Movie.findByIdAndUpdate(req.params.id, movieData, { new: true });
         if (!updatedMovie) return res.status(404).json({ message: "Movie not found" });
         res.json(updatedMovie);
@@ -68,6 +48,7 @@ exports.editMovie = async (req, res) => {
         res.status(400).json({ success: false, message: err.message });
     }
 };
+
 
 exports.deleteMovie = async (req, res) => {
     try {
