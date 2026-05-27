@@ -154,10 +154,6 @@ app.get("/api/reviews/experience", async (req, res) => {
     }
 });
 
-/*app.get("/movie", async (req, res) => {
-    const user = await getUser(req);
-    res.render("movie", { user });
-});*/
 
 app.get("/normalSeats", async (req, res) => {
     const user = await getUser(req);
