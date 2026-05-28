@@ -26,7 +26,7 @@ function validateImage(path) {
 }
 
 function validateAge(age) {
-    return /^\+(?:[1-9]|1[0-9]|2[01])$/.test(age) || /^[A-Za-z0-9\+]+$/.test(age);
+    return /^\+(?:[1-9]|1[0-9]|2[01])$/.test(age) ;
 }
 
 function validateTrailer(trailer) {
