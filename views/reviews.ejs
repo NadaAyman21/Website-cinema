@@ -156,19 +156,6 @@
     <script src="/js/forget.js"></script>
     <script src="/js/theme.js"></script>
 
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.has('error')) {
-            const errorType = urlParams.get('error');
-            if (errorType === 'missing_fields') {
-                alert("⚠️ Please choose a rating score and make sure to type your comment text message before hitting submit!");
-            } else if (errorType === 'server_issue') {
-                alert("❌ A database validation issue occurred. Ensure your dropdown selection is set properly.");
-            }
-            window.history.replaceState({}, document.title, window.location.pathname);
-        }
-    </script>
-
     <%- include('partials/footer') %>
 </body>
 </html>
