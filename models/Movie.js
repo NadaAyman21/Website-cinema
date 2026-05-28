@@ -7,15 +7,15 @@ const movieSchema = new mongoose.Schema({
         trim: true
     },
     genre: {
-        type: String, // or [String] if you want to allow multiple genres
+        type: String, 
         required: true
     },
     runTime: {
-        type: String, // e.g., "2h 30m"
+        type: String, 
         required: true
     },
     ageRating: {
-        type: String, // e.g., "+12"
+        type: String, 
         required: true
     },
     imageUrl: {
@@ -23,17 +23,16 @@ const movieSchema = new mongoose.Schema({
         required: true
     },
     videoUrl: {
-        type: String, // For your YouTube Embed Link
+        type: String, 
         required: true
     },
     cast: {
-        type: [String], // This stores your comma-separated list as an array
-        required: true
+        type: mongoose.Schema.Types.Mixed
     },
     description: {
-        type: String, // For your Story / Synopsis
+        type: String,
         required: true
-    }
+    },  showtimes:   { type: [String], default: [] },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Movie', movieSchema);
