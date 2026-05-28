@@ -31,7 +31,6 @@ app.use(session({
   cookie: { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 }
 }));
 
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 async function getUser(req) {
@@ -39,12 +38,9 @@ async function getUser(req) {
     return await User.findById(req.session.userId);
 }
 
-
-
+// ── Pages View Routing ──
 app.get("/cinemaM", async (req, res) => {
     const user = await getUser(req);
-    console.log("SESSION:", req.session);
-    console.log("USER:", user);
     res.render("cinemaM", { user });
 });
 
@@ -56,12 +52,7 @@ app.get("/", async (req, res) => {
 app.get("/food", async (req, res) => {
   try {
         const user = await getUser(req);
-        const reviews = await Review.find({ 
-            category: 'food-drinks' 
-        }).sort({ createdAt: -1 });
-
-        console.log("FOUND FOOD REVIEWS:", reviews); 
-
+        const reviews = await Review.find({ category: 'food-drinks' }).sort({ createdAt: -1 });
         res.render("food", { user, reviews });
     } catch (err) {
         console.error("Error loading Food page:", err);
@@ -71,14 +62,11 @@ app.get("/food", async (req, res) => {
 
 app.get("/premier", async (req, res) => {
    try {
-      const user = await getUser(req);
+        const user = await getUser(req);
         const reviews = await Review.find({ 
             category: 'experience', 
             item: { $regex: /^premiere$/i } 
         }).sort({ createdAt: -1 });
-
-        console.log("FOUND PREMIERE REVIEWS:", reviews); 
-
         res.render("premier", { user, reviews });
     } catch (err) {
         console.error("Error loading Premiere page:", err);
@@ -93,7 +81,6 @@ app.get("/stanard", async (req, res) => {
             category: 'experience', 
             item: { $in: ['Standard', 'Deluxe'] } 
         }).sort({ createdAt: -1 });
-
         res.render("stanard", { user, reviews });
     } catch (err) {
         console.error("Error loading Standard page:", err);
@@ -101,16 +88,14 @@ app.get("/stanard", async (req, res) => {
     }
 });
 
-
+// ── Main Review Dashboard System (FIXED ROUTE) ──
 app.get("/reviews", async (req, res) => {
    try {
         const user = await getUser(req);
-        // Fetch data elements simultaneously from MongoDB
         const [reviews, movies] = await Promise.all([
             Review.find().sort({ createdAt: -1 }),
             Movie.find().sort({ title: 1 })
         ]);
-        
         res.render("reviews", { user, reviews, movies });
     } catch (err) {
         console.error("Error loading reviews dashboard:", err);
@@ -119,32 +104,36 @@ app.get("/reviews", async (req, res) => {
 });
 
 app.post("/reviews", async (req, res) => {
-    
-      try {
+    try {
         const user = await getUser(req);
         
-        // Let's create a robust check to find whatever string name exists on your user object
         let reviewerName = 'Guest';
-       
-        if (user) {
+        if (user && user.firstName) {
             reviewerName = user.firstName; 
         }
+
+        // FRONTEND SAFEGUARD: Instead of crashing to a text page, redirect with a clean error flag
+        if (!req.body.rating || !req.body.comment || req.body.comment.trim() === "") {
+            return res.redirect("/reviews?error=missing_fields");
+        }
+
         const newReview = new Review({
             category: req.body.category || 'movie',
             item: req.body.item || 'General',
             rating: parseInt(req.body.rating),
             comment: req.body.comment,
-            userName: reviewerName 
+            userName: reviewerName
         });
 
         await newReview.save();
         res.redirect("/reviews"); 
     } catch (err) {
-        console.error(err);
-        res.status(400).send("Error saving review. Please fill out all fields.");
+        console.error("Database Save Error:", err);
+        res.redirect("/reviews?error=server_issue");
     }
 });
 
+// ── Sub API Endpoints & Layout Routes ──
 app.get("/api/reviews/experience", async (req, res) => {
     try {
         const experienceReviews = await Review.find({ category: 'experience' }).sort({ createdAt: -1 });
@@ -153,11 +142,6 @@ app.get("/api/reviews/experience", async (req, res) => {
         res.status(500).json({ error: err.message });
     }
 });
-
-/*app.get("/movie", async (req, res) => {
-    const user = await getUser(req);
-    res.render("movie", { user });
-});*/
 
 app.get("/normalSeats", async (req, res) => {
     const user = await getUser(req);
@@ -174,13 +158,12 @@ app.get("/condtions", async (req, res) => {
     res.render("condtions", { user });
 });
 
-app.get("/admin",async (req, res) => {
+app.get("/admin", async (req, res) => {
     try {
-        console.log("ADMIN ROUTE HIT");
         const movies = await Movie.find().sort({ createdAt: -1 });
         res.render("admin", { movies: movies });
     } catch (err) {
-       console.error(err);
+        console.error(err);
         res.status(500).send("Error loading dashboard data"); 
     }
 });
@@ -206,11 +189,11 @@ app.get("/form", async (req, res) => {
     res.render("form", { user });
 });
 
-
+// ── Mounted Route Layout Packages ──
 app.use('/movie', movieRoutes);
-
 app.use('/api/auth', authRoutes);
 
+// ── Database Initializer Connectivity Connection ──
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Successfully connected to MongoDB!'))
   .catch((err) => console.error('Database connection error:', err));
