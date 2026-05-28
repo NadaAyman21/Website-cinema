@@ -19,7 +19,7 @@
     
     <div class="reviews-page">
         <header class="reviews-header">
-            <h1>Cinema Reviews</h1>
+            <h1>CineX Reviews</h1>
             <p>Share your experiences or read what other moviegoers think about movies, experiences, and food at CineX.</p>
         </header>
 
@@ -45,10 +45,6 @@
                                 <% movies.forEach(movie => { %>
                                     <option value="<%= movie.title %>"><%= movie.title %></option>
                                 <% }) %>
-                            <% } else { %>
-                                <option value="Inside Out">Inside Out</option>
-                                <option value="Interstellar">Interstellar</option>
-                                <option value="F1">F1</option>
                             <% } %>
                         </select>
                     </div>
@@ -159,6 +155,19 @@
     <script src="/js/sign up page.js"></script>
     <script src="/js/forget.js"></script>
     <script src="/js/theme.js"></script>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('error')) {
+            const errorType = urlParams.get('error');
+            if (errorType === 'missing_fields') {
+                alert("⚠️ Please choose a rating score and make sure to type your comment text message before hitting submit!");
+            } else if (errorType === 'server_issue') {
+                alert("❌ A database validation issue occurred. Ensure your dropdown selection is set properly.");
+            }
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    </script>
 
     <%- include('partials/footer') %>
 </body>
