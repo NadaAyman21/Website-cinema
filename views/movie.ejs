@@ -3,113 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Movie Details</title>
-<link rel="stylesheet" href="css/nav.css">
+<title><%= movie.title %> — CineX Details</title>
+<link rel="stylesheet" href="/css/nav.css">
 <link rel="stylesheet" href="/css/login.css">
 <link rel="stylesheet" href="/css/sign up page.css">
 <link rel="stylesheet" href="/css/forget.css">
 <link rel="stylesheet" href="/css/movie.css">
 <link rel="stylesheet" href="/css/footer.css">
 <link rel="stylesheet" href="/css/responsive.css">
-
-<!-- Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 </head>
 
 <body>
 
 <%- include('partials/nav') %>
 
+<br>
 
-<!-- HERO -->
 <section class="hero" id="hero">
-
     <div class="movie-container">
-
-        <!-- POSTER -->
         <div class="poster">
-            <img id="poster" src="" alt="Movie Poster">
+            <img id="poster" src="<%= movie.imageUrl %>" alt="<%= movie.title %>">
         </div>
 
-        <!-- DETAILS -->
         <div class="details">
-
-            <div id="age"></div>
-
-            <h1 id="title"></h1>
-
-            <p class="genre" id="genre"></p>
-
-            <p class="info" id="time"></p>
+            <div id="age"><%= movie.ageRating %></div>
+            <h1 id="title"><%= movie.title %></h1>
+            <p class="genre" id="genre"><%= movie.genre %></p>
+            <p class="info" id="time">⏱ <%= movie.runTime %></p>
 
             <h3>Story:</h3>
-            <p class="story" id="story"></p>
+            <p class="story" id="story"><%= movie.description %></p>
 
             <h3>Cast & Crew:</h3>
-            <p id="cast"></p>
-            <br></br>
+            <p id="cast"><%= Array.isArray(movie.cast) ? movie.cast.join(', ') : movie.cast %></p>
+            <br><br>
 
             <button class="trailer-btn" id="trailerBtn">▶ Play Trailer</button>
-
         </div>
-
     </div>
-
 </section>
 
-<!-- DATE SELECTOR -->
 <section class="booking">
-
-    <!-- DATE SELECTOR -->
-    <div class="dates" id="date-container"></div>
-
-    <!-- CINEMA CARD -->
-    <div class="cinema-card">
-
-        <h2>📍 CineX -Cairo Festival City</h2>
-
-        <!-- EXPERIENCE TABS -->
-        <div class="experience-tabs">
-<button class="tab exp-btn active" onclick="selectExp(this)">STANDARD&DELUXE</button>
-<button class="tab exp-btn" onclick="selectExp(this)">PREMIERE</button>
-        </div>
-
-        <!-- SHOWTIMES -->
-        <div class="times">
-            <button class="time" onclick="selectTime(this)">01:00 PM</button>
-<button class="time" onclick="selectTime(this)">03:00 PM</button>
-<button class="time" onclick="selectTime(this)">07:00 PM</button>
-<button class="time" onclick="selectTime(this)">10:00 PM</button>
-        </div>
-
+    <div class="dates" id="date-container">
+        <% bookingDays.forEach((day, index) => { %>
+            <div class="date-card <%= index === 0 ? 'active' : '' %>" 
+                 data-date="<%= day.dateString %>" 
+                 data-label="<%= day.dateLabel %>, 2026">
+                <strong><%= day.dayLabel %></strong><br>
+                <%= day.dateLabel %>
+            </div>
+        <% }) %>
     </div>
 
+    <div class="cinema-card">
+        <h2>📍 CineX - Cairo Festival City</h2>
+
+        <div class="experience-tabs">
+            <button class="tab exp-btn active" onclick="selectExp(this)">STANDARD&DELUXE</button>
+            <button class="tab exp-btn" onclick="selectExp(this)">PREMIERE</button>
+        </div>
+
+        <div class="times" id="times-chips-wrapper"></div>
+    </div>
 </section>
 
-<!-- VIDEO MODAL -->
-<div id="videoModal" class="modal" >
+<div id="videoModal" class="modal">
     <div class="modal-content">
-    <span class="close-btn">&times;</span>
-
-    <!--<div class="modal-content">-->
-       <!-- <div class="video-container">-->
-            <iframe id="videoPlayer"
-                width="560"
-                height="315"
-                src=""
-                frameborder="0"
-                allow="autoplay; encrypted-media"
-                allowfullscreen>
-            </iframe>
-        </div>
+        <span class="close-btn">&times;</span>
+        <iframe id="videoPlayer" 
+        width="560" 
+        height="315" src="" 
+        frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
-
+</div>
 
 <h2 style="padding:40px">OTHER MOVIES YOU MAY ENJOY</h2>
-
 <div id="otherMovies"></div>
+
 <script src="/js/nav.js"></script>
+
+<script>
+    // We wrap it in template literal quotes so VS Code treats it as a clean string literal
+    const dbShowtimes = JSON.parse('<%- showtimes %>');
+    const activeMovieTrailerUrl = "<%= movie.videoUrl %>";
+</script>
+
 <script src="/js/movie.js"></script>
 <script src="/js/sign up page.js"></script>
 <script src="/js/forget.js"></script>
