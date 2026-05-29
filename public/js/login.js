@@ -1,4 +1,11 @@
 
+window.pendingRedirectUrl = window.pendingRedirectUrl || null;
+
+function handleProtectedRedirect(targetUrl) {
+    window.pendingRedirectUrl = targetUrl;
+    openLogin(); 
+}
+
 function togglePassword() {
     const password = document.getElementById("loginPassword");
     password.type = password.type === "password" ? "text" : "password";
@@ -71,8 +78,13 @@ if (loginForm) {
             if (result.success) {
                 if (result.role === "admin") {
                     window.location.href = "/admin";
-                } else {
-                   window.location.href = "/cinemaM";
+                } 
+                else if (window.pendingRedirectUrl) {
+                    window.location.href =  window.pendingRedirectUrl;
+                } 
+                
+                else {
+                    window.location.href = "/cinemaM";
                 }
             } else {
                 const passwordError = document.getElementById("loginPasswordError");
