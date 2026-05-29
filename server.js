@@ -38,7 +38,7 @@ async function getUser(req) {
     return await User.findById(req.session.userId);
 }
 
-// ── Pages View Routing ──
+
 app.get("/cinemaM", async (req, res) => {
     const user = await getUser(req);
     res.render("cinemaM", { user });
@@ -88,7 +88,7 @@ app.get("/stanard", async (req, res) => {
     }
 });
 
-// ── Main Review Dashboard System (FIXED ROUTE) ──
+
 app.get("/reviews", async (req, res) => {
    try {
         const user = await getUser(req);
@@ -133,7 +133,7 @@ app.post("/reviews", async (req, res) => {
     }
 });
 
-// ── Sub API Endpoints & Layout Routes ──
+
 app.get("/api/reviews/experience", async (req, res) => {
     try {
         const experienceReviews = await Review.find({ category: 'experience' }).sort({ createdAt: -1 });
@@ -189,11 +189,11 @@ app.get("/form", async (req, res) => {
     res.render("form", { user });
 });
 
-// ── Mounted Route Layout Packages ──
+
 app.use('/movie', movieRoutes);
 app.use('/api/auth', authRoutes);
 
-// ── Database Initializer Connectivity Connection ──
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('Successfully connected to MongoDB!'))
   .catch((err) => console.error('Database connection error:', err));

@@ -1,4 +1,11 @@
 
+window.pendingRedirectUrl = window.pendingRedirectUrl || null;
+
+function handleProtectedRedirect(targetUrl) {
+    window.pendingRedirectUrl = targetUrl;
+    openLogin(); 
+}
+
 function togglePassword() {
     const password = document.getElementById("loginPassword");
     password.type = password.type === "password" ? "text" : "password";
@@ -71,8 +78,13 @@ if (loginForm) {
             if (result.success) {
                 if (result.role === "admin") {
                     window.location.href = "/admin";
-                } else {
-                   window.location.href = "/cinemaM";
+                } 
+                else if (window.pendingRedirectUrl) {
+                    window.location.href =  window.pendingRedirectUrl;
+                } 
+                
+                else {
+                    window.location.href = "/cinemaM";
                 }
             } else {
                 const passwordError = document.getElementById("loginPasswordError");
@@ -90,20 +102,18 @@ if (loginForm) {
     });
 }
 
-// ── Modal controls ──
+
 function openLogin() {
     document.getElementById("loginModal").classList.add("active");
 
-    // Reset form
+    
     document.getElementById("loginForm").reset();
 
-    // Clear all errors
     document.getElementById("loginEmailError").innerText = "";
     document.getElementById("loginEmailError").classList.remove("active");
     document.getElementById("loginPasswordError").innerText = "";
     document.getElementById("loginPasswordError").classList.remove("active");
 
-    // Clear invalid borders
     document.getElementById("loginEmail").classList.remove("invalid");
     document.getElementById("loginPassword").classList.remove("invalid");
 }
