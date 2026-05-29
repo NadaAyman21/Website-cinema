@@ -73,7 +73,6 @@ req.session.userName = user.firstName;
 
 const fallbackUrl = user.role === 'admin' ? '/admin' : '/cinemaM';
     const sendRedirectTo = req.session.redirectTo || fallbackUrl;
-//clear
     delete req.session.redirectTo;
 req.session.save(() => {
     res.status(200).json({ 

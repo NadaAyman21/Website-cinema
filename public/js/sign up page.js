@@ -1,3 +1,4 @@
+window.pendingRedirectUrl = window.pendingRedirectUrl || null;
 
 function togglePasswordS(inputId, icon) {
     const passInput = document.getElementById(inputId);
@@ -27,7 +28,7 @@ function closeAlert() {
     if (modal) modal.style.display = "none";
 }
 
-// ── Helper: show a field error ──
+
 function showError(errorId, inputEl, message) {
     const err = document.getElementById(errorId);
     if (!err) return;
@@ -36,7 +37,7 @@ function showError(errorId, inputEl, message) {
     if (inputEl) inputEl.classList.add("invalid");
 }
 
-// ── Helper: clear all errors ──
+
 function clearErrors() {
     document.querySelectorAll(".errorS").forEach(err => {
         err.innerText = "";
@@ -47,14 +48,14 @@ function clearErrors() {
     });
 }
 
-// ── Signup form ──
+
 const signupForm = document.getElementById("signupForm");
 
 if (signupForm) {
     signupForm.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        // Get elements
+        
         const firstNameInput   = document.getElementById("firstName");
         const lastNameInput    = document.getElementById("lastName");
         const emailInput       = document.getElementById("signupEmail");
@@ -65,7 +66,7 @@ if (signupForm) {
         const termsInput       = document.getElementById("terms");
         const genderInput      = document.querySelector('input[name="gender"]:checked');
 
-        // Get values
+       
         const firstName      = firstNameInput.value.trim();
         const lastName       = lastNameInput.value.trim();
         const email          = emailInput.value.trim();
@@ -165,14 +166,15 @@ if (signupForm) {
             .then(result => {
                 if (result.success) {
                     signupForm.reset();
-                    
-                   
-                    if (result.role === 'admin') {
+                   if (window.pendingRedirectUrl) {
+                      window.location.href = window.pendingRedirectUrl;
+                    } else if (result.role === 'admin') {
                         window.location.href = '/admin';
                     } else {
                         window.location.href = '/cinemaM';
                     }
-                } else {
+                } 
+                     else {
                     showAlert(result.message); 
                 }
             })
