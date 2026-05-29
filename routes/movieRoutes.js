@@ -16,6 +16,9 @@ router.get('/', async (req, res, next) => {
     }
     
     try {
+        res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Expires', '0');
         const user = await getUser(req);
         const movie = await Movie.findById(req.query.id);
         if (!movie) return res.status(404).send("Movie Not Found");
