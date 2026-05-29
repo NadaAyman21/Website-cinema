@@ -1,12 +1,4 @@
-/*function toggleMenu() {
-    let nav = document.getElementById("navLinks");
-    nav.classList.toggle("active");
-}
 
-function goToLogin(){
-    window.location.href = "login.html";
-}*/
-// Open/Close logic for Pop-ups
 function openLogin() {
     closeAllModals();
     document.getElementById('loginModal').classList.add('active');
