@@ -128,8 +128,23 @@ function handleShowtimeSelection(btn) {
     if (selectedExperience === "PREMIERE") {
         typeParam = "premiere";
     }
+    const targetUrl = `/condtions?type=${typeParam}`;
 
-    window.location.href = `/condtions?type=${typeParam}`;
+   
+    if (typeof isUserLoggedIn !== 'undefined' && isUserLoggedIn) {
+        // Logged In: Go right to the conditions screen safely!
+        window.location.href = targetUrl;
+    } else {
+        
+        if (typeof handleProtectedRedirect === 'function') {
+            handleProtectedRedirect(targetUrl);
+        } else {
+            // Fallback emergency case
+            openLogin();
+        }
+    }
+
+   //window.location.href = `/condtions?type=${typeParam}`;
 }
 
 async function loadOtherRecommendations(currentId) {
@@ -206,3 +221,10 @@ window.onclick = function(event) {
         document.getElementById("videoPlayer").src = "";
     }
 };
+
+window.addEventListener("pageshow", function (event) {
+  
+    if (event.persisted) {
+        window.location.reload();
+    }
+});
