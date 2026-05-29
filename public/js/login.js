@@ -102,20 +102,18 @@ if (loginForm) {
     });
 }
 
-// ── Modal controls ──
+
 function openLogin() {
     document.getElementById("loginModal").classList.add("active");
 
-    // Reset form
+    
     document.getElementById("loginForm").reset();
 
-    // Clear all errors
     document.getElementById("loginEmailError").innerText = "";
     document.getElementById("loginEmailError").classList.remove("active");
     document.getElementById("loginPasswordError").innerText = "";
     document.getElementById("loginPasswordError").classList.remove("active");
 
-    // Clear invalid borders
     document.getElementById("loginEmail").classList.remove("invalid");
     document.getElementById("loginPassword").classList.remove("invalid");
 }
