@@ -107,3 +107,12 @@ router.delete('/admin/all/clear', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+router.delete('/admin/:id', async (req, res) => {
+  try {
+    await Reservation.findByIdAndDelete(req.params.id);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
