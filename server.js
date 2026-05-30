@@ -34,7 +34,7 @@ app.use(session({
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use('/reservation', reservationRoutes);
 async function getUser(req) {
     if (!req.session.userId) return null;
     return await User.findById(req.session.userId);
