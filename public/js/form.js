@@ -77,8 +77,7 @@ if (payBtn) {
 
         
         if (!isValid) return;
-
-    sync function saveAndRedirect() {
+async function saveAndRedirect() {
   const payload = {
     movie:      localStorage.getItem('selectedMovie'),
     showtime:   localStorage.getItem('selectedTime'),
@@ -88,7 +87,7 @@ if (payBtn) {
     totalPrice: localStorage.getItem('totalPrice')
   };
 
-       try {
+  try {
     const res  = await fetch('/reservation/save', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
