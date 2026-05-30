@@ -15,8 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (day && time)      dateTimeElem.innerText  = `${day}, ${time}`;
     if (dateText)         fullDateElem.innerText  = dateText;
     if (finalPrice && priceBoxElem) priceBoxElem.innerText = `${finalPrice}.00 EGP`;
+       const hallType = localStorage.getItem('hallType') || 'Standard';
+    const seatsLine = document.createElement('p');
+    seatsLine.innerText = `Seats: ${seats.join(', ') || 'N/A'} · ${hallType} Hall`;
+    document.querySelector('.movie-box').insertBefore(seatsLine, priceBoxElem);
 
-    // ✅ Generate QR
+    generateQR({ movie, day, time, seats, finalPrice });
+
     generateQR({ movie, day, time, seats, finalPrice });
 });
 
