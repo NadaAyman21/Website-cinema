@@ -542,22 +542,22 @@ function switchHall(hallKey) {
   const overlay = document.getElementById('switch-overlay');
   overlay.classList.add('visible');
 
-  setTimeout(() => {
+  setTimeout(async () => {
     currentHall = hallKey;
     selected.clear();
     hoveredSeat = null;
 
+    await fetchAndApplySeats(hallKey);
+
     buildHall(hallKey);
     updateHallUI(hallKey);
     updateUI();
-
 
     phi = Math.PI / 2.2; theta = Math.PI; radius = 15;
     targetPhi = phi; targetTheta = theta; targetRadius = radius;
     autoRotate = false;
 
     document.querySelectorAll('.view-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
-
     setTimeout(() => overlay.classList.remove('visible'), 50);
   }, 350);
 }
