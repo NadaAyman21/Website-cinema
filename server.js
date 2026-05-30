@@ -8,6 +8,8 @@ const authRoutes = require('./routes/authRoutes');
 const User = require('./models/User');
 const Movie = require('./models/Movie');
 const Review = require('./models/Reviews');
+const reservationRoutes = require('./routes/reservationRoutes');
+require('./models/Hold');  
 
 const app = express();
 
