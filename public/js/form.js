@@ -78,5 +78,14 @@ if (payBtn) {
         
         if (!isValid) return;
 
-    
+    sync function saveAndRedirect() {
+  const payload = {
+    movie:      localStorage.getItem('selectedMovie'),
+    showtime:   localStorage.getItem('selectedTime'),
+    date:       localStorage.getItem('selectedDateText'),
+    hall:       localStorage.getItem('hallType'),
+    seats:      localStorage.getItem('bookedSeats'),   // already JSON string
+    totalPrice: localStorage.getItem('totalPrice')
+  };
+
       
