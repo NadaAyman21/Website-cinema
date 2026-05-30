@@ -134,6 +134,27 @@ let movieInfo = {
   showtime: localStorage.getItem('selectedTime')     || 'Unknown',
   date:     localStorage.getItem('selectedDateText') || 'Unknown',
 };
+async function fetchAndApplySeats(hallKey) {
+  try {
+    const cfg  = HALL_CONFIGS[hallKey];
+    const params = new URLSearchParams({
+      movie:    movieInfo.movie,
+      showtime: movieInfo.showtime,
+      date:     movieInfo.date,
+      hall:     cfg.label
+    });
+
+    const res  = await fetch(`/reservation/seats?${params}`, { credentials: 'include' });
+    const data = await res.json();
+
+    // Override the TAKEN and HOLD sets with real DB data
+    cfg.TAKEN = new Set(data.taken || []);
+    cfg.HOLD  = new Set(data.hold  || []);
+
+  } catch (err) {
+    console.error('Failed to fetch seat data:', err);
+  }
+}
 
 function buildHall(hallKey) {
   const cfg = HALL_CONFIGS[hallKey];
