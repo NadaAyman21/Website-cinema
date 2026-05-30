@@ -281,3 +281,23 @@ function updateStats() {
   document.getElementById('statSeats').textContent   = allReservations.reduce((s, r) => s + r.seats.length, 0);
   document.getElementById('statRevenue').textContent = allReservations.reduce((s, r) => s + r.totalPrice, 0).toLocaleString();
 }
+
+function renderReservations() {
+  const query    = (document.getElementById('reservationSearch')?.value || '').toLowerCase();
+  const tbody    = document.getElementById('reservationsBody');
+  const empty    = document.getElementById('reservationsEmpty');
+
+  const filtered = allReservations.filter(r =>
+    r.movie?.toLowerCase().includes(query) ||
+    r.user?.firstName?.toLowerCase().includes(query) ||
+    r.user?.lastName?.toLowerCase().includes(query) ||
+    r.user?.email?.toLowerCase().includes(query)
+  );
+
+  tbody.innerHTML = '';
+
+  if (filtered.length === 0) {
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
