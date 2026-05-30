@@ -129,6 +129,11 @@ function updateCamera() {
 let roomObjects  = [];
 let lightObjects = [];
 
+let movieInfo = {
+  movie:    localStorage.getItem('selectedMovie')    || 'Unknown',
+  showtime: localStorage.getItem('selectedTime')     || 'Unknown',
+  date:     localStorage.getItem('selectedDateText') || 'Unknown',
+};
 
 function buildHall(hallKey) {
   const cfg = HALL_CONFIGS[hallKey];
