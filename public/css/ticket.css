@@ -41,3 +41,20 @@ body {
   margin-bottom: 32px;
   text-align: center;
 }
+
+.ticket {
+  width: 100%;
+  max-width: 480px;
+  background: #fff;
+  color: #111;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  position: relative;
+}
+
+.ticket-header {
+  background: linear-gradient(135deg, #0a1628 0%, #1a2a4a 100%);
+  padding: 28px 32px 24px;
+  text-align: center;
+}
