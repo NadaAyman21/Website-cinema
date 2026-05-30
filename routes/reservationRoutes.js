@@ -29,3 +29,26 @@ router.post('/save', isLoggedIn, async (req, res) => {
     res.status(500).json({ success: false, error: err.message });
   }
 });
+
+router.post('/hold', async (req, res) => {
+  try {
+    const { movie, showtime, date, hall, seats } = req.body;
+    const userId = req.session?.userId?.toString();
+
+    await Hold.deleteMany({ movie, showtime, date, hall, userId });
+
+    if (!seats || JSON.parse(seats).length === 0) {
+      return res.json({ success: true });
+    }
+
+    await Hold.create({
+      movie, showtime, date, hall,
+      seats: JSON.parse(seats),
+      userId
+    });
+
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
