@@ -301,3 +301,34 @@ function renderReservations() {
     return;
   }
   empty.style.display = 'none';
+  filtered.forEach((r, i) => {
+    const name = r.user ? `${r.user.firstName} ${r.user.lastName}` : 'Unknown';
+    const tr   = document.createElement('tr');
+    tr.className = 'reservation-row';
+    tr.innerHTML = `
+      <td class="col-index">${i + 1}</td>
+      <td class="col-movie">
+        <div style="color:var(--text); font-weight:600;">${r.movie || '—'}</div>
+        <div style="font-size:11px; color:var(--muted);">${r.hall || ''} Hall</div>
+      </td>
+      <td class="col-name">
+        <div style="color:var(--text);">${name}</div>
+        <div style="font-size:11px; color:var(--muted);">${r.user?.email || ''}</div>
+      </td>
+      <td class="col-datetime">
+        <div>${r.date || '—'}</div>
+        <div style="font-size:11px;">${r.showtime || ''}</div>
+      </td>
+      <td class="col-seats">
+        ${r.seats.map(s => `<span class="seat-badge">${s}</span>`).join('')}
+      </td>
+      <td class="col-price" style="color:var(--accent2);">${r.totalPrice} EGP</td>
+      <td class="col-actions">
+        <button class="delete-btn" onclick="deleteReservation('${r._id}')">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
