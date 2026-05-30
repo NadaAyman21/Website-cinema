@@ -597,3 +597,24 @@ body {
     .stats-bar { gap: 0; }
     .stat-item { max-width: unset; }
 }
+
+.tickets-grid { display: flex; flex-direction: column; gap: 16px; padding: 20px; }
+
+.ticket-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1a1a2e;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 20px 24px;
+  gap: 16px;
+}
+
+.tc-movie { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.tc-hall  { font-size: 11px; letter-spacing: 0.15em; color: #c9a84c; text-transform: uppercase; margin-bottom: 12px; }
+
+.tc-meta  { display: flex; gap: 16px; font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
+.tc-meta span { display: flex; align-items: center; gap: 6px; }
+
+.tc-seats { display: flex; flex-wrap: wrap; gap: 6px; }
