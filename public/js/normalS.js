@@ -865,10 +865,18 @@ function animate() {
 }
 
 scene.add(seatGroup);
-buildHall('standard');
-updateHallUI('standard');
-updateCamera();
-animate();
+
+// ✅ Fetch real seat data first, then build
+async function init() {
+  await fetchAndApplySeats('standard');
+  await fetchAndApplySeats('deluxe');
+  buildHall('standard');
+  updateHallUI('standard');
+  updateCamera();
+  animate();
+}
+
+init();
 
 setTimeout(() => {
   document.getElementById('loader').classList.add('hidden');
