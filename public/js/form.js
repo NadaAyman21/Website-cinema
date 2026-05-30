@@ -107,3 +107,7 @@ if (payBtn) {
     alert('Something went wrong.');
   }
 }
+
+saveAndRedirect();
+    });
+}
