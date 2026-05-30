@@ -32,3 +32,12 @@ body {
   z-index: 999;
 }
 .back-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+.page-title {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  letter-spacing: 0.4em;
+  color: #c9a84c;
+  margin-bottom: 32px;
+  text-align: center;
+}
