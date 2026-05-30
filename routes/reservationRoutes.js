@@ -52,3 +52,29 @@ router.post('/hold', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+router.get('/seats', async (req, res) => {
+  try {
+    const { movie, showtime, date, hall } = req.query;
+    const userId = req.session?.userId?.toString();
+
+    console.log('Seats query:', { movie, showtime, date, hall });
+
+    const [reservations, holds] = await Promise.all([
+      Reservation.find({ movie, showtime, date, hall }),
+      Hold.find({ movie, showtime, date, hall })
+    ]);
+
+    console.log('Reservations found:', reservations.length, reservations.map(r => r.seats));
+    console.log('Holds found:', holds.length, holds.map(h => h.seats));
+
+    const takenSeats = reservations.flatMap(r => r.seats);
+    const holdSeats  = holds
+      .filter(h => h.userId !== userId)
+      .flatMap(h => h.seats);
+
+    res.json({ taken: takenSeats, hold: holdSeats });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
