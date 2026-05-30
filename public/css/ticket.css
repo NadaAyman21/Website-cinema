@@ -177,3 +177,18 @@ body {
   background: #f9f9f9;
   text-align: center;
 }
+
+.qr-label {
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  color: #aaa;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+#qrCode { display: flex; justify-content: center; margin-bottom: 14px; }
+
+#qrCode canvas, #qrCode img {
+  border-radius: 8px;
+  border: 6px solid #fff;
+  box
