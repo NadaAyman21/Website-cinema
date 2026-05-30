@@ -332,3 +332,15 @@ function renderReservations() {
     tbody.appendChild(tr);
   });
 }
+
+async function deleteReservation(id) {
+  if (!confirm('Delete this reservation?')) return;
+  try {
+    await fetch(`/reservation/admin/${id}`, { method: 'DELETE' });
+    allReservations = allReservations.filter(r => r._id !== id);
+    updateStats();
+    renderReservations();
+  } catch (err) {
+    console.error(err);
+  }
+}
