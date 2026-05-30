@@ -107,3 +107,19 @@ body {
   text-transform: uppercase;
   margin-bottom: 22px;
 }
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 12px;
+  margin-bottom: 22px;
+}
+
+.info-item label {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: #aaa;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
