@@ -7,3 +7,25 @@ function isLoggedIn(req, res, next) {
   if (req.session && req.session.userId) return next();
   return res.status(401).json({ success: false, error: 'Not logged in' });
 }
+
+router.post('/save', isLoggedIn, async (req, res) => {
+  try {
+    const { movie, showtime, date, hall, seats, totalPrice } = req.body;
+    const orderNumber = 'CX-' + Date.now();
+    const userId      = req.session.userId.toString();
+
+    const reservation = await Reservation.create({
+      user: req.session.userId,
+      movie, showtime, date, hall,
+      seats:      JSON.parse(seats),
+      totalPrice: Number(totalPrice),
+      orderNumber
+    });
+
+    await Hold.deleteMany({ movie, showtime, date, hall, userId });
+    res.json({ success: true, reservationId: reservation._id });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
