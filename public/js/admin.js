@@ -102,15 +102,14 @@ async function fetchMovies() {
 }
 
 function renderMoviesList(movies) {
-    const listContainer = document.getElementById('moviesList');
-    if (!listContainer) return;
-    listContainer.innerHTML = ''; 
+  const listContainer = document.getElementById('moviesList');
+  if (!listContainer) return;
+  listContainer.innerHTML = '';
 
-    if (movies.length === 0) {
-        listContainer.innerHTML = '<p style="color:#6b6b80;">No movies found in database.</p>';
-        return;
-    }
-
+  if (movies.length === 0) {
+    listContainer.innerHTML = '<p style="color:var(--muted);">No movies found in database.</p>';
+    return;
+  }
     movies.forEach(movie => {
         const card = document.createElement('div');
         card.className = 'movie-card'; 
