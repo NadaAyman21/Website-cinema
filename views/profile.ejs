@@ -354,6 +354,10 @@
             document.getElementById('tab-' + name).classList.add('active');
             event.currentTarget.classList.add('active');
         }
+
+           document.getElementById('ticketsCount').textContent = '<%= reservations.length %>';
+        document.getElementById('moviesCount').textContent  = '<%= new Set(reservations.map(r => r.movie)).size %>';
+        document.getElementById('upcomingCount').textContent = '<%= reservations.length %>';
     </script>
 
 </body>
