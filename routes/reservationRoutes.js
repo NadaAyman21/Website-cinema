@@ -98,3 +98,12 @@ router.get('/admin/all', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+router.delete('/admin/all/clear', async (req, res) => {
+  try {
+    await Reservation.deleteMany({});
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
