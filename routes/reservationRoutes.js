@@ -116,3 +116,16 @@ router.delete('/admin/:id', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+router.get('/:id', isLoggedIn, async (req, res) => {
+  try {
+    const reservation = await Reservation.findById(req.params.id).populate('user', 'firstName');
+    if (!reservation) return res.status(404).json({ error: 'Not found' });
+    res.json(reservation);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+module.exports = router;
