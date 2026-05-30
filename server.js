@@ -51,6 +51,12 @@ app.get("/", async (req, res) => {
     res.render("cinemaM", { user });
 });
 
+app.get("/ticket/:id", async (req, res) => {
+  if (!req.session.userId) return res.redirect("/cinemaM");
+  const user = await getUser(req);
+  res.render("ticket", { user, reservationId: req.params.id });
+});
+
 app.get("/food", async (req, res) => {
   try {
         const user = await getUser(req);
