@@ -58,3 +58,18 @@ body {
   padding: 28px 32px 24px;
   text-align: center;
 }
+
+.ticket-header .cinema-name {
+  font-family: 'Cinzel', serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: #c9a84c;
+  letter-spacing: 0.3em;
+}
+
+.ticket-header .cinema-sub {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: rgba(255,255,255,0.5);
+  margin-top: 4px;
+}
