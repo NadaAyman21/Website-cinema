@@ -260,3 +260,17 @@ body {
 }
 .btn-download:hover { opacity: 0.9; }
 
+.note {
+  max-width: 480px;
+  text-align: center;
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  margin-top: 20px;
+  line-height: 1.6;
+}
+
+@media print {
+  .back-btn, .ticket-actions, .note, .page-title { display: none; }
+  body { background: #fff; padding: 0; }
+  .ticket { box-shadow: none; max-width: 100%; }
+}
