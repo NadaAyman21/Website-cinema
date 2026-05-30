@@ -110,25 +110,24 @@ function renderMoviesList(movies) {
     listContainer.innerHTML = '<p style="color:var(--muted);">No movies found in database.</p>';
     return;
   }
-    movies.forEach(movie => {
-        const card = document.createElement('div');
-        card.className = 'movie-card'; 
-        card.innerHTML = `
-            <img src="${movie.imageUrl}" alt="${movie.title}" style="width:100%; border-radius:8px;">
-            <h3>${movie.title}</h3>
-            <p><strong>Genre:</strong> ${movie.genre}</p>
-            <p><strong>Duration:</strong> ${movie.runTime}</p>
-            <p><strong>Story:</strong> ${movie.description || 'N/A'}</p>
-            <div style="margin-top: 10px; display:flex; gap:10px;">
-                <button class="edit-btn-action" style="background:#f1c40f; color:#000; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Edit</button>
-                <button class="delete-btn-action" style="background:#e74c3c; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Delete</button>
-            </div>
-        `;
-
-        card.querySelector('.edit-btn-action').addEventListener('click', () => populateFormForEditing(movie));
-        card.querySelector('.delete-btn-action').addEventListener('click', () => deleteMovie(movie._id));
-        listContainer.appendChild(card);
-    });
+ movies.forEach(movie => {
+    const card = document.createElement('div');
+    card.className = 'movie';
+    card.innerHTML = `
+      <img src="${movie.imageUrl}" alt="${movie.title}">
+      <div class="movie-info">
+        <h4>${movie.title}</h4>
+        <span>${movie.genre} · ${movie.runTime}</span>
+      </div>
+      <div class="movie-actions">
+        <button class="edit">Edit</button>
+        <button class="delete">Delete</button>
+      </div>
+    `;
+    card.querySelector('.edit').addEventListener('click',   () => populateFormForEditing(movie));
+    card.querySelector('.delete').addEventListener('click', () => deleteMovie(movie._id));
+    listContainer.appendChild(card);
+  });
 }
 
 function populateFormForEditing(movie) {
