@@ -275,3 +275,9 @@ async function fetchReservations() {
     console.error('Failed to fetch reservations:', err);
   }
 }
+
+function updateStats() {
+  document.getElementById('statTotal').textContent   = allReservations.length;
+  document.getElementById('statSeats').textContent   = allReservations.reduce((s, r) => s + r.seats.length, 0);
+  document.getElementById('statRevenue').textContent = allReservations.reduce((s, r) => s + r.totalPrice, 0).toLocaleString();
+}
