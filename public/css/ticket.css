@@ -98,3 +98,12 @@ body {
   color: #0a1628;
   margin-bottom: 6px;
 }
+
+
+.movie-hall {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
