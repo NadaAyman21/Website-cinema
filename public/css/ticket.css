@@ -191,4 +191,29 @@ body {
 #qrCode canvas, #qrCode img {
   border-radius: 8px;
   border: 6px solid #fff;
-  box
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+.order-number {
+  font-size: 11px;
+  color: #aaa;
+  letter-spacing: 0.15em;
+  margin-bottom: 4px;
+}
+
+.order-value {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  color: #0a1628;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+}
+
+.total-line {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e8e8e8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
