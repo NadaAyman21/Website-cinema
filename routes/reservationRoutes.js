@@ -78,3 +78,12 @@ router.get('/seats', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+router.get('/my', isLoggedIn, async (req, res) => {
+  try {
+    const reservations = await Reservation.find({ user: req.session.userId }).sort({ createdAt: -1 });
+    res.json(reservations);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
