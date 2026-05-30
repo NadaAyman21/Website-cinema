@@ -262,3 +262,16 @@ function showAlert(msg) {
 }
 function closeAlert() { document.getElementById('customAlert').style.display = 'none'; }
 function logout() { alert("Logging out..."); window.location.href = "/logout"; }
+
+let allReservations = [];
+
+async function fetchReservations() {
+  try {
+    const res  = await fetch('/reservation/admin/all');
+    allReservations = await res.json();
+    updateStats();
+    renderReservations();
+  } catch (err) {
+    console.error('Failed to fetch reservations:', err);
+  }
+}
