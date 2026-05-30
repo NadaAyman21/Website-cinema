@@ -88,4 +88,22 @@ if (payBtn) {
     totalPrice: localStorage.getItem('totalPrice')
   };
 
-      
+       try {
+    const res  = await fetch('/reservation/save', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+    if (data.success) {
+      localStorage.clear();
+      window.location.href = `/ticket/${data.reservationId}`;
+    } else {
+      alert('Booking failed, please try again.');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Something went wrong.');
+  }
+}
