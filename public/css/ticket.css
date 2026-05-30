@@ -140,3 +140,16 @@ body {
   text-transform: uppercase;
   margin-bottom: 10px;
 }
+
+.seat-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.seat-tag {
+  background: #0a1628;
+  color: #c9a84c;
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  letter-spacing: 0.1em;
+}
