@@ -87,3 +87,14 @@ router.get('/my', isLoggedIn, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+router.get('/admin/all', async (req, res) => {
+  try {
+    const reservations = await Reservation.find()
+      .populate('user', 'firstName lastName email')
+      .sort({ createdAt: -1 });
+    res.json(reservations);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
