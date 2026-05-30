@@ -73,3 +73,20 @@ body {
   color: rgba(255,255,255,0.5);
   margin-top: 4px;
 }
+
+.ticket-header .confirmed-badge {
+  display: inline-block;
+  margin-top: 14px;
+  background: rgba(201,168,76,0.15);
+  border: 1px solid #c9a84c;
+  color: #c9a84c;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  padding: 4px 14px;
+  border-radius: 20px;
+}
+
+.ticket-body {
+  padding: 28px 32px 20px;
+  background: #fff;
+}
