@@ -555,11 +555,12 @@ function openConfirm() {
  
 
 function confirmBook() {
-  closeConfirm();
-  alert('🎬 Booking confirmed! Enjoy your VIP experience.');
-  selected.clear();
-  Object.keys(seatMeshes).forEach(id => updateSeatVisual(id));
-  updateUI();
+ 
+  localStorage.setItem('bookedSeats', JSON.stringify(Array.from(selected).sort()));
+  localStorage.setItem('totalPrice', selected.size * SEAT_PRICE);
+  localStorage.setItem('hallType', 'VIP');
+
+  window.location.href = '/orderSum'; // adjust to your actual route
 }
  
 function setView(v, e) {
