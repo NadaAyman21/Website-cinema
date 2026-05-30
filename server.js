@@ -177,9 +177,11 @@ app.get("/admin", async (req, res) => {
 });
 
 app.get("/profile", async (req, res) => {
-    if (!req.session.userId) return res.redirect("/cinemaM");
-    const user = await getUser(req);
-    res.render("profile", { user, currentPage: 'profile' });
+  if (!req.session.userId) return res.redirect("/cinemaM");
+  const user         = await getUser(req);
+  const Reservation  = require('./models/Reservation');
+  const reservations = await Reservation.find({ user: req.session.userId }).sort({ createdAt: -1 });
+  res.render("profile", { user, currentPage: 'profile', reservations });
 });
 
 app.get("/logout", (req, res) => {
