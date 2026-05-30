@@ -344,3 +344,18 @@ async function deleteReservation(id) {
     console.error(err);
   }
 }
+
+async function clearAllReservations() {
+  if (!confirm('Clear ALL reservations? This cannot be undone.')) return;
+  try {
+    await fetch('/reservation/admin/all/clear', { method: 'DELETE' });
+    allReservations = [];
+    updateStats();
+    renderReservations();
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+
+fetchReservations();
