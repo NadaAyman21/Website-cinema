@@ -627,18 +627,32 @@ function flashMax() {
 
 function updateUI() {
   const count = selected.size;
-  document.getElementById('sel-count').textContent  = count;
-  document.getElementById('book-btn').disabled      = count === 0;
+  document.getElementById('sel-count').textContent = count;
+  document.getElementById('book-btn').disabled     = count === 0;
 
   const tagsEl = document.getElementById('seat-tags');
   tagsEl.innerHTML = '';
   const cls = currentHall === 'standard' ? 'std' : 'dlx';
-
   Array.from(selected).sort().forEach(id => {
     const tag = document.createElement('div');
     tag.className   = `seat-tag ${cls}`;
     tag.textContent = id;
     tagsEl.appendChild(tag);
+  });
+
+  // Place hold in DB
+  const cfg = HALL_CONFIGS[currentHall];
+  fetch('/reservation/hold', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({
+      movie:    movieInfo.movie,
+      showtime: movieInfo.showtime,
+      date:     movieInfo.date,
+      hall:     cfg.label,
+      seats:    JSON.stringify(Array.from(selected))
+    })
   });
 }
 
