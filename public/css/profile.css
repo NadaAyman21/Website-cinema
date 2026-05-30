@@ -633,3 +633,15 @@ body {
 
 .tc-price  { font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 4px; }
 .tc-order  { font-size: 10px; color: rgba(255,255,255,0.3); letter-spacing: 0.1em; margin-bottom: 14px; }
+
+.tc-view-btn {
+  display: inline-block;
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #c9a84c, #e8c870);
+  color: #0a1628;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  border-radius: 6px;
+  text-decoration: none;
+}
