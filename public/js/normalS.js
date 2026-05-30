@@ -677,12 +677,15 @@ function openConfirm() {
 
 
 function confirmBook() {
-  closeConfirm();
   const cfg = HALL_CONFIGS[currentHall];
-  alert(`🎬 Booking confirmed! Enjoy your ${cfg.label} experience.`);
-  selected.clear();
-  Object.keys(seatMeshes).forEach(id => updateSeatVisual(id));
-  updateUI();
+
+
+  localStorage.setItem('bookedSeats', JSON.stringify(Array.from(selected).sort()));
+  localStorage.setItem('totalPrice', selected.size * cfg.price);
+  localStorage.setItem('hallType', cfg.label);
+
+ 
+  window.location.href = '/orderSum';
 }
 
 
