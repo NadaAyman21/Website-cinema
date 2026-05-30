@@ -90,3 +90,11 @@ body {
   padding: 28px 32px 20px;
   background: #fff;
 }
+
+.movie-title {
+  font-family: 'Cinzel', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0a1628;
+  margin-bottom: 6px;
+}
