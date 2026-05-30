@@ -553,10 +553,7 @@ function openConfirm() {
   document.getElementById('confirm-modal').classList.add('show');
 }
  
-function closeConfirm() {
-  document.getElementById('confirm-modal').classList.remove('show');
-}
- 
+
 function confirmBook() {
   closeConfirm();
   alert('🎬 Booking confirmed! Enjoy your VIP experience.');
