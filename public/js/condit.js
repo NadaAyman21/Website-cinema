@@ -1,22 +1,22 @@
 let currentType = "";
 window.onload = function() {
     const urlParams = new URLSearchParams(window.location.search);
-    currentType = urlParams.get('type'); // "premiere" or "standard"
+    currentType = urlParams.get('type'); 
 
-    const modalBox = document.getElementById("modalBox"); // ADD THIS
+    const modalBox = document.getElementById("modalBox"); 
 
     if (currentType === 'premiere') {
         document.getElementById("premiereRule").style.display = "block";
-        modalBox.classList.add("gold-theme"); // ADD THIS
+        modalBox.classList.add("gold-theme"); 
     } else {
-        modalBox.classList.add("blue-theme"); // ADD THIS
+        modalBox.classList.add("blue-theme"); 
     }
 };
 function agree() {
     if (currentType === "premiere") {
-        window.location.href = "/vipSeats";   // Go to VIP seats
+        window.location.href = "/vipSeats";   
     } else {
-        window.location.href = "/normalSeats"; // Go to Standard seats
+        window.location.href = "/normalSeats"; 
     }
 }
 

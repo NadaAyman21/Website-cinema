@@ -1,4 +1,4 @@
-// models/Reservation.js
+
 const mongoose = require('mongoose');
 
 const ReservationSchema = new mongoose.Schema({
@@ -6,11 +6,11 @@ const ReservationSchema = new mongoose.Schema({
   movie:       { type: String, required: true },
   showtime:    { type: String, required: true },
   date:        { type: String, required: true },
-  hall:        { type: String, required: true },        // Standard / Deluxe / VIP
-  seats:       { type: [String], required: true },      // ['A1', 'B3']
+  hall:        { type: String, required: true },        
+  seats:       { type: [String], required: true },      
   totalPrice:  { type: Number, required: true },
   orderNumber: { type: String, unique: true },
-  status:      { type: String, default: 'confirmed' },  // confirmed / cancelled
+  status:      { type: String, default: 'confirmed' },  
   createdAt:   { type: Date, default: Date.now }
 });
 

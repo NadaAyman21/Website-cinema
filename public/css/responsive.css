@@ -1,10 +1,4 @@
-/* ============================================
-   RESPONSIVE CSS - ALL PROJECT BREAKPOINTS
-   ============================================ */
 
-/* ===== ADMIN RESPONSIVE ===== */
-
-/* Tablets (768px and below) */
 @media (max-width: 768px) {
     /* Admin */
     .navbar {
@@ -40,7 +34,7 @@
     }
 }
 
-/* Mobile (480px and below) */
+
 @media (max-width: 480px) {
     /* Admin */
     .navbar {

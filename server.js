@@ -120,7 +120,7 @@ app.post("/reviews", async (req, res) => {
             reviewerName = user.firstName; 
         }
 
-        // FRONTEND SAFEGUARD: Instead of crashing to a text page, redirect with a clean error flag
+       
         if (!req.body.rating || !req.body.comment || req.body.comment.trim() === "") {
             return res.redirect("/reviews?error=missing_fields");
         }

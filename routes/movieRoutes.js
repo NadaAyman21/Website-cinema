@@ -3,7 +3,7 @@ const router = express.Router();
 const movieController = require('../controllers/movie');
 const Movie = require('../models/Movie');
 const User = require('../models/User');
-const Review = require('../models/Reviews'); // Matches your server.js model naming spelling
+const Review = require('../models/Reviews'); 
 
 async function getUser(req) {
     if (!req.session || !req.session.userId) return null;
@@ -23,7 +23,7 @@ router.get('/', async (req, res, next) => {
         const movie = await Movie.findById(req.query.id);
         if (!movie) return res.status(404).send("Movie Not Found");
 
-        // FIX: Look up using 'item' field to match your rev.js form structure
+        
         const movieReviews = await Review.find({
             category: 'movie',
             item: movie.title
@@ -46,7 +46,7 @@ router.get('/', async (req, res, next) => {
             user,
             movie, 
             bookingDays, 
-            reviews: movieReviews, // Passes the correctly filtered array down to the view template
+            reviews: movieReviews, 
             showtimes: JSON.stringify(activeShowtimes) 
         });
     } catch (err) {
@@ -54,7 +54,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-// Keep your existing lower api router points below unchanged
+
 router.get('/api/all', movieController.getAllMovies);      
 router.get('/:id', movieController.getMovieById);  
 router.post('/add', movieController.addMovie);
