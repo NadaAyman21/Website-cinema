@@ -69,25 +69,34 @@ let movieInfo = {
   date:     localStorage.getItem('selectedDateText') || 'Unknown',
 };
 
-async function fetchAndApplySeats(hallKey) {
+async function fetchAndApplySeats() {
   try {
-    const cfg  = HALL_CONFIGS[hallKey];
     const params = new URLSearchParams({
       movie:    movieInfo.movie,
       showtime: movieInfo.showtime,
       date:     movieInfo.date,
-      hall:     cfg.label
+      hall:     'VIP'
     });
 
     const res  = await fetch(`/reservation/seats?${params}`, { credentials: 'include' });
     const data = await res.json();
 
-    // Override the TAKEN and HOLD sets with real DB data
-    cfg.TAKEN = new Set(data.taken || []);
-    cfg.HOLD  = new Set(data.hold  || []);
+    console.log('VIP Seats query:', { movie: movieInfo.movie, showtime: movieInfo.showtime, date: movieInfo.date });
+    console.log('VIP Taken:', data.taken, 'Hold:', data.hold);
+
+    // Override seatData status with real DB data
+    (data.taken || []).forEach(id => {
+      if (seatData[id]) seatData[id].status = 'taken';
+    });
+    (data.hold || []).forEach(id => {
+      if (seatData[id] && seatData[id].status !== 'taken') seatData[id].status = 'hold';
+    });
+
+    // Refresh all seat visuals
+    Object.keys(seatMeshes).forEach(id => updateSeatVisual(id));
 
   } catch (err) {
-    console.error('Failed to fetch seat data:', err);
+    console.error('Failed to fetch VIP seat data:', err);
   }
 }
 const materials = {
