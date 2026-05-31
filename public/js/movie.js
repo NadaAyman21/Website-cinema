@@ -124,13 +124,13 @@ function handleShowtimeSelection(btn) {
     localStorage.setItem('selectedDay', dayName);
     localStorage.setItem('selectedDateText', dateText);
 
-    let typeParam = "standard";
+       let typeParam = "standard";
     if (selectedExperience === "PREMIERE") {
         typeParam = "premiere";
     }
+    const urlParams = new URLSearchParams(window.location.search);
+const currentId = urlParams.get("id") || "";
     const targetUrl = `/condtions?type=${typeParam}`;
-
-   
     if (typeof isUserLoggedIn !== 'undefined' && isUserLoggedIn) {
         // Logged In: Go right to the conditions screen safely!
         window.location.href = targetUrl;
@@ -139,14 +139,12 @@ function handleShowtimeSelection(btn) {
         if (typeof handleProtectedRedirect === 'function') {
             handleProtectedRedirect(targetUrl);
         } else {
-            // Fallback emergency case
+           
             openLogin();
         }
     }
 
-   //window.location.href = `/condtions?type=${typeParam}`;
 }
-
 async function loadOtherRecommendations(currentId) {
     const otherContainer = document.getElementById("otherMovies");
     if (!otherContainer) return;

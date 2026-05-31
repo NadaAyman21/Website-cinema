@@ -1,4 +1,4 @@
-
+const backendMoviePosterPath = document.getElementById('movie-poster-data')?.value;
 const HALL_CONFIGS = {
   standard: {
     label: 'Standard',
@@ -312,10 +312,42 @@ function buildRoom(cfg) {
   ctx.letterSpacing = '0.25em';
   ctx.fillText('• SELECT YOUR SEAT BELOW •', 512, 500);
 
-  const sTex = new THREE.CanvasTexture(stCanvas);
+  let screenTexturingMaterial;
+
+  if (backendMoviePosterPath && backendMoviePosterPath.trim() !== "") {
+    // Instantiate a standard texture asset loader tracker pipeline module block
+   let cleanPath = backendMoviePosterPath.trim();
+    
+   
+    if (!cleanPath.startsWith('/') && !cleanPath.startsWith('http')) {
+        cleanPath = '/' + cleanPath;
+    }
+
+    console.log("Three.js is attempting to load texture from path:", cleanPath);
+
+    const projectTextureLoader = new THREE.TextureLoader();
+    const dynamicMovieImageTexture = projectTextureLoader.load(cleanPath);
+    dynamicMovieImageTexture.wrapS = THREE.ClampToEdgeWrapping;
+    dynamicMovieImageTexture.wrapT = THREE.ClampToEdgeWrapping;
+    dynamicMovieImageTexture.minFilter = THREE.LinearFilter;
+
+    screenTexturingMaterial = new THREE.MeshBasicMaterial({ 
+      map: dynamicMovieImageTexture,
+      side: THREE.DoubleSide
+    });
+  } else {
+    // Fallback Canvas engine mapping structure if no data strings exist 
+    const backupScreenCanvasTexture = new THREE.CanvasTexture(stCanvas);
+    screenTexturingMaterial = new THREE.MeshBasicMaterial({ 
+      map: backupScreenCanvasTexture,
+      side: THREE.DoubleSide
+    });
+  }
+
+  // Bind the newly targeted active texture engine map cleanly across the screen asset mesh structures 
   const screenMesh = add(new THREE.Mesh(
     new THREE.PlaneGeometry(12, 6.7),
-    new THREE.MeshBasicMaterial({ map: sTex })
+    screenTexturingMaterial
   ));
   screenMesh.position.set(0, 5, -D / 2 + 0.4);
 
@@ -360,6 +392,7 @@ function buildRoom(cfg) {
     fix.position.set(0, H - 0.4, -10 + ci * 3.5);
   }
 }
+
 
 function buildLights(cfg) {
   function addL(l) { scene.add(l); lightObjects.push(l); return l; }

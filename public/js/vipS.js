@@ -1,3 +1,5 @@
+const backendMoviePosterPath = document.getElementById('movie-poster-data')?.value;
+
 const MAX_SEATS  = 6;
 const SEAT_PRICE = 450;
 let selected     = new Set();
@@ -152,10 +154,40 @@ function buildRoom() {
   ctx.font = '18px serif';
   ctx.fillText('• SELECT YOUR SEAT BELOW •', 512, 500);
 
-  const sTex = new THREE.CanvasTexture(stCanvas);
+  let screenTexturingMaterial;
+
+  if (backendMoviePosterPath && backendMoviePosterPath.trim() !== "") {
+    let cleanPath = backendMoviePosterPath.trim();
+    
+    if (!cleanPath.startsWith('/') && !cleanPath.startsWith('http')) {
+        cleanPath = '/' + cleanPath;
+    }
+
+    console.log("Three.js VIP Engine loading texture from path:", cleanPath);
+
+    const projectTextureLoader = new THREE.TextureLoader();
+    const dynamicMovieImageTexture = projectTextureLoader.load(cleanPath);
+    
+    dynamicMovieImageTexture.wrapS = THREE.ClampToEdgeWrapping;
+    dynamicMovieImageTexture.wrapT = THREE.ClampToEdgeWrapping;
+    dynamicMovieImageTexture.minFilter = THREE.LinearFilter;
+
+    screenTexturingMaterial = new THREE.MeshBasicMaterial({ 
+      map: dynamicMovieImageTexture,
+      side: THREE.DoubleSide
+    });
+  } else {
+    // Canvas Text engine fallback layout block if database field is missing
+    const backupScreenCanvasTexture = new THREE.CanvasTexture(stCanvas);
+    screenTexturingMaterial = new THREE.MeshBasicMaterial({ 
+      map: backupScreenCanvasTexture,
+      side: THREE.DoubleSide
+    });
+  }
+
   const screenMesh = new THREE.Mesh(
     new THREE.PlaneGeometry(12, 6.7),
-    new THREE.MeshBasicMaterial({ map: sTex })
+    screenTexturingMaterial
   );
   screenMesh.position.set(0, 5, -D / 2 + 0.4);
   scene.add(screenMesh);
