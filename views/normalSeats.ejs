@@ -24,6 +24,7 @@
   </div>
 
   <canvas id="cinema-canvas"></canvas>
+<input type="hidden" id="movie-poster-data" value="<%= movie && movie.imageUrl ? movie.imageUrl : '' %>">
 
   <div id="hall-tabs">
     <button class="hall-tab std active" onclick="switchHall('standard')">Standard</button>
@@ -100,7 +101,7 @@
       <div class="modal-corner br" id="mc-br"></div>
       <div class="modal-icon">🎬</div>
       <div class="modal-title" id="modal-title">Confirm Reservation</div>
-      <div class="modal-sub" id="modal-sub">Standard Hall · Tonight 9:00 PM</div>
+      <div class="modal-sub" id="modal-sub">Standard Hall</div>
       <div class="modal-seats" id="modal-seats"></div>
       <div class="modal-total">Total</div>
       <div class="modal-price" id="modal-price">EGP 0</div>
