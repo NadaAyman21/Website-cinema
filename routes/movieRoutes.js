@@ -31,17 +31,21 @@ router.get('/', async (req, res, next) => {
 
         const activeShowtimes = Array.isArray(movie.showtimes) ? movie.showtimes : [];
 
-        const bookingDays = [];
-        for (let i = 0; i < 4; i++) {
-            const d = new Date();
-            d.setDate(d.getDate() + i);
-            bookingDays.push({
-                dayLabel: i === 0 ? "Today" : d.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase(),
-                dateLabel: d.toLocaleDateString('en-US', { day: 'numeric', month: 'short' }),
-                dateString: d.toISOString().split('T')[0]
-            });
-        }
+       const bookingDays = [];
+for (let i = 0; i < 4; i++) {
+    const d = new Date();
+    d.setDate(d.getDate() + i);
 
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0'); 
+    const day = String(d.getDate()).padStart(2, '0');
+    const localDateString = `${year}-${month}-${day}`;
+    bookingDays.push({
+        dayLabel: i === 0 ? "Today" : d.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase(),
+        dateLabel: d.toLocaleDateString('en-US', { day: 'numeric', month: 'short' }),
+        dateString: localDateString 
+    });
+        }
         res.render('movie', { 
             user,
             movie, 
