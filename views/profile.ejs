@@ -116,23 +116,65 @@
                 </div>
             </div>
 
-            <!-- Tickets Tab -->
-            <div class="tab-content" id="tab-tickets">
-                <div class="empty-state">
-                    <i class="fa fa-ticket"></i>
-                    <p>No upcoming tickets</p>
-                    <a href="/cinemaM" class="cta-btn">Browse Movies</a>
-                </div>
+          <div class="tab-content" id="tab-tickets">
+  <% if (reservations.length === 0) { %>
+    <div class="empty-state">
+      <i class="fa fa-ticket"></i>
+      <p>No upcoming tickets</p>
+      <a href="/cinemaM" class="cta-btn">Browse Movies</a>
+    </div>
+  <% } else { %>
+    <div class="tickets-grid">
+      <% reservations.forEach(r => { %>
+        <div class="ticket-card">
+          <div class="ticket-card-left">
+            <div class="tc-movie"><%= r.movie %></div>
+            <div class="tc-hall"><%= r.hall %> Hall</div>
+            <div class="tc-meta">
+              <span><i class="fa fa-calendar"></i> <%= r.date %></span>
+              <span><i class="fa fa-clock"></i> <%= r.showtime %></span>
             </div>
+            <div class="tc-seats">
+              <% r.seats.forEach(s => { %>
+                <span class="tc-seat-tag"><%= s %></span>
+              <% }) %>
+            </div>
+          </div>
+          <div class="ticket-card-right">
+            <div class="tc-price"><%= r.totalPrice %> EGP</div>
+            <div class="tc-order"><%= r.orderNumber %></div>
+            <a href="/ticket/<%= r._id %>" class="tc-view-btn">View Ticket</a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
 
-            <!-- History Tab -->
-            <div class="tab-content" id="tab-history">
-                <div class="empty-state">
-                    <i class="fa fa-clock"></i>
-                    <p>No watch history yet</p>
-                    <a href="/cinemaM" class="cta-btn">Browse Movies</a>
-                </div>
-            </div>
+<!-- History Tab -->
+<div class="tab-content" id="tab-history">
+  <% if (reservations.length === 0) { %>
+    <div class="empty-state">
+      <i class="fa fa-clock"></i>
+      <p>No watch history yet</p>
+      <a href="/cinemaM" class="cta-btn">Browse Movies</a>
+    </div>
+  <% } else { %>
+    <div class="history-list">
+      <% reservations.forEach(r => { %>
+        <div class="history-item">
+          <div class="history-icon"><i class="fa fa-film"></i></div>
+          <div class="history-info">
+            <div class="history-movie"><%= r.movie %></div>
+            <div class="history-detail"><%= r.hall %> Hall · <%= r.date %> · <%= r.showtime %></div>
+            <div class="history-seats">Seats: <%= r.seats.join(', ') %></div>
+          </div>
+          <div class="history-price"><%= r.totalPrice %> EGP</div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+</div>
 
             <!-- Settings Tab -->
             <div class="tab-content" id="tab-settings">
@@ -312,6 +354,10 @@
             document.getElementById('tab-' + name).classList.add('active');
             event.currentTarget.classList.add('active');
         }
+
+           document.getElementById('ticketsCount').textContent = '<%= reservations.length %>';
+        document.getElementById('moviesCount').textContent  = '<%= new Set(reservations.map(r => r.movie)).size %>';
+        document.getElementById('upcomingCount').textContent = '<%= reservations.length %>';
     </script>
 
 </body>

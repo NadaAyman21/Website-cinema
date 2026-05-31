@@ -15,31 +15,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (day && time)      dateTimeElem.innerText  = `${day}, ${time}`;
     if (dateText)         fullDateElem.innerText  = dateText;
     if (finalPrice && priceBoxElem) priceBoxElem.innerText = `${finalPrice}.00 EGP`;
+       const hallType = localStorage.getItem('hallType') || 'Standard';
+    const seatsLine = document.createElement('p');
+    seatsLine.innerText = `Seats: ${seats.join(', ') || 'N/A'} · ${hallType} Hall`;
+    document.querySelector('.movie-box').insertBefore(seatsLine, priceBoxElem);
 
-    // ✅ Generate QR
+    generateQR({ movie, day, time, seats, finalPrice });
+
     generateQR({ movie, day, time, seats, finalPrice });
 });
 
-/*function generateQR({ movie, day, time, seats, finalPrice }) {
-    const qrData = [
-        `CineX Ticket`,
-        `Movie: ${movie    || 'N/A'}`,
-        `Date:  ${day      || 'N/A'}`,
-        `Time:  ${time     || 'N/A'}`,
-        `Seats: ${seats.join(', ') || 'N/A'}`,
-        `Total: ${finalPrice || '0'} EGP`,
-        `Ref:   CX-${Date.now()}`
-    ].join('\n');
 
-    new QRCode(document.getElementById('qrCode'), {
-        text:         qrData,
-        width:        160,
-        height:       160,
-        colorDark:    '#000000',
-        colorLight:   '#ffffff',
-        correctLevel: QRCode.CorrectLevel.H
-    });
-}*/
 function showAlert(message) {
     const modal = document.getElementById("customAlert");
     if (modal) {

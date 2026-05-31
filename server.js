@@ -8,6 +8,8 @@ const authRoutes = require('./routes/authRoutes');
 const User = require('./models/User');
 const Movie = require('./models/Movie');
 const Review = require('./models/Reviews');
+const reservationRoutes = require('./routes/reservationRoutes');
+require('./models/Hold');  
 
 const app = express();
 
@@ -32,7 +34,7 @@ app.use(session({
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use('/reservation', reservationRoutes);
 async function getUser(req) {
     if (!req.session.userId) return null;
     return await User.findById(req.session.userId);
@@ -47,6 +49,12 @@ app.get("/cinemaM", async (req, res) => {
 app.get("/", async (req, res) => {
     const user = await getUser(req);
     res.render("cinemaM", { user });
+});
+
+app.get("/ticket/:id", async (req, res) => {
+  if (!req.session.userId) return res.redirect("/cinemaM");
+  const user = await getUser(req);
+  res.render("ticket", { user, reservationId: req.params.id });
 });
 
 app.get("/food", async (req, res) => {
@@ -169,9 +177,11 @@ app.get("/admin", async (req, res) => {
 });
 
 app.get("/profile", async (req, res) => {
-    if (!req.session.userId) return res.redirect("/cinemaM");
-    const user = await getUser(req);
-    res.render("profile", { user, currentPage: 'profile' });
+  if (!req.session.userId) return res.redirect("/cinemaM");
+  const user         = await getUser(req);
+  const Reservation  = require('./models/Reservation');
+  const reservations = await Reservation.find({ user: req.session.userId }).sort({ createdAt: -1 });
+  res.render("profile", { user, currentPage: 'profile', reservations });
 });
 
 app.get("/logout", (req, res) => {

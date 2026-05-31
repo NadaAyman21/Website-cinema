@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineX — Your Ticket</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Raleway:wght@200;300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/ticket.css">
+</head>
+<body>
+
+  <a onclick="history.back()" class="back-btn">✕</a>
+
+  <div class="page-title">✦ BOOKING CONFIRMED ✦</div>
+
+  <div class="ticket" id="ticketCard">
+    <div class="ticket-header">
+      <div class="cinema-name">CINEX</div>
+      <div class="cinema-sub">Cairo Festival City · Premium Cinema</div>
+      <div class="confirmed-badge">✓ CONFIRMED</div>
+    </div>
+
+    <div class="ticket-body">
+      <div class="movie-title" id="t-movie">Loading...</div>
+      <div class="movie-hall"  id="t-hall">— Hall</div>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <label>Date</label>
+          <span id="t-date">—</span>
+        </div>
+        <div class="info-item">
+          <label>Showtime</label>
+          <span id="t-time">—</span>
+        </div>
+        <div class="info-item">
+          <label>Guest</label>
+          <span id="t-name">—</span>
+        </div>
+        <div class="info-item">
+          <label>Seats Count</label>
+          <span id="t-count">—</span>
+        </div>
+      </div>
+
+       <div class="seats-section">
+        <label>Reserved Seats</label>
+        <div class="seat-tags" id="t-seats"></div>
+      </div>
+    </div>
+
+    <div class="tear-line">
+      <div class="dashes"></div>
+    </div>
+
+    <div class="ticket-stub">
+      <div class="qr-label">Scan at Entrance</div>
+      <div id="qrCode"></div>
+      <div class="order-number">Order Number</div>
+      <div class="order-value" id="t-order">—</div>
+      <div class="total-line">
+        <span>Total Paid</span>
+        <strong id="t-price">— EGP</strong>
+      </div>
+    </div>
+  </div>
+
+    <div class="ticket-actions">
+    <button class="btn-home"     onclick="window.location.href='/cinemaM'">← Back to Home</button>
+    <button class="btn-download" onclick="downloadTicket()">↓ Download Ticket</button>
+  </div>
+
+  <p class="note">Please screenshot or download your ticket. Present the QR code at the cinema entrance.</p>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    const reservationId = '<%= reservationId %>';
+    const userName      = '<%= user ? user.firstName : "Guest" %>';
+  </script>
+  <script src="/js/ticket.js"></script>
+</body>
+</html>

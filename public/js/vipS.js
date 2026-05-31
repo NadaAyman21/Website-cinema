@@ -63,7 +63,33 @@ function updateCamera() {
   camera.position.set(x, y + 2, z);
   camera.lookAt(0, 1, -2);
 }
+let movieInfo = {
+  movie:    localStorage.getItem('selectedMovie')    || 'Unknown',
+  showtime: localStorage.getItem('selectedTime')     || 'Unknown',
+  date:     localStorage.getItem('selectedDateText') || 'Unknown',
+};
 
+async function fetchAndApplySeats(hallKey) {
+  try {
+    const cfg  = HALL_CONFIGS[hallKey];
+    const params = new URLSearchParams({
+      movie:    movieInfo.movie,
+      showtime: movieInfo.showtime,
+      date:     movieInfo.date,
+      hall:     cfg.label
+    });
+
+    const res  = await fetch(`/reservation/seats?${params}`, { credentials: 'include' });
+    const data = await res.json();
+
+    // Override the TAKEN and HOLD sets with real DB data
+    cfg.TAKEN = new Set(data.taken || []);
+    cfg.HOLD  = new Set(data.hold  || []);
+
+  } catch (err) {
+    console.error('Failed to fetch seat data:', err);
+  }
+}
 const materials = {
   screen:       new THREE.MeshStandardMaterial({ color: 0x1a4a7a, emissive: 0x0a2a4a, roughness: 0.1, metalness: 0.05 }),
   screenGlow:   new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x8bbfe0, emissiveIntensity: 1.2, roughness: 0.05, metalness: 0.1, transparent: true, opacity: 0.97 }),
@@ -527,16 +553,14 @@ function openConfirm() {
   document.getElementById('confirm-modal').classList.add('show');
 }
  
-function closeConfirm() {
-  document.getElementById('confirm-modal').classList.remove('show');
-}
- 
+
 function confirmBook() {
-  closeConfirm();
-  alert('🎬 Booking confirmed! Enjoy your VIP experience.');
-  selected.clear();
-  Object.keys(seatMeshes).forEach(id => updateSeatVisual(id));
-  updateUI();
+ 
+  localStorage.setItem('bookedSeats', JSON.stringify(Array.from(selected).sort()));
+  localStorage.setItem('totalPrice', selected.size * SEAT_PRICE);
+  localStorage.setItem('hallType', 'VIP');
+
+  window.location.href = '/orderSum'; // adjust to your actual route
 }
  
 function setView(v, e) {

@@ -102,34 +102,32 @@ async function fetchMovies() {
 }
 
 function renderMoviesList(movies) {
-    const listContainer = document.getElementById('moviesList');
-    if (!listContainer) return;
-    listContainer.innerHTML = ''; 
+  const listContainer = document.getElementById('moviesList');
+  if (!listContainer) return;
+  listContainer.innerHTML = '';
 
-    if (movies.length === 0) {
-        listContainer.innerHTML = '<p style="color:#6b6b80;">No movies found in database.</p>';
-        return;
-    }
-
-    movies.forEach(movie => {
-        const card = document.createElement('div');
-        card.className = 'movie-card'; 
-        card.innerHTML = `
-            <img src="${movie.imageUrl}" alt="${movie.title}" style="width:100%; border-radius:8px;">
-            <h3>${movie.title}</h3>
-            <p><strong>Genre:</strong> ${movie.genre}</p>
-            <p><strong>Duration:</strong> ${movie.runTime}</p>
-            <p><strong>Story:</strong> ${movie.description || 'N/A'}</p>
-            <div style="margin-top: 10px; display:flex; gap:10px;">
-                <button class="edit-btn-action" style="background:#f1c40f; color:#000; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Edit</button>
-                <button class="delete-btn-action" style="background:#e74c3c; color:#fff; border:none; padding:5px 10px; border-radius:4px; cursor:pointer;">Delete</button>
-            </div>
-        `;
-
-        card.querySelector('.edit-btn-action').addEventListener('click', () => populateFormForEditing(movie));
-        card.querySelector('.delete-btn-action').addEventListener('click', () => deleteMovie(movie._id));
-        listContainer.appendChild(card);
-    });
+  if (movies.length === 0) {
+    listContainer.innerHTML = '<p style="color:var(--muted);">No movies found in database.</p>';
+    return;
+  }
+ movies.forEach(movie => {
+    const card = document.createElement('div');
+    card.className = 'movie';
+    card.innerHTML = `
+      <img src="${movie.imageUrl}" alt="${movie.title}">
+      <div class="movie-info">
+        <h4>${movie.title}</h4>
+        <span>${movie.genre} · ${movie.runTime}</span>
+      </div>
+      <div class="movie-actions">
+        <button class="edit">Edit</button>
+        <button class="delete">Delete</button>
+      </div>
+    `;
+    card.querySelector('.edit').addEventListener('click',   () => populateFormForEditing(movie));
+    card.querySelector('.delete').addEventListener('click', () => deleteMovie(movie._id));
+    listContainer.appendChild(card);
+  });
 }
 
 function populateFormForEditing(movie) {
@@ -264,3 +262,100 @@ function showAlert(msg) {
 }
 function closeAlert() { document.getElementById('customAlert').style.display = 'none'; }
 function logout() { alert("Logging out..."); window.location.href = "/logout"; }
+
+let allReservations = [];
+
+async function fetchReservations() {
+  try {
+    const res  = await fetch('/reservation/admin/all');
+    allReservations = await res.json();
+    updateStats();
+    renderReservations();
+  } catch (err) {
+    console.error('Failed to fetch reservations:', err);
+  }
+}
+
+function updateStats() {
+  document.getElementById('statTotal').textContent   = allReservations.length;
+  document.getElementById('statSeats').textContent   = allReservations.reduce((s, r) => s + r.seats.length, 0);
+  document.getElementById('statRevenue').textContent = allReservations.reduce((s, r) => s + r.totalPrice, 0).toLocaleString();
+}
+
+function renderReservations() {
+  const query    = (document.getElementById('reservationSearch')?.value || '').toLowerCase();
+  const tbody    = document.getElementById('reservationsBody');
+  const empty    = document.getElementById('reservationsEmpty');
+
+  const filtered = allReservations.filter(r =>
+    r.movie?.toLowerCase().includes(query) ||
+    r.user?.firstName?.toLowerCase().includes(query) ||
+    r.user?.lastName?.toLowerCase().includes(query) ||
+    r.user?.email?.toLowerCase().includes(query)
+  );
+
+  tbody.innerHTML = '';
+
+  if (filtered.length === 0) {
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  filtered.forEach((r, i) => {
+    const name = r.user ? `${r.user.firstName} ${r.user.lastName}` : 'Unknown';
+    const tr   = document.createElement('tr');
+    tr.className = 'reservation-row';
+    tr.innerHTML = `
+      <td class="col-index">${i + 1}</td>
+      <td class="col-movie">
+        <div style="color:var(--text); font-weight:600;">${r.movie || '—'}</div>
+        <div style="font-size:11px; color:var(--muted);">${r.hall || ''} Hall</div>
+      </td>
+      <td class="col-name">
+        <div style="color:var(--text);">${name}</div>
+        <div style="font-size:11px; color:var(--muted);">${r.user?.email || ''}</div>
+      </td>
+      <td class="col-datetime">
+        <div>${r.date || '—'}</div>
+        <div style="font-size:11px;">${r.showtime || ''}</div>
+      </td>
+      <td class="col-seats">
+        ${r.seats.map(s => `<span class="seat-badge">${s}</span>`).join('')}
+      </td>
+      <td class="col-price" style="color:var(--accent2);">${r.totalPrice} EGP</td>
+      <td class="col-actions">
+        <button class="delete-btn" onclick="deleteReservation('${r._id}')">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+async function deleteReservation(id) {
+  if (!confirm('Delete this reservation?')) return;
+  try {
+    await fetch(`/reservation/admin/${id}`, { method: 'DELETE' });
+    allReservations = allReservations.filter(r => r._id !== id);
+    updateStats();
+    renderReservations();
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+async function clearAllReservations() {
+  if (!confirm('Clear ALL reservations? This cannot be undone.')) return;
+  try {
+    await fetch('/reservation/admin/all/clear', { method: 'DELETE' });
+    allReservations = [];
+    updateStats();
+    renderReservations();
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+
+fetchReservations();

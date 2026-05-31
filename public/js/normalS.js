@@ -129,6 +129,32 @@ function updateCamera() {
 let roomObjects  = [];
 let lightObjects = [];
 
+let movieInfo = {
+  movie:    localStorage.getItem('selectedMovie')    || 'Unknown',
+  showtime: localStorage.getItem('selectedTime')     || 'Unknown',
+  date:     localStorage.getItem('selectedDateText') || 'Unknown',
+};
+async function fetchAndApplySeats(hallKey) {
+  try {
+    const cfg  = HALL_CONFIGS[hallKey];
+    const params = new URLSearchParams({
+      movie:    movieInfo.movie,
+      showtime: movieInfo.showtime,
+      date:     movieInfo.date,
+      hall:     cfg.label
+    });
+
+    const res  = await fetch(`/reservation/seats?${params}`, { credentials: 'include' });
+    const data = await res.json();
+
+    // Override the TAKEN and HOLD sets with real DB data
+    cfg.TAKEN = new Set(data.taken || []);
+    cfg.HOLD  = new Set(data.hold  || []);
+
+  } catch (err) {
+    console.error('Failed to fetch seat data:', err);
+  }
+}
 
 function buildHall(hallKey) {
   const cfg = HALL_CONFIGS[hallKey];
@@ -516,22 +542,22 @@ function switchHall(hallKey) {
   const overlay = document.getElementById('switch-overlay');
   overlay.classList.add('visible');
 
-  setTimeout(() => {
+  setTimeout(async () => {
     currentHall = hallKey;
     selected.clear();
     hoveredSeat = null;
 
+    await fetchAndApplySeats(hallKey);
+
     buildHall(hallKey);
     updateHallUI(hallKey);
     updateUI();
-
 
     phi = Math.PI / 2.2; theta = Math.PI; radius = 15;
     targetPhi = phi; targetTheta = theta; targetRadius = radius;
     autoRotate = false;
 
     document.querySelectorAll('.view-btn').forEach((b, i) => b.classList.toggle('active', i === 0));
-
     setTimeout(() => overlay.classList.remove('visible'), 50);
   }, 350);
 }
@@ -601,18 +627,32 @@ function flashMax() {
 
 function updateUI() {
   const count = selected.size;
-  document.getElementById('sel-count').textContent  = count;
-  document.getElementById('book-btn').disabled      = count === 0;
+  document.getElementById('sel-count').textContent = count;
+  document.getElementById('book-btn').disabled     = count === 0;
 
   const tagsEl = document.getElementById('seat-tags');
   tagsEl.innerHTML = '';
   const cls = currentHall === 'standard' ? 'std' : 'dlx';
-
   Array.from(selected).sort().forEach(id => {
     const tag = document.createElement('div');
     tag.className   = `seat-tag ${cls}`;
     tag.textContent = id;
     tagsEl.appendChild(tag);
+  });
+
+  // Place hold in DB
+  const cfg = HALL_CONFIGS[currentHall];
+  fetch('/reservation/hold', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({
+      movie:    movieInfo.movie,
+      showtime: movieInfo.showtime,
+      date:     movieInfo.date,
+      hall:     cfg.label,
+      seats:    JSON.stringify(Array.from(selected))
+    })
   });
 }
 
@@ -635,17 +675,17 @@ function openConfirm() {
   document.getElementById('confirm-modal').classList.add('show');
 }
 
-function closeConfirm() {
-  document.getElementById('confirm-modal').classList.remove('show');
-}
 
 function confirmBook() {
-  closeConfirm();
   const cfg = HALL_CONFIGS[currentHall];
-  alert(`🎬 Booking confirmed! Enjoy your ${cfg.label} experience.`);
-  selected.clear();
-  Object.keys(seatMeshes).forEach(id => updateSeatVisual(id));
-  updateUI();
+
+
+  localStorage.setItem('bookedSeats', JSON.stringify(Array.from(selected).sort()));
+  localStorage.setItem('totalPrice', selected.size * cfg.price);
+  localStorage.setItem('hallType', cfg.label);
+
+ 
+  window.location.href = '/orderSum';
 }
 
 
@@ -825,10 +865,18 @@ function animate() {
 }
 
 scene.add(seatGroup);
-buildHall('standard');
-updateHallUI('standard');
-updateCamera();
-animate();
+
+// ✅ Fetch real seat data first, then build
+async function init() {
+  await fetchAndApplySeats('standard');
+  await fetchAndApplySeats('deluxe');
+  buildHall('standard');
+  updateHallUI('standard');
+  updateCamera();
+  animate();
+}
+
+init();
 
 setTimeout(() => {
   document.getElementById('loader').classList.add('hidden');
