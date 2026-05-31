@@ -154,13 +154,6 @@ function buildRoom() {
   ctx.font = '18px serif';
   ctx.fillText('• SELECT YOUR SEAT BELOW •', 512, 500);
 
-  /*const sTex = new THREE.CanvasTexture(stCanvas);
-  const screenMesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(12, 6.7),
-    new THREE.MeshBasicMaterial({ map: sTex })
-  );
-  screenMesh.position.set(0, 5, -D / 2 + 0.4);
-  scene.add(screenMesh);*/
   let screenTexturingMaterial;
 
   if (backendMoviePosterPath && backendMoviePosterPath.trim() !== "") {
