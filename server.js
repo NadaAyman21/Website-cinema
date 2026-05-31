@@ -152,18 +152,63 @@ app.get("/api/reviews/experience", async (req, res) => {
 });
 
 app.get("/normalSeats", async (req, res) => {
-    const user = await getUser(req);
-    res.render("normalSeats", { user });
+   try {
+        const user = await getUser(req);
+        
+        let movie = null;
+        if (req.query.id) {
+            movie = await Movie.findById(req.query.id);
+            
+            if (movie && movie.imageUrl) {
+                let imgPath = movie.imageUrl.trim();
+                if (!imgPath.startsWith('/') && !imgPath.startsWith('http')) {
+                    movie.imageUrl = '/' + imgPath;
+                }
+            }
+        }
+
+        res.render("normalSeats", { user, movie });
+    } catch (err) {
+        console.error("Error loading seating map:", err);
+        res.status(500).send("Error loading seat configuration");
+    }
 });
 
 app.get("/vipSeats", async (req, res) => {
-    const user = await getUser(req);
-    res.render("vipSeats", { user });
+    try {
+        const user = await getUser(req);
+        
+        let movie = null;
+        if (req.query.id) {
+            movie = await Movie.findById(req.query.id);
+            if (movie && movie.imageUrl) {
+                let imgPath = movie.imageUrl.trim();
+                if (!imgPath.startsWith('/') && !imgPath.startsWith('http')) {
+                    movie.imageUrl = '/' + imgPath;
+                }
+            }
+        }
+        res.render("vipSeats", { user, movie });
+    } catch (err) {
+        console.error("Error loading VIP seating map:", err);
+        res.status(500).send("Error loading VIP seat configuration");
+    }
+
 });
 
 app.get("/condtions", async (req, res) => {
-    const user = await getUser(req);
-    res.render("condtions", { user });
+     try {
+        const user = await getUser(req);
+        let movie = null;
+        if (req.query.id) {
+            movie = await Movie.findById(req.query.id);
+        }
+        res.render("condtions", { user, movie });
+    } catch (err) {
+        console.error("Error loading conditions page:", err);
+        res.status(500).send("Server Error");
+    }
+
 });
 
 app.get("/admin", async (req, res) => {
