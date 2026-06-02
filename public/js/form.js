@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Get the saved price from memory
+    
     const savedPrice = localStorage.getItem('finalAmount');
     const payBtn = document.getElementById('dynamicPayBtn');
 
@@ -13,7 +13,7 @@ const cancelBtn = document.getElementById('cancelBtn');
     if (cancelBtn) {
         cancelBtn.addEventListener('click', () => {
 
-            window.location.href = "cinemaM.html"; 
+            window.location.href = "cinemaM"; 
         });
     }
 
@@ -22,16 +22,11 @@ const cancelBtn = document.getElementById('cancelBtn');
 if (payBtn) {
     payBtn.addEventListener('click', (e) => {
         e.preventDefault();
-
         let isValid = true;
-
-      
         const cardName = document.getElementById('cardName');
         const cardNumber = document.getElementById('cardNumber');
         const expiry = document.getElementById('expiry');
-        const cvv = document.getElementById('cvv');
-
-        
+        const cvv = document.getElementById('cvv');    
         const cardNameError = document.getElementById('cardNameError');
         const cardNumberError = document.getElementById('cardNumberError');
         const expiryError = document.getElementById('expiryError');
@@ -74,7 +69,6 @@ if (payBtn) {
             cvv.classList.add('input-error');
             isValid = false;
         }
-
         
         if (!isValid) return;
 async function saveAndRedirect() {
@@ -83,7 +77,7 @@ async function saveAndRedirect() {
     showtime:   localStorage.getItem('selectedTime'),
     date:       localStorage.getItem('selectedDateText'),
     hall:       localStorage.getItem('hallType'),
-    seats:      localStorage.getItem('bookedSeats'),   // already JSON string
+    seats:      localStorage.getItem('bookedSeats'),   
     totalPrice: localStorage.getItem('totalPrice')
   };
 
