@@ -682,3 +682,11 @@ setTimeout(() => {
     document.getElementById('instructions').style.opacity = '0.7';
   }, 500);
 }, 2000);
+
+function closeConfirm() {
+    const modal = document.getElementById("confirm-modal");
+    if (modal) {
+        // Hides the confirmation overlay, returning focus completely to the 3D seat map
+        modal.style.display = "none"; 
+    }
+}
