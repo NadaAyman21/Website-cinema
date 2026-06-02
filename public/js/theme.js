@@ -1,14 +1,12 @@
-// public/js/theme.js
+
 (function () {
-  // Apply saved theme IMMEDIATELY before page paints (prevents flash)
+ 
   var saved = localStorage.getItem('cinema-theme') || 'light';
   document.documentElement.setAttribute('data-theme', saved);
 
   document.addEventListener('DOMContentLoaded', function () {
     var btn = document.getElementById('theme-toggle');
     if (!btn) return;
-
-    // Set correct icon on load
     updateIcon(saved);
 
     btn.addEventListener('click', function () {

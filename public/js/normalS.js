@@ -922,7 +922,7 @@ setTimeout(() => {
 function closeConfirm() {
     const modal = document.getElementById("confirm-modal");
     if (modal) {
-        // Hides the confirmation overlay, returning focus completely to the 3D seat map
+       
         modal.style.display = "none"; 
     }
 }
