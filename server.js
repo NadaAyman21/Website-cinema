@@ -52,6 +52,10 @@ app.get("/", async (req, res) => {
     res.render("cinemaM", { user });
 });
 
+app.get("/reset-password", (req, res) => {
+  res.render("resetPassword", { token: req.query.token });
+});
+
 app.get("/ticket/:id", async (req, res) => {
   if (!req.session.userId) return res.redirect("/cinemaM");
   const user = await getUser(req);
