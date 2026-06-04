@@ -26,7 +26,6 @@ router.post('/save', isLoggedIn, async (req, res) => {
 
     await Hold.deleteMany({ movie, showtime, date, hall, userId });
 
-    // ✅ Send confirmation email
     const user = await User.findById(req.session.userId);
     if (user && user.email) {
       await sendBookingConfirmation({
