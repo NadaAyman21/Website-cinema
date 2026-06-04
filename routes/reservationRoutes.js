@@ -1,7 +1,9 @@
-const express     = require('express');
-const router      = express.Router();
-const Reservation = require('../models/Reservation');
-const Hold        = require('../models/Hold');
+const express                     = require('express');
+const router                      = express.Router();
+const Reservation                 = require('../models/Reservation');
+const Hold                        = require('../models/Hold');
+const User                        = require('../models/User');
+const { sendBookingConfirmation } = require('../utils/mailer');
 
 function isLoggedIn(req, res, next) {
   if (req.session && req.session.userId) return next();
@@ -23,12 +25,30 @@ router.post('/save', isLoggedIn, async (req, res) => {
     });
 
     await Hold.deleteMany({ movie, showtime, date, hall, userId });
+
+    // ✅ Send confirmation email
+    const user = await User.findById(req.session.userId);
+    if (user && user.email) {
+      await sendBookingConfirmation({
+        to:         user.email,
+        name:       user.firstName,
+        movie,
+        date,
+        showtime,
+        hall,
+        seats:      JSON.parse(seats),
+        totalPrice: Number(totalPrice),
+        orderNumber
+      });
+    }
+
     res.json({ success: true, reservationId: reservation._id });
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
+
 
 router.post('/hold', async (req, res) => {
   try {
@@ -78,7 +98,6 @@ router.get('/seats', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
 router.get('/my', isLoggedIn, async (req, res) => {
   try {
     const reservations = await Reservation.find({ user: req.session.userId }).sort({ createdAt: -1 });
@@ -98,7 +117,6 @@ router.get('/admin/all', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
 router.delete('/admin/all/clear', async (req, res) => {
   try {
     await Reservation.deleteMany({});
@@ -117,6 +135,7 @@ router.delete('/admin/:id', async (req, res) => {
   }
 });
 
+
 router.get('/:id', isLoggedIn, async (req, res) => {
   try {
     const reservation = await Reservation.findById(req.params.id).populate('user', 'firstName');
@@ -126,6 +145,5 @@ router.get('/:id', isLoggedIn, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
 
 module.exports = router;
