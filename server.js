@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const path = require('path');
 const express = require('express');
 const cors = require('cors');
@@ -16,7 +18,6 @@ const app = express();
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-require('dotenv').config();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -212,13 +213,21 @@ app.get("/condtions", async (req, res) => {
 });
 
 app.get("/admin", async (req, res) => {
-    try {
-        const movies = await Movie.find().sort({ createdAt: -1 });
-        res.render("admin", { movies: movies });
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Error loading dashboard data"); 
+  try {
+    if (!req.session.userId) {
+      return res.redirect("/cinemaM");
     }
+    const user = await User.findById(req.session.userId);
+    if (!user || user.role !== 'admin') {
+      return res.redirect("/cinemaM");
+    }
+
+    const movies = await Movie.find().sort({ createdAt: -1 });
+    res.render("admin", { movies });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error loading dashboard data");
+  }
 });
 
 app.get("/profile", async (req, res) => {
