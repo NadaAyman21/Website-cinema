@@ -116,3 +116,63 @@ exports.changePassword = async (req, res) => {
         res.json({ success: false, message: 'Something went wrong.' });
     }
 };
+
+const crypto = require('crypto');
+
+exports.forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.json({ success: false, message: 'No account found with this email.' });
+    }
+
+    const token     = crypto.randomBytes(32).toString('hex');
+    const expiresAt = Date.now() + 60 * 60 * 1000; // 1 hour
+
+    user.resetToken        = token;
+    user.resetTokenExpires = expiresAt;
+    await user.save();
+
+    const { sendPasswordReset } = require('../utils/mailer');
+    await sendPasswordReset({
+      to:    user.email,
+      name:  user.firstName,
+      token
+    });
+
+    res.json({ success: true, message: 'Reset link sent! Check your inbox.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Something went wrong.' });
+  }
+};
+
+exports.resetPassword = async (req, res) => {
+  const { token, newPassword } = req.body;
+  try {
+    const user = await User.findOne({
+      resetToken:        token,
+      resetTokenExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+      return res.json({ success: false, message: 'Reset link is invalid or expired.' });
+    }
+
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    if (!newPassword.match(passwordPattern)) {
+      return res.json({ success: false, message: 'Password must be 8+ chars with uppercase, lowercase and number.' });
+    }
+
+    user.password          = await bcrypt.hash(newPassword, 10);
+    user.resetToken        = undefined;
+    user.resetTokenExpires = undefined;
+    await user.save();
+
+    res.json({ success: true, message: 'Password reset successfully! You can now log in.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Something went wrong.' });
+  }
+};
