@@ -59,12 +59,14 @@ const userSchema = new mongoose.Schema({
     }
   },
 
-  role: {
+   role: {
     type: String,
     enum: ['user', 'admin'],
     default: 'user'
-  }
+  },
 
+  resetToken:        { type: String },
+  resetTokenExpires: { type: Number }
 });
 
 module.exports = mongoose.model('User', userSchema);
