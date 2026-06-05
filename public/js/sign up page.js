@@ -14,21 +14,6 @@ function togglePasswordS(inputId, icon) {
         icon.classList.add("fa-eye");
     }
 }
-
-function showAlert(message) {
-    const modal = document.getElementById("customAlert");
-    if (modal) {
-        document.getElementById("alertMessage").innerText = message;
-        modal.style.display = "flex";
-    }
-}
-
-function closeAlert() {
-    const modal = document.getElementById("customAlert");
-    if (modal) modal.style.display = "none";
-}
-
-
 function showError(errorId, inputEl, message) {
     const err = document.getElementById(errorId);
     if (!err) return;
@@ -36,7 +21,6 @@ function showError(errorId, inputEl, message) {
     err.classList.add("active");
     if (inputEl) inputEl.classList.add("invalid");
 }
-
 
 function clearErrors() {
     document.querySelectorAll(".errorS").forEach(err => {
@@ -47,8 +31,6 @@ function clearErrors() {
         input.classList.remove("invalid");
     });
 }
-
-
 const signupForm = document.getElementById("signupForm");
 
 if (signupForm) {

@@ -345,7 +345,6 @@ body {
 }
 .change-pass-btn:hover { border-color: var(--gold); color: var(--gold); }
 
-/* ===== SECTION TITLE ===== */
 .section-title {
     font-family: var(--font-display);
     font-size: 22px;
@@ -357,8 +356,6 @@ body {
     gap: 10px;
 }
 .section-title i { color: var(--gold); }
-
-/* ===== TICKET CARDS ===== */
 .ticket-card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -670,3 +667,53 @@ body {
 .history-detail { font-size: 12px; color: rgba(255,255,255,0.4); margin-bottom: 4px; }
 .history-seats  { font-size: 11px; color: rgba(255,255,255,0.3); }
 .history-price  { margin-left: auto; font-size: 15px; font-weight: 700; color: #c9a84c; flex-shrink: 0; }
+
+/* ==========================================================================
+   LIGHT MODE OVERRIDES (Place at the absolute bottom of the file)
+   ========================================================================== */
+[data-theme="light"] {
+    background-color: #f5f5f0 !important;
+    color: #1a1a1a !important;
+}
+
+[data-theme="light"] body,
+[data-theme="light"] .profile-page {
+    background-color: #f5f5f0 !important;
+    background: #f5f5f0 !important;
+}
+
+/* Turn all your dark profile cards & list items into white boxes */
+[data-theme="light"] .info-card,
+[data-theme="light"] .stats-bar,
+[data-theme="light"] .profile-tabs,
+[data-theme="light"] .settings-list,
+[data-theme="light"] .ticket-card,
+[data-theme="light"] .history-item,
+[data-theme="light"] .modal {
+    background: #ffffff !important;
+    border-color: #d0d0c8 !important;
+    color: #1a1a1a !important;
+}
+
+
+[data-theme="light"] .info-value,
+[data-theme="light"] .tc-movie,
+[data-theme="light"] .tc-price,
+[data-theme="light"] .history-movie,
+[data-theme="light"] .settings-title {
+    color: #1a1a1a !important;
+}
+
+[data-theme="light"] .info-label,
+[data-theme="light"] .stat-label,
+[data-theme="light"] .settings-sub,
+[data-theme="light"] .tc-meta,
+[data-theme="light"] .history-detail {
+    color: #6b6b6b !important;
+}
+
+/* Keep your avatar ring dark inside light mode so it pops */
+[data-theme="light"] .avatar-initials {
+    background: #1a1a2e !important;
+    color: #7c5cfc !important;
+}

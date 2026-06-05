@@ -5,7 +5,7 @@
    <link rel="stylesheet" href="/css/nav.css">
 <link rel="stylesheet" href="/css/profile.css">
 <link rel="stylesheet" href="/css/login.css">
-<link rel="stylesheet" href="/css/sign%20up%20page.css">
+<link rel="stylesheet" href="/css/sign up page.css">
 <link rel="stylesheet" href="/css/forget.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
 
     <div class="profile-page">
 
-        <!-- Hero Banner -->
+       
         <div class="profile-banner">
             <div class="banner-overlay"></div>
             <div class="banner-content">
@@ -32,7 +32,6 @@
             </div>
         </div>
 
-        <
         <div class="stats-bar">
             <div class="stat-item">
                 <span class="stat-number" id="moviesCount">0</span>
@@ -65,11 +64,8 @@
                 <i class="fa fa-gear"></i> Settings
             </button>
         </div>
-
-        <!-- Body -->
         <div class="profile-body">
 
-         
             <div class="tab-content active" id="tab-info">
                 <div class="info-grid">
                     <div class="info-card">
@@ -185,7 +181,6 @@
                         </div>
                         <label class="toggle">
                             <input type="checkbox" checked>
-                            <span class="slider"></span>
                         </label>
                     </div>
                     <div class="settings-item">
@@ -201,13 +196,32 @@
                             <div class="settings-title">Delete Account</div>
                             <div class="settings-sub">Permanently remove your account</div>
                         </div>
-                        <button class="danger-btn">Delete</button>
+                        <button class="danger-btn" onclick="openDeleteModal()">Delete</button>
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
+    <div class="modal-overlay" id="deleteModal">
+    <div class="modal">
+        <div class="modal-header">
+            <h2 style="color: #e83b3b;"><i class="fa fa-exclamation-triangle"></i> Delete Account</h2>
+            <button onclick="closeDeleteModal()"><i class="fa fa-times"></i></button>
+        </div>
+        <div class="modal-form">
+            <p style="color: #fff; margin-bottom: 15px; font-size: 14px;">
+                Warning: This action is permanent. All associated ticket records and information will be completely removed.
+            </p>
+            <div class="form-row">
+                <label>Enter your account password to proceed</label>
+                <input type="password" id="deletePasswordInput" placeholder="Password Verification Check">
+            </div>
+            <p id="deletePasswordError" style="color:#e83b3b; font-size:13px; display:none; margin-bottom: 10px;"></p>
+            <button class="submit-btn" style="background-color: #e83b3b;" onclick="confirmDeleteAccount()">Delete My Account Permanently</button>
+        </div>
+    </div>
+</div>
 
 <div class="modal-overlay" id="passwordModal">
     <div class="modal">
@@ -263,99 +277,13 @@
 </div>
 
     <script src="/js/nav.js"></script>
-    <script>
-        function openPasswordModal() {
-            document.getElementById('passwordModal').classList.add('open');
-        }
+    <script src="/js/profile.js"></script>
+    <script src="/js/theme.js"></script>
 
-        function closePasswordModal() {
-            document.getElementById('passwordModal').classList.remove('open');
-            document.getElementById('currentPassword').value = '';
-            document.getElementById('newPassword').value = '';
-            document.getElementById('confirmNewPassword').value = '';
-            document.getElementById('passwordError').style.display = 'none';
-        }
-
-        function savePassword() {
-            const currentPassword  = document.getElementById('currentPassword').value;
-            const newPassword      = document.getElementById('newPassword').value;
-            const confirmPassword  = document.getElementById('confirmNewPassword').value;
-            const errorEl          = document.getElementById('passwordError');
-
-            if (newPassword !== confirmPassword) {
-                errorEl.innerText = 'New passwords do not match!';
-                errorEl.style.display = 'block';
-                return;
-            }
-
-            const pattern = /^(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
-            if (!newPassword.match(pattern)) {
-                errorEl.innerText = 'Password must contain 1 uppercase, 1 number, min 6 chars';
-                errorEl.style.display = 'block';
-                return;
-            }
-
-            errorEl.style.display = 'none';
-
-            fetch('/api/auth/changePassword', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ currentPassword, newPassword })
-            })
-            .then(res => res.json())
-            .then(result => {
-                if (result.success) {
-                    alert('Password changed successfully!');
-                    closePasswordModal();
-                } else {
-                    errorEl.innerText = result.message;
-                    errorEl.style.display = 'block';
-                }
-            });
-        }
-        
-        function openEditModal() {
-            document.getElementById('editModal').classList.add('open');
-        }
-
-        function closeEditModal() {
-            document.getElementById('editModal').classList.remove('open');
-        }
-
-        function saveEdit() {
-            const data = {
-                firstName: document.getElementById('editFirstName').value,
-                lastName:  document.getElementById('editLastName').value,
-                phone:     document.getElementById('editPhone').value,
-                dob:       document.getElementById('editDob').value
-            };
-
-            fetch('/api/auth/updateProfile', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then(result => {
-                if (result.success) {
-                    alert('Profile updated!');
-                    location.reload();
-                } else {
-                    alert(result.message);
-                }
-            });
-        }
-        function switchTab(name) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.getElementById('tab-' + name).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-           document.getElementById('ticketsCount').textContent = '<%= reservations.length %>';
+<script>
+        document.getElementById('ticketsCount').textContent = '<%= reservations.length %>';
         document.getElementById('moviesCount').textContent  = '<%= new Set(reservations.map(r => r.movie)).size %>';
         document.getElementById('upcomingCount').textContent = '<%= reservations.length %>';
     </script>
-
 </body>
 </html>

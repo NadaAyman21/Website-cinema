@@ -1,8 +1,3 @@
-/* =============================================
-   CINEX — cinema.css
-   Full reset + layout fix + improved design
-   ============================================= */
-
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -19,10 +14,6 @@ body {
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     overflow-x: hidden;
 }
-
-/* =============================================
-   HERO SLIDER — FIXED
-   ============================================= */
 
 .hero {
     position: relative;
@@ -97,8 +88,6 @@ body {
     color: var(--text-muted);
     letter-spacing: 0.5px;
 }
-
-
 
 .movies {
     padding: 60px 50px 40px;
@@ -185,7 +174,6 @@ body {
     transform: scale(1.04);
 }
 
-/* Poster shimmer on hover */
 .poster::after {
     content: "";
     position: absolute;
@@ -224,10 +212,6 @@ body {
     text-transform: uppercase;
     line-height: 1.3;
 }
-
-/* =============================================
-   EXPERIENCES
-   ============================================= */
 
 .experiences {
     background: var(--bg-secondary);
@@ -308,7 +292,6 @@ body {
     letter-spacing: 1px;
 }
 
-/* Background images */
 .card.premiere  { background-image: url('../images/image 1.jpeg'); }
 .card.deluxe    { background-image: url('../images/deluxe.jpg'); }
 .card.standard  { background-image: url('../images/standard.jpg'); }
