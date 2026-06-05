@@ -4,7 +4,6 @@
     padding: 0;
 }
 
-/* ===== LOGIN MODAL OVERLAY ===== */
 .login-modal {
     display: none;
     position: fixed;
@@ -21,7 +20,6 @@
     display: flex;
 }
 
-/* ── Login Box ── */
 .login-box {
     width: 450px;
     padding: 30px 40px;
@@ -41,10 +39,8 @@
     text-transform: uppercase;
     color: #000;
 }
-
-/* ── Field groups: label + input + error each in own block ── */
 .field-group {
-    margin-bottom: 16px;  /* space between fields */
+    margin-bottom: 16px;  
     text-align: left;
 }
 
@@ -97,13 +93,13 @@
     user-select: none;
 }
 
-/* ── Error: flows naturally BELOW the input, never overlaps ── */
+
 .error {
     color: red;
     font-size: 12px;
     font-weight: 500;
-    display: none;          /* hidden by default */
-    margin-top: 4px;        /* FIX: was -10px (caused overlap) */
+    display: none;          
+    margin-top: 4px;        
     text-align: left;
     line-height: 1.3;
 }
@@ -112,7 +108,7 @@
     display: block;
 }
 
-/* ── Forgot password link ── */
+
 .forgot-link {
     display: block;
     text-align: center;
@@ -121,7 +117,7 @@
     text-decoration: none;
     font-weight: 600;
     text-transform: uppercase;
-    margin: 12px 0 20px;    /* FIX: clear space above and below */
+    margin: 12px 0 20px;    
     transition: color 0.2s;
 }
 
@@ -129,7 +125,6 @@
     text-decoration: underline;
 }
 
-/* ── Login button (scoped, not global) ── */
 .login-box .btn-login {
     width: 100%;
     padding: 11px 30px;
@@ -147,8 +142,6 @@
 .login-box .btn-login:hover {
     background: #333333;
 }
-
-/* ── Create account (bottom) ── */
 .create-account {
     margin-top: 30px;
     border-top: 1px solid #eee;
@@ -168,22 +161,3 @@
     text-decoration: underline;
 }
 
-/* ── Close X button (scoped so global button styles don't touch it) ── */
-.modal-close {
-    position: absolute;
-    top: 14px;
-    right: 16px;
-    background: transparent;
-    border: none;
-    font-size: 18px;
-    color: #333;
-    cursor: pointer;
-    width: auto;
-    padding: 0;
-    font-weight: 400;
-    line-height: 1;
-}
-
-.modal-close:hover {
-    color: #000;
-}
