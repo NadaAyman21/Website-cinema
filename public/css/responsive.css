@@ -84,9 +84,6 @@
     }
 }
 
-/* ===== CINEMA RESPONSIVE ===== */
-
-/* Tablets (768px and below) */
 @media (max-width: 768px) {
     /* Cinema */
     .hero {
