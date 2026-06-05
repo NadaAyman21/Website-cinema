@@ -128,7 +128,7 @@ exports.forgotPassword = async (req, res) => {
     }
 
     const token     = crypto.randomBytes(32).toString('hex');
-    const expiresAt = Date.now() + 60 * 60 * 1000; // 1 hour
+    const expiresAt = Date.now() + 60 * 60 * 1000; 
 
     user.resetToken        = token;
     user.resetTokenExpires = expiresAt;
@@ -175,4 +175,38 @@ exports.resetPassword = async (req, res) => {
     console.error(err);
     res.status(500).json({ success: false, message: 'Something went wrong.' });
   }
+};
+
+exports.deleteAccount = async (req, res) => {
+    const { password } = req.body;
+    
+    try {
+        if (!req.session.userId) {
+            return res.status(401).json({ success: false, message: 'Session expired. Please log in again.' });
+        }
+        const user = await User.findById(req.session.userId);
+        if (!user) {
+            return res.status(404).json({ success: false, message: 'Account not found.' });
+        }
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) {
+            return res.status(400).json({ success: false, message: 'Incorrect confirmation password.' });
+        }
+        const Reservation = require('../models/Reservation');
+        await Reservation.deleteMany({ user: user._id });
+        await User.findByIdAndDelete(req.session.userId);
+        req.session.destroy((err) => {
+            if (err) {
+                console.error("Session cleanup error:", err);
+                return res.status(500).json({ success: false, message: 'Failed to fully sign out user.' });
+            }
+            res.clearCookie('connect.sid'); 
+            return res.status(200).json({ success: true, message: 'Account deleted successfully.' });
+        });
+
+    } catch (err) {
+        
+        console.error("CRITICAL DELETE ACCOUNT FAULT:", err);
+        res.status(500).json({ success: false, message: 'An internal error occurred on the server.' });
+    }
 };
