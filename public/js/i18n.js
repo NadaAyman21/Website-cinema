@@ -70,11 +70,9 @@ i18next.init({
 
 function applyTranslations() {
   const lang = i18next.language;
-
-  // Translate every element that has data-i18n
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key  = el.getAttribute('data-i18n');
-    const icon = el.querySelector('i');        // keep dropdown arrows
+    const icon = el.querySelector('i');        
     el.textContent = i18next.t(key);
     if (icon) el.appendChild(icon);
   });
