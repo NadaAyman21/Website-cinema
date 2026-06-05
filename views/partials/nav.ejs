@@ -39,7 +39,7 @@
         </li>
     </ul>
 
-    <!-- RIGHT -->
+    
     <div class="right-section">
 
         <div class="location">
@@ -75,14 +75,11 @@
             <span id="icon-moon">🌙</span>
             <span id="icon-sun" style="display:none">☀️</span>
         </button>
-
-        <!-- Language Switcher -->
         <div class="lang-switcher">
             <button class="lang-btn active" id="langEN" onclick="setLang('en')">EN</button>
             <button class="lang-btn"        id="langAR" onclick="setLang('ar')">ع</button>
         </div>
 
-        <!-- Mobile menu -->
         <div class="menu-icon" onclick="toggleMenu()">
             <i class="fa fa-bars"></i>
         </div>
@@ -90,7 +87,6 @@
     </div>
 </nav>
 
-<!-- Modals -->
 <div class="login-modal" id="loginModal">
     <%- include('login') %>
 </div>
@@ -103,12 +99,5 @@
     <%- include('forget') %>
 </div>
 
-<div id="customAlert" class="custom-modal">
-    <div class="modal-content black-theme">
-        <h3 id="alertTitle">CineX says</h3>
-        <p id="alertMessage"></p>
-        <button onclick="closeAlert()">OK</button>
-    </div>
-</div>
 <script src="https://unpkg.com/i18next@23.7.6/i18next.min.js"></script>
 <script src="/js/i18n.js"></script>
