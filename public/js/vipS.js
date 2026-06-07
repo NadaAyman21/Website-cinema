@@ -515,7 +515,6 @@ window.addEventListener('resize', () => {
   camera.updateProjectionMatrix();
 });
 
-// ── UI Functions ────────────────────────────────────────────
 
 function updateUI() {
   const count = selected.size;
@@ -530,8 +529,6 @@ function updateUI() {
     tag.textContent = id;
     tagsEl.appendChild(tag);
   });
-
-  // Place hold in DB
   fetch('/reservation/hold', {
     method:  'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -558,7 +555,15 @@ function openConfirm() {
     seatsEl.appendChild(el);
   });
   priceEl.textContent = `EGP ${selected.size * SEAT_PRICE}`;
+  const modalSubEl = document.getElementById('modal-sub');
+  if (modalSubEl) {
+    modalSubEl.textContent = `VIP Screening · ${movieInfo.date} · ${movieInfo.showtime}`;
+  }
   document.getElementById('confirm-modal').classList.add('show');
+  if (modal) {
+    modal.classList.remove('show');
+    modal.style.display = "none"; 
+  }
 }
 
 function confirmBook() {
@@ -601,7 +606,7 @@ function hideTooltip() {
   tooltip.style.display = 'none';
 }
 
-// ── Render Loop ─────────────────────────────────────────────
+
 
 let animFrame = 0;
 function animate() {
@@ -636,8 +641,6 @@ function animate() {
   materials.screenGlow.emissiveIntensity = 1.1 + Math.sin(animFrame * 0.02) * 0.1;
   renderer.render(scene, camera);
 }
-
-// ── Fetch real seat data then start ─────────────────────────
 
 async function fetchAndApplySeats() {
   try {
@@ -686,7 +689,7 @@ setTimeout(() => {
 function closeConfirm() {
     const modal = document.getElementById("confirm-modal");
     if (modal) {
-        // Hides the confirmation overlay, returning focus completely to the 3D seat map
+      modal.classList.remove('show');
         modal.style.display = "none"; 
     }
 }
