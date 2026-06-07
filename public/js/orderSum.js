@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     generateQR({ movie, day, time, seats, finalPrice });
 
-    generateQR({ movie, day, time, seats, finalPrice });
 });
 
 
