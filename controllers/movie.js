@@ -70,7 +70,6 @@ exports.editMovie = async (req, res) => {
             movieData, 
             { new: true, runValidators: true, context: 'query' }
         );
-        
         if (!updatedMovie) return res.status(404).json({ success: false, message: "Movie not found" });
         res.json(updatedMovie);
     } catch (err) {
