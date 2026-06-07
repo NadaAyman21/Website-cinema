@@ -40,8 +40,6 @@ exports.addMovie = async (req, res) => {
         res.status(201).json(savedMovie);
     } catch (err) {
         res.status(400).json({ success: false, message: err.message });
-    
-    // Exact same error parsing logic used in your User signup controller!
         if (err.name === 'ValidationError') {
             const firstErrorKey = Object.keys(err.errors)[0];
             return res.status(400).json({ success: false, message: err.errors[firstErrorKey].message });

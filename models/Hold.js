@@ -8,7 +8,7 @@ const HoldSchema = new mongoose.Schema({
   hall:     { type: String, required: true },
   seats:    { type: [String], required: true },
   userId:   { type: String },
-  expiresAt:{ type: Date, default: () => new Date(Date.now() + 15 * 60 * 1000) } // 15 min
+  expiresAt:{ type: Date, default: () => new Date(Date.now() + 15 * 60 * 1000) }
 });
 
 
