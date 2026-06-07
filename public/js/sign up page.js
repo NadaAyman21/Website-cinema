@@ -76,8 +76,6 @@ if (signupForm) {
             showError("signupEmailError", emailInput, "Please enter a valid email address"); 
             valid = false;
         }
-
-        // Password
         const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
         if (!password.match(passwordPattern)) {
             showError("signupPasswordError", passwordInput, "Must be min 8 chars with 1 uppercase, 1 lowercase, and 1 number"); 
@@ -88,12 +86,10 @@ if (signupForm) {
             showError("signupConfirmPasswordError", confirmInput, "Passwords do not match"); 
             valid = false;
         }
-
         if (!genderInput) {
             showError("genderError", null, "Select your gender");
             valid = false;
         }
-
         const phonePattern = /^\d{11}$/;
         if (!phone.match(phonePattern)) {                                  
             showError("phoneError", phoneInput, "Phone number must be exactly 11 digits");

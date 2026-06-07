@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 const translations = {
   en: {
-    // NAV
     home:         'HOME',
     movies:       'MOVIES',
     nowShowing:   'Now Showing',

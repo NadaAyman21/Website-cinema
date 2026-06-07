@@ -60,8 +60,6 @@ if (payBtn) {
         });
 
         let isValid = true;
-
-        // Name validation
         if (nameInput.value.trim().length < 3) {
             nameError.textContent = "Enter a valid full name";
             nameInput.classList.add('input-error');
@@ -72,8 +70,6 @@ if (payBtn) {
             phoneInput.classList.add('input-error');
             isValid = false;
         }
-
-        // Email validation
         const emailValue = emailInput.value.trim();
         if (!emailValue.includes('@') || !emailValue.includes('.')) {
             emailError.textContent = "Enter a valid email address";
@@ -82,16 +78,11 @@ if (payBtn) {
         }
 if (!isValid) return;
 
-        // ✅ Save customer info
         localStorage.setItem('custName',  nameInput.value.trim());
         localStorage.setItem('custPhone', phoneInput.value.trim());
         localStorage.setItem('custEmail', emailInput.value.trim());
-
-        // ✅ Save price
         const priceDisplay = document.querySelector('.price-box').innerText;
         localStorage.setItem('finalAmount', priceDisplay);
-
-        // ✅ Go to payment
         window.location.href = "form";
     });
 }

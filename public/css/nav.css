@@ -43,7 +43,6 @@ body {
   border-color: var(--accent);
 }
 
-/* ===== NAVBAR ===== */
 .navbar {
     display: flex;
     align-items: center;
@@ -88,15 +87,12 @@ body {
     border-radius: 10px;
     transform: skewX(-15deg);
 }
-/* ===== CENTER LINKS ===== */
 .nav-links {
     list-style: none;
     display: flex;
     gap: 35px;
 
 }
-
-/* ===== LINKS ===== */
 .nav-links li {
     position: relative;
 }
@@ -109,15 +105,11 @@ body {
     font-weight: 600;
     position: relative;
 }
-
-/* Hover glow */
 .nav-links li a:hover {
     color: #0ee5f5;
     text-shadow: 0 0 8px #0ee5f5;
 }
 
-
-/* ===== DROPDOWN ===== */
 .dropdown-menu {
     position: absolute;
     top: 100%;
@@ -149,21 +141,17 @@ body {
     background: rgba(255,255,255,0.08);
 }
 
-/* Smooth dropdown show */
 .dropdown:hover .dropdown-menu {
     opacity: 1;
     transform:translateX(-50%) translateY(0);
     pointer-events: auto;
 }
 
-/* ===== RIGHT SECTION ===== */
 .right-section {
     display: flex;
     align-items: center;
     gap: 15px;
 }
-
-/* LOCATION */
 .location {
     border: 1px solid rgba(255,255,255,0.2);
     padding: 7px 14px;
@@ -178,7 +166,6 @@ body {
     background: rgba(255,255,255,0.15);
 }
 
-/* USER ICON */
 .user-icon {
     cursor: pointer;
     font-size: 18px;
@@ -190,16 +177,11 @@ body {
     color: #00ccff;
 }
 
-/* MENU ICON */
 .menu-icon {
     display: none;
     cursor: pointer;
     font-size: 22px;
 }
-
-
-
-
 .profile-dropdown {
     position: relative;
     display: inline-block;
@@ -298,7 +280,7 @@ body {
 }
 
 .nav-star-link:hover {
-    transform: scale(1.2) rotate(15deg); /* Slight rotation looks playful on stars! */
+    transform: scale(1.2) rotate(15deg); 
 }
 
 .nav-star-link:hover .fa-star {

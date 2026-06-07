@@ -62,7 +62,6 @@ header h1 {
     gap: 18px;
 }
 
-
 .item {
     display: flex;
     justify-content: space-between;
@@ -75,13 +74,11 @@ header h1 {
     cursor: pointer;
 }
 
-
 .item-left {
     display: flex;
     align-items: center;
     gap: 12px;
 }
-
 
 .item-left img {
     width: 45px;
@@ -90,25 +87,20 @@ header h1 {
     object-fit: cover;
 }
 
-/* NAME */
 .item-left span {
     font-size: 14px;
 }
 
-/* PRICE */
 .price {
     color: #00d4ff;
     font-weight: 600;
 }
 
-/* HOVER */
 .item:hover {
     transform: translateY(-4px) scale(1.02);
     border-color: #00d4ff;
     box-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
 }
-
-/* CART BUTTON */
 .cart-btn {
     position: fixed;
     top: 20px;
@@ -121,7 +113,7 @@ header h1 {
     box-shadow: 0 0 15px rgba(122,92,255,0.5);
 }
 
-/* CART PANEL */
+
 .cart-panel {
     position: fixed;
     right: -350px;
@@ -138,14 +130,13 @@ header h1 {
     right: 0;
 }
 
-/* CART ITEMS */
+
 .cart-item {
     padding: 10px 0;
     border-bottom: 1px solid rgba(255,255,255,0.08);
     font-size: 14px;
 }
 
-/* REMOVE BUTTON */
 .cart-item button {
     background: none;
     border: none;
@@ -153,15 +144,11 @@ header h1 {
     cursor: pointer;
     margin-left: 10px;
 }
-
-/* TOTAL */
 .total {
     margin-top: 20px;
     font-size: 18px;
     color: #00d4ff;
 }
-
-/* CHECKOUT */
 .checkout-btn {
     margin-top: 15px;
     width: 100%;
@@ -173,8 +160,6 @@ header h1 {
     font-weight: 500;
     cursor: pointer;
 }
-
-/* MOBILE */
 @media (max-width: 600px) {
     header h1 {
         font-size: 30px;

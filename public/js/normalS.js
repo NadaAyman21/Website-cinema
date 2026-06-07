@@ -32,8 +32,7 @@ const HALL_CONFIGS = {
       F: { seats: [1, 2, 3, 4, null, 5, 6, 7, 8, 9] },
       G: { seats: [1, 2, 3, 4, 5, 6, 7, 8] },
     },
-    //TAKEN: new Set(['A2','A6','B3','B8','C5','C9','D2','D6','D10','E3','E8','F4','F7','G3','G6']),
-    //HOLD:  new Set(['A4','C2','E5','G1']),
+   
   },
 
   deluxe: {
@@ -146,8 +145,6 @@ async function fetchAndApplySeats(hallKey) {
 
     const res  = await fetch(`/reservation/seats?${params}`, { credentials: 'include' });
     const data = await res.json();
-
-    // Override the TAKEN and HOLD sets with real DB data
     cfg.TAKEN = new Set(data.taken || []);
     cfg.HOLD  = new Set(data.hold  || []);
 
@@ -158,8 +155,6 @@ async function fetchAndApplySeats(hallKey) {
 
 function buildHall(hallKey) {
   const cfg = HALL_CONFIGS[hallKey];
-
-
   roomObjects.forEach(o => scene.remove(o));
   roomObjects = [];
   lightObjects.forEach(o => scene.remove(o));
@@ -315,7 +310,7 @@ function buildRoom(cfg) {
   let screenTexturingMaterial;
 
   if (backendMoviePosterPath && backendMoviePosterPath.trim() !== "") {
-    // Instantiate a standard texture asset loader tracker pipeline module block
+  
    let cleanPath = backendMoviePosterPath.trim();
     
    
@@ -336,7 +331,7 @@ function buildRoom(cfg) {
       side: THREE.DoubleSide
     });
   } else {
-    // Fallback Canvas engine mapping structure if no data strings exist 
+   
     const backupScreenCanvasTexture = new THREE.CanvasTexture(stCanvas);
     screenTexturingMaterial = new THREE.MeshBasicMaterial({ 
       map: backupScreenCanvasTexture,
@@ -344,7 +339,6 @@ function buildRoom(cfg) {
     });
   }
 
-  // Bind the newly targeted active texture engine map cleanly across the screen asset mesh structures 
   const screenMesh = add(new THREE.Mesh(
     new THREE.PlaneGeometry(12, 6.7),
     screenTexturingMaterial
@@ -672,8 +666,6 @@ function updateUI() {
     tag.textContent = id;
     tagsEl.appendChild(tag);
   });
-
-  // Place hold in DB
   const cfg = HALL_CONFIGS[currentHall];
   fetch('/reservation/hold', {
     method:  'POST',
@@ -711,19 +703,14 @@ function openConfirm() {
 
 function confirmBook() {
   const cfg = HALL_CONFIGS[currentHall];
-
-
   localStorage.setItem('bookedSeats', JSON.stringify(Array.from(selected).sort()));
   localStorage.setItem('totalPrice', selected.size * cfg.price);
   localStorage.setItem('hallType', cfg.label);
-
- 
   window.location.href = '/orderSum';
 }
 
 
 const tooltip = document.getElementById('tooltip');
-
 function showTooltip(id, x, y) {
   const data = seatData[id];
   if (!data) return;
@@ -898,8 +885,6 @@ function animate() {
 }
 
 scene.add(seatGroup);
-
-// ✅ Fetch real seat data first, then build
 async function init() {
   await fetchAndApplySeats('standard');
   await fetchAndApplySeats('deluxe');
@@ -908,9 +893,7 @@ async function init() {
   updateCamera();
   animate();
 }
-
 init();
-
 setTimeout(() => {
   document.getElementById('loader').classList.add('hidden');
   setTimeout(() => {

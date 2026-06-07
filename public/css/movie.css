@@ -10,7 +10,6 @@ body {
     color: var(--text-primary);
 }
 
-/* HERO */
 .hero {
     padding: 60px 40px;
     background-size: cover;
@@ -23,13 +22,11 @@ body {
     align-items: center;
 }
 
-/* POSTER */
 .poster img {
     width: 200px;
     border-radius: 10px;
 }
 
-/* DETAILS */
 .details {
     max-width: 600px;
 }
@@ -147,8 +144,6 @@ body {
     border-color: #00c3ff;
     color: #00c3ff;
 }
-
-/* OTHER MOVIES */
 #otherMovies {
     display: flex;
     justify-content: center;
@@ -212,7 +207,6 @@ body {
     color: #fff;
 }
 
-/* MODAL */
 .modal {
     display: none;
     position: fixed;
@@ -342,7 +336,6 @@ body {
     color: var(--text-muted);
 }
 
-/* BLUR EFFECT */
 .movie-container:hover .movie-card {
     filter: blur(5px);
     opacity: 0.5;

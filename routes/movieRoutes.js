@@ -4,7 +4,6 @@ const movieController = require('../controllers/movie');
 const Movie = require('../models/Movie');
 const User = require('../models/User');
 const Review = require('../models/Reviews'); 
-
 async function getUser(req) {
     if (!req.session || !req.session.userId) return null;
     return await User.findById(req.session.userId);
@@ -57,8 +56,6 @@ for (let i = 0; i < 4; i++) {
         res.status(500).send("Error rendering page view: " + err.message);
     }
 });
-
-
 router.get('/api/all', movieController.getAllMovies);      
 router.get('/:id', movieController.getMovieById);  
 router.post('/add', movieController.addMovie);

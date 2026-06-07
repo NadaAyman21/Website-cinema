@@ -42,7 +42,6 @@
     letter-spacing: 0.5px;
 }
 
-/* ── Close button ── */
 .modal-close {
     position: absolute;
     top: 12px;
@@ -55,8 +54,6 @@
 }
 
 .modal-close:hover { color: #000; }
-
-/* ── Row Logic (First/Last Name) ── */
 .row {
     display: flex;
     gap: 8px;
@@ -65,18 +62,16 @@
 
 .row .input-boxS {
     flex: 1;
-    min-width: 0; /* FIX: prevents flex children from overflowing */
+    min-width: 0; 
 }
-
-/* ── Compact Inputs ── */
 .input-boxS {
     position: relative;
-    margin-bottom: 28px; /* FIX: increased from 20px to give error text room */
+    margin-bottom: 28px; 
 }
 
 .input-boxS input {
     width: 100%;
-    padding: 9px 32px 9px 35px; /* FIX: added right padding so text doesn't hide under eye icon */
+    padding: 9px 32px 9px 35px; 
     border-radius: 4px;
     border: 1px solid #d1d1d1;
     background: #ffffff;
@@ -106,14 +101,12 @@
 .toggle {
     position: absolute;
     right: 10px;
-    top: 50%; /* FIX: was pushing into error space; anchor to input top */
+    top: 50%; 
     transform: translateY(-50%);
     cursor: pointer;
     color: #888;
     font-size: 13px;
 }
-
-/* ── Errors (shared base) ── */
 .errorS {
     color: red;
     font-size: 10px;
@@ -126,14 +119,12 @@
     display: block;
 }
 
-/* FIX: input-box errors sit absolute under the input */
 .input-boxS .errorS {
     position: absolute;
     left: 2px;
     bottom: -16px;
 }
 
-/* FIX: gender error flows inline since genderS is a flex row */
 .genderS .errorS {
     position: static;
     display: none;
@@ -145,7 +136,6 @@
     display: block;
 }
 
-/* FIX: checkbox error flows inline too */
 .checkboxS .errorS {
     position: static;
     display: none;
@@ -156,14 +146,13 @@
     display: block;
 }
 
-/* ── Gender ── */
 .genderS {
     display: flex;
-    flex-wrap: wrap;     /* FIX: allows error to wrap onto its own line */
+    flex-wrap: wrap;   
     justify-content: flex-start;
     align-items: center;
     gap: 12px;
-    margin: 4px 0 20px; /* FIX: bottom margin to match input-boxS spacing */
+    margin: 4px 0 20px; 
     font-size: 13px;
 }
 
@@ -179,7 +168,6 @@
     gap: 4px;
 }
 
-/* ── Social Icons ── */
 .social-icons-wrap {
     margin: 4px 0 12px;
     display: flex;
@@ -192,7 +180,6 @@
     color: #000;
 }
 
-/* ── Compact Button ── */
 .containerS .btn {
     width: 100%;
     padding: 11px;
@@ -208,8 +195,6 @@
 }
 
 .btn:hover { background: #333; }
-
-/* ── Footer ── */
 .footerS {
     margin-top: 15px;
     font-size: 12px;
@@ -221,7 +206,6 @@
     text-decoration: none;
 }
 
-/* ── Checkbox ── */
 .checkboxS {
     text-align: left;
     margin: 8px 0 4px;

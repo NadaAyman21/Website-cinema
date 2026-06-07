@@ -423,8 +423,6 @@ body {
 .history-meta { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
 .history-seats { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 .history-price { margin-left: auto; font-family: var(--font-display); font-size: 20px; color: var(--text-muted); }
-
-/* ===== EMPTY STATE ===== */
 .empty-state {
     text-align: center;
     padding: 60px 20px;
@@ -446,7 +444,6 @@ body {
 }
 .cta-btn:hover { opacity: 0.85; }
 
-/* ===== SETTINGS ===== */
 .settings-list { display: flex; flex-direction: column; gap: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
 
 .settings-item {
@@ -502,7 +499,6 @@ body {
 }
 .danger-btn:hover { background: rgba(232,59,59,0.2); }
 
-/* ===== MODALS ===== */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -579,7 +575,6 @@ body {
 }
 .submit-btn:hover { opacity: 0.85; }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
     .banner-content { padding: 0 20px 28px; gap: 16px; }
     .banner-text h1 { font-size: 28px; }
@@ -668,9 +663,6 @@ body {
 .history-seats  { font-size: 11px; color: rgba(255,255,255,0.3); }
 .history-price  { margin-left: auto; font-size: 15px; font-weight: 700; color: #c9a84c; flex-shrink: 0; }
 
-/* ==========================================================================
-   LIGHT MODE OVERRIDES (Place at the absolute bottom of the file)
-   ========================================================================== */
 [data-theme="light"] {
     background-color: #f5f5f0 !important;
     color: #1a1a1a !important;
@@ -712,7 +704,6 @@ body {
     color: #6b6b6b !important;
 }
 
-/* Keep your avatar ring dark inside light mode so it pops */
 [data-theme="light"] .avatar-initials {
     background: #1a1a2e !important;
     color: #7c5cfc !important;

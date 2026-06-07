@@ -109,8 +109,6 @@ function handleShowtimeSelection(btn) {
     
     const dayName = activeDateCard.querySelector("strong").innerText; 
     const dateText = activeDateCard.getAttribute("data-date"); 
-
-    // Sync state securely back to localStorage to maintain your booking dashboard pipeline
     localStorage.setItem('selectedMovie', movieTitle);
     localStorage.setItem('selectedTime', selectedTime);
     localStorage.setItem('selectedDay', dayName);
