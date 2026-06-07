@@ -631,7 +631,7 @@ function updateHallUI(hallKey) {
     document.getElementById(id).style.borderColor = cornerColor;
   });
   document.getElementById('modal-title').style.color = isStd ? 'var(--std-accent-light)' : 'var(--dlx-accent-light)';
-  document.getElementById('modal-sub').textContent   = `${cfg.label} Hall · Tonight 9:00 PM`;
+  document.getElementById('modal-sub').textContent   = `${cfg.label} Hall ·${movieInfo.date} · ${movieInfo.showtime}`;
   document.getElementById('modal-price').style.color = isStd ? 'var(--std-accent-light)' : 'var(--dlx-accent-light)';
   document.getElementById('btn-confirm').className   = `btn-confirm ${cls}`;
 }
