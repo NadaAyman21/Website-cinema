@@ -1,6 +1,6 @@
 const Movie = require('../models/Movie');
 
-// 1. GET ALL MOVIES
+
 exports.getAllMovies = async (req, res) => {
     try {
         const movies = await Movie.find().sort({ createdAt: -1 });
@@ -10,7 +10,6 @@ exports.getAllMovies = async (req, res) => {
     }
 };
 
-// 2. GET MOVIE BY ID
 exports.getMovieById = async (req, res) => {
     try {
         const movie = await Movie.findById(req.params.id);
@@ -22,7 +21,6 @@ exports.getMovieById = async (req, res) => {
         res.status(500).json({ success: false, message: err.message });
     }
 };
-
 
 exports.addMovie = async (req, res) => {
     try {
@@ -44,6 +42,13 @@ exports.addMovie = async (req, res) => {
         res.status(201).json(savedMovie);
     } catch (err) {
         res.status(400).json({ success: false, message: err.message });
+    
+    // Exact same error parsing logic used in your User signup controller!
+        if (err.name === 'ValidationError') {
+            const firstErrorKey = Object.keys(err.errors)[0];
+            return res.status(400).json({ success: false, message: err.errors[firstErrorKey].message });
+        }
+        res.status(400).json({ success: false, message: err.message });
     }
 };
 
@@ -60,15 +65,25 @@ exports.editMovie = async (req, res) => {
             cast: castData,
             showtimes: processedShowtimes
         };
-
-        const updatedMovie = await Movie.findByIdAndUpdate(req.params.id, movieData, { new: true });
-        if (!updatedMovie) return res.status(404).json({ message: "Movie not found" });
+        const updatedMovie = await Movie.findByIdAndUpdate(
+            req.params.id, 
+            movieData, 
+            { new: true, runValidators: true, context: 'query' }
+        );
+        
+        if (!updatedMovie) return res.status(404).json({ success: false, message: "Movie not found" });
         res.json(updatedMovie);
     } catch (err) {
+        console.error("Backend Movie Edit Error:", err);
+        
+        if (err.name === 'ValidationError') {
+            const firstErrorKey = Object.keys(err.errors)[0];
+            return res.status(400).json({ success: false, message: err.errors[firstErrorKey].message });
+        }
         res.status(400).json({ success: false, message: err.message });
     }
+     
 };
-
 exports.deleteMovie = async (req, res) => {
     try {
         const deletedMovie = await Movie.findByIdAndDelete(req.params.id);
