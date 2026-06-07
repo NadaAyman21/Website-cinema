@@ -36,8 +36,6 @@ const signupForm = document.getElementById("signupForm");
 if (signupForm) {
     signupForm.addEventListener("submit", function (e) {
         e.preventDefault();
-
-        
         const firstNameInput   = document.getElementById("firstName");
         const lastNameInput    = document.getElementById("lastName");
         const emailInput       = document.getElementById("signupEmail");
@@ -121,13 +119,10 @@ if (signupForm) {
             }
         }
 
-        // Terms
         if (!terms) {
             showError("termsError", null, "You must accept the terms");
             valid = false;
         }
-
-        // Success
         if (valid) {
             const data = {
                 firstName: firstName,
