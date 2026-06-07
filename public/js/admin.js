@@ -91,6 +91,7 @@ function validateTrailer(trailer) {
     return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/.test(trailer);
 }
 
+
 async function fetchMovies() {
     try {
         const res = await fetch('/movie/api/all');
@@ -199,6 +200,14 @@ async function handleFormSubmit(e) {
     if (!validateImage(imageUrl)) { showAlert("Image must be a valid image URL or path!"); return; }
     if (!validateAge(ageRating)) { showAlert("Age must be like +12, +16, +18 etc."); return; }
     if (!validateTrailer(videoUrl)) { showAlert("Trailer must be a valid YouTube link!"); return; }
+    if (cast === "") { 
+        showAlert("Cast information is required!"); 
+        return; 
+    }
+    if (description === "") { 
+        showAlert("Story description is required!"); 
+        return; 
+    }
 
     const structuredShowtimes = showtimes.map(t => {
         const parts = t.split('|');
