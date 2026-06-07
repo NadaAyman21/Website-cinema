@@ -1,6 +1,4 @@
 const Movie = require('../models/Movie');
-
-
 exports.getAllMovies = async (req, res) => {
     try {
         const movies = await Movie.find().sort({ createdAt: -1 });

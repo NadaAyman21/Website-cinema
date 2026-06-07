@@ -94,14 +94,11 @@ if (signupForm) {
             valid = false;
         }
 
-        // Phone
         const phonePattern = /^\d{11}$/;
         if (!phone.match(phonePattern)) {                                  
             showError("phoneError", phoneInput, "Phone number must be exactly 11 digits");
             valid = false;
         }
-
-        // Date of birth
         if (!dob) {
             showError("dobError", dobInput, "Select your birth date");
             valid = false;
@@ -151,13 +148,9 @@ if (signupForm) {
                         window.location.href = '/cinemaM';
                     }
                 } 
-                     else {
-                    showAlert(result.message); 
-                }
             })
             .catch(err => {
                 console.error(err);
-                showAlert("Something went wrong. Try again.");
             });
         }
     });

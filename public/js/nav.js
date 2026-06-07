@@ -1,4 +1,3 @@
-
 function openLogin() {
     closeAllModals();
     document.getElementById('loginModal').classList.add('active');
@@ -24,29 +23,24 @@ function closeAllModals() {
     document.getElementById('forgotModal').classList.remove('active');
 }
 
-// Close when clicking the dark background
 window.addEventListener("click", function(event) {
     if (event.target.className.includes('modal') && event.target.className.includes('active')) {
         closeAllModals();
     }
 });
 
-// Toggle for mobile menu (if you have one)
+
 function toggleMenu() {
     document.getElementById("navLinks").classList.toggle("active");
 }
-// Custom Alert Close
 function closeAlert() {
     document.getElementById('customAlert').style.display = 'none';
 }
 
-// ===== PROFILE DROPDOWN =====
 function toggleProfile() {
     const menu = document.getElementById("profileMenu");
     menu.classList.toggle("active");
 }
-
-// Close when clicking outside
 window.addEventListener("click", function(e) {
     const dropdown = document.querySelector(".profile-dropdown");
     if (dropdown && !dropdown.contains(e.target)) {
@@ -54,37 +48,25 @@ window.addEventListener("click", function(e) {
         if (menu) menu.classList.remove("active");
     }
 });
-
-
-// ── Language Switcher ──
 let currentLang = 'en';
 
 function setLang(lang) {
   currentLang = lang;
   const t = translations[lang];
-
-  // Update all elements with data-i18n attribute
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (t[key]) {
-      // Preserve any <i> icons inside the element (dropdown arrows)
       const icon = el.querySelector('i');
       el.textContent = t[key];
       if (icon) el.appendChild(icon);
     }
   });document.getElementById('langEN').classList.toggle('active', lang === 'en');
   document.getElementById('langAR').classList.toggle('active', lang === 'ar');
-
-  // RTL / LTR direction
   document.documentElement.dir  = lang === 'ar' ? 'rtl' : 'ltr';
   document.documentElement.lang = lang;
-
-  // Optional: flip font for Arabic
   document.body.style.fontFamily = lang === 'ar'
     ? "'Cairo', 'Segoe UI', sans-serif"
     : "'Outfit', sans-serif";
-
-  // Save preference
   localStorage.setItem('cinex-lang', lang);
 }
 document.addEventListener('DOMContentLoaded', () => {
@@ -107,18 +89,13 @@ const translations = {
     login:        'Login',
     signup:       'Sign Up',
 
-    // HOME PAGE
+    
     nowShowingTitle: 'NOW SHOWING',
     bookNow:         'Book Now',
     viewAll:         'View All',
     genre:           'Sport/Action',
-
-
-    // FOOD PAGE
     foodTitle:       'FOOD & DRINKS',
     addToCart:       'Add to Cart',
-
-    // GENERAL
     alertOk:         'OK',
     cinexSays:       'CineX says',
     bookingConfirmed:'Booking Confirmed!',
@@ -160,7 +137,7 @@ const translations = {
 
   },
   ar: {
-    // NAV
+   
     home:         'الرئيسية',
     movies:       'الأفلام',
     nowShowing:   'يعرض الآن',
@@ -174,17 +151,16 @@ const translations = {
     login:        'تسجيل الدخول',
     signup:       'إنشاء حساب',
 
-    // HOME PAGE
+   
     nowShowingTitle: 'يعرض الآن',
     bookNow:         'احجز الآن',
     viewAll:         'عرض الكل',
     genre:           'رياضة / أكشن',
 
-    // FOOD PAGE
     foodTitle:       'طعام ومشروبات',
     addToCart:       'أضف للسلة',
 
-    // GENERAL
+    
     alertOk:         'حسناً',
     cinexSays:       'CineX يقول',
     bookingConfirmed:'تم تأكيد الحجز!',

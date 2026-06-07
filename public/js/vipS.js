@@ -1,5 +1,4 @@
 const backendMoviePosterPath = document.getElementById('movie-poster-data')?.value;
-
 const MAX_SEATS  = 6;
 const SEAT_PRICE = 450;
 let selected     = new Set();
@@ -177,7 +176,6 @@ function buildRoom() {
       side: THREE.DoubleSide
     });
   } else {
-    // Canvas Text engine fallback layout block if database field is missing
     const backupScreenCanvasTexture = new THREE.CanvasTexture(stCanvas);
     screenTexturingMaterial = new THREE.MeshBasicMaterial({ 
       map: backupScreenCanvasTexture,
@@ -514,8 +512,6 @@ window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
 });
-
-
 function updateUI() {
   const count = selected.size;
   document.getElementById('sel-count').textContent = count;
@@ -605,9 +601,6 @@ function showTooltip(id, x, y) {
 function hideTooltip() {
   tooltip.style.display = 'none';
 }
-
-
-
 let animFrame = 0;
 function animate() {
   requestAnimationFrame(animate);
@@ -637,7 +630,6 @@ function animate() {
       hideTooltip();
     }
   }
-
   materials.screenGlow.emissiveIntensity = 1.1 + Math.sin(animFrame * 0.02) * 0.1;
   renderer.render(scene, camera);
 }
@@ -666,7 +658,6 @@ async function fetchAndApplySeats() {
     console.error('Failed to fetch VIP seat data:', err);
   }
 }
-
 async function init() {
   buildRoom();
   buildLights();
@@ -676,9 +667,7 @@ async function init() {
   await fetchAndApplySeats();
   animate();
 }
-
 init();
-
 setTimeout(() => {
   document.getElementById('loader').classList.add('hidden');
   setTimeout(() => {

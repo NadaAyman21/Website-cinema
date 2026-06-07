@@ -21,16 +21,13 @@
                 errorEl.style.display = 'block';
                 return;
             }
-
             const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
             if (!newPassword.match(pattern)) {
                 errorEl.innerText = 'Password must be at least 8 characters long and contain 1 uppercase letter, 1 lowercase letter, and 1 number.';
                 errorEl.style.display = 'block';
                 return;
             }
-
             errorEl.style.display = 'none';
-
             fetch('/api/auth/changePassword', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -117,7 +114,7 @@ function confirmDeleteAccount() {
         .then(result => {
             if (result.success) {
                 alert('Your account has been successfully deleted.');
-                window.location.href = '/'; // Send them back to home page
+                window.location.href = '/'; 
             } else {
                 errorEl.innerText = result.message;
                 errorEl.style.display = 'block';
@@ -130,8 +127,3 @@ function confirmDeleteAccount() {
         });
     }
 }
-
-
-         //  document.getElementById('ticketsCount').textContent = '<%= reservations.length %>';
-       // document.getElementById('moviesCount').textContent  = '<%= new Set(reservations.map(r => r.movie)).size %>';
-        //document.getElementById('upcomingCount').textContent = '<%= reservations.length %>';

@@ -32,8 +32,8 @@ const HALL_CONFIGS = {
       F: { seats: [1, 2, 3, 4, null, 5, 6, 7, 8, 9] },
       G: { seats: [1, 2, 3, 4, 5, 6, 7, 8] },
     },
-    TAKEN: new Set(['A2','A6','B3','B8','C5','C9','D2','D6','D10','E3','E8','F4','F7','G3','G6']),
-    HOLD:  new Set(['A4','C2','E5','G1']),
+    //TAKEN: new Set(['A2','A6','B3','B8','C5','C9','D2','D6','D10','E3','E8','F4','F7','G3','G6']),
+    //HOLD:  new Set(['A4','C2','E5','G1']),
   },
 
   deluxe: {

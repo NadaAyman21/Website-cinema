@@ -47,8 +47,6 @@
             return true;
         }
         switchCategory('movie');
-
-        
         function filterReviews(category, event) {
             document.querySelectorAll('.filter-tab').forEach(tab => {
                 tab.classList.remove('active');

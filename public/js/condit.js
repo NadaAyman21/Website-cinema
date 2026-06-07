@@ -19,7 +19,6 @@ window.onload = function() {
         modalBox.classList.add("blue-theme"); 
     }
 };
-
 function agree() {
     
     const queryStr = movieIdParam ? `?id=${movieIdParam}` : "";

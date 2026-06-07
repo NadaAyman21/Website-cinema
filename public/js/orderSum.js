@@ -26,18 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-function showAlert(message) {
-    const modal = document.getElementById("customAlert");
-    if (modal) {
-        document.getElementById("alertMessage").innerText = message;
-        modal.style.display = "flex";
-    }
-}
-
-function closeAlert() {
-    const modal = document.getElementById("customAlert");
-    if (modal) modal.style.display = "none";
-}
 const closeBtn = document.querySelector('.close-btn');
 if (closeBtn) {
     closeBtn.addEventListener('click', () => {

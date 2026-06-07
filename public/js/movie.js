@@ -9,8 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("No Movie ID supplied in query parameters.");
         return;
     }
-    
-   
     const heroBg = document.getElementById("hero");
     const posterImg = document.getElementById("poster");
     if (heroBg && posterImg && posterImg.src) {
@@ -42,8 +40,6 @@ function initializeCalendarClickListeners() {
         };
     });
 }
-
-
 function renderDynamicTimeChips() {
     const timesContainer = document.getElementById("times-chips-wrapper");
     if (!timesContainer) return;
@@ -69,12 +65,10 @@ function renderDynamicTimeChips() {
         return upperSlot.includes(`[${dayToMatch}]`) && upperSlot.includes(expTagToMatch.toUpperCase());
     });
 
-   
     if (matchedShowtimes.length === 0) {
         timesContainer.innerHTML = '<p style="color:#6b6b80; font-size:13.5px; padding:10px 0;">No showtimes available for this selection.</p>';
         return;
     }
-
     matchedShowtimes.forEach(slot => {
         const matchRegex = /\](.*)\(/;
         const matches = slot.match(matchRegex);
@@ -83,13 +77,11 @@ function renderDynamicTimeChips() {
         if (matches && matches[1]) {
             cleanTime = matches[1].trim(); 
         } else {
-            // Fallback parsing just in case regex misses
             cleanTime = slot.replace(/\[.*?\]\s?/, '').replace(/\s?\(.*?\)/, '').trim();
         }
-
         const timeBtn = document.createElement("button");
         timeBtn.className = "time";
-        timeBtn.innerText = cleanTime; // Displays clean text like "01:00pm" or "10pm"
+        timeBtn.innerText = cleanTime; 
         timeBtn.onclick = () => handleShowtimeSelection(timeBtn);
         timesContainer.appendChild(timeBtn);
     });
@@ -99,7 +91,7 @@ function selectExp(btn) {
     document.querySelectorAll(".exp-btn").forEach(b => b.classList.remove("active"));
     btn.classList.add("active");
     selectedExperience = btn.innerText.trim();
-    renderDynamicTimeChips(); // Instant refresh pass trigger
+    renderDynamicTimeChips(); 
 }
 
 function handleShowtimeSelection(btn) {
@@ -132,7 +124,6 @@ function handleShowtimeSelection(btn) {
 const currentId = urlParams.get("id") || "";
     const targetUrl = `/condtions?type=${typeParam}`;
     if (typeof isUserLoggedIn !== 'undefined' && isUserLoggedIn) {
-        // Logged In: Go right to the conditions screen safely!
         window.location.href = targetUrl;
     } else {
         

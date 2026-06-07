@@ -18,7 +18,6 @@ const cancelBtn = document.getElementById('cancelBtn');
     }
 
     const payBtn = document.getElementById('dynamicPayBtn');
-
 if (payBtn) {
     payBtn.addEventListener('click', (e) => {
         e.preventDefault();

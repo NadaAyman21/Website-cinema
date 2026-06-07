@@ -72,7 +72,6 @@ document.getElementById('showtimeInput')?.addEventListener('keydown', e => {
   }
 });
 
-
 document.addEventListener('DOMContentLoaded', () => {
     fetchMovies();
     const form = document.getElementById('movieForm');
@@ -90,8 +89,6 @@ function validateTrailer(trailer) {
     if (trailer === "") return true;
     return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/.test(trailer);
 }
-
-
 async function fetchMovies() {
     try {
         const res = await fetch('/movie/api/all');
